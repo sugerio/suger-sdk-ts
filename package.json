@@ -1,7 +1,7 @@
 {
-  "name": "sugerio-sdk-ts",
+  "name": "suger-sdk-ts",
   "version": "v3.127.466",
-  "description": "OpenAPI client for sugerio-sdk-ts",
+  "description": "OpenAPI client for suger-sdk-ts",
   "author": "OpenAPI-Generator Contributors",
   "repository": {
     "type": "git",
