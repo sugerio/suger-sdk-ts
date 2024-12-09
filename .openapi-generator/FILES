@@ -1,6 +1,5 @@
 .gitattributes
 .gitignore
-.openapi-generator-ignore
 APIApi.md
 BillingApi.md
 BuyerApi.md
