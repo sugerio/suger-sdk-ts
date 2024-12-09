@@ -40,7 +40,7 @@ import * as your_api from 'your_api_package'
 
 // Covers all auth methods included in your OpenAPI yaml definition
 const authConfig: your_api.AuthMethodsConfiguration = {
-    "api_key": "YOUR_API_KEY"
+    "api_key": "Key " + "YOUR_API_KEY"
 }
 
 // Implements a simple middleware to modify requests before (`pre`) they are sent
