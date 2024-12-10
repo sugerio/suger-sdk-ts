@@ -1,0 +1,9 @@
+openapi-generator generate \
+  -i api/openapi.yaml \
+  -g typescript \
+  -o ./ \
+  --git-repo-id suger-sdk-ts \
+  --git-user-id sugerio \
+  --additional-properties=npmName=@sugerio/sdk \
+  --additional-properties=npmVersion=v3.127.466 \
+  --additional-properties=supportsES6=true
