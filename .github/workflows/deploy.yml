@@ -19,7 +19,8 @@ jobs:
         run: |
           npm install -D vitest
           current_directory=$(pwd)
-          cp $current_directory/openapi-generator-ignore/tsconfig.json $current_directory/
+          ls $current_directory
+          cp /home/runner/work/suger-sdk-ts/openapi-generator-ignore/tsconfig.json /home/runner/work/suger-sdk-ts/
           npm install
       - name: Test SDK
         run: |
