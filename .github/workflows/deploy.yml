@@ -8,8 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - name: Check Code
         uses: actions/checkout@v4
@@ -36,6 +34,22 @@ jobs:
       - name: Build SDK
         run: |
           npm run build
+      - name: Check if version exists on npm
+        id: check_version
+        run: |          
+          set -e
+          VERSION=$(node -p "require('./package.json').version")
+          echo "Checking if version $VERSION exists on npm..."
+          if npm view suger-sdk-ts@$VERSION version &> /dev/null; then
+            echo "Version $VERSION already exists on npm."
+            echo "::set-output name=version_exists::true"
+          else
+            echo "Version $VERSION does not exist on npm."
+            echo "::set-output name=version_exists::false"
+          fi
       - name: Publish SDK
+        if: steps.check_version.outputs.version_exists == 'false'
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          npm publish --token='${{ secrets.NPM_TOKEN }}'
+          npm publish --token=${{ secrets.NPM_TOKEN }}
