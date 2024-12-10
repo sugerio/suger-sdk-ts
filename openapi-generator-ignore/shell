@@ -6,4 +6,5 @@ openapi-generator generate \
   --git-user-id sugerio \
   --additional-properties=npmName=@sugerio/sdk \
   --additional-properties=npmVersion=v3.127.466 \
-  --additional-properties=supportsES6=true
+  --additional-properties=supportsES6=true \
+  --additional-properties=testScript="vitest run"
