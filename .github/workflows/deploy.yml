@@ -11,7 +11,12 @@ jobs:
     env:
       NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
-      - uses: actions/checkout@v4
+      - name: Check Code
+        uses: actions/checkout@v4
+      - name: List files in the root directory after checkout
+        run: |
+          echo "Listing files in the root directory after checkout:"
+          ls -la
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -21,8 +26,9 @@ jobs:
         run: |
           npm install -D vitest
           current_directory=$(pwd)
-          ls $current_directory
-          cp /home/runner/work/suger-sdk-ts/openapi-generator-ignore/tsconfig.json /home/runner/work/suger-sdk-ts/
+          echo "Listing contents of openapi-generator-ignore directory:"
+          ls $current_directory/openapi-generator-ignore
+          cp $current_directory/openapi-generator-ignore/tsconfig.json $current_directory/
           npm install
       - name: Test SDK
         run: |
