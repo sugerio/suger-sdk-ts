@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - name: Check Code
         uses: actions/checkout@v4
@@ -47,9 +49,10 @@ jobs:
             echo "Version $VERSION does not exist on npm."
             echo "::set-output name=version_exists::false"
           fi
+          # Authenticate with npm
+      - name: Authenticate with npm
+        run: npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
       - name: Publish SDK
         if: steps.check_version.outputs.version_exists == 'false'
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           npm publish
