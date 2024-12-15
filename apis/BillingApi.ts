@@ -832,13 +832,13 @@ export class BillingApiResponseProcessor {
      * @params response Response returned by the server for a request to createRefund
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async createRefundWithHttpInfo(response: ResponseContext): Promise<HttpInfo<string >> {
+     public async createRefundWithHttpInfo(response: ResponseContext): Promise<HttpInfo<BillingPaymentTransaction >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: string = ObjectSerializer.deserialize(
+            const body: BillingPaymentTransaction = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
+                "BillingPaymentTransaction", ""
+            ) as BillingPaymentTransaction;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
@@ -858,10 +858,10 @@ export class BillingApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: string = ObjectSerializer.deserialize(
+            const body: BillingPaymentTransaction = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
+                "BillingPaymentTransaction", ""
+            ) as BillingPaymentTransaction;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
@@ -1004,13 +1004,13 @@ export class BillingApiResponseProcessor {
      * @params response Response returned by the server for a request to issueInvoice
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async issueInvoiceWithHttpInfo(response: ResponseContext): Promise<HttpInfo<string >> {
+     public async issueInvoiceWithHttpInfo(response: ResponseContext): Promise<HttpInfo<BillingInvoice >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: string = ObjectSerializer.deserialize(
+            const body: BillingInvoice = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
+                "BillingInvoice", ""
+            ) as BillingInvoice;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
@@ -1030,10 +1030,10 @@ export class BillingApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: string = ObjectSerializer.deserialize(
+            const body: BillingInvoice = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
+                "BillingInvoice", ""
+            ) as BillingInvoice;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
@@ -1219,13 +1219,13 @@ export class BillingApiResponseProcessor {
      * @params response Response returned by the server for a request to payInvoice
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async payInvoiceWithHttpInfo(response: ResponseContext): Promise<HttpInfo<string >> {
+     public async payInvoiceWithHttpInfo(response: ResponseContext): Promise<HttpInfo<BillingInvoice >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: string = ObjectSerializer.deserialize(
+            const body: BillingInvoice = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
+                "BillingInvoice", ""
+            ) as BillingInvoice;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
@@ -1245,10 +1245,10 @@ export class BillingApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: string = ObjectSerializer.deserialize(
+            const body: BillingInvoice = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
+                "BillingInvoice", ""
+            ) as BillingInvoice;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
@@ -1305,13 +1305,13 @@ export class BillingApiResponseProcessor {
      * @params response Response returned by the server for a request to voidInvoice
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async voidInvoiceWithHttpInfo(response: ResponseContext): Promise<HttpInfo<string >> {
+     public async voidInvoiceWithHttpInfo(response: ResponseContext): Promise<HttpInfo<BillingInvoice >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: string = ObjectSerializer.deserialize(
+            const body: BillingInvoice = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
+                "BillingInvoice", ""
+            ) as BillingInvoice;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
@@ -1331,10 +1331,10 @@ export class BillingApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: string = ObjectSerializer.deserialize(
+            const body: BillingInvoice = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
+                "BillingInvoice", ""
+            ) as BillingInvoice;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 

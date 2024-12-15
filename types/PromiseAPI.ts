@@ -595,7 +595,7 @@ export class PromiseBillingApi {
      * @param paymentTransactionId Payment transaction ID
      * @param amount Refund amount
      */
-    public createRefundWithHttpInfo(orgId: string, buyerId: string, paymentTransactionId: string, amount: number, _options?: Configuration): Promise<HttpInfo<string>> {
+    public createRefundWithHttpInfo(orgId: string, buyerId: string, paymentTransactionId: string, amount: number, _options?: Configuration): Promise<HttpInfo<BillingPaymentTransaction>> {
         const result = this.api.createRefundWithHttpInfo(orgId, buyerId, paymentTransactionId, amount, _options);
         return result.toPromise();
     }
@@ -608,7 +608,7 @@ export class PromiseBillingApi {
      * @param paymentTransactionId Payment transaction ID
      * @param amount Refund amount
      */
-    public createRefund(orgId: string, buyerId: string, paymentTransactionId: string, amount: number, _options?: Configuration): Promise<string> {
+    public createRefund(orgId: string, buyerId: string, paymentTransactionId: string, amount: number, _options?: Configuration): Promise<BillingPaymentTransaction> {
         const result = this.api.createRefund(orgId, buyerId, paymentTransactionId, amount, _options);
         return result.toPromise();
     }
@@ -688,7 +688,7 @@ export class PromiseBillingApi {
      * @param entitlementId Entitlement ID
      * @param invoiceId Invoice ID
      */
-    public issueInvoiceWithHttpInfo(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Promise<HttpInfo<string>> {
+    public issueInvoiceWithHttpInfo(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Promise<HttpInfo<BillingInvoice>> {
         const result = this.api.issueInvoiceWithHttpInfo(orgId, entitlementId, invoiceId, _options);
         return result.toPromise();
     }
@@ -700,7 +700,7 @@ export class PromiseBillingApi {
      * @param entitlementId Entitlement ID
      * @param invoiceId Invoice ID
      */
-    public issueInvoice(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Promise<string> {
+    public issueInvoice(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Promise<BillingInvoice> {
         const result = this.api.issueInvoice(orgId, entitlementId, invoiceId, _options);
         return result.toPromise();
     }
@@ -824,7 +824,7 @@ export class PromiseBillingApi {
      * @param entitlementId Entitlement ID
      * @param invoiceId Invoice ID
      */
-    public payInvoiceWithHttpInfo(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Promise<HttpInfo<string>> {
+    public payInvoiceWithHttpInfo(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Promise<HttpInfo<BillingInvoice>> {
         const result = this.api.payInvoiceWithHttpInfo(orgId, entitlementId, invoiceId, _options);
         return result.toPromise();
     }
@@ -836,7 +836,7 @@ export class PromiseBillingApi {
      * @param entitlementId Entitlement ID
      * @param invoiceId Invoice ID
      */
-    public payInvoice(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Promise<string> {
+    public payInvoice(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Promise<BillingInvoice> {
         const result = this.api.payInvoice(orgId, entitlementId, invoiceId, _options);
         return result.toPromise();
     }
@@ -872,7 +872,7 @@ export class PromiseBillingApi {
      * @param entitlementId Entitlement ID
      * @param invoiceId Invoice ID
      */
-    public voidInvoiceWithHttpInfo(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Promise<HttpInfo<string>> {
+    public voidInvoiceWithHttpInfo(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Promise<HttpInfo<BillingInvoice>> {
         const result = this.api.voidInvoiceWithHttpInfo(orgId, entitlementId, invoiceId, _options);
         return result.toPromise();
     }
@@ -884,7 +884,7 @@ export class PromiseBillingApi {
      * @param entitlementId Entitlement ID
      * @param invoiceId Invoice ID
      */
-    public voidInvoice(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Promise<string> {
+    public voidInvoice(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Promise<BillingInvoice> {
         const result = this.api.voidInvoice(orgId, entitlementId, invoiceId, _options);
         return result.toPromise();
     }
@@ -983,7 +983,7 @@ export class PromiseBuyerApi {
      * @param buyerId Buyer ID
      * @param walletId Wallet ID
      */
-    public deleteBuyerWalletWithHttpInfo(orgId: string, buyerId: string, walletId: string, _options?: Configuration): Promise<HttpInfo<BillingWallet>> {
+    public deleteBuyerWalletWithHttpInfo(orgId: string, buyerId: string, walletId: string, _options?: Configuration): Promise<HttpInfo<string>> {
         const result = this.api.deleteBuyerWalletWithHttpInfo(orgId, buyerId, walletId, _options);
         return result.toPromise();
     }
@@ -995,7 +995,7 @@ export class PromiseBuyerApi {
      * @param buyerId Buyer ID
      * @param walletId Wallet ID
      */
-    public deleteBuyerWallet(orgId: string, buyerId: string, walletId: string, _options?: Configuration): Promise<BillingWallet> {
+    public deleteBuyerWallet(orgId: string, buyerId: string, walletId: string, _options?: Configuration): Promise<string> {
         const result = this.api.deleteBuyerWallet(orgId, buyerId, walletId, _options);
         return result.toPromise();
     }
@@ -1170,7 +1170,7 @@ export class PromiseContactApi {
      * @param buyerId Buyer ID
      * @param contactId Contact ID
      */
-    public addContactToBuyerWithHttpInfo(orgId: string, buyerId: string, contactId: string, _options?: Configuration): Promise<HttpInfo<string>> {
+    public addContactToBuyerWithHttpInfo(orgId: string, buyerId: string, contactId: string, _options?: Configuration): Promise<HttpInfo<IdentityBuyer>> {
         const result = this.api.addContactToBuyerWithHttpInfo(orgId, buyerId, contactId, _options);
         return result.toPromise();
     }
@@ -1182,7 +1182,7 @@ export class PromiseContactApi {
      * @param buyerId Buyer ID
      * @param contactId Contact ID
      */
-    public addContactToBuyer(orgId: string, buyerId: string, contactId: string, _options?: Configuration): Promise<string> {
+    public addContactToBuyer(orgId: string, buyerId: string, contactId: string, _options?: Configuration): Promise<IdentityBuyer> {
         const result = this.api.addContactToBuyer(orgId, buyerId, contactId, _options);
         return result.toPromise();
     }
@@ -1423,7 +1423,7 @@ export class PromiseEntitlementApi {
      * @param entitlementId Entitlement ID
      * @param data RequestBody
      */
-    public applyAddonToEntitlementWithHttpInfo(orgId: string, entitlementId: string, data: BillingAddonRecord, _options?: Configuration): Promise<HttpInfo<string>> {
+    public applyAddonToEntitlementWithHttpInfo(orgId: string, entitlementId: string, data: BillingAddonRecord, _options?: Configuration): Promise<HttpInfo<WorkloadEntitlement>> {
         const result = this.api.applyAddonToEntitlementWithHttpInfo(orgId, entitlementId, data, _options);
         return result.toPromise();
     }
@@ -1435,7 +1435,7 @@ export class PromiseEntitlementApi {
      * @param entitlementId Entitlement ID
      * @param data RequestBody
      */
-    public applyAddonToEntitlement(orgId: string, entitlementId: string, data: BillingAddonRecord, _options?: Configuration): Promise<string> {
+    public applyAddonToEntitlement(orgId: string, entitlementId: string, data: BillingAddonRecord, _options?: Configuration): Promise<WorkloadEntitlement> {
         const result = this.api.applyAddonToEntitlement(orgId, entitlementId, data, _options);
         return result.toPromise();
     }
@@ -1468,7 +1468,7 @@ export class PromiseEntitlementApi {
      * @param orgId Organization ID
      * @param entitlementId Entitlement ID
      */
-    public cancelEntitlementWithHttpInfo(orgId: string, entitlementId: string, _options?: Configuration): Promise<HttpInfo<string>> {
+    public cancelEntitlementWithHttpInfo(orgId: string, entitlementId: string, _options?: Configuration): Promise<HttpInfo<WorkloadEntitlement>> {
         const result = this.api.cancelEntitlementWithHttpInfo(orgId, entitlementId, _options);
         return result.toPromise();
     }
@@ -1479,7 +1479,7 @@ export class PromiseEntitlementApi {
      * @param orgId Organization ID
      * @param entitlementId Entitlement ID
      */
-    public cancelEntitlement(orgId: string, entitlementId: string, _options?: Configuration): Promise<string> {
+    public cancelEntitlement(orgId: string, entitlementId: string, _options?: Configuration): Promise<WorkloadEntitlement> {
         const result = this.api.cancelEntitlement(orgId, entitlementId, _options);
         return result.toPromise();
     }
@@ -1661,7 +1661,7 @@ export class PromiseEntitlementApi {
      * @param entitlementId Entitlement ID
      * @param data RequestBody
      */
-    public scheduleEntitlementCancellationWithHttpInfo(orgId: string, entitlementId: string, data: CancellationSchedule, _options?: Configuration): Promise<HttpInfo<string>> {
+    public scheduleEntitlementCancellationWithHttpInfo(orgId: string, entitlementId: string, data: CancellationSchedule, _options?: Configuration): Promise<HttpInfo<WorkloadEntitlement>> {
         const result = this.api.scheduleEntitlementCancellationWithHttpInfo(orgId, entitlementId, data, _options);
         return result.toPromise();
     }
@@ -1673,7 +1673,7 @@ export class PromiseEntitlementApi {
      * @param entitlementId Entitlement ID
      * @param data RequestBody
      */
-    public scheduleEntitlementCancellation(orgId: string, entitlementId: string, data: CancellationSchedule, _options?: Configuration): Promise<string> {
+    public scheduleEntitlementCancellation(orgId: string, entitlementId: string, data: CancellationSchedule, _options?: Configuration): Promise<WorkloadEntitlement> {
         const result = this.api.scheduleEntitlementCancellation(orgId, entitlementId, data, _options);
         return result.toPromise();
     }
@@ -1684,7 +1684,7 @@ export class PromiseEntitlementApi {
      * @param orgId Organization ID
      * @param entitlementId Entitlement ID
      */
-    public unscheduleEntitlementCancellationWithHttpInfo(orgId: string, entitlementId: string, _options?: Configuration): Promise<HttpInfo<string>> {
+    public unscheduleEntitlementCancellationWithHttpInfo(orgId: string, entitlementId: string, _options?: Configuration): Promise<HttpInfo<WorkloadEntitlement>> {
         const result = this.api.unscheduleEntitlementCancellationWithHttpInfo(orgId, entitlementId, _options);
         return result.toPromise();
     }
@@ -1695,7 +1695,7 @@ export class PromiseEntitlementApi {
      * @param orgId Organization ID
      * @param entitlementId Entitlement ID
      */
-    public unscheduleEntitlementCancellation(orgId: string, entitlementId: string, _options?: Configuration): Promise<string> {
+    public unscheduleEntitlementCancellation(orgId: string, entitlementId: string, _options?: Configuration): Promise<WorkloadEntitlement> {
         const result = this.api.unscheduleEntitlementCancellation(orgId, entitlementId, _options);
         return result.toPromise();
     }
@@ -1755,7 +1755,7 @@ export class PromiseEntitlementApi {
      * @param entitlementId Entitlement ID
      * @param newSeat New seat number
      */
-    public updateEntitlementSeatWithHttpInfo(orgId: string, entitlementId: string, newSeat: number, _options?: Configuration): Promise<HttpInfo<string>> {
+    public updateEntitlementSeatWithHttpInfo(orgId: string, entitlementId: string, newSeat: number, _options?: Configuration): Promise<HttpInfo<WorkloadEntitlement>> {
         const result = this.api.updateEntitlementSeatWithHttpInfo(orgId, entitlementId, newSeat, _options);
         return result.toPromise();
     }
@@ -1767,7 +1767,7 @@ export class PromiseEntitlementApi {
      * @param entitlementId Entitlement ID
      * @param newSeat New seat number
      */
-    public updateEntitlementSeat(orgId: string, entitlementId: string, newSeat: number, _options?: Configuration): Promise<string> {
+    public updateEntitlementSeat(orgId: string, entitlementId: string, newSeat: number, _options?: Configuration): Promise<WorkloadEntitlement> {
         const result = this.api.updateEntitlementSeat(orgId, entitlementId, newSeat, _options);
         return result.toPromise();
     }
@@ -2257,7 +2257,7 @@ export class PromiseOfferApi {
      * @param orgId Organization ID
      * @param offerId Offer ID
      */
-    public cancelOfferWithHttpInfo(orgId: string, offerId: string, _options?: Configuration): Promise<HttpInfo<string>> {
+    public cancelOfferWithHttpInfo(orgId: string, offerId: string, _options?: Configuration): Promise<HttpInfo<WorkloadOffer>> {
         const result = this.api.cancelOfferWithHttpInfo(orgId, offerId, _options);
         return result.toPromise();
     }
@@ -2268,7 +2268,7 @@ export class PromiseOfferApi {
      * @param orgId Organization ID
      * @param offerId Offer ID
      */
-    public cancelOffer(orgId: string, offerId: string, _options?: Configuration): Promise<string> {
+    public cancelOffer(orgId: string, offerId: string, _options?: Configuration): Promise<WorkloadOffer> {
         const result = this.api.cancelOffer(orgId, offerId, _options);
         return result.toPromise();
     }
@@ -2346,7 +2346,7 @@ export class PromiseOfferApi {
      * @param offerId Offer ID
      * @param newExpiryDate new expiry date in YYYY-MM-DD format
      */
-    public extendPrivateOfferExpiryDateWithHttpInfo(orgId: string, offerId: string, newExpiryDate: string, _options?: Configuration): Promise<HttpInfo<string>> {
+    public extendPrivateOfferExpiryDateWithHttpInfo(orgId: string, offerId: string, newExpiryDate: string, _options?: Configuration): Promise<HttpInfo<WorkloadOffer>> {
         const result = this.api.extendPrivateOfferExpiryDateWithHttpInfo(orgId, offerId, newExpiryDate, _options);
         return result.toPromise();
     }
@@ -2358,7 +2358,7 @@ export class PromiseOfferApi {
      * @param offerId Offer ID
      * @param newExpiryDate new expiry date in YYYY-MM-DD format
      */
-    public extendPrivateOfferExpiryDate(orgId: string, offerId: string, newExpiryDate: string, _options?: Configuration): Promise<string> {
+    public extendPrivateOfferExpiryDate(orgId: string, offerId: string, newExpiryDate: string, _options?: Configuration): Promise<WorkloadOffer> {
         const result = this.api.extendPrivateOfferExpiryDate(orgId, offerId, newExpiryDate, _options);
         return result.toPromise();
     }
@@ -2412,9 +2412,10 @@ export class PromiseOfferApi {
      * get offer EULA
      * @param orgId Organization ID
      * @param offerId Offer ID
+     * @param [format] response format in JSON or string
      */
-    public getOfferEulaWithHttpInfo(orgId: string, offerId: string, _options?: Configuration): Promise<HttpInfo<string>> {
-        const result = this.api.getOfferEulaWithHttpInfo(orgId, offerId, _options);
+    public getOfferEulaWithHttpInfo(orgId: string, offerId: string, format?: string, _options?: Configuration): Promise<HttpInfo<string>> {
+        const result = this.api.getOfferEulaWithHttpInfo(orgId, offerId, format, _options);
         return result.toPromise();
     }
 
@@ -2423,9 +2424,10 @@ export class PromiseOfferApi {
      * get offer EULA
      * @param orgId Organization ID
      * @param offerId Offer ID
+     * @param [format] response format in JSON or string
      */
-    public getOfferEula(orgId: string, offerId: string, _options?: Configuration): Promise<string> {
-        const result = this.api.getOfferEula(orgId, offerId, _options);
+    public getOfferEula(orgId: string, offerId: string, format?: string, _options?: Configuration): Promise<string> {
+        const result = this.api.getOfferEula(orgId, offerId, format, _options);
         return result.toPromise();
     }
 

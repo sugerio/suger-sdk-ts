@@ -16,7 +16,7 @@ Method | HTTP request | Description
 
 
 # **addContactToBuyer**
-> string addContactToBuyer()
+> IdentityBuyer addContactToBuyer()
 
 add contact to buyer by the given organization, buyer id and contact id.
 
@@ -55,7 +55,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**string**
+**IdentityBuyer**
 
 ### Authorization
 
@@ -70,7 +70,7 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | empty string if success |  -  |
+**200** | OK |  -  |
 **400** | Bad request error |  -  |
 **500** | Internal server error |  -  |
 

@@ -89,7 +89,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **applyAddonToEntitlement**
-> string applyAddonToEntitlement(data)
+> WorkloadEntitlement applyAddonToEntitlement(data)
 
 Apply one billing addon to the given Entitlement. The entitlement status must be ACTIVE.
 
@@ -134,7 +134,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**string**
+**WorkloadEntitlement**
 
 ### Authorization
 
@@ -149,7 +149,7 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OK |  -  |
+**200** | Entitlement |  -  |
 **400** | Bad request error |  -  |
 **500** | Internal server error |  -  |
 
@@ -215,7 +215,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **cancelEntitlement**
-> string cancelEntitlement()
+> WorkloadEntitlement cancelEntitlement()
 
 Cancel the active subscription in Azure Marketplace.
 
@@ -251,7 +251,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**string**
+**WorkloadEntitlement**
 
 ### Authorization
 
@@ -266,7 +266,7 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OK |  -  |
+**200** | the canceled Entitlement |  -  |
 **400** | Bad request error |  -  |
 **404** | Not found |  -  |
 **500** | Internal server error |  -  |
@@ -381,7 +381,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[BearerTokenAuth](README.md#BearerTokenAuth)
+[APIKeyAuth](README.md#APIKeyAuth)
 
 ### HTTP request headers
 
@@ -716,7 +716,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **scheduleEntitlementCancellation**
-> string scheduleEntitlementCancellation(data)
+> WorkloadEntitlement scheduleEntitlementCancellation(data)
 
 Schedule the cancellation of the given Entitlement.
 
@@ -760,7 +760,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**string**
+**WorkloadEntitlement**
 
 ### Authorization
 
@@ -782,7 +782,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **unscheduleEntitlementCancellation**
-> string unscheduleEntitlementCancellation()
+> WorkloadEntitlement unscheduleEntitlementCancellation()
 
 Unschedule the cancellation of the given Entitlement.
 
@@ -818,7 +818,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**string**
+**WorkloadEntitlement**
 
 ### Authorization
 
@@ -1061,7 +1061,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **updateEntitlementSeat**
-> string updateEntitlementSeat()
+> WorkloadEntitlement updateEntitlementSeat()
 
 Update the seat number for the active AZURE subscription.
 
@@ -1100,7 +1100,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**string**
+**WorkloadEntitlement**
 
 ### Authorization
 
@@ -1115,7 +1115,7 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | OK |  -  |
+**200** | the original entitlement before the seat update |  -  |
 **400** | Bad request error |  -  |
 **500** | Internal server error |  -  |
 

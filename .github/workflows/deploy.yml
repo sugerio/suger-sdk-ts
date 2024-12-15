@@ -32,7 +32,7 @@ jobs:
           npm install
       - name: Test SDK
         run: |
-          npm run test
+          vitest run
       - name: Build SDK
         run: |
           npm run build

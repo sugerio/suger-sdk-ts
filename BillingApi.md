@@ -82,7 +82,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **createRefund**
-> string createRefund()
+> BillingPaymentTransaction createRefund()
 
 create refund on the payment transaction, support partial refunds multiple times.
 
@@ -124,7 +124,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**string**
+**BillingPaymentTransaction**
 
 ### Authorization
 
@@ -139,7 +139,7 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Empty string if succeed |  -  |
+**200** | OK |  -  |
 **400** | Bad request error |  -  |
 **500** | Internal server error |  -  |
 
@@ -323,7 +323,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **issueInvoice**
-> string issueInvoice()
+> BillingInvoice issueInvoice()
 
 Issue the invoice immediately. It can be used for manual issue or reissue invoice.
 
@@ -362,7 +362,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**string**
+**BillingInvoice**
 
 ### Authorization
 
@@ -377,7 +377,7 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Empty string if issue is successful |  -  |
+**200** | the issued Invoice |  -  |
 **400** | Bad request error |  -  |
 **500** | Internal server error |  -  |
 
@@ -652,7 +652,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **payInvoice**
-> string payInvoice()
+> BillingInvoice payInvoice()
 
 Initiate the payment for the invoice immediately. It can be used for manual payment or retry payment.
 
@@ -691,7 +691,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**string**
+**BillingInvoice**
 
 ### Authorization
 
@@ -706,7 +706,7 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Empty string if pay is successful |  -  |
+**200** | OK |  -  |
 **400** | Bad request error |  -  |
 **500** | Internal server error |  -  |
 
@@ -778,7 +778,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **voidInvoice**
-> string voidInvoice()
+> BillingInvoice voidInvoice()
 
 Void the invoice. It can be used for manual void or cancel the invoice.
 
@@ -817,7 +817,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**string**
+**BillingInvoice**
 
 ### Authorization
 
@@ -832,7 +832,7 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Empty string if void is successful |  -  |
+**200** | OK |  -  |
 **400** | Bad request error |  -  |
 **500** | Internal server error |  -  |
 

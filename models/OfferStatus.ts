@@ -31,6 +31,8 @@ export enum OfferStatus {
     OfferStatus_PENDING_CREATE = 'PENDING_CREATE',
     OfferStatus_PENDING_UPDATE = 'PENDING_UPDATE',
     OfferStatus_PREVIEW = 'PREVIEW',
+    OfferStatus_READY_TO_USE = 'READY_TO_USE',
+    OfferStatus_REJECTED = 'REJECTED',
     OfferStatus_RESTRICTED = 'RESTRICTED',
     OfferStatus_TEST = 'TEST',
     OfferStatus_UPDATE_FAILED = 'UPDATE_FAILED',

@@ -5674,6 +5674,22 @@ definitions:
         type: string
       notesToReseller:
         type: string
+      partnerAccountName:
+        description: In the format of ""organizations/{GcpOrganizationID}/partnerAccounts/{partnerAccountID}"
+        type: string
+      resellOfferTemplateId:
+        type: string
+      resellerContactEmail:
+        type: string
+      resellerContactName:
+        type: string
+      resellerPrivateOfferPlanId:
+        type: string
+      resellerPrivateOfferPlanScope:
+        type: string
+      subBillingAccount:
+        description: In the format of "billingAccounts/..."
+        type: string
     type: object
   GcpMarketplaceResellerPrivateOfferPlan:
     properties:
@@ -5906,6 +5922,7 @@ definitions:
     - STATE_TYPE_DRAFT
     - STATE_TYPE_READY_TO_ACCEPT
     - STATE_TYPE_READY_TO_USE
+    - STATE_TYPE_REJECTED
     - STATE_TYPE_USED
     - STATE_TYPE_CANCELED
     - STATE_TYPE_EXPIRED_NEVER_ACCEPTED
@@ -5916,6 +5933,7 @@ definitions:
     - GcpMarketplaceResellerPrivateOfferPlanStateType_DRAFT
     - GcpMarketplaceResellerPrivateOfferPlanStateType_READY_TO_ACCEPT
     - GcpMarketplaceResellerPrivateOfferPlanStateType_READY_TO_USE
+    - GcpMarketplaceResellerPrivateOfferPlanStateType_REJECTED
     - GcpMarketplaceResellerPrivateOfferPlanStateType_USED
     - GcpMarketplaceResellerPrivateOfferPlanStateType_CANCELED
     - GcpMarketplaceResellerPrivateOfferPlanStateType_EXPIRED_NEVER_ACCEPTED
@@ -6867,6 +6885,7 @@ definitions:
     - UPDATE
     - ACE_ENGAGEMENT_SCORE_UPDATE
     - ACE_SALES_REP_UPDATE
+    - ACE_CUSTOMER_EMAIL_UPDATE
     - SUBMIT_APPROVAL_REQUEST
     - REVIEW_APPROVAL_REQUEST
     - COMPLETE
@@ -6907,6 +6926,7 @@ definitions:
     - NotificationEventAction_UPDATE
     - NotificationEventAction_ACE_ENGAGEMENT_SCORE_UPDATE
     - NotificationEventAction_ACE_SALES_REP_UPDATE
+    - NotificationEventAction_ACE_CUSTOMER_EMAIL_UPDATE
     - NotificationEventAction_SUBMIT_APPROVAL_REQUEST
     - NotificationEventAction_REVIEW_APPROVAL_REQUEST
     - NotificationEventAction_COMPLETE
@@ -7243,6 +7263,8 @@ definitions:
     - PENDING_CREATE
     - PENDING_UPDATE
     - PREVIEW
+    - READY_TO_USE
+    - REJECTED
     - RESTRICTED
     - TEST
     - UPDATE_FAILED
@@ -7270,6 +7292,8 @@ definitions:
     - OfferStatus_PENDING_CREATE
     - OfferStatus_PENDING_UPDATE
     - OfferStatus_PREVIEW
+    - OfferStatus_READY_TO_USE
+    - OfferStatus_REJECTED
     - OfferStatus_RESTRICTED
     - OfferStatus_TEST
     - OfferStatus_UPDATE_FAILED
@@ -10581,9 +10605,9 @@ paths:
       - application/json
       responses:
         "200":
-          description: Empty string if succeed
+          description: OK
           schema:
-            type: string
+            $ref: '#/definitions/BillingPaymentTransaction'
         "400":
           description: Bad request error
           schema:
@@ -10701,7 +10725,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/BillingWallet'
+            type: string
         "400":
           description: Bad request error
           schema:
@@ -11071,9 +11095,9 @@ paths:
       - application/json
       responses:
         "200":
-          description: empty string if success
+          description: OK
           schema:
-            type: string
+            $ref: '#/definitions/IdentityBuyer'
         "400":
           description: Bad request error
           schema:
@@ -11573,9 +11597,9 @@ paths:
       - application/json
       responses:
         "200":
-          description: OK
+          description: Entitlement
           schema:
-            type: string
+            $ref: '#/definitions/WorkloadEntitlement'
         "400":
           description: Bad request error
           schema:
@@ -11653,9 +11677,9 @@ paths:
       - application/json
       responses:
         "200":
-          description: OK
+          description: the canceled Entitlement
           schema:
-            type: string
+            $ref: '#/definitions/WorkloadEntitlement'
         "400":
           description: Bad request error
           schema:
@@ -11838,7 +11862,7 @@ paths:
           schema:
             type: string
       security:
-      - BearerTokenAuth: []
+      - APIKeyAuth: []
       summary: delete entitlement term
       tags:
       - Entitlement
@@ -11952,9 +11976,9 @@ paths:
       - application/json
       responses:
         "200":
-          description: Empty string if issue is successful
+          description: the issued Invoice
           schema:
-            type: string
+            $ref: '#/definitions/BillingInvoice'
         "400":
           description: Bad request error
           schema:
@@ -11995,9 +12019,9 @@ paths:
       - application/json
       responses:
         "200":
-          description: Empty string if pay is successful
+          description: OK
           schema:
-            type: string
+            $ref: '#/definitions/BillingInvoice'
         "400":
           description: Bad request error
           schema:
@@ -12038,9 +12062,9 @@ paths:
       - application/json
       responses:
         "200":
-          description: Empty string if void is successful
+          description: OK
           schema:
-            type: string
+            $ref: '#/definitions/BillingInvoice'
         "400":
           description: Bad request error
           schema:
@@ -12126,7 +12150,7 @@ paths:
         "200":
           description: OK
           schema:
-            type: string
+            $ref: '#/definitions/WorkloadEntitlement'
         "400":
           description: Bad request error
           schema:
@@ -12166,9 +12190,9 @@ paths:
       - application/json
       responses:
         "200":
-          description: OK
+          description: the original entitlement before the seat update
           schema:
-            type: string
+            $ref: '#/definitions/WorkloadEntitlement'
         "400":
           description: Bad request error
           schema:
@@ -12205,7 +12229,7 @@ paths:
         "200":
           description: OK
           schema:
-            type: string
+            $ref: '#/definitions/WorkloadEntitlement'
         "400":
           description: Bad request error
           schema:
@@ -12736,9 +12760,9 @@ paths:
       - application/json
       responses:
         "200":
-          description: Empty string if cancellation is successful
+          description: OK
           schema:
-            type: string
+            $ref: '#/definitions/WorkloadOffer'
         "400":
           description: Bad request error
           schema:
@@ -12772,6 +12796,10 @@ paths:
         in: path
         name: offerId
         required: true
+        type: string
+      - description: response format in JSON or string
+        in: query
+        name: format
         type: string
       produces:
       - application/json
@@ -12824,9 +12852,9 @@ paths:
       - application/json
       responses:
         "200":
-          description: Empty string if extension is successful
+          description: OK
           schema:
-            type: string
+            $ref: '#/definitions/WorkloadOffer'
         "400":
           description: Bad request error
           schema:
@@ -14424,12 +14452,6 @@ produces:
 securityDefinitions:
   APIKeyAuth:
     description: API Key for authorization in format of <Key *****>.
-    in: header
-    name: Authorization
-    type: apiKey
-  BearerTokenAuth:
-    description: Bearer token for authorization in format of <Bearer *****>. It is
-      from the API GetApiClientAccessToken.
     in: header
     name: Authorization
     type: apiKey

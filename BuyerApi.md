@@ -206,7 +206,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **deleteBuyerWallet**
-> BillingWallet deleteBuyerWallet()
+> string deleteBuyerWallet()
 
 delete a wallet of the buyer, if it\'s a payment method, sync to payment provider too.
 
@@ -245,7 +245,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**BillingWallet**
+**string**
 
 ### Authorization
 

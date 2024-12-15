@@ -1,4 +1,4 @@
-## suger-sdk-ts@v3.127.466
+## suger-sdk-ts@v3.128.21
 
 This generator creates TypeScript/JavaScript client that utilizes fetch-api.
 
@@ -21,7 +21,7 @@ Navigate to the folder of your consuming project and run one of the following co
 _published:_
 
 ```
-npm install suger-sdk-ts@v3.127.466 --save
+npm install suger-sdk-ts@v3.128.21 --save
 ```
 
 _unPublished (not recommended):_
@@ -40,7 +40,7 @@ import * as your_api from 'your_api_package'
 
 // Covers all auth methods included in your OpenAPI yaml definition
 const authConfig: your_api.AuthMethodsConfiguration = {
-    "api_key": "key "+ "YOUR_API_KEY"
+    "api_key": "YOUR_API_KEY"
 }
 
 // Implements a simple middleware to modify requests before (`pre`) they are sent

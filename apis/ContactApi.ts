@@ -8,6 +8,7 @@ import {canConsumeForm, isCodeInRange} from '../util';
 import {SecurityAuthentication} from '../auth/auth';
 
 
+import { IdentityBuyer } from '../models/IdentityBuyer';
 import { IdentityContact } from '../models/IdentityContact';
 
 /**
@@ -516,13 +517,13 @@ export class ContactApiResponseProcessor {
      * @params response Response returned by the server for a request to addContactToBuyer
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async addContactToBuyerWithHttpInfo(response: ResponseContext): Promise<HttpInfo<string >> {
+     public async addContactToBuyerWithHttpInfo(response: ResponseContext): Promise<HttpInfo<IdentityBuyer >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: string = ObjectSerializer.deserialize(
+            const body: IdentityBuyer = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
+                "IdentityBuyer", ""
+            ) as IdentityBuyer;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
@@ -542,10 +543,10 @@ export class ContactApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: string = ObjectSerializer.deserialize(
+            const body: IdentityBuyer = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
+                "IdentityBuyer", ""
+            ) as IdentityBuyer;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 

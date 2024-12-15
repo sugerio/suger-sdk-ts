@@ -341,7 +341,7 @@ export class EntitlementApiRequestFactory extends BaseAPIRequestFactory {
 
         let authMethod: SecurityAuthentication | undefined;
         // Apply auth methods
-        authMethod = _config.authMethods["BearerTokenAuth"]
+        authMethod = _config.authMethods["APIKeyAuth"]
         if (authMethod?.applySecurityAuthentication) {
             await authMethod?.applySecurityAuthentication(requestContext);
         }
@@ -994,13 +994,13 @@ export class EntitlementApiResponseProcessor {
      * @params response Response returned by the server for a request to applyAddonToEntitlement
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async applyAddonToEntitlementWithHttpInfo(response: ResponseContext): Promise<HttpInfo<string >> {
+     public async applyAddonToEntitlementWithHttpInfo(response: ResponseContext): Promise<HttpInfo<WorkloadEntitlement >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: string = ObjectSerializer.deserialize(
+            const body: WorkloadEntitlement = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
+                "WorkloadEntitlement", ""
+            ) as WorkloadEntitlement;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
@@ -1020,10 +1020,10 @@ export class EntitlementApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: string = ObjectSerializer.deserialize(
+            const body: WorkloadEntitlement = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
+                "WorkloadEntitlement", ""
+            ) as WorkloadEntitlement;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
@@ -1087,13 +1087,13 @@ export class EntitlementApiResponseProcessor {
      * @params response Response returned by the server for a request to cancelEntitlement
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async cancelEntitlementWithHttpInfo(response: ResponseContext): Promise<HttpInfo<string >> {
+     public async cancelEntitlementWithHttpInfo(response: ResponseContext): Promise<HttpInfo<WorkloadEntitlement >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: string = ObjectSerializer.deserialize(
+            const body: WorkloadEntitlement = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
+                "WorkloadEntitlement", ""
+            ) as WorkloadEntitlement;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
@@ -1120,10 +1120,10 @@ export class EntitlementApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: string = ObjectSerializer.deserialize(
+            const body: WorkloadEntitlement = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
+                "WorkloadEntitlement", ""
+            ) as WorkloadEntitlement;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
@@ -1445,13 +1445,13 @@ export class EntitlementApiResponseProcessor {
      * @params response Response returned by the server for a request to scheduleEntitlementCancellation
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async scheduleEntitlementCancellationWithHttpInfo(response: ResponseContext): Promise<HttpInfo<string >> {
+     public async scheduleEntitlementCancellationWithHttpInfo(response: ResponseContext): Promise<HttpInfo<WorkloadEntitlement >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: string = ObjectSerializer.deserialize(
+            const body: WorkloadEntitlement = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
+                "WorkloadEntitlement", ""
+            ) as WorkloadEntitlement;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
@@ -1471,10 +1471,10 @@ export class EntitlementApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: string = ObjectSerializer.deserialize(
+            const body: WorkloadEntitlement = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
+                "WorkloadEntitlement", ""
+            ) as WorkloadEntitlement;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
@@ -1488,13 +1488,13 @@ export class EntitlementApiResponseProcessor {
      * @params response Response returned by the server for a request to unscheduleEntitlementCancellation
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async unscheduleEntitlementCancellationWithHttpInfo(response: ResponseContext): Promise<HttpInfo<string >> {
+     public async unscheduleEntitlementCancellationWithHttpInfo(response: ResponseContext): Promise<HttpInfo<WorkloadEntitlement >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: string = ObjectSerializer.deserialize(
+            const body: WorkloadEntitlement = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
+                "WorkloadEntitlement", ""
+            ) as WorkloadEntitlement;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
@@ -1514,10 +1514,10 @@ export class EntitlementApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: string = ObjectSerializer.deserialize(
+            const body: WorkloadEntitlement = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
+                "WorkloadEntitlement", ""
+            ) as WorkloadEntitlement;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
@@ -1617,13 +1617,13 @@ export class EntitlementApiResponseProcessor {
      * @params response Response returned by the server for a request to updateEntitlementSeat
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async updateEntitlementSeatWithHttpInfo(response: ResponseContext): Promise<HttpInfo<string >> {
+     public async updateEntitlementSeatWithHttpInfo(response: ResponseContext): Promise<HttpInfo<WorkloadEntitlement >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: string = ObjectSerializer.deserialize(
+            const body: WorkloadEntitlement = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
+                "WorkloadEntitlement", ""
+            ) as WorkloadEntitlement;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
@@ -1643,10 +1643,10 @@ export class EntitlementApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: string = ObjectSerializer.deserialize(
+            const body: WorkloadEntitlement = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
+                "WorkloadEntitlement", ""
+            ) as WorkloadEntitlement;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 

@@ -19,7 +19,7 @@ Method | HTTP request | Description
 
 
 # **cancelOffer**
-> string cancelOffer()
+> WorkloadOffer cancelOffer()
 
 Only the offer with status = \"PENDING_ACCEPTANCE\", \"PENDING_CANCEL\", \"ACTIVE\" or \"USED\" is allowed to cancel.
 
@@ -55,7 +55,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**string**
+**WorkloadOffer**
 
 ### Authorization
 
@@ -70,7 +70,7 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Empty string if cancellation is successful |  -  |
+**200** | OK |  -  |
 **400** | Bad request error |  -  |
 **405** | Method not allowed |  -  |
 **500** | Internal error |  -  |
@@ -559,6 +559,13 @@ const request: OfferApiCreateOfferRequest = {
           billingAccountOrgDisplayName: "billingAccountOrgDisplayName_example",
           billingAccountType: "billingAccountType_example",
           notesToReseller: "notesToReseller_example",
+          partnerAccountName: "partnerAccountName_example",
+          resellOfferTemplateId: "resellOfferTemplateId_example",
+          resellerContactEmail: "resellerContactEmail_example",
+          resellerContactName: "resellerContactName_example",
+          resellerPrivateOfferPlanId: "resellerPrivateOfferPlanId_example",
+          resellerPrivateOfferPlanScope: "resellerPrivateOfferPlanScope_example",
+          subBillingAccount: "subBillingAccount_example",
         },
         reusePolicy: "",
         startPolicy: "",
@@ -1234,6 +1241,13 @@ const request: OfferApiCreateOrUpdateDraftOfferRequest = {
           billingAccountOrgDisplayName: "billingAccountOrgDisplayName_example",
           billingAccountType: "billingAccountType_example",
           notesToReseller: "notesToReseller_example",
+          partnerAccountName: "partnerAccountName_example",
+          resellOfferTemplateId: "resellOfferTemplateId_example",
+          resellerContactEmail: "resellerContactEmail_example",
+          resellerContactName: "resellerContactName_example",
+          resellerPrivateOfferPlanId: "resellerPrivateOfferPlanId_example",
+          resellerPrivateOfferPlanScope: "resellerPrivateOfferPlanScope_example",
+          subBillingAccount: "subBillingAccount_example",
         },
         reusePolicy: "",
         startPolicy: "",
@@ -1487,7 +1501,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **extendPrivateOfferExpiryDate**
-> string extendPrivateOfferExpiryDate()
+> WorkloadOffer extendPrivateOfferExpiryDate()
 
 Only the offer with status = \"PENDING_ACCEPTANCE\", \"EXPIRED\" or \"ACCEPTED\" is allowed to extend expiry date.
 
@@ -1526,7 +1540,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**string**
+**WorkloadOffer**
 
 ### Authorization
 
@@ -1541,7 +1555,7 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Empty string if extension is successful |  -  |
+**200** | OK |  -  |
 **400** | Bad request error |  -  |
 **404** | Not found |  -  |
 **500** | Internal error |  -  |
@@ -1688,6 +1702,8 @@ const request: OfferApiGetOfferEulaRequest = {
   orgId: "orgId_example",
     // Offer ID
   offerId: "offerId_example",
+    // response format in JSON or string (optional)
+  format: "format_example",
 };
 
 const data = await apiInstance.getOfferEula(request);
@@ -1701,6 +1717,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **orgId** | [**string**] | Organization ID | defaults to undefined
  **offerId** | [**string**] | Offer ID | defaults to undefined
+ **format** | [**string**] | response format in JSON or string | (optional) defaults to undefined
 
 
 ### Return type

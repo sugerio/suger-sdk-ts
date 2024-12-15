@@ -698,13 +698,13 @@ export class BuyerApiResponseProcessor {
      * @params response Response returned by the server for a request to deleteBuyerWallet
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async deleteBuyerWalletWithHttpInfo(response: ResponseContext): Promise<HttpInfo<BillingWallet >> {
+     public async deleteBuyerWalletWithHttpInfo(response: ResponseContext): Promise<HttpInfo<string >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: BillingWallet = ObjectSerializer.deserialize(
+            const body: string = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "BillingWallet", ""
-            ) as BillingWallet;
+                "string", ""
+            ) as string;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
@@ -724,10 +724,10 @@ export class BuyerApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: BillingWallet = ObjectSerializer.deserialize(
+            const body: string = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "BillingWallet", ""
-            ) as BillingWallet;
+                "string", ""
+            ) as string;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 

@@ -958,7 +958,7 @@ export class ObjectBillingApi {
      * create refund.
      * @param param the request object
      */
-    public createRefundWithHttpInfo(param: BillingApiCreateRefundRequest, options?: Configuration): Promise<HttpInfo<string>> {
+    public createRefundWithHttpInfo(param: BillingApiCreateRefundRequest, options?: Configuration): Promise<HttpInfo<BillingPaymentTransaction>> {
         return this.api.createRefundWithHttpInfo(param.orgId, param.buyerId, param.paymentTransactionId, param.amount,  options).toPromise();
     }
 
@@ -967,7 +967,7 @@ export class ObjectBillingApi {
      * create refund.
      * @param param the request object
      */
-    public createRefund(param: BillingApiCreateRefundRequest, options?: Configuration): Promise<string> {
+    public createRefund(param: BillingApiCreateRefundRequest, options?: Configuration): Promise<BillingPaymentTransaction> {
         return this.api.createRefund(param.orgId, param.buyerId, param.paymentTransactionId, param.amount,  options).toPromise();
     }
 
@@ -1030,7 +1030,7 @@ export class ObjectBillingApi {
      * issue invoice
      * @param param the request object
      */
-    public issueInvoiceWithHttpInfo(param: BillingApiIssueInvoiceRequest, options?: Configuration): Promise<HttpInfo<string>> {
+    public issueInvoiceWithHttpInfo(param: BillingApiIssueInvoiceRequest, options?: Configuration): Promise<HttpInfo<BillingInvoice>> {
         return this.api.issueInvoiceWithHttpInfo(param.orgId, param.entitlementId, param.invoiceId,  options).toPromise();
     }
 
@@ -1039,7 +1039,7 @@ export class ObjectBillingApi {
      * issue invoice
      * @param param the request object
      */
-    public issueInvoice(param: BillingApiIssueInvoiceRequest, options?: Configuration): Promise<string> {
+    public issueInvoice(param: BillingApiIssueInvoiceRequest, options?: Configuration): Promise<BillingInvoice> {
         return this.api.issueInvoice(param.orgId, param.entitlementId, param.invoiceId,  options).toPromise();
     }
 
@@ -1120,7 +1120,7 @@ export class ObjectBillingApi {
      * pay invoice
      * @param param the request object
      */
-    public payInvoiceWithHttpInfo(param: BillingApiPayInvoiceRequest, options?: Configuration): Promise<HttpInfo<string>> {
+    public payInvoiceWithHttpInfo(param: BillingApiPayInvoiceRequest, options?: Configuration): Promise<HttpInfo<BillingInvoice>> {
         return this.api.payInvoiceWithHttpInfo(param.orgId, param.entitlementId, param.invoiceId,  options).toPromise();
     }
 
@@ -1129,7 +1129,7 @@ export class ObjectBillingApi {
      * pay invoice
      * @param param the request object
      */
-    public payInvoice(param: BillingApiPayInvoiceRequest, options?: Configuration): Promise<string> {
+    public payInvoice(param: BillingApiPayInvoiceRequest, options?: Configuration): Promise<BillingInvoice> {
         return this.api.payInvoice(param.orgId, param.entitlementId, param.invoiceId,  options).toPromise();
     }
 
@@ -1156,7 +1156,7 @@ export class ObjectBillingApi {
      * void invoice
      * @param param the request object
      */
-    public voidInvoiceWithHttpInfo(param: BillingApiVoidInvoiceRequest, options?: Configuration): Promise<HttpInfo<string>> {
+    public voidInvoiceWithHttpInfo(param: BillingApiVoidInvoiceRequest, options?: Configuration): Promise<HttpInfo<BillingInvoice>> {
         return this.api.voidInvoiceWithHttpInfo(param.orgId, param.entitlementId, param.invoiceId,  options).toPromise();
     }
 
@@ -1165,7 +1165,7 @@ export class ObjectBillingApi {
      * void invoice
      * @param param the request object
      */
-    public voidInvoice(param: BillingApiVoidInvoiceRequest, options?: Configuration): Promise<string> {
+    public voidInvoice(param: BillingApiVoidInvoiceRequest, options?: Configuration): Promise<BillingInvoice> {
         return this.api.voidInvoice(param.orgId, param.entitlementId, param.invoiceId,  options).toPromise();
     }
 
@@ -1464,7 +1464,7 @@ export class ObjectBuyerApi {
      * delete buyer wallet
      * @param param the request object
      */
-    public deleteBuyerWalletWithHttpInfo(param: BuyerApiDeleteBuyerWalletRequest, options?: Configuration): Promise<HttpInfo<BillingWallet>> {
+    public deleteBuyerWalletWithHttpInfo(param: BuyerApiDeleteBuyerWalletRequest, options?: Configuration): Promise<HttpInfo<string>> {
         return this.api.deleteBuyerWalletWithHttpInfo(param.orgId, param.buyerId, param.walletId,  options).toPromise();
     }
 
@@ -1473,7 +1473,7 @@ export class ObjectBuyerApi {
      * delete buyer wallet
      * @param param the request object
      */
-    public deleteBuyerWallet(param: BuyerApiDeleteBuyerWalletRequest, options?: Configuration): Promise<BillingWallet> {
+    public deleteBuyerWallet(param: BuyerApiDeleteBuyerWalletRequest, options?: Configuration): Promise<string> {
         return this.api.deleteBuyerWallet(param.orgId, param.buyerId, param.walletId,  options).toPromise();
     }
 
@@ -1794,7 +1794,7 @@ export class ObjectContactApi {
      * add contact to buyer
      * @param param the request object
      */
-    public addContactToBuyerWithHttpInfo(param: ContactApiAddContactToBuyerRequest, options?: Configuration): Promise<HttpInfo<string>> {
+    public addContactToBuyerWithHttpInfo(param: ContactApiAddContactToBuyerRequest, options?: Configuration): Promise<HttpInfo<IdentityBuyer>> {
         return this.api.addContactToBuyerWithHttpInfo(param.orgId, param.buyerId, param.contactId,  options).toPromise();
     }
 
@@ -1803,7 +1803,7 @@ export class ObjectContactApi {
      * add contact to buyer
      * @param param the request object
      */
-    public addContactToBuyer(param: ContactApiAddContactToBuyerRequest, options?: Configuration): Promise<string> {
+    public addContactToBuyer(param: ContactApiAddContactToBuyerRequest, options?: Configuration): Promise<IdentityBuyer> {
         return this.api.addContactToBuyer(param.orgId, param.buyerId, param.contactId,  options).toPromise();
     }
 
@@ -2349,7 +2349,7 @@ export class ObjectEntitlementApi {
      * apply addon to entitlement
      * @param param the request object
      */
-    public applyAddonToEntitlementWithHttpInfo(param: EntitlementApiApplyAddonToEntitlementRequest, options?: Configuration): Promise<HttpInfo<string>> {
+    public applyAddonToEntitlementWithHttpInfo(param: EntitlementApiApplyAddonToEntitlementRequest, options?: Configuration): Promise<HttpInfo<WorkloadEntitlement>> {
         return this.api.applyAddonToEntitlementWithHttpInfo(param.orgId, param.entitlementId, param.data,  options).toPromise();
     }
 
@@ -2358,7 +2358,7 @@ export class ObjectEntitlementApi {
      * apply addon to entitlement
      * @param param the request object
      */
-    public applyAddonToEntitlement(param: EntitlementApiApplyAddonToEntitlementRequest, options?: Configuration): Promise<string> {
+    public applyAddonToEntitlement(param: EntitlementApiApplyAddonToEntitlementRequest, options?: Configuration): Promise<WorkloadEntitlement> {
         return this.api.applyAddonToEntitlement(param.orgId, param.entitlementId, param.data,  options).toPromise();
     }
 
@@ -2385,7 +2385,7 @@ export class ObjectEntitlementApi {
      * cancel entitlement
      * @param param the request object
      */
-    public cancelEntitlementWithHttpInfo(param: EntitlementApiCancelEntitlementRequest, options?: Configuration): Promise<HttpInfo<string>> {
+    public cancelEntitlementWithHttpInfo(param: EntitlementApiCancelEntitlementRequest, options?: Configuration): Promise<HttpInfo<WorkloadEntitlement>> {
         return this.api.cancelEntitlementWithHttpInfo(param.orgId, param.entitlementId,  options).toPromise();
     }
 
@@ -2394,7 +2394,7 @@ export class ObjectEntitlementApi {
      * cancel entitlement
      * @param param the request object
      */
-    public cancelEntitlement(param: EntitlementApiCancelEntitlementRequest, options?: Configuration): Promise<string> {
+    public cancelEntitlement(param: EntitlementApiCancelEntitlementRequest, options?: Configuration): Promise<WorkloadEntitlement> {
         return this.api.cancelEntitlement(param.orgId, param.entitlementId,  options).toPromise();
     }
 
@@ -2529,7 +2529,7 @@ export class ObjectEntitlementApi {
      * schedule entitlement cancellation
      * @param param the request object
      */
-    public scheduleEntitlementCancellationWithHttpInfo(param: EntitlementApiScheduleEntitlementCancellationRequest, options?: Configuration): Promise<HttpInfo<string>> {
+    public scheduleEntitlementCancellationWithHttpInfo(param: EntitlementApiScheduleEntitlementCancellationRequest, options?: Configuration): Promise<HttpInfo<WorkloadEntitlement>> {
         return this.api.scheduleEntitlementCancellationWithHttpInfo(param.orgId, param.entitlementId, param.data,  options).toPromise();
     }
 
@@ -2538,7 +2538,7 @@ export class ObjectEntitlementApi {
      * schedule entitlement cancellation
      * @param param the request object
      */
-    public scheduleEntitlementCancellation(param: EntitlementApiScheduleEntitlementCancellationRequest, options?: Configuration): Promise<string> {
+    public scheduleEntitlementCancellation(param: EntitlementApiScheduleEntitlementCancellationRequest, options?: Configuration): Promise<WorkloadEntitlement> {
         return this.api.scheduleEntitlementCancellation(param.orgId, param.entitlementId, param.data,  options).toPromise();
     }
 
@@ -2547,7 +2547,7 @@ export class ObjectEntitlementApi {
      * unschedule entitlement cancellation
      * @param param the request object
      */
-    public unscheduleEntitlementCancellationWithHttpInfo(param: EntitlementApiUnscheduleEntitlementCancellationRequest, options?: Configuration): Promise<HttpInfo<string>> {
+    public unscheduleEntitlementCancellationWithHttpInfo(param: EntitlementApiUnscheduleEntitlementCancellationRequest, options?: Configuration): Promise<HttpInfo<WorkloadEntitlement>> {
         return this.api.unscheduleEntitlementCancellationWithHttpInfo(param.orgId, param.entitlementId,  options).toPromise();
     }
 
@@ -2556,7 +2556,7 @@ export class ObjectEntitlementApi {
      * unschedule entitlement cancellation
      * @param param the request object
      */
-    public unscheduleEntitlementCancellation(param: EntitlementApiUnscheduleEntitlementCancellationRequest, options?: Configuration): Promise<string> {
+    public unscheduleEntitlementCancellation(param: EntitlementApiUnscheduleEntitlementCancellationRequest, options?: Configuration): Promise<WorkloadEntitlement> {
         return this.api.unscheduleEntitlementCancellation(param.orgId, param.entitlementId,  options).toPromise();
     }
 
@@ -2601,7 +2601,7 @@ export class ObjectEntitlementApi {
      * update seat for the active AZURE subscription
      * @param param the request object
      */
-    public updateEntitlementSeatWithHttpInfo(param: EntitlementApiUpdateEntitlementSeatRequest, options?: Configuration): Promise<HttpInfo<string>> {
+    public updateEntitlementSeatWithHttpInfo(param: EntitlementApiUpdateEntitlementSeatRequest, options?: Configuration): Promise<HttpInfo<WorkloadEntitlement>> {
         return this.api.updateEntitlementSeatWithHttpInfo(param.orgId, param.entitlementId, param.newSeat,  options).toPromise();
     }
 
@@ -2610,7 +2610,7 @@ export class ObjectEntitlementApi {
      * update seat for the active AZURE subscription
      * @param param the request object
      */
-    public updateEntitlementSeat(param: EntitlementApiUpdateEntitlementSeatRequest, options?: Configuration): Promise<string> {
+    public updateEntitlementSeat(param: EntitlementApiUpdateEntitlementSeatRequest, options?: Configuration): Promise<WorkloadEntitlement> {
         return this.api.updateEntitlementSeat(param.orgId, param.entitlementId, param.newSeat,  options).toPromise();
     }
 
@@ -3539,6 +3539,13 @@ export interface OfferApiGetOfferEulaRequest {
      * @memberof OfferApigetOfferEula
      */
     offerId: string
+    /**
+     * response format in JSON or string
+     * Defaults to: undefined
+     * @type string
+     * @memberof OfferApigetOfferEula
+     */
+    format?: string
 }
 
 export interface OfferApiGetOfferResellerEulaRequest {
@@ -3689,7 +3696,7 @@ export class ObjectOfferApi {
      * cancel offer
      * @param param the request object
      */
-    public cancelOfferWithHttpInfo(param: OfferApiCancelOfferRequest, options?: Configuration): Promise<HttpInfo<string>> {
+    public cancelOfferWithHttpInfo(param: OfferApiCancelOfferRequest, options?: Configuration): Promise<HttpInfo<WorkloadOffer>> {
         return this.api.cancelOfferWithHttpInfo(param.orgId, param.offerId,  options).toPromise();
     }
 
@@ -3698,7 +3705,7 @@ export class ObjectOfferApi {
      * cancel offer
      * @param param the request object
      */
-    public cancelOffer(param: OfferApiCancelOfferRequest, options?: Configuration): Promise<string> {
+    public cancelOffer(param: OfferApiCancelOfferRequest, options?: Configuration): Promise<WorkloadOffer> {
         return this.api.cancelOffer(param.orgId, param.offerId,  options).toPromise();
     }
 
@@ -3761,7 +3768,7 @@ export class ObjectOfferApi {
      * extend offer expiry date
      * @param param the request object
      */
-    public extendPrivateOfferExpiryDateWithHttpInfo(param: OfferApiExtendPrivateOfferExpiryDateRequest, options?: Configuration): Promise<HttpInfo<string>> {
+    public extendPrivateOfferExpiryDateWithHttpInfo(param: OfferApiExtendPrivateOfferExpiryDateRequest, options?: Configuration): Promise<HttpInfo<WorkloadOffer>> {
         return this.api.extendPrivateOfferExpiryDateWithHttpInfo(param.orgId, param.offerId, param.newExpiryDate,  options).toPromise();
     }
 
@@ -3770,7 +3777,7 @@ export class ObjectOfferApi {
      * extend offer expiry date
      * @param param the request object
      */
-    public extendPrivateOfferExpiryDate(param: OfferApiExtendPrivateOfferExpiryDateRequest, options?: Configuration): Promise<string> {
+    public extendPrivateOfferExpiryDate(param: OfferApiExtendPrivateOfferExpiryDateRequest, options?: Configuration): Promise<WorkloadOffer> {
         return this.api.extendPrivateOfferExpiryDate(param.orgId, param.offerId, param.newExpiryDate,  options).toPromise();
     }
 
@@ -3816,7 +3823,7 @@ export class ObjectOfferApi {
      * @param param the request object
      */
     public getOfferEulaWithHttpInfo(param: OfferApiGetOfferEulaRequest, options?: Configuration): Promise<HttpInfo<string>> {
-        return this.api.getOfferEulaWithHttpInfo(param.orgId, param.offerId,  options).toPromise();
+        return this.api.getOfferEulaWithHttpInfo(param.orgId, param.offerId, param.format,  options).toPromise();
     }
 
     /**
@@ -3825,7 +3832,7 @@ export class ObjectOfferApi {
      * @param param the request object
      */
     public getOfferEula(param: OfferApiGetOfferEulaRequest, options?: Configuration): Promise<string> {
-        return this.api.getOfferEula(param.orgId, param.offerId,  options).toPromise();
+        return this.api.getOfferEula(param.orgId, param.offerId, param.format,  options).toPromise();
     }
 
     /**

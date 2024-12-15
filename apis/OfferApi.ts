@@ -376,8 +376,9 @@ export class OfferApiRequestFactory extends BaseAPIRequestFactory {
      * get offer EULA
      * @param orgId Organization ID
      * @param offerId Offer ID
+     * @param format response format in JSON or string
      */
-    public async getOfferEula(orgId: string, offerId: string, _options?: Configuration): Promise<RequestContext> {
+    public async getOfferEula(orgId: string, offerId: string, format?: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'orgId' is not null or undefined
@@ -392,6 +393,7 @@ export class OfferApiRequestFactory extends BaseAPIRequestFactory {
         }
 
 
+
         // Path Params
         const localVarPath = '/org/{orgId}/offer/{offerId}/eula'
             .replace('{' + 'orgId' + '}', encodeURIComponent(String(orgId)))
@@ -400,6 +402,11 @@ export class OfferApiRequestFactory extends BaseAPIRequestFactory {
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+        // Query Params
+        if (format !== undefined) {
+            requestContext.setQueryParam("format", ObjectSerializer.serialize(format, "string", ""));
+        }
 
 
         let authMethod: SecurityAuthentication | undefined;
@@ -698,13 +705,13 @@ export class OfferApiResponseProcessor {
      * @params response Response returned by the server for a request to cancelOffer
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async cancelOfferWithHttpInfo(response: ResponseContext): Promise<HttpInfo<string >> {
+     public async cancelOfferWithHttpInfo(response: ResponseContext): Promise<HttpInfo<WorkloadOffer >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: string = ObjectSerializer.deserialize(
+            const body: WorkloadOffer = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
+                "WorkloadOffer", ""
+            ) as WorkloadOffer;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
@@ -731,10 +738,10 @@ export class OfferApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: string = ObjectSerializer.deserialize(
+            const body: WorkloadOffer = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
+                "WorkloadOffer", ""
+            ) as WorkloadOffer;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
@@ -898,13 +905,13 @@ export class OfferApiResponseProcessor {
      * @params response Response returned by the server for a request to extendPrivateOfferExpiryDate
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async extendPrivateOfferExpiryDateWithHttpInfo(response: ResponseContext): Promise<HttpInfo<string >> {
+     public async extendPrivateOfferExpiryDateWithHttpInfo(response: ResponseContext): Promise<HttpInfo<WorkloadOffer >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: string = ObjectSerializer.deserialize(
+            const body: WorkloadOffer = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
+                "WorkloadOffer", ""
+            ) as WorkloadOffer;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
@@ -931,10 +938,10 @@ export class OfferApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: string = ObjectSerializer.deserialize(
+            const body: WorkloadOffer = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
+                "WorkloadOffer", ""
+            ) as WorkloadOffer;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 

@@ -18,6 +18,19 @@ export class GcpMarketplaceResellerInfo {
     'billingAccountOrgDisplayName'?: string;
     'billingAccountType'?: string;
     'notesToReseller'?: string;
+    /**
+    * In the format of \"\"organizations/{GcpOrganizationID}/partnerAccounts/{partnerAccountID}\"
+    */
+    'partnerAccountName'?: string;
+    'resellOfferTemplateId'?: string;
+    'resellerContactEmail'?: string;
+    'resellerContactName'?: string;
+    'resellerPrivateOfferPlanId'?: string;
+    'resellerPrivateOfferPlanScope'?: string;
+    /**
+    * In the format of \"billingAccounts/...\"
+    */
+    'subBillingAccount'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -51,6 +64,48 @@ export class GcpMarketplaceResellerInfo {
         {
             "name": "notesToReseller",
             "baseName": "notesToReseller",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "partnerAccountName",
+            "baseName": "partnerAccountName",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "resellOfferTemplateId",
+            "baseName": "resellOfferTemplateId",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "resellerContactEmail",
+            "baseName": "resellerContactEmail",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "resellerContactName",
+            "baseName": "resellerContactName",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "resellerPrivateOfferPlanId",
+            "baseName": "resellerPrivateOfferPlanId",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "resellerPrivateOfferPlanScope",
+            "baseName": "resellerPrivateOfferPlanScope",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "subBillingAccount",
+            "baseName": "subBillingAccount",
             "type": "string",
             "format": ""
         }    ];

@@ -650,7 +650,7 @@ export class ObservableBillingApi {
      * @param paymentTransactionId Payment transaction ID
      * @param amount Refund amount
      */
-    public createRefundWithHttpInfo(orgId: string, buyerId: string, paymentTransactionId: string, amount: number, _options?: Configuration): Observable<HttpInfo<string>> {
+    public createRefundWithHttpInfo(orgId: string, buyerId: string, paymentTransactionId: string, amount: number, _options?: Configuration): Observable<HttpInfo<BillingPaymentTransaction>> {
         const requestContextPromise = this.requestFactory.createRefund(orgId, buyerId, paymentTransactionId, amount, _options);
 
         // build promise chain
@@ -677,8 +677,8 @@ export class ObservableBillingApi {
      * @param paymentTransactionId Payment transaction ID
      * @param amount Refund amount
      */
-    public createRefund(orgId: string, buyerId: string, paymentTransactionId: string, amount: number, _options?: Configuration): Observable<string> {
-        return this.createRefundWithHttpInfo(orgId, buyerId, paymentTransactionId, amount, _options).pipe(map((apiResponse: HttpInfo<string>) => apiResponse.data));
+    public createRefund(orgId: string, buyerId: string, paymentTransactionId: string, amount: number, _options?: Configuration): Observable<BillingPaymentTransaction> {
+        return this.createRefundWithHttpInfo(orgId, buyerId, paymentTransactionId, amount, _options).pipe(map((apiResponse: HttpInfo<BillingPaymentTransaction>) => apiResponse.data));
     }
 
     /**
@@ -795,7 +795,7 @@ export class ObservableBillingApi {
      * @param entitlementId Entitlement ID
      * @param invoiceId Invoice ID
      */
-    public issueInvoiceWithHttpInfo(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Observable<HttpInfo<string>> {
+    public issueInvoiceWithHttpInfo(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Observable<HttpInfo<BillingInvoice>> {
         const requestContextPromise = this.requestFactory.issueInvoice(orgId, entitlementId, invoiceId, _options);
 
         // build promise chain
@@ -821,8 +821,8 @@ export class ObservableBillingApi {
      * @param entitlementId Entitlement ID
      * @param invoiceId Invoice ID
      */
-    public issueInvoice(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Observable<string> {
-        return this.issueInvoiceWithHttpInfo(orgId, entitlementId, invoiceId, _options).pipe(map((apiResponse: HttpInfo<string>) => apiResponse.data));
+    public issueInvoice(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Observable<BillingInvoice> {
+        return this.issueInvoiceWithHttpInfo(orgId, entitlementId, invoiceId, _options).pipe(map((apiResponse: HttpInfo<BillingInvoice>) => apiResponse.data));
     }
 
     /**
@@ -996,7 +996,7 @@ export class ObservableBillingApi {
      * @param entitlementId Entitlement ID
      * @param invoiceId Invoice ID
      */
-    public payInvoiceWithHttpInfo(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Observable<HttpInfo<string>> {
+    public payInvoiceWithHttpInfo(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Observable<HttpInfo<BillingInvoice>> {
         const requestContextPromise = this.requestFactory.payInvoice(orgId, entitlementId, invoiceId, _options);
 
         // build promise chain
@@ -1022,8 +1022,8 @@ export class ObservableBillingApi {
      * @param entitlementId Entitlement ID
      * @param invoiceId Invoice ID
      */
-    public payInvoice(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Observable<string> {
-        return this.payInvoiceWithHttpInfo(orgId, entitlementId, invoiceId, _options).pipe(map((apiResponse: HttpInfo<string>) => apiResponse.data));
+    public payInvoice(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Observable<BillingInvoice> {
+        return this.payInvoiceWithHttpInfo(orgId, entitlementId, invoiceId, _options).pipe(map((apiResponse: HttpInfo<BillingInvoice>) => apiResponse.data));
     }
 
     /**
@@ -1070,7 +1070,7 @@ export class ObservableBillingApi {
      * @param entitlementId Entitlement ID
      * @param invoiceId Invoice ID
      */
-    public voidInvoiceWithHttpInfo(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Observable<HttpInfo<string>> {
+    public voidInvoiceWithHttpInfo(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Observable<HttpInfo<BillingInvoice>> {
         const requestContextPromise = this.requestFactory.voidInvoice(orgId, entitlementId, invoiceId, _options);
 
         // build promise chain
@@ -1096,8 +1096,8 @@ export class ObservableBillingApi {
      * @param entitlementId Entitlement ID
      * @param invoiceId Invoice ID
      */
-    public voidInvoice(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Observable<string> {
-        return this.voidInvoiceWithHttpInfo(orgId, entitlementId, invoiceId, _options).pipe(map((apiResponse: HttpInfo<string>) => apiResponse.data));
+    public voidInvoice(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Observable<BillingInvoice> {
+        return this.voidInvoiceWithHttpInfo(orgId, entitlementId, invoiceId, _options).pipe(map((apiResponse: HttpInfo<BillingInvoice>) => apiResponse.data));
     }
 
 }
@@ -1232,7 +1232,7 @@ export class ObservableBuyerApi {
      * @param buyerId Buyer ID
      * @param walletId Wallet ID
      */
-    public deleteBuyerWalletWithHttpInfo(orgId: string, buyerId: string, walletId: string, _options?: Configuration): Observable<HttpInfo<BillingWallet>> {
+    public deleteBuyerWalletWithHttpInfo(orgId: string, buyerId: string, walletId: string, _options?: Configuration): Observable<HttpInfo<string>> {
         const requestContextPromise = this.requestFactory.deleteBuyerWallet(orgId, buyerId, walletId, _options);
 
         // build promise chain
@@ -1258,8 +1258,8 @@ export class ObservableBuyerApi {
      * @param buyerId Buyer ID
      * @param walletId Wallet ID
      */
-    public deleteBuyerWallet(orgId: string, buyerId: string, walletId: string, _options?: Configuration): Observable<BillingWallet> {
-        return this.deleteBuyerWalletWithHttpInfo(orgId, buyerId, walletId, _options).pipe(map((apiResponse: HttpInfo<BillingWallet>) => apiResponse.data));
+    public deleteBuyerWallet(orgId: string, buyerId: string, walletId: string, _options?: Configuration): Observable<string> {
+        return this.deleteBuyerWalletWithHttpInfo(orgId, buyerId, walletId, _options).pipe(map((apiResponse: HttpInfo<string>) => apiResponse.data));
     }
 
     /**
@@ -1509,7 +1509,7 @@ export class ObservableContactApi {
      * @param buyerId Buyer ID
      * @param contactId Contact ID
      */
-    public addContactToBuyerWithHttpInfo(orgId: string, buyerId: string, contactId: string, _options?: Configuration): Observable<HttpInfo<string>> {
+    public addContactToBuyerWithHttpInfo(orgId: string, buyerId: string, contactId: string, _options?: Configuration): Observable<HttpInfo<IdentityBuyer>> {
         const requestContextPromise = this.requestFactory.addContactToBuyer(orgId, buyerId, contactId, _options);
 
         // build promise chain
@@ -1535,8 +1535,8 @@ export class ObservableContactApi {
      * @param buyerId Buyer ID
      * @param contactId Contact ID
      */
-    public addContactToBuyer(orgId: string, buyerId: string, contactId: string, _options?: Configuration): Observable<string> {
-        return this.addContactToBuyerWithHttpInfo(orgId, buyerId, contactId, _options).pipe(map((apiResponse: HttpInfo<string>) => apiResponse.data));
+    public addContactToBuyer(orgId: string, buyerId: string, contactId: string, _options?: Configuration): Observable<IdentityBuyer> {
+        return this.addContactToBuyerWithHttpInfo(orgId, buyerId, contactId, _options).pipe(map((apiResponse: HttpInfo<IdentityBuyer>) => apiResponse.data));
     }
 
     /**
@@ -1891,7 +1891,7 @@ export class ObservableEntitlementApi {
      * @param entitlementId Entitlement ID
      * @param data RequestBody
      */
-    public applyAddonToEntitlementWithHttpInfo(orgId: string, entitlementId: string, data: BillingAddonRecord, _options?: Configuration): Observable<HttpInfo<string>> {
+    public applyAddonToEntitlementWithHttpInfo(orgId: string, entitlementId: string, data: BillingAddonRecord, _options?: Configuration): Observable<HttpInfo<WorkloadEntitlement>> {
         const requestContextPromise = this.requestFactory.applyAddonToEntitlement(orgId, entitlementId, data, _options);
 
         // build promise chain
@@ -1917,8 +1917,8 @@ export class ObservableEntitlementApi {
      * @param entitlementId Entitlement ID
      * @param data RequestBody
      */
-    public applyAddonToEntitlement(orgId: string, entitlementId: string, data: BillingAddonRecord, _options?: Configuration): Observable<string> {
-        return this.applyAddonToEntitlementWithHttpInfo(orgId, entitlementId, data, _options).pipe(map((apiResponse: HttpInfo<string>) => apiResponse.data));
+    public applyAddonToEntitlement(orgId: string, entitlementId: string, data: BillingAddonRecord, _options?: Configuration): Observable<WorkloadEntitlement> {
+        return this.applyAddonToEntitlementWithHttpInfo(orgId, entitlementId, data, _options).pipe(map((apiResponse: HttpInfo<WorkloadEntitlement>) => apiResponse.data));
     }
 
     /**
@@ -1962,7 +1962,7 @@ export class ObservableEntitlementApi {
      * @param orgId Organization ID
      * @param entitlementId Entitlement ID
      */
-    public cancelEntitlementWithHttpInfo(orgId: string, entitlementId: string, _options?: Configuration): Observable<HttpInfo<string>> {
+    public cancelEntitlementWithHttpInfo(orgId: string, entitlementId: string, _options?: Configuration): Observable<HttpInfo<WorkloadEntitlement>> {
         const requestContextPromise = this.requestFactory.cancelEntitlement(orgId, entitlementId, _options);
 
         // build promise chain
@@ -1987,8 +1987,8 @@ export class ObservableEntitlementApi {
      * @param orgId Organization ID
      * @param entitlementId Entitlement ID
      */
-    public cancelEntitlement(orgId: string, entitlementId: string, _options?: Configuration): Observable<string> {
-        return this.cancelEntitlementWithHttpInfo(orgId, entitlementId, _options).pipe(map((apiResponse: HttpInfo<string>) => apiResponse.data));
+    public cancelEntitlement(orgId: string, entitlementId: string, _options?: Configuration): Observable<WorkloadEntitlement> {
+        return this.cancelEntitlementWithHttpInfo(orgId, entitlementId, _options).pipe(map((apiResponse: HttpInfo<WorkloadEntitlement>) => apiResponse.data));
     }
 
     /**
@@ -2259,7 +2259,7 @@ export class ObservableEntitlementApi {
      * @param entitlementId Entitlement ID
      * @param data RequestBody
      */
-    public scheduleEntitlementCancellationWithHttpInfo(orgId: string, entitlementId: string, data: CancellationSchedule, _options?: Configuration): Observable<HttpInfo<string>> {
+    public scheduleEntitlementCancellationWithHttpInfo(orgId: string, entitlementId: string, data: CancellationSchedule, _options?: Configuration): Observable<HttpInfo<WorkloadEntitlement>> {
         const requestContextPromise = this.requestFactory.scheduleEntitlementCancellation(orgId, entitlementId, data, _options);
 
         // build promise chain
@@ -2285,8 +2285,8 @@ export class ObservableEntitlementApi {
      * @param entitlementId Entitlement ID
      * @param data RequestBody
      */
-    public scheduleEntitlementCancellation(orgId: string, entitlementId: string, data: CancellationSchedule, _options?: Configuration): Observable<string> {
-        return this.scheduleEntitlementCancellationWithHttpInfo(orgId, entitlementId, data, _options).pipe(map((apiResponse: HttpInfo<string>) => apiResponse.data));
+    public scheduleEntitlementCancellation(orgId: string, entitlementId: string, data: CancellationSchedule, _options?: Configuration): Observable<WorkloadEntitlement> {
+        return this.scheduleEntitlementCancellationWithHttpInfo(orgId, entitlementId, data, _options).pipe(map((apiResponse: HttpInfo<WorkloadEntitlement>) => apiResponse.data));
     }
 
     /**
@@ -2295,7 +2295,7 @@ export class ObservableEntitlementApi {
      * @param orgId Organization ID
      * @param entitlementId Entitlement ID
      */
-    public unscheduleEntitlementCancellationWithHttpInfo(orgId: string, entitlementId: string, _options?: Configuration): Observable<HttpInfo<string>> {
+    public unscheduleEntitlementCancellationWithHttpInfo(orgId: string, entitlementId: string, _options?: Configuration): Observable<HttpInfo<WorkloadEntitlement>> {
         const requestContextPromise = this.requestFactory.unscheduleEntitlementCancellation(orgId, entitlementId, _options);
 
         // build promise chain
@@ -2320,8 +2320,8 @@ export class ObservableEntitlementApi {
      * @param orgId Organization ID
      * @param entitlementId Entitlement ID
      */
-    public unscheduleEntitlementCancellation(orgId: string, entitlementId: string, _options?: Configuration): Observable<string> {
-        return this.unscheduleEntitlementCancellationWithHttpInfo(orgId, entitlementId, _options).pipe(map((apiResponse: HttpInfo<string>) => apiResponse.data));
+    public unscheduleEntitlementCancellation(orgId: string, entitlementId: string, _options?: Configuration): Observable<WorkloadEntitlement> {
+        return this.unscheduleEntitlementCancellationWithHttpInfo(orgId, entitlementId, _options).pipe(map((apiResponse: HttpInfo<WorkloadEntitlement>) => apiResponse.data));
     }
 
     /**
@@ -2405,7 +2405,7 @@ export class ObservableEntitlementApi {
      * @param entitlementId Entitlement ID
      * @param newSeat New seat number
      */
-    public updateEntitlementSeatWithHttpInfo(orgId: string, entitlementId: string, newSeat: number, _options?: Configuration): Observable<HttpInfo<string>> {
+    public updateEntitlementSeatWithHttpInfo(orgId: string, entitlementId: string, newSeat: number, _options?: Configuration): Observable<HttpInfo<WorkloadEntitlement>> {
         const requestContextPromise = this.requestFactory.updateEntitlementSeat(orgId, entitlementId, newSeat, _options);
 
         // build promise chain
@@ -2431,8 +2431,8 @@ export class ObservableEntitlementApi {
      * @param entitlementId Entitlement ID
      * @param newSeat New seat number
      */
-    public updateEntitlementSeat(orgId: string, entitlementId: string, newSeat: number, _options?: Configuration): Observable<string> {
-        return this.updateEntitlementSeatWithHttpInfo(orgId, entitlementId, newSeat, _options).pipe(map((apiResponse: HttpInfo<string>) => apiResponse.data));
+    public updateEntitlementSeat(orgId: string, entitlementId: string, newSeat: number, _options?: Configuration): Observable<WorkloadEntitlement> {
+        return this.updateEntitlementSeatWithHttpInfo(orgId, entitlementId, newSeat, _options).pipe(map((apiResponse: HttpInfo<WorkloadEntitlement>) => apiResponse.data));
     }
 
 }
@@ -3138,7 +3138,7 @@ export class ObservableOfferApi {
      * @param orgId Organization ID
      * @param offerId Offer ID
      */
-    public cancelOfferWithHttpInfo(orgId: string, offerId: string, _options?: Configuration): Observable<HttpInfo<string>> {
+    public cancelOfferWithHttpInfo(orgId: string, offerId: string, _options?: Configuration): Observable<HttpInfo<WorkloadOffer>> {
         const requestContextPromise = this.requestFactory.cancelOffer(orgId, offerId, _options);
 
         // build promise chain
@@ -3163,8 +3163,8 @@ export class ObservableOfferApi {
      * @param orgId Organization ID
      * @param offerId Offer ID
      */
-    public cancelOffer(orgId: string, offerId: string, _options?: Configuration): Observable<string> {
-        return this.cancelOfferWithHttpInfo(orgId, offerId, _options).pipe(map((apiResponse: HttpInfo<string>) => apiResponse.data));
+    public cancelOffer(orgId: string, offerId: string, _options?: Configuration): Observable<WorkloadOffer> {
+        return this.cancelOfferWithHttpInfo(orgId, offerId, _options).pipe(map((apiResponse: HttpInfo<WorkloadOffer>) => apiResponse.data));
     }
 
     /**
@@ -3279,7 +3279,7 @@ export class ObservableOfferApi {
      * @param offerId Offer ID
      * @param newExpiryDate new expiry date in YYYY-MM-DD format
      */
-    public extendPrivateOfferExpiryDateWithHttpInfo(orgId: string, offerId: string, newExpiryDate: string, _options?: Configuration): Observable<HttpInfo<string>> {
+    public extendPrivateOfferExpiryDateWithHttpInfo(orgId: string, offerId: string, newExpiryDate: string, _options?: Configuration): Observable<HttpInfo<WorkloadOffer>> {
         const requestContextPromise = this.requestFactory.extendPrivateOfferExpiryDate(orgId, offerId, newExpiryDate, _options);
 
         // build promise chain
@@ -3305,8 +3305,8 @@ export class ObservableOfferApi {
      * @param offerId Offer ID
      * @param newExpiryDate new expiry date in YYYY-MM-DD format
      */
-    public extendPrivateOfferExpiryDate(orgId: string, offerId: string, newExpiryDate: string, _options?: Configuration): Observable<string> {
-        return this.extendPrivateOfferExpiryDateWithHttpInfo(orgId, offerId, newExpiryDate, _options).pipe(map((apiResponse: HttpInfo<string>) => apiResponse.data));
+    public extendPrivateOfferExpiryDate(orgId: string, offerId: string, newExpiryDate: string, _options?: Configuration): Observable<WorkloadOffer> {
+        return this.extendPrivateOfferExpiryDateWithHttpInfo(orgId, offerId, newExpiryDate, _options).pipe(map((apiResponse: HttpInfo<WorkloadOffer>) => apiResponse.data));
     }
 
     /**
@@ -3384,9 +3384,10 @@ export class ObservableOfferApi {
      * get offer EULA
      * @param orgId Organization ID
      * @param offerId Offer ID
+     * @param [format] response format in JSON or string
      */
-    public getOfferEulaWithHttpInfo(orgId: string, offerId: string, _options?: Configuration): Observable<HttpInfo<string>> {
-        const requestContextPromise = this.requestFactory.getOfferEula(orgId, offerId, _options);
+    public getOfferEulaWithHttpInfo(orgId: string, offerId: string, format?: string, _options?: Configuration): Observable<HttpInfo<string>> {
+        const requestContextPromise = this.requestFactory.getOfferEula(orgId, offerId, format, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -3409,9 +3410,10 @@ export class ObservableOfferApi {
      * get offer EULA
      * @param orgId Organization ID
      * @param offerId Offer ID
+     * @param [format] response format in JSON or string
      */
-    public getOfferEula(orgId: string, offerId: string, _options?: Configuration): Observable<string> {
-        return this.getOfferEulaWithHttpInfo(orgId, offerId, _options).pipe(map((apiResponse: HttpInfo<string>) => apiResponse.data));
+    public getOfferEula(orgId: string, offerId: string, format?: string, _options?: Configuration): Observable<string> {
+        return this.getOfferEulaWithHttpInfo(orgId, offerId, format, _options).pipe(map((apiResponse: HttpInfo<string>) => apiResponse.data));
     }
 
     /**
