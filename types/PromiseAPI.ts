@@ -2670,21 +2670,27 @@ export class PromiseProductApi {
 
     /**
      * list all products under the given organization
-     * list products by organization
+     * list products
      * @param orgId Organization ID
+     * @param [partner] filter by partner
+     * @param [limit] List pagination size, default 100, max value is 1000
+     * @param [offset] List pagination offset, default 0
      */
-    public listProductsByOrganizationWithHttpInfo(orgId: string, _options?: Configuration): Promise<HttpInfo<Array<WorkloadProduct>>> {
-        const result = this.api.listProductsByOrganizationWithHttpInfo(orgId, _options);
+    public listProductsWithHttpInfo(orgId: string, partner?: 'AWS' | 'AZURE' | 'GCP' | 'STRIPE', limit?: number, offset?: number, _options?: Configuration): Promise<HttpInfo<Array<WorkloadProduct>>> {
+        const result = this.api.listProductsWithHttpInfo(orgId, partner, limit, offset, _options);
         return result.toPromise();
     }
 
     /**
      * list all products under the given organization
-     * list products by organization
+     * list products
      * @param orgId Organization ID
+     * @param [partner] filter by partner
+     * @param [limit] List pagination size, default 100, max value is 1000
+     * @param [offset] List pagination offset, default 0
      */
-    public listProductsByOrganization(orgId: string, _options?: Configuration): Promise<Array<WorkloadProduct>> {
-        const result = this.api.listProductsByOrganization(orgId, _options);
+    public listProducts(orgId: string, partner?: 'AWS' | 'AZURE' | 'GCP' | 'STRIPE', limit?: number, offset?: number, _options?: Configuration): Promise<Array<WorkloadProduct>> {
+        const result = this.api.listProducts(orgId, partner, limit, offset, _options);
         return result.toPromise();
     }
 

@@ -38,5 +38,6 @@ export enum EntityType {
     EntityType_USAGE_RECORD_GROUP = 'USAGE_RECORD_GROUP',
     EntityType_USAGE_RECORD_REPORT = 'USAGE_RECORD_REPORT',
     EntityType_USER = 'USER',
-    EntityType_WORKFLOW = 'WORKFLOW'
+    EntityType_WORKFLOW = 'WORKFLOW',
+    EntityType_WORKFLOW_WEBHOOK = 'WORKFLOW_WEBHOOK'
 }

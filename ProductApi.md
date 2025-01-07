@@ -9,7 +9,7 @@ Method | HTTP request | Description
 [**deleteProduct**](ProductApi.md#deleteProduct) | **DELETE** /org/{orgId}/product/{productId} | delete product
 [**getProduct**](ProductApi.md#getProduct) | **GET** /org/{orgId}/product/{productId} | get product
 [**listProductMeteringDimensions**](ProductApi.md#listProductMeteringDimensions) | **GET** /org/{orgId}/product/{productId}/dimension | list metering dimensions of product
-[**listProductsByOrganization**](ProductApi.md#listProductsByOrganization) | **GET** /org/{orgId}/product | list products by organization
+[**listProducts**](ProductApi.md#listProducts) | **GET** /org/{orgId}/product | list products
 [**listProductsByPartner**](ProductApi.md#listProductsByPartner) | **GET** /org/{orgId}/partner/{partner}/product | list products by partner
 [**publishProduct**](ProductApi.md#publishProduct) | **PATCH** /org/{orgId}/product/{productId}/publish | publish product
 [**updateProduct**](ProductApi.md#updateProduct) | **PATCH** /org/{orgId}/product/{productId} | update product
@@ -1817,6 +1817,7 @@ const request: ProductApiCreateOrUpdateDraftProductRequest = {
     name: "name_example",
     organizationID: "organizationID_example",
     partner: "",
+    partnerID: "partnerID_example",
     productType: "UNKNOWN",
     service: "DEFAULT",
     status: "status_example",
@@ -3659,6 +3660,7 @@ const request: ProductApiCreateProductRequest = {
     name: "name_example",
     organizationID: "organizationID_example",
     partner: "",
+    partnerID: "partnerID_example",
     productType: "UNKNOWN",
     service: "DEFAULT",
     status: "status_example",
@@ -3878,8 +3880,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **listProductsByOrganization**
-> Array<WorkloadProduct> listProductsByOrganization()
+# **listProducts**
+> Array<WorkloadProduct> listProducts()
 
 list all products under the given organization
 
@@ -3888,17 +3890,23 @@ list all products under the given organization
 
 ```typescript
 import { createConfiguration, ProductApi } from '';
-import type { ProductApiListProductsByOrganizationRequest } from '';
+import type { ProductApiListProductsRequest } from '';
 
 const configuration = createConfiguration();
 const apiInstance = new ProductApi(configuration);
 
-const request: ProductApiListProductsByOrganizationRequest = {
+const request: ProductApiListProductsRequest = {
     // Organization ID
   orgId: "orgId_example",
+    // filter by partner (optional)
+  partner: "AWS",
+    // List pagination size, default 100, max value is 1000 (optional)
+  limit: 1,
+    // List pagination offset, default 0 (optional)
+  offset: 1,
 };
 
-const data = await apiInstance.listProductsByOrganization(request);
+const data = await apiInstance.listProducts(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -3908,6 +3916,9 @@ console.log('API called successfully. Returned data:', data);
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **orgId** | [**string**] | Organization ID | defaults to undefined
+ **partner** | [**&#39;AWS&#39; | &#39;AZURE&#39; | &#39;GCP&#39; | &#39;STRIPE&#39;**]**Array<&#39;AWS&#39; &#124; &#39;AZURE&#39; &#124; &#39;GCP&#39; &#124; &#39;STRIPE&#39;>** | filter by partner | (optional) defaults to undefined
+ **limit** | [**number**] | List pagination size, default 100, max value is 1000 | (optional) defaults to undefined
+ **offset** | [**number**] | List pagination offset, default 0 | (optional) defaults to undefined
 
 
 ### Return type
@@ -5793,6 +5804,7 @@ const request: ProductApiPublishProductRequest = {
     name: "name_example",
     organizationID: "organizationID_example",
     partner: "",
+    partnerID: "partnerID_example",
     productType: "UNKNOWN",
     service: "DEFAULT",
     status: "status_example",
@@ -7639,6 +7651,7 @@ const request: ProductApiUpdateProductRequest = {
     name: "name_example",
     organizationID: "organizationID_example",
     partner: "",
+    partnerID: "partnerID_example",
     productType: "UNKNOWN",
     service: "DEFAULT",
     status: "status_example",

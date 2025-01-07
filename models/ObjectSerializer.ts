@@ -932,11 +932,11 @@ import { UsageMeteringDimensionMappingValue    } from '../models/UsageMeteringDi
 import { UsageRecordGroupSource } from '../models/UsageRecordGroupSource';
 import { UsageRecordReportStatus } from '../models/UsageRecordReportStatus';
 import { ValueType } from '../models/ValueType';
-import { WorkloadEntitlement                     } from '../models/WorkloadEntitlement';
+import { WorkloadEntitlement                      } from '../models/WorkloadEntitlement';
 import { WorkloadEntitlementTerm                   } from '../models/WorkloadEntitlementTerm';
 import { WorkloadMetaInfo                             } from '../models/WorkloadMetaInfo';
-import { WorkloadOffer                    } from '../models/WorkloadOffer';
-import { WorkloadProduct            , WorkloadProductProductTypeEnum     } from '../models/WorkloadProduct';
+import { WorkloadOffer                     } from '../models/WorkloadOffer';
+import { WorkloadProduct             , WorkloadProductProductTypeEnum     } from '../models/WorkloadProduct';
 
 /* tslint:disable:no-unused-variable */
 let primitives = [

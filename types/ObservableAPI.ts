@@ -3771,11 +3771,14 @@ export class ObservableProductApi {
 
     /**
      * list all products under the given organization
-     * list products by organization
+     * list products
      * @param orgId Organization ID
+     * @param [partner] filter by partner
+     * @param [limit] List pagination size, default 100, max value is 1000
+     * @param [offset] List pagination offset, default 0
      */
-    public listProductsByOrganizationWithHttpInfo(orgId: string, _options?: Configuration): Observable<HttpInfo<Array<WorkloadProduct>>> {
-        const requestContextPromise = this.requestFactory.listProductsByOrganization(orgId, _options);
+    public listProductsWithHttpInfo(orgId: string, partner?: 'AWS' | 'AZURE' | 'GCP' | 'STRIPE', limit?: number, offset?: number, _options?: Configuration): Observable<HttpInfo<Array<WorkloadProduct>>> {
+        const requestContextPromise = this.requestFactory.listProducts(orgId, partner, limit, offset, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -3789,17 +3792,20 @@ export class ObservableProductApi {
                 for (const middleware of this.configuration.middleware) {
                     middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
                 }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.listProductsByOrganizationWithHttpInfo(rsp)));
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.listProductsWithHttpInfo(rsp)));
             }));
     }
 
     /**
      * list all products under the given organization
-     * list products by organization
+     * list products
      * @param orgId Organization ID
+     * @param [partner] filter by partner
+     * @param [limit] List pagination size, default 100, max value is 1000
+     * @param [offset] List pagination offset, default 0
      */
-    public listProductsByOrganization(orgId: string, _options?: Configuration): Observable<Array<WorkloadProduct>> {
-        return this.listProductsByOrganizationWithHttpInfo(orgId, _options).pipe(map((apiResponse: HttpInfo<Array<WorkloadProduct>>) => apiResponse.data));
+    public listProducts(orgId: string, partner?: 'AWS' | 'AZURE' | 'GCP' | 'STRIPE', limit?: number, offset?: number, _options?: Configuration): Observable<Array<WorkloadProduct>> {
+        return this.listProductsWithHttpInfo(orgId, partner, limit, offset, _options).pipe(map((apiResponse: HttpInfo<Array<WorkloadProduct>>) => apiResponse.data));
     }
 
     /**

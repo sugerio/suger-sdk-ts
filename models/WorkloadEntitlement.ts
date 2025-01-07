@@ -36,6 +36,7 @@ export class WorkloadEntitlement {
     'offerID'?: string;
     'organizationID'?: string;
     'partner'?: Partner;
+    'partnerID'?: string;
     'productID'?: string;
     'service'?: PartnerService;
     'startTime'?: Date;
@@ -135,6 +136,12 @@ export class WorkloadEntitlement {
             "name": "partner",
             "baseName": "partner",
             "type": "Partner",
+            "format": ""
+        },
+        {
+            "name": "partnerID",
+            "baseName": "partnerID",
+            "type": "string",
             "format": ""
         },
         {

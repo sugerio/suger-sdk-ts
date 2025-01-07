@@ -28,7 +28,6 @@ test("test get offer by offerId", async () => {
     const configurationParameters = {
         baseServer: server, // First server is default
         authMethods: authConfig, // No auth is default
-        promiseMiddleware: [new Test()],
     }
     const configuration = createConfiguration(configurationParameters);
     const offerApi = new OfferApi(configuration);

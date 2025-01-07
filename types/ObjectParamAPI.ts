@@ -3995,14 +3995,35 @@ export interface ProductApiListProductMeteringDimensionsRequest {
     productId: string
 }
 
-export interface ProductApiListProductsByOrganizationRequest {
+export interface ProductApiListProductsRequest {
     /**
      * Organization ID
      * Defaults to: undefined
      * @type string
-     * @memberof ProductApilistProductsByOrganization
+     * @memberof ProductApilistProducts
      */
     orgId: string
+    /**
+     * filter by partner
+     * Defaults to: undefined
+     * @type &#39;AWS&#39; | &#39;AZURE&#39; | &#39;GCP&#39; | &#39;STRIPE&#39;
+     * @memberof ProductApilistProducts
+     */
+    partner?: 'AWS' | 'AZURE' | 'GCP' | 'STRIPE'
+    /**
+     * List pagination size, default 100, max value is 1000
+     * Defaults to: undefined
+     * @type number
+     * @memberof ProductApilistProducts
+     */
+    limit?: number
+    /**
+     * List pagination offset, default 0
+     * Defaults to: undefined
+     * @type number
+     * @memberof ProductApilistProducts
+     */
+    offset?: number
 }
 
 export interface ProductApiListProductsByPartnerRequest {
@@ -4213,20 +4234,20 @@ export class ObjectProductApi {
 
     /**
      * list all products under the given organization
-     * list products by organization
+     * list products
      * @param param the request object
      */
-    public listProductsByOrganizationWithHttpInfo(param: ProductApiListProductsByOrganizationRequest, options?: Configuration): Promise<HttpInfo<Array<WorkloadProduct>>> {
-        return this.api.listProductsByOrganizationWithHttpInfo(param.orgId,  options).toPromise();
+    public listProductsWithHttpInfo(param: ProductApiListProductsRequest, options?: Configuration): Promise<HttpInfo<Array<WorkloadProduct>>> {
+        return this.api.listProductsWithHttpInfo(param.orgId, param.partner, param.limit, param.offset,  options).toPromise();
     }
 
     /**
      * list all products under the given organization
-     * list products by organization
+     * list products
      * @param param the request object
      */
-    public listProductsByOrganization(param: ProductApiListProductsByOrganizationRequest, options?: Configuration): Promise<Array<WorkloadProduct>> {
-        return this.api.listProductsByOrganization(param.orgId,  options).toPromise();
+    public listProducts(param: ProductApiListProductsRequest, options?: Configuration): Promise<Array<WorkloadProduct>> {
+        return this.api.listProducts(param.orgId, param.partner, param.limit, param.offset,  options).toPromise();
     }
 
     /**

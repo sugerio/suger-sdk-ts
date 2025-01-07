@@ -29,6 +29,7 @@ export class WorkloadProduct {
     'name'?: string;
     'organizationID'?: string;
     'partner'?: Partner;
+    'partnerID'?: string;
     'productType'?: WorkloadProductProductTypeEnum;
     'service'?: PartnerService;
     'status'?: string;
@@ -108,6 +109,12 @@ export class WorkloadProduct {
             "name": "partner",
             "baseName": "partner",
             "type": "Partner",
+            "format": ""
+        },
+        {
+            "name": "partnerID",
+            "baseName": "partnerID",
+            "type": "string",
             "format": ""
         },
         {

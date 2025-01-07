@@ -270,16 +270,22 @@ export class ProductApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
      * list all products under the given organization
-     * list products by organization
+     * list products
      * @param orgId Organization ID
+     * @param partner filter by partner
+     * @param limit List pagination size, default 100, max value is 1000
+     * @param offset List pagination offset, default 0
      */
-    public async listProductsByOrganization(orgId: string, _options?: Configuration): Promise<RequestContext> {
+    public async listProducts(orgId: string, partner?: 'AWS' | 'AZURE' | 'GCP' | 'STRIPE', limit?: number, offset?: number, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'orgId' is not null or undefined
         if (orgId === null || orgId === undefined) {
-            throw new RequiredError("ProductApi", "listProductsByOrganization", "orgId");
+            throw new RequiredError("ProductApi", "listProducts", "orgId");
         }
+
+
+
 
 
         // Path Params
@@ -289,6 +295,21 @@ export class ProductApiRequestFactory extends BaseAPIRequestFactory {
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+        // Query Params
+        if (partner !== undefined) {
+            requestContext.setQueryParam("partner", ObjectSerializer.serialize(partner, "'AWS' | 'AZURE' | 'GCP' | 'STRIPE'", ""));
+        }
+
+        // Query Params
+        if (limit !== undefined) {
+            requestContext.setQueryParam("limit", ObjectSerializer.serialize(limit, "number", ""));
+        }
+
+        // Query Params
+        if (offset !== undefined) {
+            requestContext.setQueryParam("offset", ObjectSerializer.serialize(offset, "number", ""));
+        }
 
 
         let authMethod: SecurityAuthentication | undefined;
@@ -852,10 +873,10 @@ export class ProductApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to listProductsByOrganization
+     * @params response Response returned by the server for a request to listProducts
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async listProductsByOrganizationWithHttpInfo(response: ResponseContext): Promise<HttpInfo<Array<WorkloadProduct> >> {
+     public async listProductsWithHttpInfo(response: ResponseContext): Promise<HttpInfo<Array<WorkloadProduct> >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: Array<WorkloadProduct> = ObjectSerializer.deserialize(

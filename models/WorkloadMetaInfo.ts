@@ -44,11 +44,11 @@ export class WorkloadMetaInfo {
     */
     'cppoInOfferId'?: string;
     /**
-    * The Suger CPPO offer ID.
+    * The Suger CPPO offer ID. Reseller to end buyer
     */
     'cppoOfferId'?: string;
     /**
-    * The Suger CPPO_OUT offer ID.
+    * The Suger CPPO_OUT offer ID. ISV to reseller
     */
     'cppoOutOfferId'?: string;
     /**

@@ -41,6 +41,7 @@ export class WorkloadOffer {
     'offerType'?: OfferType;
     'organizationID'?: string;
     'partner'?: Partner;
+    'partnerID'?: string;
     'productID'?: string;
     'service'?: PartnerService;
     'status'?: OfferStatus;
@@ -144,6 +145,12 @@ export class WorkloadOffer {
             "name": "partner",
             "baseName": "partner",
             "type": "Partner",
+            "format": ""
+        },
+        {
+            "name": "partnerID",
+            "baseName": "partnerID",
+            "type": "string",
             "format": ""
         },
         {
