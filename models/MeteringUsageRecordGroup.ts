@@ -23,6 +23,10 @@ export class MeteringUsageRecordGroup {
     'organizationID'?: string;
     'partner'?: MeteringUsageRecordGroupPartnerEnum;
     'records'?: { [key: string]: number; };
+    /**
+    * nullable
+    */
+    'reportedTime'?: Date;
     'serialID'?: number;
     'status'?: string;
     'usageRecordReportID'?: string;
@@ -85,6 +89,12 @@ export class MeteringUsageRecordGroup {
             "baseName": "records",
             "type": "{ [key: string]: number; }",
             "format": ""
+        },
+        {
+            "name": "reportedTime",
+            "baseName": "reportedTime",
+            "type": "Date",
+            "format": "date-time"
         },
         {
             "name": "serialID",

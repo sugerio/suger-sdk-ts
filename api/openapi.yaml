@@ -21799,7 +21799,12 @@ components:
     ListUsageRecordGroupsResponse:
       example:
         usageRecordGroups:
-        - organizationID: organizationID
+        - creationTime: 2000-01-23T04:56:07.000+00:00
+          records:
+            key: 7.061401241503109
+          entitlementID: entitlementID
+          buyerID: buyerID
+          organizationID: organizationID
           metaInfo:
             lagoAmount: 6.027456183070403
             lagoSubscriptionID: lagoSubscriptionID
@@ -21822,18 +21827,19 @@ components:
             source: "{}"
             metronomeInvoiceID: metronomeInvoiceID
             timestamp: 2000-01-23T04:56:07.000+00:00
-          creationTime: 2000-01-23T04:56:07.000+00:00
           partner: AWS
-          records:
-            key: 7.061401241503109
           serialID: 9
           usageRecordReportID: usageRecordReportID
-          entitlementID: entitlementID
           id: id
-          buyerID: buyerID
           lastUpdateTime: 2000-01-23T04:56:07.000+00:00
+          reportedTime: 2000-01-23T04:56:07.000+00:00
           status: status
-        - organizationID: organizationID
+        - creationTime: 2000-01-23T04:56:07.000+00:00
+          records:
+            key: 7.061401241503109
+          entitlementID: entitlementID
+          buyerID: buyerID
+          organizationID: organizationID
           metaInfo:
             lagoAmount: 6.027456183070403
             lagoSubscriptionID: lagoSubscriptionID
@@ -21856,16 +21862,12 @@ components:
             source: "{}"
             metronomeInvoiceID: metronomeInvoiceID
             timestamp: 2000-01-23T04:56:07.000+00:00
-          creationTime: 2000-01-23T04:56:07.000+00:00
           partner: AWS
-          records:
-            key: 7.061401241503109
           serialID: 9
           usageRecordReportID: usageRecordReportID
-          entitlementID: entitlementID
           id: id
-          buyerID: buyerID
           lastUpdateTime: 2000-01-23T04:56:07.000+00:00
+          reportedTime: 2000-01-23T04:56:07.000+00:00
           status: status
         nextOffset: 0
       properties:
@@ -22226,6 +22228,11 @@ components:
       type: object
     MeteringUsageRecordGroup:
       example:
+        creationTime: 2000-01-23T04:56:07.000+00:00
+        records:
+          key: 7.061401241503109
+        entitlementID: entitlementID
+        buyerID: buyerID
         organizationID: organizationID
         metaInfo:
           lagoAmount: 6.027456183070403
@@ -22249,16 +22256,12 @@ components:
           source: "{}"
           metronomeInvoiceID: metronomeInvoiceID
           timestamp: 2000-01-23T04:56:07.000+00:00
-        creationTime: 2000-01-23T04:56:07.000+00:00
         partner: AWS
-        records:
-          key: 7.061401241503109
         serialID: 9
         usageRecordReportID: usageRecordReportID
-        entitlementID: entitlementID
         id: id
-        buyerID: buyerID
         lastUpdateTime: 2000-01-23T04:56:07.000+00:00
+        reportedTime: 2000-01-23T04:56:07.000+00:00
         status: status
       properties:
         buyerID:
@@ -22287,6 +22290,10 @@ components:
           additionalProperties:
             type: number
           type: object
+        reportedTime:
+          description: nullable
+          format: date-time
+          type: string
         serialID:
           type: integer
         status:
