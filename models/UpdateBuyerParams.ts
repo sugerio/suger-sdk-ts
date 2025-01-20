@@ -47,6 +47,10 @@ export class UpdateBuyerParams {
     * Optional. PaymentConfig of the buyer. The currency can\'t be updated.
     */
     'paymentConfig'?: PaymentConfig;
+    /**
+    * The Stripe Customer ID of the buyer. If not provided, the Stripe Customer ID will not be updated.
+    */
+    'stripeCustomerId'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -99,6 +103,12 @@ export class UpdateBuyerParams {
             "name": "paymentConfig",
             "baseName": "paymentConfig",
             "type": "PaymentConfig",
+            "format": ""
+        },
+        {
+            "name": "stripeCustomerId",
+            "baseName": "stripeCustomerId",
+            "type": "string",
             "format": ""
         }    ];
 

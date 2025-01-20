@@ -455,6 +455,7 @@ import { TypesUsageRecordResultStatus } from '../models/TypesUsageRecordResultSt
 import { UniqueCountAggregationResult } from '../models/UniqueCountAggregationResult';
 import { UpdateBillableMetricParams } from '../models/UpdateBillableMetricParams';
 import { UpdateBuyerParams } from '../models/UpdateBuyerParams';
+import { UpdateInvoiceInfoRequest } from '../models/UpdateInvoiceInfoRequest';
 import { UpdateProductParams } from '../models/UpdateProductParams';
 import { UpdateSupportTicketRequest } from '../models/UpdateSupportTicketRequest';
 import { UsageCount } from '../models/UsageCount';
@@ -904,6 +905,36 @@ export interface BillingApiUpdateAddonRequest {
     data: CreateAndUpdateAddonParams
 }
 
+export interface BillingApiUpdateInvoiceInfoRequest {
+    /**
+     * Organization ID
+     * Defaults to: undefined
+     * @type string
+     * @memberof BillingApiupdateInvoiceInfo
+     */
+    orgId: string
+    /**
+     * Entitlement ID
+     * Defaults to: undefined
+     * @type string
+     * @memberof BillingApiupdateInvoiceInfo
+     */
+    entitlementId: string
+    /**
+     * Invoice ID
+     * Defaults to: undefined
+     * @type string
+     * @memberof BillingApiupdateInvoiceInfo
+     */
+    invoiceId: string
+    /**
+     * Update Invoice Info Request Params
+     * @type UpdateInvoiceInfoRequest
+     * @memberof BillingApiupdateInvoiceInfo
+     */
+    data: UpdateInvoiceInfoRequest
+}
+
 export interface BillingApiVoidInvoiceRequest {
     /**
      * Organization ID
@@ -1152,6 +1183,24 @@ export class ObjectBillingApi {
     }
 
     /**
+     * Update a draft invoice. Only DueDate, OverallDiscount, and Memo can be updated.
+     * Update invoice info
+     * @param param the request object
+     */
+    public updateInvoiceInfoWithHttpInfo(param: BillingApiUpdateInvoiceInfoRequest, options?: Configuration): Promise<HttpInfo<BillingInvoiceInfo>> {
+        return this.api.updateInvoiceInfoWithHttpInfo(param.orgId, param.entitlementId, param.invoiceId, param.data,  options).toPromise();
+    }
+
+    /**
+     * Update a draft invoice. Only DueDate, OverallDiscount, and Memo can be updated.
+     * Update invoice info
+     * @param param the request object
+     */
+    public updateInvoiceInfo(param: BillingApiUpdateInvoiceInfoRequest, options?: Configuration): Promise<BillingInvoiceInfo> {
+        return this.api.updateInvoiceInfo(param.orgId, param.entitlementId, param.invoiceId, param.data,  options).toPromise();
+    }
+
+    /**
      * Void the invoice. It can be used for manual void or cancel the invoice.
      * void invoice
      * @param param the request object
@@ -1311,6 +1360,13 @@ export interface BuyerApiListBuyersRequest {
      * @memberof BuyerApilistBuyers
      */
     contactId?: string
+    /**
+     * filter by awsAccountId
+     * Defaults to: undefined
+     * @type string
+     * @memberof BuyerApilistBuyers
+     */
+    awsAccountId?: string
     /**
      * List pagination size, default 1000, max value is 1000
      * Defaults to: undefined
@@ -1519,7 +1575,7 @@ export class ObjectBuyerApi {
      * @param param the request object
      */
     public listBuyersWithHttpInfo(param: BuyerApiListBuyersRequest, options?: Configuration): Promise<HttpInfo<Array<IdentityBuyer>>> {
-        return this.api.listBuyersWithHttpInfo(param.orgId, param.partner, param.contactId, param.limit, param.offset,  options).toPromise();
+        return this.api.listBuyersWithHttpInfo(param.orgId, param.partner, param.contactId, param.awsAccountId, param.limit, param.offset,  options).toPromise();
     }
 
     /**
@@ -1528,7 +1584,7 @@ export class ObjectBuyerApi {
      * @param param the request object
      */
     public listBuyers(param: BuyerApiListBuyersRequest, options?: Configuration): Promise<Array<IdentityBuyer>> {
-        return this.api.listBuyers(param.orgId, param.partner, param.contactId, param.limit, param.offset,  options).toPromise();
+        return this.api.listBuyers(param.orgId, param.partner, param.contactId, param.awsAccountId, param.limit, param.offset,  options).toPromise();
     }
 
     /**

@@ -664,6 +664,11 @@ paths:
         name: contactId
         schema:
           type: string
+      - description: filter by awsAccountId
+        in: query
+        name: awsAccountId
+        schema:
+          type: string
       - description: "List pagination size, default 1000, max value is 1000"
         in: query
         name: limit
@@ -2505,6 +2510,65 @@ paths:
       summary: get invoice
       tags:
       - Billing
+      x-accepts:
+      - application/json
+  /org/{orgId}/entitlement/{entitlementId}/invoice/{invoiceId}/info:
+    patch:
+      description: "Update a draft invoice. Only DueDate, OverallDiscount, and Memo\
+        \ can be updated."
+      operationId: UpdateInvoiceInfo
+      parameters:
+      - description: Organization ID
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+      - description: Entitlement ID
+        in: path
+        name: entitlementId
+        required: true
+        schema:
+          type: string
+      - description: Invoice ID
+        in: path
+        name: invoiceId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateInvoiceInfoRequest'
+        description: Update Invoice Info Request Params
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillingInvoiceInfo'
+          description: Updated Invoice info
+        "400":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Bad request error
+        "500":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Internal server error
+      security:
+      - APIKeyAuth: []
+      summary: Update invoice info
+      tags:
+      - Billing
+      x-codegen-request-body-name: data
+      x-content-type: application/json
       x-accepts:
       - application/json
   /org/{orgId}/entitlement/{entitlementId}/invoice/{invoiceId}/issue:
@@ -14218,9 +14282,9 @@ components:
     BillableDimensionPriceModelDetail:
       example:
         discountExpression: discountExpression
-        amount: 2.3021358869347655
-        quantity: 9.301444243932576
-        minimumCommit: 7.061401241503109
+        amount: 5.637376656633329
+        quantity: 7.061401241503109
+        minimumCommit: 2.3021358869347655
         name: name
         discount: "{}"
         details:
@@ -14289,7 +14353,7 @@ components:
         date: date
         uniquePropertyItems:
           key: ""
-        quantity: 6.84685269835264
+        quantity: 1.1730742509559433
         billableMetricKey:
           groupBysExpression: groupBysExpression
           id: id
@@ -14611,8 +14675,7 @@ components:
         startDate: 2000-01-23T04:56:07.000+00:00
         info:
           netTermsInDays: 1
-          trialPeriodInDays: 1
-          amount: 5.637376656633329
+          trialPeriodInDays: 7
           addonDetail:
             amount: 0.8008281904610115
             name: name
@@ -14620,17 +14683,17 @@ components:
             chargeOn: 2000-01-23T04:56:07.000+00:00
             id: id
           commitsRevenueDetails:
-          - amount: 3.616076749251911
+          - amount: 9.301444243932576
             expression: expression
-            quantity: 2
-            rate: 4.145608029883936
+            quantity: 3
+            rate: 2.027123023002322
             name: name
             description: description
             key: key
-          - amount: 3.616076749251911
+          - amount: 9.301444243932576
             expression: expression
-            quantity: 2
-            rate: 4.145608029883936
+            quantity: 3
+            rate: 2.027123023002322
             name: name
             description: description
             key: key
@@ -14650,6 +14713,7 @@ components:
           gracePeriodInDays: 7
           memo: memo
           creationDate: 2000-01-23T04:56:07.000+00:00
+          subtotalAmount: 1.4894159098541704
           addFixedFees:
           - reason: reason
             quantity: 0
@@ -14665,9 +14729,9 @@ components:
           adjustOverallMinimumSpend: "{}"
           billableDimensionDetails:
           - discountExpression: discountExpression
-            amount: 2.3021358869347655
-            quantity: 9.301444243932576
-            minimumCommit: 7.061401241503109
+            amount: 5.637376656633329
+            quantity: 7.061401241503109
+            minimumCommit: 2.3021358869347655
             name: name
             discount: "{}"
             details:
@@ -14680,9 +14744,9 @@ components:
             isTrial: true
             minimumCommitScope: "{}"
           - discountExpression: discountExpression
-            amount: 2.3021358869347655
-            quantity: 9.301444243932576
-            minimumCommit: 7.061401241503109
+            amount: 5.637376656633329
+            quantity: 7.061401241503109
+            minimumCommit: 2.3021358869347655
             name: name
             discount: "{}"
             details:
@@ -14702,17 +14766,18 @@ components:
           - date: date
             uniquePropertyItems:
               key: ""
-            quantity: 6.84685269835264
+            quantity: 1.1730742509559433
             billableMetricKey:
               groupBysExpression: groupBysExpression
               id: id
           - date: date
             uniquePropertyItems:
               key: ""
-            quantity: 6.84685269835264
+            quantity: 1.1730742509559433
             billableMetricKey:
               groupBysExpression: groupBysExpression
               id: id
+          dueAmount: 4.145608029883936
           currency: currency
           adjustMinimumSpendByDimensions:
           - minimumSpend: 5.962133916683182
@@ -14723,6 +14788,7 @@ components:
             dimensionKey: dimensionKey
           issueDate: 2000-01-23T04:56:07.000+00:00
           receiptUrl: receiptUrl
+          taxAmount: 6.84685269835264
           spaUrl: spaUrl
         lastUpdateTime: 2000-01-23T04:56:07.000+00:00
         status: DRAFT
@@ -14766,8 +14832,7 @@ components:
     BillingInvoiceInfo:
       example:
         netTermsInDays: 1
-        trialPeriodInDays: 1
-        amount: 5.637376656633329
+        trialPeriodInDays: 7
         addonDetail:
           amount: 0.8008281904610115
           name: name
@@ -14775,17 +14840,17 @@ components:
           chargeOn: 2000-01-23T04:56:07.000+00:00
           id: id
         commitsRevenueDetails:
-        - amount: 3.616076749251911
+        - amount: 9.301444243932576
           expression: expression
-          quantity: 2
-          rate: 4.145608029883936
+          quantity: 3
+          rate: 2.027123023002322
           name: name
           description: description
           key: key
-        - amount: 3.616076749251911
+        - amount: 9.301444243932576
           expression: expression
-          quantity: 2
-          rate: 4.145608029883936
+          quantity: 3
+          rate: 2.027123023002322
           name: name
           description: description
           key: key
@@ -14805,6 +14870,7 @@ components:
         gracePeriodInDays: 7
         memo: memo
         creationDate: 2000-01-23T04:56:07.000+00:00
+        subtotalAmount: 1.4894159098541704
         addFixedFees:
         - reason: reason
           quantity: 0
@@ -14820,9 +14886,9 @@ components:
         adjustOverallMinimumSpend: "{}"
         billableDimensionDetails:
         - discountExpression: discountExpression
-          amount: 2.3021358869347655
-          quantity: 9.301444243932576
-          minimumCommit: 7.061401241503109
+          amount: 5.637376656633329
+          quantity: 7.061401241503109
+          minimumCommit: 2.3021358869347655
           name: name
           discount: "{}"
           details:
@@ -14835,9 +14901,9 @@ components:
           isTrial: true
           minimumCommitScope: "{}"
         - discountExpression: discountExpression
-          amount: 2.3021358869347655
-          quantity: 9.301444243932576
-          minimumCommit: 7.061401241503109
+          amount: 5.637376656633329
+          quantity: 7.061401241503109
+          minimumCommit: 2.3021358869347655
           name: name
           discount: "{}"
           details:
@@ -14857,17 +14923,18 @@ components:
         - date: date
           uniquePropertyItems:
             key: ""
-          quantity: 6.84685269835264
+          quantity: 1.1730742509559433
           billableMetricKey:
             groupBysExpression: groupBysExpression
             id: id
         - date: date
           uniquePropertyItems:
             key: ""
-          quantity: 6.84685269835264
+          quantity: 1.1730742509559433
           billableMetricKey:
             groupBysExpression: groupBysExpression
             id: id
+        dueAmount: 4.145608029883936
         currency: currency
         adjustMinimumSpendByDimensions:
         - minimumSpend: 5.962133916683182
@@ -14878,6 +14945,7 @@ components:
           dimensionKey: dimensionKey
         issueDate: 2000-01-23T04:56:07.000+00:00
         receiptUrl: receiptUrl
+        taxAmount: 6.84685269835264
         spaUrl: spaUrl
       properties:
         addFixedFees:
@@ -14913,8 +14981,6 @@ components:
             add or adjust overall minimum spend
             calculate each dimension's minimum spend first, then apply the overall minimum spend
           type: object
-        amount:
-          type: number
         billableDimensionDetails:
           items:
             $ref: '#/components/schemas/BillableDimensionPriceModelDetail'
@@ -14936,6 +15002,9 @@ components:
           type: string
         description:
           type: string
+        dueAmount:
+          description: Due amount = SubtotalAmount + TaxAmount - AdjustOverallDiscount
+          type: number
         dueDate:
           description: DueDate = IssueDate + NetTerm
           format: date-time
@@ -14962,6 +15031,11 @@ components:
         spaUrl:
           description: SPA url with JWT.
           type: string
+        subtotalAmount:
+          description: Subtotal amount calculated from the user usage.
+          type: number
+        taxAmount:
+          type: number
         trialPeriodInDays:
           description: Trial period in number of days
           type: integer
@@ -15386,6 +15460,7 @@ components:
         fields:
           key: ""
         metronomeCustomerId: metronomeCustomerId
+        stripeCustomerId: stripeCustomerId
         disbursedAmount: 6.027456183070403
         spaUrl: spaUrl
       properties:
@@ -15464,6 +15539,10 @@ components:
           - $ref: '#/components/schemas/StripeCustomer'
           description: Buyer as Customer on Stripe
           type: object
+        stripeCustomerId:
+          description: The stripe customer ID for the buyer if it is connected to
+            a stripe customer.
+          type: string
       type: object
     CancellationSchedule:
       example:
@@ -15593,10 +15672,10 @@ components:
       - CommitDimensionType_PER_USER
     CommitRevenueDetail:
       example:
-        amount: 3.616076749251911
+        amount: 9.301444243932576
         expression: expression
-        quantity: 2
-        rate: 4.145608029883936
+        quantity: 3
+        rate: 2.027123023002322
         name: name
         description: description
         key: key
@@ -16846,6 +16925,7 @@ components:
       - USAGE_RECORD_REPORT
       - USER
       - WORKFLOW
+      - WORKFLOW_EXECUTION
       - WORKFLOW_WEBHOOK
       type: string
       x-enum-varnames:
@@ -16875,6 +16955,7 @@ components:
       - EntityType_USAGE_RECORD_REPORT
       - EntityType_USER
       - EntityType_WORKFLOW
+      - EntityType_WORKFLOW_EXECUTION
       - EntityType_WORKFLOW_WEBHOOK
     EulaType:
       enum:
@@ -20713,6 +20794,7 @@ components:
           fields:
             key: ""
           metronomeCustomerId: metronomeCustomerId
+          stripeCustomerId: stripeCustomerId
           disbursedAmount: 6.027456183070403
           spaUrl: spaUrl
         lastUpdateTime: 2000-01-23T04:56:07.000+00:00
@@ -29925,6 +30007,7 @@ components:
         description: description
         lagoCustomerId: lagoCustomerId
         metronomeCustomerId: metronomeCustomerId
+        stripeCustomerId: stripeCustomerId
       properties:
         companyInfo:
           allOf:
@@ -29962,6 +30045,29 @@ components:
           description: Optional. PaymentConfig of the buyer. The currency can't be
             updated.
           type: object
+        stripeCustomerId:
+          description: "The Stripe Customer ID of the buyer. If not provided, the\
+            \ Stripe Customer ID will not be updated."
+          type: string
+      type: object
+    UpdateInvoiceInfoRequest:
+      example:
+        dueDate: dueDate
+        discountAmount: 0.8008281904610115
+        memo: memo
+        discountType: "{}"
+      properties:
+        discountAmount:
+          type: number
+        discountType:
+          allOf:
+          - $ref: '#/components/schemas/BillingDiscountType'
+          description: The overall discount of the invoice.
+          type: object
+        dueDate:
+          type: string
+        memo:
+          type: string
       type: object
     UpdateProductParams:
       example:

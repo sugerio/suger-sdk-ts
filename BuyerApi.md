@@ -405,6 +405,8 @@ const request: BuyerApiListBuyersRequest = {
   partner: "partner_example",
     // filter by contactId (optional)
   contactId: "contactId_example",
+    // filter by awsAccountId (optional)
+  awsAccountId: "awsAccountId_example",
     // List pagination size, default 1000, max value is 1000 (optional)
   limit: 1,
     // List pagination offset, default 0 (optional)
@@ -423,6 +425,7 @@ Name | Type | Description  | Notes
  **orgId** | [**string**] | Organization ID | defaults to undefined
  **partner** | [**string**] | filter by partner | (optional) defaults to undefined
  **contactId** | [**string**] | filter by contactId | (optional) defaults to undefined
+ **awsAccountId** | [**string**] | filter by awsAccountId | (optional) defaults to undefined
  **limit** | [**number**] | List pagination size, default 1000, max value is 1000 | (optional) defaults to undefined
  **offset** | [**number**] | List pagination offset, default 0 | (optional) defaults to undefined
 
@@ -540,6 +543,7 @@ const request: BuyerApiUpdateBuyerRequest = {
     name: "name_example",
     orbCustomerId: "orbCustomerId_example",
     paymentConfig: ,
+    stripeCustomerId: "stripeCustomerId_example",
   },
 };
 

@@ -44,7 +44,6 @@ export class BillingInvoiceInfo {
     * add or adjust overall minimum spend calculate each dimension\'s minimum spend first, then apply the overall minimum spend
     */
     'adjustOverallMinimumSpend'?: InvoiceAdjustOverallMinimumSpend;
-    'amount'?: number;
     'billableDimensionDetails'?: Array<BillableDimensionPriceModelDetail>;
     /**
     * Recurring flat fee for the invoice. There should be only one type fee for each invoice, commits, or usage.
@@ -56,6 +55,10 @@ export class BillingInvoiceInfo {
     'creationDate'?: Date;
     'currency'?: string;
     'description'?: string;
+    /**
+    * Due amount = SubtotalAmount + TaxAmount - AdjustOverallDiscount
+    */
+    'dueAmount'?: number;
     /**
     * DueDate = IssueDate + NetTerm
     */
@@ -82,6 +85,11 @@ export class BillingInvoiceInfo {
     * SPA url with JWT.
     */
     'spaUrl'?: string;
+    /**
+    * Subtotal amount calculated from the user usage.
+    */
+    'subtotalAmount'?: number;
+    'taxAmount'?: number;
     /**
     * Trial period in number of days
     */
@@ -133,12 +141,6 @@ export class BillingInvoiceInfo {
             "format": ""
         },
         {
-            "name": "amount",
-            "baseName": "amount",
-            "type": "number",
-            "format": ""
-        },
-        {
             "name": "billableDimensionDetails",
             "baseName": "billableDimensionDetails",
             "type": "Array<BillableDimensionPriceModelDetail>",
@@ -166,6 +168,12 @@ export class BillingInvoiceInfo {
             "name": "description",
             "baseName": "description",
             "type": "string",
+            "format": ""
+        },
+        {
+            "name": "dueAmount",
+            "baseName": "dueAmount",
+            "type": "number",
             "format": ""
         },
         {
@@ -214,6 +222,18 @@ export class BillingInvoiceInfo {
             "name": "spaUrl",
             "baseName": "spaUrl",
             "type": "string",
+            "format": ""
+        },
+        {
+            "name": "subtotalAmount",
+            "baseName": "subtotalAmount",
+            "type": "number",
+            "format": ""
+        },
+        {
+            "name": "taxAmount",
+            "baseName": "taxAmount",
+            "type": "number",
             "format": ""
         },
         {

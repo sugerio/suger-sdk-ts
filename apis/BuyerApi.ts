@@ -326,16 +326,18 @@ export class BuyerApiRequestFactory extends BaseAPIRequestFactory {
      * @param orgId Organization ID
      * @param partner filter by partner
      * @param contactId filter by contactId
+     * @param awsAccountId filter by awsAccountId
      * @param limit List pagination size, default 1000, max value is 1000
      * @param offset List pagination offset, default 0
      */
-    public async listBuyers(orgId: string, partner?: string, contactId?: string, limit?: number, offset?: number, _options?: Configuration): Promise<RequestContext> {
+    public async listBuyers(orgId: string, partner?: string, contactId?: string, awsAccountId?: string, limit?: number, offset?: number, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'orgId' is not null or undefined
         if (orgId === null || orgId === undefined) {
             throw new RequiredError("BuyerApi", "listBuyers", "orgId");
         }
+
 
 
 
@@ -358,6 +360,11 @@ export class BuyerApiRequestFactory extends BaseAPIRequestFactory {
         // Query Params
         if (contactId !== undefined) {
             requestContext.setQueryParam("contactId", ObjectSerializer.serialize(contactId, "string", ""));
+        }
+
+        // Query Params
+        if (awsAccountId !== undefined) {
+            requestContext.setQueryParam("awsAccountId", ObjectSerializer.serialize(awsAccountId, "string", ""));
         }
 
         // Query Params

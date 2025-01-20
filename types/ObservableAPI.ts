@@ -456,6 +456,7 @@ import { TypesUsageRecordResultStatus } from '../models/TypesUsageRecordResultSt
 import { UniqueCountAggregationResult } from '../models/UniqueCountAggregationResult';
 import { UpdateBillableMetricParams } from '../models/UpdateBillableMetricParams';
 import { UpdateBuyerParams } from '../models/UpdateBuyerParams';
+import { UpdateInvoiceInfoRequest } from '../models/UpdateInvoiceInfoRequest';
 import { UpdateProductParams } from '../models/UpdateProductParams';
 import { UpdateSupportTicketRequest } from '../models/UpdateSupportTicketRequest';
 import { UsageCount } from '../models/UsageCount';
@@ -1064,6 +1065,45 @@ export class ObservableBillingApi {
     }
 
     /**
+     * Update a draft invoice. Only DueDate, OverallDiscount, and Memo can be updated.
+     * Update invoice info
+     * @param orgId Organization ID
+     * @param entitlementId Entitlement ID
+     * @param invoiceId Invoice ID
+     * @param data Update Invoice Info Request Params
+     */
+    public updateInvoiceInfoWithHttpInfo(orgId: string, entitlementId: string, invoiceId: string, data: UpdateInvoiceInfoRequest, _options?: Configuration): Observable<HttpInfo<BillingInvoiceInfo>> {
+        const requestContextPromise = this.requestFactory.updateInvoiceInfo(orgId, entitlementId, invoiceId, data, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.updateInvoiceInfoWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Update a draft invoice. Only DueDate, OverallDiscount, and Memo can be updated.
+     * Update invoice info
+     * @param orgId Organization ID
+     * @param entitlementId Entitlement ID
+     * @param invoiceId Invoice ID
+     * @param data Update Invoice Info Request Params
+     */
+    public updateInvoiceInfo(orgId: string, entitlementId: string, invoiceId: string, data: UpdateInvoiceInfoRequest, _options?: Configuration): Observable<BillingInvoiceInfo> {
+        return this.updateInvoiceInfoWithHttpInfo(orgId, entitlementId, invoiceId, data, _options).pipe(map((apiResponse: HttpInfo<BillingInvoiceInfo>) => apiResponse.data));
+    }
+
+    /**
      * Void the invoice. It can be used for manual void or cancel the invoice.
      * void invoice
      * @param orgId Organization ID
@@ -1338,11 +1378,12 @@ export class ObservableBuyerApi {
      * @param orgId Organization ID
      * @param [partner] filter by partner
      * @param [contactId] filter by contactId
+     * @param [awsAccountId] filter by awsAccountId
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listBuyersWithHttpInfo(orgId: string, partner?: string, contactId?: string, limit?: number, offset?: number, _options?: Configuration): Observable<HttpInfo<Array<IdentityBuyer>>> {
-        const requestContextPromise = this.requestFactory.listBuyers(orgId, partner, contactId, limit, offset, _options);
+    public listBuyersWithHttpInfo(orgId: string, partner?: string, contactId?: string, awsAccountId?: string, limit?: number, offset?: number, _options?: Configuration): Observable<HttpInfo<Array<IdentityBuyer>>> {
+        const requestContextPromise = this.requestFactory.listBuyers(orgId, partner, contactId, awsAccountId, limit, offset, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -1366,11 +1407,12 @@ export class ObservableBuyerApi {
      * @param orgId Organization ID
      * @param [partner] filter by partner
      * @param [contactId] filter by contactId
+     * @param [awsAccountId] filter by awsAccountId
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listBuyers(orgId: string, partner?: string, contactId?: string, limit?: number, offset?: number, _options?: Configuration): Observable<Array<IdentityBuyer>> {
-        return this.listBuyersWithHttpInfo(orgId, partner, contactId, limit, offset, _options).pipe(map((apiResponse: HttpInfo<Array<IdentityBuyer>>) => apiResponse.data));
+    public listBuyers(orgId: string, partner?: string, contactId?: string, awsAccountId?: string, limit?: number, offset?: number, _options?: Configuration): Observable<Array<IdentityBuyer>> {
+        return this.listBuyersWithHttpInfo(orgId, partner, contactId, awsAccountId, limit, offset, _options).pipe(map((apiResponse: HttpInfo<Array<IdentityBuyer>>) => apiResponse.data));
     }
 
     /**

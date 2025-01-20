@@ -452,6 +452,7 @@ export * from '../models/TypesUsageRecordResultStatus';
 export * from '../models/UniqueCountAggregationResult';
 export * from '../models/UpdateBillableMetricParams';
 export * from '../models/UpdateBuyerParams';
+export * from '../models/UpdateInvoiceInfoRequest';
 export * from '../models/UpdateProductParams';
 export * from '../models/UpdateSupportTicketRequest';
 export * from '../models/UsageCount';
@@ -922,6 +923,7 @@ import { TypesUsageRecordResultStatus } from '../models/TypesUsageRecordResultSt
 import { UniqueCountAggregationResult } from '../models/UniqueCountAggregationResult';
 import { UpdateBillableMetricParams    } from '../models/UpdateBillableMetricParams';
 import { UpdateBuyerParams } from '../models/UpdateBuyerParams';
+import { UpdateInvoiceInfoRequest     } from '../models/UpdateInvoiceInfoRequest';
 import { UpdateProductParams } from '../models/UpdateProductParams';
 import { UpdateSupportTicketRequest   } from '../models/UpdateSupportTicketRequest';
 import { UsageCount } from '../models/UsageCount';
@@ -1479,6 +1481,7 @@ let typeMap: {[index: string]: any} = {
     "UniqueCountAggregationResult": UniqueCountAggregationResult,
     "UpdateBillableMetricParams": UpdateBillableMetricParams,
     "UpdateBuyerParams": UpdateBuyerParams,
+    "UpdateInvoiceInfoRequest": UpdateInvoiceInfoRequest,
     "UpdateProductParams": UpdateProductParams,
     "UpdateSupportTicketRequest": UpdateSupportTicketRequest,
     "UsageCount": UsageCount,

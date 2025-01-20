@@ -10,8 +10,10 @@ import {SecurityAuthentication} from '../auth/auth';
 
 import { BillingAddon } from '../models/BillingAddon';
 import { BillingInvoice } from '../models/BillingInvoice';
+import { BillingInvoiceInfo } from '../models/BillingInvoiceInfo';
 import { BillingPaymentTransaction } from '../models/BillingPaymentTransaction';
 import { CreateAndUpdateAddonParams } from '../models/CreateAndUpdateAddonParams';
+import { UpdateInvoiceInfoRequest } from '../models/UpdateInvoiceInfoRequest';
 
 /**
  * no description
@@ -725,6 +727,78 @@ export class BillingApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
+     * Update a draft invoice. Only DueDate, OverallDiscount, and Memo can be updated.
+     * Update invoice info
+     * @param orgId Organization ID
+     * @param entitlementId Entitlement ID
+     * @param invoiceId Invoice ID
+     * @param data Update Invoice Info Request Params
+     */
+    public async updateInvoiceInfo(orgId: string, entitlementId: string, invoiceId: string, data: UpdateInvoiceInfoRequest, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'orgId' is not null or undefined
+        if (orgId === null || orgId === undefined) {
+            throw new RequiredError("BillingApi", "updateInvoiceInfo", "orgId");
+        }
+
+
+        // verify required parameter 'entitlementId' is not null or undefined
+        if (entitlementId === null || entitlementId === undefined) {
+            throw new RequiredError("BillingApi", "updateInvoiceInfo", "entitlementId");
+        }
+
+
+        // verify required parameter 'invoiceId' is not null or undefined
+        if (invoiceId === null || invoiceId === undefined) {
+            throw new RequiredError("BillingApi", "updateInvoiceInfo", "invoiceId");
+        }
+
+
+        // verify required parameter 'data' is not null or undefined
+        if (data === null || data === undefined) {
+            throw new RequiredError("BillingApi", "updateInvoiceInfo", "data");
+        }
+
+
+        // Path Params
+        const localVarPath = '/org/{orgId}/entitlement/{entitlementId}/invoice/{invoiceId}/info'
+            .replace('{' + 'orgId' + '}', encodeURIComponent(String(orgId)))
+            .replace('{' + 'entitlementId' + '}', encodeURIComponent(String(entitlementId)))
+            .replace('{' + 'invoiceId' + '}', encodeURIComponent(String(invoiceId)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.PATCH);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        // Body Params
+        const contentType = ObjectSerializer.getPreferredMediaType([
+            "application/json"
+        ]);
+        requestContext.setHeaderParam("Content-Type", contentType);
+        const serializedBody = ObjectSerializer.stringify(
+            ObjectSerializer.serialize(data, "UpdateInvoiceInfoRequest", ""),
+            contentType
+        );
+        requestContext.setBody(serializedBody);
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["APIKeyAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
      * Void the invoice. It can be used for manual void or cancel the invoice.
      * void invoice
      * @param orgId Organization ID
@@ -1292,6 +1366,49 @@ export class BillingApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "BillingAddon", ""
             ) as BillingAddon;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+
+        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
+    }
+
+    /**
+     * Unwraps the actual response sent by the server from the response context and deserializes the response content
+     * to the expected objects
+     *
+     * @params response Response returned by the server for a request to updateInvoiceInfo
+     * @throws ApiException if the response code was not in [200, 299]
+     */
+     public async updateInvoiceInfoWithHttpInfo(response: ResponseContext): Promise<HttpInfo<BillingInvoiceInfo >> {
+        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
+        if (isCodeInRange("200", response.httpStatusCode)) {
+            const body: BillingInvoiceInfo = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "BillingInvoiceInfo", ""
+            ) as BillingInvoiceInfo;
+            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
+        }
+        if (isCodeInRange("400", response.httpStatusCode)) {
+            const body: string = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "string", ""
+            ) as string;
+            throw new ApiException<string>(response.httpStatusCode, "Bad request error", body, response.headers);
+        }
+        if (isCodeInRange("500", response.httpStatusCode)) {
+            const body: string = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "string", ""
+            ) as string;
+            throw new ApiException<string>(response.httpStatusCode, "Internal server error", body, response.headers);
+        }
+
+        // Work around for missing responses in specification, e.g. for petstore.yaml
+        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
+            const body: BillingInvoiceInfo = ObjectSerializer.deserialize(
+                ObjectSerializer.parse(await response.body.text(), contentType),
+                "BillingInvoiceInfo", ""
+            ) as BillingInvoiceInfo;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 

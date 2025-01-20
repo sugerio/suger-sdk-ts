@@ -16,6 +16,7 @@ Method | HTTP request | Description
 [**listRefundOfPaymentTransaction**](BillingApi.md#listRefundOfPaymentTransaction) | **GET** /org/{orgId}/buyer/{buyerId}/paymentTransaction/{paymentTransactionId}/refund | list refunds.
 [**payInvoice**](BillingApi.md#payInvoice) | **PATCH** /org/{orgId}/entitlement/{entitlementId}/invoice/{invoiceId}/pay | pay invoice
 [**updateAddon**](BillingApi.md#updateAddon) | **PATCH** /org/{orgId}/addon/{addonId} | update addon
+[**updateInvoiceInfo**](BillingApi.md#updateInvoiceInfo) | **PATCH** /org/{orgId}/entitlement/{entitlementId}/invoice/{invoiceId}/info | Update invoice info
 [**voidInvoice**](BillingApi.md#voidInvoice) | **PATCH** /org/{orgId}/entitlement/{entitlementId}/invoice/{invoiceId}/void | void invoice
 
 
@@ -774,6 +775,75 @@ Name | Type | Description  | Notes
 **200** | OK |  -  |
 **400** | Bad request error |  -  |
 **500** | internal error |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **updateInvoiceInfo**
+> BillingInvoiceInfo updateInvoiceInfo(data)
+
+Update a draft invoice. Only DueDate, OverallDiscount, and Memo can be updated.
+
+### Example
+
+
+```typescript
+import { createConfiguration, BillingApi } from '';
+import type { BillingApiUpdateInvoiceInfoRequest } from '';
+
+const configuration = createConfiguration();
+const apiInstance = new BillingApi(configuration);
+
+const request: BillingApiUpdateInvoiceInfoRequest = {
+    // Organization ID
+  orgId: "orgId_example",
+    // Entitlement ID
+  entitlementId: "entitlementId_example",
+    // Invoice ID
+  invoiceId: "invoiceId_example",
+    // Update Invoice Info Request Params
+  data: {
+    discountAmount: 3.14,
+    discountType: ,
+    dueDate: "dueDate_example",
+    memo: "memo_example",
+  },
+};
+
+const data = await apiInstance.updateInvoiceInfo(request);
+console.log('API called successfully. Returned data:', data);
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **data** | **UpdateInvoiceInfoRequest**| Update Invoice Info Request Params |
+ **orgId** | [**string**] | Organization ID | defaults to undefined
+ **entitlementId** | [**string**] | Entitlement ID | defaults to undefined
+ **invoiceId** | [**string**] | Invoice ID | defaults to undefined
+
+
+### Return type
+
+**BillingInvoiceInfo**
+
+### Authorization
+
+[APIKeyAuth](README.md#APIKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Updated Invoice info |  -  |
+**400** | Bad request error |  -  |
+**500** | Internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 

@@ -487,6 +487,7 @@ models/TypesUsageRecordResultStatus.ts
 models/UniqueCountAggregationResult.ts
 models/UpdateBillableMetricParams.ts
 models/UpdateBuyerParams.ts
+models/UpdateInvoiceInfoRequest.ts
 models/UpdateProductParams.ts
 models/UpdateSupportTicketRequest.ts
 models/UsageCount.ts

@@ -93,6 +93,10 @@ export class BuyerInfo {
     * Buyer as Customer on Stripe
     */
     'stripeBuyer'?: StripeCustomer;
+    /**
+    * The stripe customer ID for the buyer if it is connected to a stripe customer.
+    */
+    'stripeCustomerId'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -211,6 +215,12 @@ export class BuyerInfo {
             "name": "stripeBuyer",
             "baseName": "stripeBuyer",
             "type": "StripeCustomer",
+            "format": ""
+        },
+        {
+            "name": "stripeCustomerId",
+            "baseName": "stripeCustomerId",
+            "type": "string",
             "format": ""
         }    ];
 

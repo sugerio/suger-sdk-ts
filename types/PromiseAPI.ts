@@ -455,6 +455,7 @@ import { TypesUsageRecordResultStatus } from '../models/TypesUsageRecordResultSt
 import { UniqueCountAggregationResult } from '../models/UniqueCountAggregationResult';
 import { UpdateBillableMetricParams } from '../models/UpdateBillableMetricParams';
 import { UpdateBuyerParams } from '../models/UpdateBuyerParams';
+import { UpdateInvoiceInfoRequest } from '../models/UpdateInvoiceInfoRequest';
 import { UpdateProductParams } from '../models/UpdateProductParams';
 import { UpdateSupportTicketRequest } from '../models/UpdateSupportTicketRequest';
 import { UsageCount } from '../models/UsageCount';
@@ -866,6 +867,32 @@ export class PromiseBillingApi {
     }
 
     /**
+     * Update a draft invoice. Only DueDate, OverallDiscount, and Memo can be updated.
+     * Update invoice info
+     * @param orgId Organization ID
+     * @param entitlementId Entitlement ID
+     * @param invoiceId Invoice ID
+     * @param data Update Invoice Info Request Params
+     */
+    public updateInvoiceInfoWithHttpInfo(orgId: string, entitlementId: string, invoiceId: string, data: UpdateInvoiceInfoRequest, _options?: Configuration): Promise<HttpInfo<BillingInvoiceInfo>> {
+        const result = this.api.updateInvoiceInfoWithHttpInfo(orgId, entitlementId, invoiceId, data, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Update a draft invoice. Only DueDate, OverallDiscount, and Memo can be updated.
+     * Update invoice info
+     * @param orgId Organization ID
+     * @param entitlementId Entitlement ID
+     * @param invoiceId Invoice ID
+     * @param data Update Invoice Info Request Params
+     */
+    public updateInvoiceInfo(orgId: string, entitlementId: string, invoiceId: string, data: UpdateInvoiceInfoRequest, _options?: Configuration): Promise<BillingInvoiceInfo> {
+        const result = this.api.updateInvoiceInfo(orgId, entitlementId, invoiceId, data, _options);
+        return result.toPromise();
+    }
+
+    /**
      * Void the invoice. It can be used for manual void or cancel the invoice.
      * void invoice
      * @param orgId Organization ID
@@ -1050,11 +1077,12 @@ export class PromiseBuyerApi {
      * @param orgId Organization ID
      * @param [partner] filter by partner
      * @param [contactId] filter by contactId
+     * @param [awsAccountId] filter by awsAccountId
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listBuyersWithHttpInfo(orgId: string, partner?: string, contactId?: string, limit?: number, offset?: number, _options?: Configuration): Promise<HttpInfo<Array<IdentityBuyer>>> {
-        const result = this.api.listBuyersWithHttpInfo(orgId, partner, contactId, limit, offset, _options);
+    public listBuyersWithHttpInfo(orgId: string, partner?: string, contactId?: string, awsAccountId?: string, limit?: number, offset?: number, _options?: Configuration): Promise<HttpInfo<Array<IdentityBuyer>>> {
+        const result = this.api.listBuyersWithHttpInfo(orgId, partner, contactId, awsAccountId, limit, offset, _options);
         return result.toPromise();
     }
 
@@ -1064,11 +1092,12 @@ export class PromiseBuyerApi {
      * @param orgId Organization ID
      * @param [partner] filter by partner
      * @param [contactId] filter by contactId
+     * @param [awsAccountId] filter by awsAccountId
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listBuyers(orgId: string, partner?: string, contactId?: string, limit?: number, offset?: number, _options?: Configuration): Promise<Array<IdentityBuyer>> {
-        const result = this.api.listBuyers(orgId, partner, contactId, limit, offset, _options);
+    public listBuyers(orgId: string, partner?: string, contactId?: string, awsAccountId?: string, limit?: number, offset?: number, _options?: Configuration): Promise<Array<IdentityBuyer>> {
+        const result = this.api.listBuyers(orgId, partner, contactId, awsAccountId, limit, offset, _options);
         return result.toPromise();
     }
 
