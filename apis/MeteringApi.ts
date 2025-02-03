@@ -380,7 +380,7 @@ export class MeteringApiRequestFactory extends BaseAPIRequestFactory {
      * @param limit List pagination size, default 1000, max value is 1000
      * @param offset List pagination offset, default 0
      */
-    public async listUsageRecordGroups(orgId: string, partner?: 'AWS' | 'AZURE' | 'GCP', buyerId?: string, entitlementId?: string, status?: 'CREATED' | 'DELETED' | 'INVALID' | 'REPORTED' | 'REPORT_PENDING' | 'REPORT_FAILED', source?: '' | 'API' | 'INTERNAL' | 'METRONOME' | 'ORB' | 'LAGO', metaInfo?: string, startDate?: string, endDate?: string, limit?: number, offset?: number, _options?: Configuration): Promise<RequestContext> {
+    public async listUsageRecordGroups(orgId: string, partner?: 'AWS' | 'AZURE' | 'GCP', buyerId?: string, entitlementId?: string, status?: 'CREATED' | 'DELETED' | 'INVALID' | 'REPORTED' | 'REPORT_PENDING' | 'REPORT_FAILED', source?: '' | 'API' | 'INTERNAL' | 'LAGO' | 'METRONOME' | 'ORB' | 'STRIPE', metaInfo?: string, startDate?: string, endDate?: string, limit?: number, offset?: number, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'orgId' is not null or undefined
@@ -429,7 +429,7 @@ export class MeteringApiRequestFactory extends BaseAPIRequestFactory {
 
         // Query Params
         if (source !== undefined) {
-            requestContext.setQueryParam("source", ObjectSerializer.serialize(source, "'' | 'API' | 'INTERNAL' | 'METRONOME' | 'ORB' | 'LAGO'", ""));
+            requestContext.setQueryParam("source", ObjectSerializer.serialize(source, "'' | 'API' | 'INTERNAL' | 'LAGO' | 'METRONOME' | 'ORB' | 'STRIPE'", ""));
         }
 
         // Query Params

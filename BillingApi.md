@@ -345,6 +345,10 @@ const request: BillingApiIssueInvoiceRequest = {
   entitlementId: "entitlementId_example",
     // Invoice ID
   invoiceId: "invoiceId_example",
+    // List of Contact IDs (optional)
+  contactIds: [
+    "contactIds_example",
+  ],
 };
 
 const data = await apiInstance.issueInvoice(request);
@@ -356,6 +360,7 @@ console.log('API called successfully. Returned data:', data);
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **contactIds** | **Array<string>**| List of Contact IDs |
  **orgId** | [**string**] | Organization ID | defaults to undefined
  **entitlementId** | [**string**] | Entitlement ID | defaults to undefined
  **invoiceId** | [**string**] | Invoice ID | defaults to undefined
@@ -371,7 +376,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 

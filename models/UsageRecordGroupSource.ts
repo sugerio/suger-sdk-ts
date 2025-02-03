@@ -13,10 +13,11 @@
 import { HttpFile } from '../http/http';
 
 export enum UsageRecordGroupSource {
-    UsageRecordGroupSource_UNKNOWN = '',
-    UsageRecordGroupSource_API = 'API',
-    UsageRecordGroupSource_INTERNAL = 'INTERNAL',
-    UsageRecordGroupSource_METRONOME = 'METRONOME',
-    UsageRecordGroupSource_ORB = 'ORB',
-    UsageRecordGroupSource_LAGO = 'LAGO'
+    UsageRecordGroupSourceUNKNOWN = '',
+    UsageRecordGroupSourceAPI = 'API',
+    UsageRecordGroupSourceINTERNAL = 'INTERNAL',
+    UsageRecordGroupSourceLAGO = 'LAGO',
+    UsageRecordGroupSourceMETRONOME = 'METRONOME',
+    UsageRecordGroupSourceORB = 'ORB',
+    UsageRecordGroupSourceSTRIPE = 'STRIPE'
 }

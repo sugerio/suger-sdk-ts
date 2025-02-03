@@ -795,9 +795,10 @@ export class ObservableBillingApi {
      * @param orgId Organization ID
      * @param entitlementId Entitlement ID
      * @param invoiceId Invoice ID
+     * @param [contactIds] List of Contact IDs
      */
-    public issueInvoiceWithHttpInfo(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Observable<HttpInfo<BillingInvoice>> {
-        const requestContextPromise = this.requestFactory.issueInvoice(orgId, entitlementId, invoiceId, _options);
+    public issueInvoiceWithHttpInfo(orgId: string, entitlementId: string, invoiceId: string, contactIds?: Array<string>, _options?: Configuration): Observable<HttpInfo<BillingInvoice>> {
+        const requestContextPromise = this.requestFactory.issueInvoice(orgId, entitlementId, invoiceId, contactIds, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -821,9 +822,10 @@ export class ObservableBillingApi {
      * @param orgId Organization ID
      * @param entitlementId Entitlement ID
      * @param invoiceId Invoice ID
+     * @param [contactIds] List of Contact IDs
      */
-    public issueInvoice(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Observable<BillingInvoice> {
-        return this.issueInvoiceWithHttpInfo(orgId, entitlementId, invoiceId, _options).pipe(map((apiResponse: HttpInfo<BillingInvoice>) => apiResponse.data));
+    public issueInvoice(orgId: string, entitlementId: string, invoiceId: string, contactIds?: Array<string>, _options?: Configuration): Observable<BillingInvoice> {
+        return this.issueInvoiceWithHttpInfo(orgId, entitlementId, invoiceId, contactIds, _options).pipe(map((apiResponse: HttpInfo<BillingInvoice>) => apiResponse.data));
     }
 
     /**
@@ -2753,7 +2755,7 @@ export class ObservableMeteringApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listUsageRecordGroupsWithHttpInfo(orgId: string, partner?: 'AWS' | 'AZURE' | 'GCP', buyerId?: string, entitlementId?: string, status?: 'CREATED' | 'DELETED' | 'INVALID' | 'REPORTED' | 'REPORT_PENDING' | 'REPORT_FAILED', source?: '' | 'API' | 'INTERNAL' | 'METRONOME' | 'ORB' | 'LAGO', metaInfo?: string, startDate?: string, endDate?: string, limit?: number, offset?: number, _options?: Configuration): Observable<HttpInfo<ListUsageRecordGroupsResponse>> {
+    public listUsageRecordGroupsWithHttpInfo(orgId: string, partner?: 'AWS' | 'AZURE' | 'GCP', buyerId?: string, entitlementId?: string, status?: 'CREATED' | 'DELETED' | 'INVALID' | 'REPORTED' | 'REPORT_PENDING' | 'REPORT_FAILED', source?: '' | 'API' | 'INTERNAL' | 'LAGO' | 'METRONOME' | 'ORB' | 'STRIPE', metaInfo?: string, startDate?: string, endDate?: string, limit?: number, offset?: number, _options?: Configuration): Observable<HttpInfo<ListUsageRecordGroupsResponse>> {
         const requestContextPromise = this.requestFactory.listUsageRecordGroups(orgId, partner, buyerId, entitlementId, status, source, metaInfo, startDate, endDate, limit, offset, _options);
 
         // build promise chain
@@ -2787,7 +2789,7 @@ export class ObservableMeteringApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listUsageRecordGroups(orgId: string, partner?: 'AWS' | 'AZURE' | 'GCP', buyerId?: string, entitlementId?: string, status?: 'CREATED' | 'DELETED' | 'INVALID' | 'REPORTED' | 'REPORT_PENDING' | 'REPORT_FAILED', source?: '' | 'API' | 'INTERNAL' | 'METRONOME' | 'ORB' | 'LAGO', metaInfo?: string, startDate?: string, endDate?: string, limit?: number, offset?: number, _options?: Configuration): Observable<ListUsageRecordGroupsResponse> {
+    public listUsageRecordGroups(orgId: string, partner?: 'AWS' | 'AZURE' | 'GCP', buyerId?: string, entitlementId?: string, status?: 'CREATED' | 'DELETED' | 'INVALID' | 'REPORTED' | 'REPORT_PENDING' | 'REPORT_FAILED', source?: '' | 'API' | 'INTERNAL' | 'LAGO' | 'METRONOME' | 'ORB' | 'STRIPE', metaInfo?: string, startDate?: string, endDate?: string, limit?: number, offset?: number, _options?: Configuration): Observable<ListUsageRecordGroupsResponse> {
         return this.listUsageRecordGroupsWithHttpInfo(orgId, partner, buyerId, entitlementId, status, source, metaInfo, startDate, endDate, limit, offset, _options).pipe(map((apiResponse: HttpInfo<ListUsageRecordGroupsResponse>) => apiResponse.data));
     }
 

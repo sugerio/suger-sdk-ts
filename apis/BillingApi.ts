@@ -294,8 +294,9 @@ export class BillingApiRequestFactory extends BaseAPIRequestFactory {
      * @param orgId Organization ID
      * @param entitlementId Entitlement ID
      * @param invoiceId Invoice ID
+     * @param contactIds List of Contact IDs
      */
-    public async issueInvoice(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Promise<RequestContext> {
+    public async issueInvoice(orgId: string, entitlementId: string, invoiceId: string, contactIds?: Array<string>, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'orgId' is not null or undefined
@@ -316,6 +317,7 @@ export class BillingApiRequestFactory extends BaseAPIRequestFactory {
         }
 
 
+
         // Path Params
         const localVarPath = '/org/{orgId}/entitlement/{entitlementId}/invoice/{invoiceId}/issue'
             .replace('{' + 'orgId' + '}', encodeURIComponent(String(orgId)))
@@ -326,6 +328,17 @@ export class BillingApiRequestFactory extends BaseAPIRequestFactory {
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.PATCH);
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
+
+        // Body Params
+        const contentType = ObjectSerializer.getPreferredMediaType([
+            "application/json"
+        ]);
+        requestContext.setHeaderParam("Content-Type", contentType);
+        const serializedBody = ObjectSerializer.stringify(
+            ObjectSerializer.serialize(contactIds, "Array<string>", ""),
+            contentType
+        );
+        requestContext.setBody(serializedBody);
 
         let authMethod: SecurityAuthentication | undefined;
         // Apply auth methods

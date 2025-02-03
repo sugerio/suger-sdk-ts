@@ -838,7 +838,7 @@ import { MeteringDimension              } from '../models/MeteringDimension';
 import { MeteringUsageRecord } from '../models/MeteringUsageRecord';
 import { MeteringUsageRecordGroup       , MeteringUsageRecordGroupPartnerEnum        } from '../models/MeteringUsageRecordGroup';
 import { MeteringUsageRecordGroupByKey } from '../models/MeteringUsageRecordGroupByKey';
-import { MeteringUsageRecordGroupMetaInfo             } from '../models/MeteringUsageRecordGroupMetaInfo';
+import { MeteringUsageRecordGroupMetaInfo                   } from '../models/MeteringUsageRecordGroupMetaInfo';
 import { MeteringUsageRecordReport } from '../models/MeteringUsageRecordReport';
 import { MeteringUsageRecordReportInfo                               } from '../models/MeteringUsageRecordReportInfo';
 import { NewUsageRecordGroup } from '../models/NewUsageRecordGroup';

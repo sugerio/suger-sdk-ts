@@ -704,6 +704,12 @@ export interface BillingApiIssueInvoiceRequest {
      * @memberof BillingApiissueInvoice
      */
     invoiceId: string
+    /**
+     * List of Contact IDs
+     * @type Array&lt;string&gt;
+     * @memberof BillingApiissueInvoice
+     */
+    contactIds?: Array<string>
 }
 
 export interface BillingApiListAddonsRequest {
@@ -1062,7 +1068,7 @@ export class ObjectBillingApi {
      * @param param the request object
      */
     public issueInvoiceWithHttpInfo(param: BillingApiIssueInvoiceRequest, options?: Configuration): Promise<HttpInfo<BillingInvoice>> {
-        return this.api.issueInvoiceWithHttpInfo(param.orgId, param.entitlementId, param.invoiceId,  options).toPromise();
+        return this.api.issueInvoiceWithHttpInfo(param.orgId, param.entitlementId, param.invoiceId, param.contactIds,  options).toPromise();
     }
 
     /**
@@ -1071,7 +1077,7 @@ export class ObjectBillingApi {
      * @param param the request object
      */
     public issueInvoice(param: BillingApiIssueInvoiceRequest, options?: Configuration): Promise<BillingInvoice> {
-        return this.api.issueInvoice(param.orgId, param.entitlementId, param.invoiceId,  options).toPromise();
+        return this.api.issueInvoice(param.orgId, param.entitlementId, param.invoiceId, param.contactIds,  options).toPromise();
     }
 
     /**
@@ -2823,10 +2829,10 @@ export interface MeteringApiListUsageRecordGroupsRequest {
     /**
      * The source of the usage record group, default no filter by source if not provided
      * Defaults to: undefined
-     * @type &#39;&#39; | &#39;API&#39; | &#39;INTERNAL&#39; | &#39;METRONOME&#39; | &#39;ORB&#39; | &#39;LAGO&#39;
+     * @type &#39;&#39; | &#39;API&#39; | &#39;INTERNAL&#39; | &#39;LAGO&#39; | &#39;METRONOME&#39; | &#39;ORB&#39; | &#39;STRIPE&#39;
      * @memberof MeteringApilistUsageRecordGroups
      */
-    source?: '' | 'API' | 'INTERNAL' | 'METRONOME' | 'ORB' | 'LAGO'
+    source?: '' | 'API' | 'INTERNAL' | 'LAGO' | 'METRONOME' | 'ORB' | 'STRIPE'
     /**
      * metaInfo filter
      * Defaults to: undefined

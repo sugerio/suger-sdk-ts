@@ -688,9 +688,10 @@ export class PromiseBillingApi {
      * @param orgId Organization ID
      * @param entitlementId Entitlement ID
      * @param invoiceId Invoice ID
+     * @param [contactIds] List of Contact IDs
      */
-    public issueInvoiceWithHttpInfo(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Promise<HttpInfo<BillingInvoice>> {
-        const result = this.api.issueInvoiceWithHttpInfo(orgId, entitlementId, invoiceId, _options);
+    public issueInvoiceWithHttpInfo(orgId: string, entitlementId: string, invoiceId: string, contactIds?: Array<string>, _options?: Configuration): Promise<HttpInfo<BillingInvoice>> {
+        const result = this.api.issueInvoiceWithHttpInfo(orgId, entitlementId, invoiceId, contactIds, _options);
         return result.toPromise();
     }
 
@@ -700,9 +701,10 @@ export class PromiseBillingApi {
      * @param orgId Organization ID
      * @param entitlementId Entitlement ID
      * @param invoiceId Invoice ID
+     * @param [contactIds] List of Contact IDs
      */
-    public issueInvoice(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Promise<BillingInvoice> {
-        const result = this.api.issueInvoice(orgId, entitlementId, invoiceId, _options);
+    public issueInvoice(orgId: string, entitlementId: string, invoiceId: string, contactIds?: Array<string>, _options?: Configuration): Promise<BillingInvoice> {
+        const result = this.api.issueInvoice(orgId, entitlementId, invoiceId, contactIds, _options);
         return result.toPromise();
     }
 
@@ -1987,7 +1989,7 @@ export class PromiseMeteringApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listUsageRecordGroupsWithHttpInfo(orgId: string, partner?: 'AWS' | 'AZURE' | 'GCP', buyerId?: string, entitlementId?: string, status?: 'CREATED' | 'DELETED' | 'INVALID' | 'REPORTED' | 'REPORT_PENDING' | 'REPORT_FAILED', source?: '' | 'API' | 'INTERNAL' | 'METRONOME' | 'ORB' | 'LAGO', metaInfo?: string, startDate?: string, endDate?: string, limit?: number, offset?: number, _options?: Configuration): Promise<HttpInfo<ListUsageRecordGroupsResponse>> {
+    public listUsageRecordGroupsWithHttpInfo(orgId: string, partner?: 'AWS' | 'AZURE' | 'GCP', buyerId?: string, entitlementId?: string, status?: 'CREATED' | 'DELETED' | 'INVALID' | 'REPORTED' | 'REPORT_PENDING' | 'REPORT_FAILED', source?: '' | 'API' | 'INTERNAL' | 'LAGO' | 'METRONOME' | 'ORB' | 'STRIPE', metaInfo?: string, startDate?: string, endDate?: string, limit?: number, offset?: number, _options?: Configuration): Promise<HttpInfo<ListUsageRecordGroupsResponse>> {
         const result = this.api.listUsageRecordGroupsWithHttpInfo(orgId, partner, buyerId, entitlementId, status, source, metaInfo, startDate, endDate, limit, offset, _options);
         return result.toPromise();
     }
@@ -2007,7 +2009,7 @@ export class PromiseMeteringApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listUsageRecordGroups(orgId: string, partner?: 'AWS' | 'AZURE' | 'GCP', buyerId?: string, entitlementId?: string, status?: 'CREATED' | 'DELETED' | 'INVALID' | 'REPORTED' | 'REPORT_PENDING' | 'REPORT_FAILED', source?: '' | 'API' | 'INTERNAL' | 'METRONOME' | 'ORB' | 'LAGO', metaInfo?: string, startDate?: string, endDate?: string, limit?: number, offset?: number, _options?: Configuration): Promise<ListUsageRecordGroupsResponse> {
+    public listUsageRecordGroups(orgId: string, partner?: 'AWS' | 'AZURE' | 'GCP', buyerId?: string, entitlementId?: string, status?: 'CREATED' | 'DELETED' | 'INVALID' | 'REPORTED' | 'REPORT_PENDING' | 'REPORT_FAILED', source?: '' | 'API' | 'INTERNAL' | 'LAGO' | 'METRONOME' | 'ORB' | 'STRIPE', metaInfo?: string, startDate?: string, endDate?: string, limit?: number, offset?: number, _options?: Configuration): Promise<ListUsageRecordGroupsResponse> {
         const result = this.api.listUsageRecordGroups(orgId, partner, buyerId, entitlementId, status, source, metaInfo, startDate, endDate, limit, offset, _options);
         return result.toPromise();
     }

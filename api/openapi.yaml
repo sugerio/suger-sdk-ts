@@ -2595,6 +2595,15 @@ paths:
         required: true
         schema:
           type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                type: string
+              type: array
+        description: List of Contact IDs
+        required: false
       responses:
         "200":
           content:
@@ -2619,6 +2628,8 @@ paths:
       summary: issue invoice
       tags:
       - Billing
+      x-codegen-request-body-name: contactIds
+      x-content-type: application/json
       x-accepts:
       - application/json
   /org/{orgId}/entitlement/{entitlementId}/invoice/{invoiceId}/pay:
@@ -5287,9 +5298,10 @@ paths:
           - ""
           - API
           - INTERNAL
+          - LAGO
           - METRONOME
           - ORB
-          - LAGO
+          - STRIPE
           type: string
       - description: metaInfo filter
         in: query
@@ -21883,13 +21895,13 @@ components:
         usageRecordGroups:
         - creationTime: 2000-01-23T04:56:07.000+00:00
           records:
-            key: 7.061401241503109
+            key: 9.301444243932576
           entitlementID: entitlementID
           buyerID: buyerID
           organizationID: organizationID
           metaInfo:
             lagoAmount: 6.027456183070403
-            lagoSubscriptionID: lagoSubscriptionID
+            stripePeriodStartTime: 2000-01-23T04:56:07.000+00:00
             metronomeDailyCostAmount: 1.4658129805029452
             SkipValidation: true
             billableRecords:
@@ -21901,16 +21913,22 @@ components:
               key: key
               properties:
                 key: ""
-            metronomeMonthlyInvoiceAmount: 5.962133916683182
-            metronomeMonthlyInvoiceAmountAdjusted: 5.637376656633329
-            lagoUsageStartTime: 2000-01-23T04:56:07.000+00:00
+            stripeInvoiceID: stripeInvoiceID
             originRecords:
               key: 2.3021358869347655
             source: "{}"
+            stripeSubscriptionItemID: stripeSubscriptionItemID
+            lagoSubscriptionID: lagoSubscriptionID
+            stripePeriodEndTime: 2000-01-23T04:56:07.000+00:00
+            stripeUsageRecordSummaryID: stripeUsageRecordSummaryID
+            metronomeMonthlyInvoiceAmount: 5.962133916683182
+            metronomeMonthlyInvoiceAmountAdjusted: 5.637376656633329
+            lagoUsageStartTime: 2000-01-23T04:56:07.000+00:00
             metronomeInvoiceID: metronomeInvoiceID
+            stripeUsageRecordSummaryTotalUsage: 7
             timestamp: 2000-01-23T04:56:07.000+00:00
           partner: AWS
-          serialID: 9
+          serialID: 3
           usageRecordReportID: usageRecordReportID
           id: id
           lastUpdateTime: 2000-01-23T04:56:07.000+00:00
@@ -21918,13 +21936,13 @@ components:
           status: status
         - creationTime: 2000-01-23T04:56:07.000+00:00
           records:
-            key: 7.061401241503109
+            key: 9.301444243932576
           entitlementID: entitlementID
           buyerID: buyerID
           organizationID: organizationID
           metaInfo:
             lagoAmount: 6.027456183070403
-            lagoSubscriptionID: lagoSubscriptionID
+            stripePeriodStartTime: 2000-01-23T04:56:07.000+00:00
             metronomeDailyCostAmount: 1.4658129805029452
             SkipValidation: true
             billableRecords:
@@ -21936,16 +21954,22 @@ components:
               key: key
               properties:
                 key: ""
-            metronomeMonthlyInvoiceAmount: 5.962133916683182
-            metronomeMonthlyInvoiceAmountAdjusted: 5.637376656633329
-            lagoUsageStartTime: 2000-01-23T04:56:07.000+00:00
+            stripeInvoiceID: stripeInvoiceID
             originRecords:
               key: 2.3021358869347655
             source: "{}"
+            stripeSubscriptionItemID: stripeSubscriptionItemID
+            lagoSubscriptionID: lagoSubscriptionID
+            stripePeriodEndTime: 2000-01-23T04:56:07.000+00:00
+            stripeUsageRecordSummaryID: stripeUsageRecordSummaryID
+            metronomeMonthlyInvoiceAmount: 5.962133916683182
+            metronomeMonthlyInvoiceAmountAdjusted: 5.637376656633329
+            lagoUsageStartTime: 2000-01-23T04:56:07.000+00:00
             metronomeInvoiceID: metronomeInvoiceID
+            stripeUsageRecordSummaryTotalUsage: 7
             timestamp: 2000-01-23T04:56:07.000+00:00
           partner: AWS
-          serialID: 9
+          serialID: 3
           usageRecordReportID: usageRecordReportID
           id: id
           lastUpdateTime: 2000-01-23T04:56:07.000+00:00
@@ -22312,13 +22336,13 @@ components:
       example:
         creationTime: 2000-01-23T04:56:07.000+00:00
         records:
-          key: 7.061401241503109
+          key: 9.301444243932576
         entitlementID: entitlementID
         buyerID: buyerID
         organizationID: organizationID
         metaInfo:
           lagoAmount: 6.027456183070403
-          lagoSubscriptionID: lagoSubscriptionID
+          stripePeriodStartTime: 2000-01-23T04:56:07.000+00:00
           metronomeDailyCostAmount: 1.4658129805029452
           SkipValidation: true
           billableRecords:
@@ -22330,16 +22354,22 @@ components:
             key: key
             properties:
               key: ""
-          metronomeMonthlyInvoiceAmount: 5.962133916683182
-          metronomeMonthlyInvoiceAmountAdjusted: 5.637376656633329
-          lagoUsageStartTime: 2000-01-23T04:56:07.000+00:00
+          stripeInvoiceID: stripeInvoiceID
           originRecords:
             key: 2.3021358869347655
           source: "{}"
+          stripeSubscriptionItemID: stripeSubscriptionItemID
+          lagoSubscriptionID: lagoSubscriptionID
+          stripePeriodEndTime: 2000-01-23T04:56:07.000+00:00
+          stripeUsageRecordSummaryID: stripeUsageRecordSummaryID
+          metronomeMonthlyInvoiceAmount: 5.962133916683182
+          metronomeMonthlyInvoiceAmountAdjusted: 5.637376656633329
+          lagoUsageStartTime: 2000-01-23T04:56:07.000+00:00
           metronomeInvoiceID: metronomeInvoiceID
+          stripeUsageRecordSummaryTotalUsage: 7
           timestamp: 2000-01-23T04:56:07.000+00:00
         partner: AWS
-        serialID: 9
+        serialID: 3
         usageRecordReportID: usageRecordReportID
         id: id
         lastUpdateTime: 2000-01-23T04:56:07.000+00:00
@@ -22398,7 +22428,7 @@ components:
     MeteringUsageRecordGroupMetaInfo:
       example:
         lagoAmount: 6.027456183070403
-        lagoSubscriptionID: lagoSubscriptionID
+        stripePeriodStartTime: 2000-01-23T04:56:07.000+00:00
         metronomeDailyCostAmount: 1.4658129805029452
         SkipValidation: true
         billableRecords:
@@ -22410,13 +22440,19 @@ components:
           key: key
           properties:
             key: ""
-        metronomeMonthlyInvoiceAmount: 5.962133916683182
-        metronomeMonthlyInvoiceAmountAdjusted: 5.637376656633329
-        lagoUsageStartTime: 2000-01-23T04:56:07.000+00:00
+        stripeInvoiceID: stripeInvoiceID
         originRecords:
           key: 2.3021358869347655
         source: "{}"
+        stripeSubscriptionItemID: stripeSubscriptionItemID
+        lagoSubscriptionID: lagoSubscriptionID
+        stripePeriodEndTime: 2000-01-23T04:56:07.000+00:00
+        stripeUsageRecordSummaryID: stripeUsageRecordSummaryID
+        metronomeMonthlyInvoiceAmount: 5.962133916683182
+        metronomeMonthlyInvoiceAmountAdjusted: 5.637376656633329
+        lagoUsageStartTime: 2000-01-23T04:56:07.000+00:00
         metronomeInvoiceID: metronomeInvoiceID
+        stripeUsageRecordSummaryTotalUsage: 7
         timestamp: 2000-01-23T04:56:07.000+00:00
       properties:
         SkipValidation:
@@ -22471,6 +22507,24 @@ components:
           description: "The source of the usage record group. Can be from Suger API\
             \ or other third party services, such as Metronome."
           type: object
+        stripeInvoiceID:
+          type: string
+        stripePeriodEndTime:
+          description: The stripe period end time of the summary or invoice. UTC time
+            in format "YYYY-MM-DDTHH:MM:SSZ".
+          format: date-time
+          type: string
+        stripePeriodStartTime:
+          description: The stripe period start time of the summary or invoice. UTC
+            time in format "YYYY-MM-DDTHH:MM:SSZ".
+          format: date-time
+          type: string
+        stripeSubscriptionItemID:
+          type: string
+        stripeUsageRecordSummaryID:
+          type: string
+        stripeUsageRecordSummaryTotalUsage:
+          type: integer
         timestamp:
           description: |-
             The timestamp (UTC)) of when the usage records were generated.
@@ -30236,17 +30290,19 @@ components:
       - ""
       - API
       - INTERNAL
+      - LAGO
       - METRONOME
       - ORB
-      - LAGO
+      - STRIPE
       type: string
       x-enum-varnames:
-      - UsageRecordGroupSource_UNKNOWN
-      - UsageRecordGroupSource_API
-      - UsageRecordGroupSource_INTERNAL
-      - UsageRecordGroupSource_METRONOME
-      - UsageRecordGroupSource_ORB
-      - UsageRecordGroupSource_LAGO
+      - UsageRecordGroupSourceUNKNOWN
+      - UsageRecordGroupSourceAPI
+      - UsageRecordGroupSourceINTERNAL
+      - UsageRecordGroupSourceLAGO
+      - UsageRecordGroupSourceMETRONOME
+      - UsageRecordGroupSourceORB
+      - UsageRecordGroupSourceSTRIPE
     UsageRecordReportStatus:
       enum:
       - ""

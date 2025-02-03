@@ -59,6 +59,18 @@ export class MeteringUsageRecordGroupMetaInfo {
     * The source of the usage record group. Can be from Suger API or other third party services, such as Metronome.
     */
     'source'?: UsageRecordGroupSource;
+    'stripeInvoiceID'?: string;
+    /**
+    * The stripe period end time of the summary or invoice. UTC time in format \"YYYY-MM-DDTHH:MM:SSZ\".
+    */
+    'stripePeriodEndTime'?: Date;
+    /**
+    * The stripe period start time of the summary or invoice. UTC time in format \"YYYY-MM-DDTHH:MM:SSZ\".
+    */
+    'stripePeriodStartTime'?: Date;
+    'stripeSubscriptionItemID'?: string;
+    'stripeUsageRecordSummaryID'?: string;
+    'stripeUsageRecordSummaryTotalUsage'?: number;
     /**
     * The timestamp (UTC)) of when the usage records were generated. Optional, if not provided, the current report timestamp will be used.
     */
@@ -133,6 +145,42 @@ export class MeteringUsageRecordGroupMetaInfo {
             "name": "source",
             "baseName": "source",
             "type": "UsageRecordGroupSource",
+            "format": ""
+        },
+        {
+            "name": "stripeInvoiceID",
+            "baseName": "stripeInvoiceID",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "stripePeriodEndTime",
+            "baseName": "stripePeriodEndTime",
+            "type": "Date",
+            "format": "date-time"
+        },
+        {
+            "name": "stripePeriodStartTime",
+            "baseName": "stripePeriodStartTime",
+            "type": "Date",
+            "format": "date-time"
+        },
+        {
+            "name": "stripeSubscriptionItemID",
+            "baseName": "stripeSubscriptionItemID",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "stripeUsageRecordSummaryID",
+            "baseName": "stripeUsageRecordSummaryID",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "stripeUsageRecordSummaryTotalUsage",
+            "baseName": "stripeUsageRecordSummaryTotalUsage",
+            "type": "number",
             "format": ""
         },
         {
