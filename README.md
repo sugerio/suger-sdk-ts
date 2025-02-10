@@ -1,4 +1,4 @@
-## suger-sdk-ts@v3.128.118
+## suger-sdk-ts@v3.128.140
 
 This generator creates TypeScript/JavaScript client that utilizes fetch-api.
 
@@ -21,7 +21,7 @@ Navigate to the folder of your consuming project and run one of the following co
 _published:_
 
 ```
-npm install suger-sdk-ts@v3.128.118 --save
+npm install suger-sdk-ts@v3.128.140 --save
 ```
 
 _unPublished (not recommended):_
