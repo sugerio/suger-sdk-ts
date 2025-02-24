@@ -13,11 +13,11 @@
 import { HttpFile } from '../http/http';
 
 export enum EntitlementTermType {
-    EntitlementTermType_Unknown = '',
-    EntitlementTermType_AutoRenew = 'AutoRenew',
-    EntitlementTermType_ManualRenew = 'ManualRenew',
-    EntitlementTermType_PlanChange = 'PlanChange',
-    EntitlementTermType_QuantityChange = 'QuantityChange',
-    EntitlementTermType_Signup = 'Signup',
-    EntitlementTermType_DivideCommit = 'DivideCommit'
+    EntitlementTermTypeUnknown = '',
+    EntitlementTermTypeAutoRenew = 'AutoRenew',
+    EntitlementTermTypeManualRenew = 'ManualRenew',
+    EntitlementTermTypePlanChange = 'PlanChange',
+    EntitlementTermTypeQuantityChange = 'QuantityChange',
+    EntitlementTermTypeSignup = 'Signup',
+    EntitlementTermTypeDivideCommit = 'DivideCommit'
 }

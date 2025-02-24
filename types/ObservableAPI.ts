@@ -243,6 +243,7 @@ import { EulaType } from '../models/EulaType';
 import { GcpAmountConstraint } from '../models/GcpAmountConstraint';
 import { GcpAmountUnit } from '../models/GcpAmountUnit';
 import { GcpCommitmentAmountPerPeriodTemplate } from '../models/GcpCommitmentAmountPerPeriodTemplate';
+import { GcpMarketplaceAgreementDocument } from '../models/GcpMarketplaceAgreementDocument';
 import { GcpMarketplaceConsumer } from '../models/GcpMarketplaceConsumer';
 import { GcpMarketplaceDocument } from '../models/GcpMarketplaceDocument';
 import { GcpMarketplaceEntitlement } from '../models/GcpMarketplaceEntitlement';
@@ -790,6 +791,76 @@ export class ObservableBillingApi {
     }
 
     /**
+     * Returns the preview HTML content of the invoice issued email.
+     * Get the preview of the invoice issued email
+     * @param orgId Organization ID
+     * @param invoiceId Invoice ID
+     */
+    public getInvoiceIssuedEmailPreviewWithHttpInfo(orgId: string, invoiceId: string, _options?: Configuration): Observable<HttpInfo<string>> {
+        const requestContextPromise = this.requestFactory.getInvoiceIssuedEmailPreview(orgId, invoiceId, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getInvoiceIssuedEmailPreviewWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Returns the preview HTML content of the invoice issued email.
+     * Get the preview of the invoice issued email
+     * @param orgId Organization ID
+     * @param invoiceId Invoice ID
+     */
+    public getInvoiceIssuedEmailPreview(orgId: string, invoiceId: string, _options?: Configuration): Observable<string> {
+        return this.getInvoiceIssuedEmailPreviewWithHttpInfo(orgId, invoiceId, _options).pipe(map((apiResponse: HttpInfo<string>) => apiResponse.data));
+    }
+
+    /**
+     * Get the invoice by ID
+     * get invoice
+     * @param orgId Organization ID
+     * @param invoiceId Invoice ID
+     */
+    public getInvoiceV2WithHttpInfo(orgId: string, invoiceId: string, _options?: Configuration): Observable<HttpInfo<BillingInvoice>> {
+        const requestContextPromise = this.requestFactory.getInvoiceV2(orgId, invoiceId, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getInvoiceV2WithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Get the invoice by ID
+     * get invoice
+     * @param orgId Organization ID
+     * @param invoiceId Invoice ID
+     */
+    public getInvoiceV2(orgId: string, invoiceId: string, _options?: Configuration): Observable<BillingInvoice> {
+        return this.getInvoiceV2WithHttpInfo(orgId, invoiceId, _options).pipe(map((apiResponse: HttpInfo<BillingInvoice>) => apiResponse.data));
+    }
+
+    /**
      * Issue the invoice immediately. It can be used for manual issue or reissue invoice.
      * issue invoice
      * @param orgId Organization ID
@@ -826,6 +897,43 @@ export class ObservableBillingApi {
      */
     public issueInvoice(orgId: string, entitlementId: string, invoiceId: string, contactIds?: Array<string>, _options?: Configuration): Observable<BillingInvoice> {
         return this.issueInvoiceWithHttpInfo(orgId, entitlementId, invoiceId, contactIds, _options).pipe(map((apiResponse: HttpInfo<BillingInvoice>) => apiResponse.data));
+    }
+
+    /**
+     * Issue the invoice immediately. It can be used for manual issue or reissue invoice.
+     * issue invoice
+     * @param orgId Organization ID
+     * @param invoiceId Invoice ID
+     * @param [contactIds] List of Contact IDs
+     */
+    public issueInvoiceV2WithHttpInfo(orgId: string, invoiceId: string, contactIds?: Array<string>, _options?: Configuration): Observable<HttpInfo<BillingInvoice>> {
+        const requestContextPromise = this.requestFactory.issueInvoiceV2(orgId, invoiceId, contactIds, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.issueInvoiceV2WithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Issue the invoice immediately. It can be used for manual issue or reissue invoice.
+     * issue invoice
+     * @param orgId Organization ID
+     * @param invoiceId Invoice ID
+     * @param [contactIds] List of Contact IDs
+     */
+    public issueInvoiceV2(orgId: string, invoiceId: string, contactIds?: Array<string>, _options?: Configuration): Observable<BillingInvoice> {
+        return this.issueInvoiceV2WithHttpInfo(orgId, invoiceId, contactIds, _options).pipe(map((apiResponse: HttpInfo<BillingInvoice>) => apiResponse.data));
     }
 
     /**
@@ -1030,6 +1138,41 @@ export class ObservableBillingApi {
     }
 
     /**
+     * Initiate the payment for the invoice immediately. It can be used for manual payment or retry payment.
+     * pay invoice
+     * @param orgId Organization ID
+     * @param invoiceId Invoice ID
+     */
+    public payInvoiceV2WithHttpInfo(orgId: string, invoiceId: string, _options?: Configuration): Observable<HttpInfo<BillingInvoice>> {
+        const requestContextPromise = this.requestFactory.payInvoiceV2(orgId, invoiceId, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.payInvoiceV2WithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Initiate the payment for the invoice immediately. It can be used for manual payment or retry payment.
+     * pay invoice
+     * @param orgId Organization ID
+     * @param invoiceId Invoice ID
+     */
+    public payInvoiceV2(orgId: string, invoiceId: string, _options?: Configuration): Observable<BillingInvoice> {
+        return this.payInvoiceV2WithHttpInfo(orgId, invoiceId, _options).pipe(map((apiResponse: HttpInfo<BillingInvoice>) => apiResponse.data));
+    }
+
+    /**
      * Update an addon template
      * update addon
      * @param orgId Organization ID
@@ -1106,6 +1249,43 @@ export class ObservableBillingApi {
     }
 
     /**
+     * Update a draft invoice. Only DueDate, OverallDiscount, and Memo can be updated.
+     * Update invoice info
+     * @param orgId Organization ID
+     * @param invoiceId Invoice ID
+     * @param data Update Invoice Info Request Params
+     */
+    public updateInvoiceInfoV2WithHttpInfo(orgId: string, invoiceId: string, data: UpdateInvoiceInfoRequest, _options?: Configuration): Observable<HttpInfo<BillingInvoiceInfo>> {
+        const requestContextPromise = this.requestFactory.updateInvoiceInfoV2(orgId, invoiceId, data, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.updateInvoiceInfoV2WithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Update a draft invoice. Only DueDate, OverallDiscount, and Memo can be updated.
+     * Update invoice info
+     * @param orgId Organization ID
+     * @param invoiceId Invoice ID
+     * @param data Update Invoice Info Request Params
+     */
+    public updateInvoiceInfoV2(orgId: string, invoiceId: string, data: UpdateInvoiceInfoRequest, _options?: Configuration): Observable<BillingInvoiceInfo> {
+        return this.updateInvoiceInfoV2WithHttpInfo(orgId, invoiceId, data, _options).pipe(map((apiResponse: HttpInfo<BillingInvoiceInfo>) => apiResponse.data));
+    }
+
+    /**
      * Void the invoice. It can be used for manual void or cancel the invoice.
      * void invoice
      * @param orgId Organization ID
@@ -1140,6 +1320,41 @@ export class ObservableBillingApi {
      */
     public voidInvoice(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Observable<BillingInvoice> {
         return this.voidInvoiceWithHttpInfo(orgId, entitlementId, invoiceId, _options).pipe(map((apiResponse: HttpInfo<BillingInvoice>) => apiResponse.data));
+    }
+
+    /**
+     * Void the invoice. It can be used for manual void or cancel the invoice.
+     * void invoice
+     * @param orgId Organization ID
+     * @param invoiceId Invoice ID
+     */
+    public voidInvoiceV2WithHttpInfo(orgId: string, invoiceId: string, _options?: Configuration): Observable<HttpInfo<BillingInvoice>> {
+        const requestContextPromise = this.requestFactory.voidInvoiceV2(orgId, invoiceId, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.voidInvoiceV2WithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Void the invoice. It can be used for manual void or cancel the invoice.
+     * void invoice
+     * @param orgId Organization ID
+     * @param invoiceId Invoice ID
+     */
+    public voidInvoiceV2(orgId: string, invoiceId: string, _options?: Configuration): Observable<BillingInvoice> {
+        return this.voidInvoiceV2WithHttpInfo(orgId, invoiceId, _options).pipe(map((apiResponse: HttpInfo<BillingInvoice>) => apiResponse.data));
     }
 
 }

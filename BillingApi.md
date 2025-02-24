@@ -9,15 +9,21 @@ Method | HTTP request | Description
 [**deleteAddon**](BillingApi.md#deleteAddon) | **DELETE** /org/{orgId}/addon/{addonId} | delete addon
 [**getAddon**](BillingApi.md#getAddon) | **GET** /org/{orgId}/addon/{addonId} | get addon
 [**getInvoice**](BillingApi.md#getInvoice) | **GET** /org/{orgId}/entitlement/{entitlementId}/invoice/{invoiceId} | get invoice
+[**getInvoiceIssuedEmailPreview**](BillingApi.md#getInvoiceIssuedEmailPreview) | **GET** /org/{orgId}/invoice/{invoiceId}/preview | Get the preview of the invoice issued email
+[**getInvoiceV2**](BillingApi.md#getInvoiceV2) | **GET** /org/{orgId}/invoice/{invoiceId} | get invoice
 [**issueInvoice**](BillingApi.md#issueInvoice) | **PATCH** /org/{orgId}/entitlement/{entitlementId}/invoice/{invoiceId}/issue | issue invoice
+[**issueInvoiceV2**](BillingApi.md#issueInvoiceV2) | **PATCH** /org/{orgId}/invoice/{invoiceId}/issue | issue invoice
 [**listAddons**](BillingApi.md#listAddons) | **GET** /org/{orgId}/addon | list addons
 [**listInvoices**](BillingApi.md#listInvoices) | **GET** /org/{orgId}/invoice | list invoices
 [**listPaymentTransactions**](BillingApi.md#listPaymentTransactions) | **GET** /org/{orgId}/paymentTransaction | list payment transactions
 [**listRefundOfPaymentTransaction**](BillingApi.md#listRefundOfPaymentTransaction) | **GET** /org/{orgId}/buyer/{buyerId}/paymentTransaction/{paymentTransactionId}/refund | list refunds.
 [**payInvoice**](BillingApi.md#payInvoice) | **PATCH** /org/{orgId}/entitlement/{entitlementId}/invoice/{invoiceId}/pay | pay invoice
+[**payInvoiceV2**](BillingApi.md#payInvoiceV2) | **PATCH** /org/{orgId}/invoice/{invoiceId}/pay | pay invoice
 [**updateAddon**](BillingApi.md#updateAddon) | **PATCH** /org/{orgId}/addon/{addonId} | update addon
 [**updateInvoiceInfo**](BillingApi.md#updateInvoiceInfo) | **PATCH** /org/{orgId}/entitlement/{entitlementId}/invoice/{invoiceId}/info | Update invoice info
+[**updateInvoiceInfoV2**](BillingApi.md#updateInvoiceInfoV2) | **PATCH** /org/{orgId}/invoice/{invoiceId}/info | Update invoice info
 [**voidInvoice**](BillingApi.md#voidInvoice) | **PATCH** /org/{orgId}/entitlement/{entitlementId}/invoice/{invoiceId}/void | void invoice
+[**voidInvoiceV2**](BillingApi.md#voidInvoiceV2) | **PATCH** /org/{orgId}/invoice/{invoiceId}/void | void invoice
 
 
 # **createAddon**
@@ -323,6 +329,122 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
+# **getInvoiceIssuedEmailPreview**
+> string getInvoiceIssuedEmailPreview()
+
+Returns the preview HTML content of the invoice issued email.
+
+### Example
+
+
+```typescript
+import { createConfiguration, BillingApi } from '';
+import type { BillingApiGetInvoiceIssuedEmailPreviewRequest } from '';
+
+const configuration = createConfiguration();
+const apiInstance = new BillingApi(configuration);
+
+const request: BillingApiGetInvoiceIssuedEmailPreviewRequest = {
+    // Organization ID
+  orgId: "orgId_example",
+    // Invoice ID
+  invoiceId: "invoiceId_example",
+};
+
+const data = await apiInstance.getInvoiceIssuedEmailPreview(request);
+console.log('API called successfully. Returned data:', data);
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **orgId** | [**string**] | Organization ID | defaults to undefined
+ **invoiceId** | [**string**] | Invoice ID | defaults to undefined
+
+
+### Return type
+
+**string**
+
+### Authorization
+
+[APIKeyAuth](README.md#APIKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/html
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | HTML content of the invoice issued email |  -  |
+**400** | Bad request error |  -  |
+**500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **getInvoiceV2**
+> BillingInvoice getInvoiceV2()
+
+Get the invoice by ID
+
+### Example
+
+
+```typescript
+import { createConfiguration, BillingApi } from '';
+import type { BillingApiGetInvoiceV2Request } from '';
+
+const configuration = createConfiguration();
+const apiInstance = new BillingApi(configuration);
+
+const request: BillingApiGetInvoiceV2Request = {
+    // Organization ID
+  orgId: "orgId_example",
+    // Invoice ID
+  invoiceId: "invoiceId_example",
+};
+
+const data = await apiInstance.getInvoiceV2(request);
+console.log('API called successfully. Returned data:', data);
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **orgId** | [**string**] | Organization ID | defaults to undefined
+ **invoiceId** | [**string**] | Invoice ID | defaults to undefined
+
+
+### Return type
+
+**BillingInvoice**
+
+### Authorization
+
+[APIKeyAuth](README.md#APIKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**400** | Bad request error |  -  |
+**500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
 # **issueInvoice**
 > BillingInvoice issueInvoice()
 
@@ -363,6 +485,69 @@ Name | Type | Description  | Notes
  **contactIds** | **Array<string>**| List of Contact IDs |
  **orgId** | [**string**] | Organization ID | defaults to undefined
  **entitlementId** | [**string**] | Entitlement ID | defaults to undefined
+ **invoiceId** | [**string**] | Invoice ID | defaults to undefined
+
+
+### Return type
+
+**BillingInvoice**
+
+### Authorization
+
+[APIKeyAuth](README.md#APIKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | the issued Invoice |  -  |
+**400** | Bad request error |  -  |
+**500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **issueInvoiceV2**
+> BillingInvoice issueInvoiceV2()
+
+Issue the invoice immediately. It can be used for manual issue or reissue invoice.
+
+### Example
+
+
+```typescript
+import { createConfiguration, BillingApi } from '';
+import type { BillingApiIssueInvoiceV2Request } from '';
+
+const configuration = createConfiguration();
+const apiInstance = new BillingApi(configuration);
+
+const request: BillingApiIssueInvoiceV2Request = {
+    // Organization ID
+  orgId: "orgId_example",
+    // Invoice ID
+  invoiceId: "invoiceId_example",
+    // List of Contact IDs (optional)
+  contactIds: [
+    "contactIds_example",
+  ],
+};
+
+const data = await apiInstance.issueInvoiceV2(request);
+console.log('API called successfully. Returned data:', data);
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **contactIds** | **Array<string>**| List of Contact IDs |
+ **orgId** | [**string**] | Organization ID | defaults to undefined
  **invoiceId** | [**string**] | Invoice ID | defaults to undefined
 
 
@@ -718,6 +903,64 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
+# **payInvoiceV2**
+> BillingInvoice payInvoiceV2()
+
+Initiate the payment for the invoice immediately. It can be used for manual payment or retry payment.
+
+### Example
+
+
+```typescript
+import { createConfiguration, BillingApi } from '';
+import type { BillingApiPayInvoiceV2Request } from '';
+
+const configuration = createConfiguration();
+const apiInstance = new BillingApi(configuration);
+
+const request: BillingApiPayInvoiceV2Request = {
+    // Organization ID
+  orgId: "orgId_example",
+    // Invoice ID
+  invoiceId: "invoiceId_example",
+};
+
+const data = await apiInstance.payInvoiceV2(request);
+console.log('API called successfully. Returned data:', data);
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **orgId** | [**string**] | Organization ID | defaults to undefined
+ **invoiceId** | [**string**] | Invoice ID | defaults to undefined
+
+
+### Return type
+
+**BillingInvoice**
+
+### Authorization
+
+[APIKeyAuth](README.md#APIKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**400** | Bad request error |  -  |
+**500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
 # **updateAddon**
 > BillingAddon updateAddon(data)
 
@@ -852,6 +1095,72 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
+# **updateInvoiceInfoV2**
+> BillingInvoiceInfo updateInvoiceInfoV2(data)
+
+Update a draft invoice. Only DueDate, OverallDiscount, and Memo can be updated.
+
+### Example
+
+
+```typescript
+import { createConfiguration, BillingApi } from '';
+import type { BillingApiUpdateInvoiceInfoV2Request } from '';
+
+const configuration = createConfiguration();
+const apiInstance = new BillingApi(configuration);
+
+const request: BillingApiUpdateInvoiceInfoV2Request = {
+    // Organization ID
+  orgId: "orgId_example",
+    // Invoice ID
+  invoiceId: "invoiceId_example",
+    // Update Invoice Info Request Params
+  data: {
+    discountAmount: 3.14,
+    discountType: ,
+    dueDate: "dueDate_example",
+    memo: "memo_example",
+  },
+};
+
+const data = await apiInstance.updateInvoiceInfoV2(request);
+console.log('API called successfully. Returned data:', data);
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **data** | **UpdateInvoiceInfoRequest**| Update Invoice Info Request Params |
+ **orgId** | [**string**] | Organization ID | defaults to undefined
+ **invoiceId** | [**string**] | Invoice ID | defaults to undefined
+
+
+### Return type
+
+**BillingInvoiceInfo**
+
+### Authorization
+
+[APIKeyAuth](README.md#APIKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Updated Invoice info |  -  |
+**400** | Bad request error |  -  |
+**500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
 # **voidInvoice**
 > BillingInvoice voidInvoice()
 
@@ -887,6 +1196,64 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **orgId** | [**string**] | Organization ID | defaults to undefined
  **entitlementId** | [**string**] | Entitlement ID | defaults to undefined
+ **invoiceId** | [**string**] | Invoice ID | defaults to undefined
+
+
+### Return type
+
+**BillingInvoice**
+
+### Authorization
+
+[APIKeyAuth](README.md#APIKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**400** | Bad request error |  -  |
+**500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **voidInvoiceV2**
+> BillingInvoice voidInvoiceV2()
+
+Void the invoice. It can be used for manual void or cancel the invoice.
+
+### Example
+
+
+```typescript
+import { createConfiguration, BillingApi } from '';
+import type { BillingApiVoidInvoiceV2Request } from '';
+
+const configuration = createConfiguration();
+const apiInstance = new BillingApi(configuration);
+
+const request: BillingApiVoidInvoiceV2Request = {
+    // Organization ID
+  orgId: "orgId_example",
+    // Invoice ID
+  invoiceId: "invoiceId_example",
+};
+
+const data = await apiInstance.voidInvoiceV2(request);
+console.log('API called successfully. Returned data:', data);
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **orgId** | [**string**] | Organization ID | defaults to undefined
  **invoiceId** | [**string**] | Invoice ID | defaults to undefined
 
 

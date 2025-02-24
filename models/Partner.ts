@@ -34,5 +34,6 @@ export enum Partner {
     Partner_SLACK = 'SLACK',
     Partner_SNOWFLAKE = 'SNOWFLAKE',
     Partner_STRIPE = 'STRIPE',
-    Partner_ZOHO = 'ZOHO'
+    Partner_ZOHO = 'ZOHO',
+    Partner_DATABRICKS = 'DATABRICKS'
 }

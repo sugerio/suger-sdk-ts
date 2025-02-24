@@ -49,5 +49,6 @@ export enum NotificationEventAction {
     NotificationEventAction_ACE_CUSTOMER_EMAIL_UPDATE = 'ACE_CUSTOMER_EMAIL_UPDATE',
     NotificationEventAction_SUBMIT_APPROVAL_REQUEST = 'SUBMIT_APPROVAL_REQUEST',
     NotificationEventAction_REVIEW_APPROVAL_REQUEST = 'REVIEW_APPROVAL_REQUEST',
-    NotificationEventAction_COMPLETE = 'COMPLETE'
+    NotificationEventAction_COMPLETE = 'COMPLETE',
+    NotificationEventAction_FAIL = 'FAIL'
 }

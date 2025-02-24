@@ -3053,6 +3053,288 @@ paths:
       - Billing
       x-accepts:
       - application/json
+  /org/{orgId}/invoice/{invoiceId}:
+    get:
+      description: Get the invoice by ID
+      operationId: GetInvoiceV2
+      parameters:
+      - description: Organization ID
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+      - description: Invoice ID
+        in: path
+        name: invoiceId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillingInvoice'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Bad request error
+        "500":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Internal server error
+      security:
+      - APIKeyAuth: []
+      summary: get invoice
+      tags:
+      - Billing
+      x-accepts:
+      - application/json
+  /org/{orgId}/invoice/{invoiceId}/info:
+    patch:
+      description: "Update a draft invoice. Only DueDate, OverallDiscount, and Memo\
+        \ can be updated."
+      operationId: UpdateInvoiceInfoV2
+      parameters:
+      - description: Organization ID
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+      - description: Invoice ID
+        in: path
+        name: invoiceId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateInvoiceInfoRequest'
+        description: Update Invoice Info Request Params
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillingInvoiceInfo'
+          description: Updated Invoice info
+        "400":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Bad request error
+        "500":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Internal server error
+      security:
+      - APIKeyAuth: []
+      summary: Update invoice info
+      tags:
+      - Billing
+      x-codegen-request-body-name: data
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /org/{orgId}/invoice/{invoiceId}/issue:
+    patch:
+      description: Issue the invoice immediately. It can be used for manual issue
+        or reissue invoice.
+      operationId: IssueInvoiceV2
+      parameters:
+      - description: Organization ID
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+      - description: Invoice ID
+        in: path
+        name: invoiceId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                type: string
+              type: array
+        description: List of Contact IDs
+        required: false
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillingInvoice'
+          description: the issued Invoice
+        "400":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Bad request error
+        "500":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Internal server error
+      security:
+      - APIKeyAuth: []
+      summary: issue invoice
+      tags:
+      - Billing
+      x-codegen-request-body-name: contactIds
+      x-content-type: application/json
+      x-accepts:
+      - application/json
+  /org/{orgId}/invoice/{invoiceId}/pay:
+    patch:
+      description: Initiate the payment for the invoice immediately. It can be used
+        for manual payment or retry payment.
+      operationId: PayInvoiceV2
+      parameters:
+      - description: Organization ID
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+      - description: Invoice ID
+        in: path
+        name: invoiceId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillingInvoice'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Bad request error
+        "500":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Internal server error
+      security:
+      - APIKeyAuth: []
+      summary: pay invoice
+      tags:
+      - Billing
+      x-accepts:
+      - application/json
+  /org/{orgId}/invoice/{invoiceId}/preview:
+    get:
+      description: Returns the preview HTML content of the invoice issued email.
+      operationId: GetInvoiceIssuedEmailPreview
+      parameters:
+      - description: Organization ID
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+      - description: Invoice ID
+        in: path
+        name: invoiceId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            text/html:
+              schema:
+                type: string
+          description: HTML content of the invoice issued email
+        "400":
+          content:
+            text/html:
+              schema:
+                type: string
+          description: Bad request error
+        "500":
+          content:
+            text/html:
+              schema:
+                type: string
+          description: Internal server error
+      security:
+      - APIKeyAuth: []
+      summary: Get the preview of the invoice issued email
+      tags:
+      - Billing
+      x-accepts:
+      - text/html
+  /org/{orgId}/invoice/{invoiceId}/void:
+    patch:
+      description: Void the invoice. It can be used for manual void or cancel the
+        invoice.
+      operationId: VoidInvoiceV2
+      parameters:
+      - description: Organization ID
+        in: path
+        name: orgId
+        required: true
+        schema:
+          type: string
+      - description: Invoice ID
+        in: path
+        name: invoiceId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BillingInvoice'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Bad request error
+        "500":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: Internal server error
+      security:
+      - APIKeyAuth: []
+      summary: void invoice
+      tags:
+      - Billing
+      x-accepts:
+      - application/json
   /org/{orgId}/notificationEvent:
     get:
       description: List the notification events of the given organization with pagination
@@ -16900,15 +17182,15 @@ components:
       - DivideCommit
       type: string
       x-enum-comments:
-        EntitlementTermType_ManualRenew: also for Upsell
+        EntitlementTermTypeManualRenew: also for Upsell
       x-enum-varnames:
-      - EntitlementTermType_Unknown
-      - EntitlementTermType_AutoRenew
-      - EntitlementTermType_ManualRenew
-      - EntitlementTermType_PlanChange
-      - EntitlementTermType_QuantityChange
-      - EntitlementTermType_Signup
-      - EntitlementTermType_DivideCommit
+      - EntitlementTermTypeUnknown
+      - EntitlementTermTypeAutoRenew
+      - EntitlementTermTypeManualRenew
+      - EntitlementTermTypePlanChange
+      - EntitlementTermTypeQuantityChange
+      - EntitlementTermTypeSignup
+      - EntitlementTermTypeDivideCommit
     EntityType:
       enum:
       - ""
@@ -17041,6 +17323,11 @@ components:
           type: string
         decimalAmountConstraint:
           $ref: '#/components/schemas/GcpAmountConstraint'
+      type: object
+    GcpMarketplaceAgreementDocument:
+      properties:
+        eulaAgreementDocument:
+          $ref: '#/components/schemas/GcpMarketplaceDocument'
       type: object
     GcpMarketplaceConsumer:
       example:
@@ -17531,15 +17818,13 @@ components:
             The resource name of agreement(entitlement)
             In format of "projects/{projectNumber}/agreements/{agreementId}"
           type: string
+        agreementDocuments:
+          $ref: '#/components/schemas/GcpMarketplaceAgreementDocument'
         cancelTime:
           format: date-time
           type: string
-        customEula:
-          $ref: '#/components/schemas/GcpMarketplaceDocument'
         customerInfo:
           $ref: '#/components/schemas/GcpMarketplacePrivateOfferCustomerInfo'
-        eulaAgreementDocument:
-          $ref: '#/components/schemas/GcpMarketplaceDocument'
         existingOfferData:
           $ref: '#/components/schemas/GcpMarketplaceExistingOfferData'
         expireTime:
@@ -17699,11 +17984,16 @@ components:
         productExternalName:
           description: in format of "product-service-id.endpoints.gcp-project-id.cloud.goog"
           type: string
+        projectId:
+          description: The GCP project ID of the GCP marketplace integration.
+          type: string
         projectNumber:
           description: The GCP project number of the provider.
           type: string
         providerId:
-          description: The GCP project ID of the provider.
+          description: |-
+            The GCP provider ID / partner ID of the GCP marketplace integration.
+            In most cases, it is the same as the project ID. But it could be different.
           type: string
       type: object
     GcpMarketplacePrivateOfferPriceModel:
@@ -18693,7 +18983,7 @@ components:
           type: string
         id:
           description: |-
-            The usage metering metric/dimension key, all in lower case with underscore.
+            The usage metering metric/dimension key
             It is in format of "{plan_id}_{usage_dimension_key}". For example, "basic_plan_storage".
           type: string
         metricKind:
@@ -20491,6 +20781,7 @@ components:
       - STATE_TYPE_CANCELED
       - STATE_TYPE_EXPIRED_NEVER_ACCEPTED
       - STATE_TYPE_EXPIRED_ACCEPTED
+      - STATE_TYPE_COMPLETED
       type: string
       x-enum-varnames:
       - GcpMarketplaceResellerPrivateOfferPlanStateType_UNKNOWN
@@ -20502,6 +20793,7 @@ components:
       - GcpMarketplaceResellerPrivateOfferPlanStateType_CANCELED
       - GcpMarketplaceResellerPrivateOfferPlanStateType_EXPIRED_NEVER_ACCEPTED
       - GcpMarketplaceResellerPrivateOfferPlanStateType_EXPIRED_ACCEPTED
+      - GcpMarketplaceResellerPrivateOfferPlanStateType_COMPLETED
     GcpMarketplaceStartPolicy:
       enum:
       - ""
@@ -23172,6 +23464,7 @@ components:
       - SUBMIT_APPROVAL_REQUEST
       - REVIEW_APPROVAL_REQUEST
       - COMPLETE
+      - FAIL
       type: string
       x-enum-comments:
         NotificationEventAction_ADD: Add user to organization
@@ -23213,6 +23506,7 @@ components:
       - NotificationEventAction_SUBMIT_APPROVAL_REQUEST
       - NotificationEventAction_REVIEW_APPROVAL_REQUEST
       - NotificationEventAction_COMPLETE
+      - NotificationEventAction_FAIL
     NotificationEventStatus:
       enum:
       - ""
@@ -24416,6 +24710,7 @@ components:
       - SNOWFLAKE
       - STRIPE
       - ZOHO
+      - DATABRICKS
       type: string
       x-enum-varnames:
       - Partner_UNKNOWN
@@ -24440,6 +24735,7 @@ components:
       - Partner_SNOWFLAKE
       - Partner_STRIPE
       - Partner_ZOHO
+      - Partner_DATABRICKS
     PartnerService:
       enum:
       - DEFAULT

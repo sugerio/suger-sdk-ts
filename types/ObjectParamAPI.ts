@@ -242,6 +242,7 @@ import { EulaType } from '../models/EulaType';
 import { GcpAmountConstraint } from '../models/GcpAmountConstraint';
 import { GcpAmountUnit } from '../models/GcpAmountUnit';
 import { GcpCommitmentAmountPerPeriodTemplate } from '../models/GcpCommitmentAmountPerPeriodTemplate';
+import { GcpMarketplaceAgreementDocument } from '../models/GcpMarketplaceAgreementDocument';
 import { GcpMarketplaceConsumer } from '../models/GcpMarketplaceConsumer';
 import { GcpMarketplaceDocument } from '../models/GcpMarketplaceDocument';
 import { GcpMarketplaceEntitlement } from '../models/GcpMarketplaceEntitlement';
@@ -682,6 +683,40 @@ export interface BillingApiGetInvoiceRequest {
     invoiceId: string
 }
 
+export interface BillingApiGetInvoiceIssuedEmailPreviewRequest {
+    /**
+     * Organization ID
+     * Defaults to: undefined
+     * @type string
+     * @memberof BillingApigetInvoiceIssuedEmailPreview
+     */
+    orgId: string
+    /**
+     * Invoice ID
+     * Defaults to: undefined
+     * @type string
+     * @memberof BillingApigetInvoiceIssuedEmailPreview
+     */
+    invoiceId: string
+}
+
+export interface BillingApiGetInvoiceV2Request {
+    /**
+     * Organization ID
+     * Defaults to: undefined
+     * @type string
+     * @memberof BillingApigetInvoiceV2
+     */
+    orgId: string
+    /**
+     * Invoice ID
+     * Defaults to: undefined
+     * @type string
+     * @memberof BillingApigetInvoiceV2
+     */
+    invoiceId: string
+}
+
 export interface BillingApiIssueInvoiceRequest {
     /**
      * Organization ID
@@ -708,6 +743,29 @@ export interface BillingApiIssueInvoiceRequest {
      * List of Contact IDs
      * @type Array&lt;string&gt;
      * @memberof BillingApiissueInvoice
+     */
+    contactIds?: Array<string>
+}
+
+export interface BillingApiIssueInvoiceV2Request {
+    /**
+     * Organization ID
+     * Defaults to: undefined
+     * @type string
+     * @memberof BillingApiissueInvoiceV2
+     */
+    orgId: string
+    /**
+     * Invoice ID
+     * Defaults to: undefined
+     * @type string
+     * @memberof BillingApiissueInvoiceV2
+     */
+    invoiceId: string
+    /**
+     * List of Contact IDs
+     * @type Array&lt;string&gt;
+     * @memberof BillingApiissueInvoiceV2
      */
     contactIds?: Array<string>
 }
@@ -888,6 +946,23 @@ export interface BillingApiPayInvoiceRequest {
     invoiceId: string
 }
 
+export interface BillingApiPayInvoiceV2Request {
+    /**
+     * Organization ID
+     * Defaults to: undefined
+     * @type string
+     * @memberof BillingApipayInvoiceV2
+     */
+    orgId: string
+    /**
+     * Invoice ID
+     * Defaults to: undefined
+     * @type string
+     * @memberof BillingApipayInvoiceV2
+     */
+    invoiceId: string
+}
+
 export interface BillingApiUpdateAddonRequest {
     /**
      * Organization ID
@@ -941,6 +1016,29 @@ export interface BillingApiUpdateInvoiceInfoRequest {
     data: UpdateInvoiceInfoRequest
 }
 
+export interface BillingApiUpdateInvoiceInfoV2Request {
+    /**
+     * Organization ID
+     * Defaults to: undefined
+     * @type string
+     * @memberof BillingApiupdateInvoiceInfoV2
+     */
+    orgId: string
+    /**
+     * Invoice ID
+     * Defaults to: undefined
+     * @type string
+     * @memberof BillingApiupdateInvoiceInfoV2
+     */
+    invoiceId: string
+    /**
+     * Update Invoice Info Request Params
+     * @type UpdateInvoiceInfoRequest
+     * @memberof BillingApiupdateInvoiceInfoV2
+     */
+    data: UpdateInvoiceInfoRequest
+}
+
 export interface BillingApiVoidInvoiceRequest {
     /**
      * Organization ID
@@ -961,6 +1059,23 @@ export interface BillingApiVoidInvoiceRequest {
      * Defaults to: undefined
      * @type string
      * @memberof BillingApivoidInvoice
+     */
+    invoiceId: string
+}
+
+export interface BillingApiVoidInvoiceV2Request {
+    /**
+     * Organization ID
+     * Defaults to: undefined
+     * @type string
+     * @memberof BillingApivoidInvoiceV2
+     */
+    orgId: string
+    /**
+     * Invoice ID
+     * Defaults to: undefined
+     * @type string
+     * @memberof BillingApivoidInvoiceV2
      */
     invoiceId: string
 }
@@ -1063,6 +1178,42 @@ export class ObjectBillingApi {
     }
 
     /**
+     * Returns the preview HTML content of the invoice issued email.
+     * Get the preview of the invoice issued email
+     * @param param the request object
+     */
+    public getInvoiceIssuedEmailPreviewWithHttpInfo(param: BillingApiGetInvoiceIssuedEmailPreviewRequest, options?: Configuration): Promise<HttpInfo<string>> {
+        return this.api.getInvoiceIssuedEmailPreviewWithHttpInfo(param.orgId, param.invoiceId,  options).toPromise();
+    }
+
+    /**
+     * Returns the preview HTML content of the invoice issued email.
+     * Get the preview of the invoice issued email
+     * @param param the request object
+     */
+    public getInvoiceIssuedEmailPreview(param: BillingApiGetInvoiceIssuedEmailPreviewRequest, options?: Configuration): Promise<string> {
+        return this.api.getInvoiceIssuedEmailPreview(param.orgId, param.invoiceId,  options).toPromise();
+    }
+
+    /**
+     * Get the invoice by ID
+     * get invoice
+     * @param param the request object
+     */
+    public getInvoiceV2WithHttpInfo(param: BillingApiGetInvoiceV2Request, options?: Configuration): Promise<HttpInfo<BillingInvoice>> {
+        return this.api.getInvoiceV2WithHttpInfo(param.orgId, param.invoiceId,  options).toPromise();
+    }
+
+    /**
+     * Get the invoice by ID
+     * get invoice
+     * @param param the request object
+     */
+    public getInvoiceV2(param: BillingApiGetInvoiceV2Request, options?: Configuration): Promise<BillingInvoice> {
+        return this.api.getInvoiceV2(param.orgId, param.invoiceId,  options).toPromise();
+    }
+
+    /**
      * Issue the invoice immediately. It can be used for manual issue or reissue invoice.
      * issue invoice
      * @param param the request object
@@ -1078,6 +1229,24 @@ export class ObjectBillingApi {
      */
     public issueInvoice(param: BillingApiIssueInvoiceRequest, options?: Configuration): Promise<BillingInvoice> {
         return this.api.issueInvoice(param.orgId, param.entitlementId, param.invoiceId, param.contactIds,  options).toPromise();
+    }
+
+    /**
+     * Issue the invoice immediately. It can be used for manual issue or reissue invoice.
+     * issue invoice
+     * @param param the request object
+     */
+    public issueInvoiceV2WithHttpInfo(param: BillingApiIssueInvoiceV2Request, options?: Configuration): Promise<HttpInfo<BillingInvoice>> {
+        return this.api.issueInvoiceV2WithHttpInfo(param.orgId, param.invoiceId, param.contactIds,  options).toPromise();
+    }
+
+    /**
+     * Issue the invoice immediately. It can be used for manual issue or reissue invoice.
+     * issue invoice
+     * @param param the request object
+     */
+    public issueInvoiceV2(param: BillingApiIssueInvoiceV2Request, options?: Configuration): Promise<BillingInvoice> {
+        return this.api.issueInvoiceV2(param.orgId, param.invoiceId, param.contactIds,  options).toPromise();
     }
 
     /**
@@ -1171,6 +1340,24 @@ export class ObjectBillingApi {
     }
 
     /**
+     * Initiate the payment for the invoice immediately. It can be used for manual payment or retry payment.
+     * pay invoice
+     * @param param the request object
+     */
+    public payInvoiceV2WithHttpInfo(param: BillingApiPayInvoiceV2Request, options?: Configuration): Promise<HttpInfo<BillingInvoice>> {
+        return this.api.payInvoiceV2WithHttpInfo(param.orgId, param.invoiceId,  options).toPromise();
+    }
+
+    /**
+     * Initiate the payment for the invoice immediately. It can be used for manual payment or retry payment.
+     * pay invoice
+     * @param param the request object
+     */
+    public payInvoiceV2(param: BillingApiPayInvoiceV2Request, options?: Configuration): Promise<BillingInvoice> {
+        return this.api.payInvoiceV2(param.orgId, param.invoiceId,  options).toPromise();
+    }
+
+    /**
      * Update an addon template
      * update addon
      * @param param the request object
@@ -1207,6 +1394,24 @@ export class ObjectBillingApi {
     }
 
     /**
+     * Update a draft invoice. Only DueDate, OverallDiscount, and Memo can be updated.
+     * Update invoice info
+     * @param param the request object
+     */
+    public updateInvoiceInfoV2WithHttpInfo(param: BillingApiUpdateInvoiceInfoV2Request, options?: Configuration): Promise<HttpInfo<BillingInvoiceInfo>> {
+        return this.api.updateInvoiceInfoV2WithHttpInfo(param.orgId, param.invoiceId, param.data,  options).toPromise();
+    }
+
+    /**
+     * Update a draft invoice. Only DueDate, OverallDiscount, and Memo can be updated.
+     * Update invoice info
+     * @param param the request object
+     */
+    public updateInvoiceInfoV2(param: BillingApiUpdateInvoiceInfoV2Request, options?: Configuration): Promise<BillingInvoiceInfo> {
+        return this.api.updateInvoiceInfoV2(param.orgId, param.invoiceId, param.data,  options).toPromise();
+    }
+
+    /**
      * Void the invoice. It can be used for manual void or cancel the invoice.
      * void invoice
      * @param param the request object
@@ -1222,6 +1427,24 @@ export class ObjectBillingApi {
      */
     public voidInvoice(param: BillingApiVoidInvoiceRequest, options?: Configuration): Promise<BillingInvoice> {
         return this.api.voidInvoice(param.orgId, param.entitlementId, param.invoiceId,  options).toPromise();
+    }
+
+    /**
+     * Void the invoice. It can be used for manual void or cancel the invoice.
+     * void invoice
+     * @param param the request object
+     */
+    public voidInvoiceV2WithHttpInfo(param: BillingApiVoidInvoiceV2Request, options?: Configuration): Promise<HttpInfo<BillingInvoice>> {
+        return this.api.voidInvoiceV2WithHttpInfo(param.orgId, param.invoiceId,  options).toPromise();
+    }
+
+    /**
+     * Void the invoice. It can be used for manual void or cancel the invoice.
+     * void invoice
+     * @param param the request object
+     */
+    public voidInvoiceV2(param: BillingApiVoidInvoiceV2Request, options?: Configuration): Promise<BillingInvoice> {
+        return this.api.voidInvoiceV2(param.orgId, param.invoiceId,  options).toPromise();
     }
 
 }

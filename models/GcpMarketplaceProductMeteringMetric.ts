@@ -29,7 +29,7 @@ export class GcpMarketplaceProductMeteringMetric {
     */
     'displayUnitDescription'?: string;
     /**
-    * The usage metering metric/dimension key, all in lower case with underscore. It is in format of \"{plan_id}_{usage_dimension_key}\". For example, \"basic_plan_storage\".
+    * The usage metering metric/dimension key It is in format of \"{plan_id}_{usage_dimension_key}\". For example, \"basic_plan_storage\".
     */
     'id'?: string;
     /**

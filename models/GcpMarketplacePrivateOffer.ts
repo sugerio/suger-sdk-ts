@@ -10,7 +10,7 @@
  * Do not edit the class manually.
  */
 
-import { GcpMarketplaceDocument } from '../models/GcpMarketplaceDocument';
+import { GcpMarketplaceAgreementDocument } from '../models/GcpMarketplaceAgreementDocument';
 import { GcpMarketplaceEntitlement } from '../models/GcpMarketplaceEntitlement';
 import { GcpMarketplaceExistingOfferData } from '../models/GcpMarketplaceExistingOfferData';
 import { GcpMarketplacePrivateOfferCustomerInfo } from '../models/GcpMarketplacePrivateOfferCustomerInfo';
@@ -36,10 +36,9 @@ export class GcpMarketplacePrivateOffer {
     * The resource name of agreement(entitlement) In format of \"projects/{projectNumber}/agreements/{agreementId}\"
     */
     'agreement'?: string;
+    'agreementDocuments'?: GcpMarketplaceAgreementDocument;
     'cancelTime'?: Date;
-    'customEula'?: GcpMarketplaceDocument;
     'customerInfo'?: GcpMarketplacePrivateOfferCustomerInfo;
-    'eulaAgreementDocument'?: GcpMarketplaceDocument;
     'existingOfferData'?: GcpMarketplaceExistingOfferData;
     'expireTime'?: Date;
     'features'?: Array<GcpMarketplaceProductFeatureValue>;
@@ -122,27 +121,21 @@ export class GcpMarketplacePrivateOffer {
             "format": ""
         },
         {
+            "name": "agreementDocuments",
+            "baseName": "agreementDocuments",
+            "type": "GcpMarketplaceAgreementDocument",
+            "format": ""
+        },
+        {
             "name": "cancelTime",
             "baseName": "cancelTime",
             "type": "Date",
             "format": "date-time"
         },
         {
-            "name": "customEula",
-            "baseName": "customEula",
-            "type": "GcpMarketplaceDocument",
-            "format": ""
-        },
-        {
             "name": "customerInfo",
             "baseName": "customerInfo",
             "type": "GcpMarketplacePrivateOfferCustomerInfo",
-            "format": ""
-        },
-        {
-            "name": "eulaAgreementDocument",
-            "baseName": "eulaAgreementDocument",
-            "type": "GcpMarketplaceDocument",
             "format": ""
         },
         {

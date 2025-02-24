@@ -273,6 +273,7 @@ models/EulaType.ts
 models/GcpAmountConstraint.ts
 models/GcpAmountUnit.ts
 models/GcpCommitmentAmountPerPeriodTemplate.ts
+models/GcpMarketplaceAgreementDocument.ts
 models/GcpMarketplaceConsumer.ts
 models/GcpMarketplaceDocument.ts
 models/GcpMarketplaceEntitlement.ts

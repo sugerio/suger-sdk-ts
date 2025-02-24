@@ -22,11 +22,15 @@ export class GcpMarketplacePrivateOfferMigrationMetadata {
     */
     'productExternalName'?: string;
     /**
+    * The GCP project ID of the GCP marketplace integration.
+    */
+    'projectId'?: string;
+    /**
     * The GCP project number of the provider.
     */
     'projectNumber'?: string;
     /**
-    * The GCP project ID of the provider.
+    * The GCP provider ID / partner ID of the GCP marketplace integration. In most cases, it is the same as the project ID. But it could be different.
     */
     'providerId'?: string;
 
@@ -44,6 +48,12 @@ export class GcpMarketplacePrivateOfferMigrationMetadata {
         {
             "name": "productExternalName",
             "baseName": "productExternalName",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "projectId",
+            "baseName": "projectId",
             "type": "string",
             "format": ""
         },

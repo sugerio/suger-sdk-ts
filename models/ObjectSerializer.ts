@@ -239,6 +239,7 @@ export * from '../models/EulaType';
 export * from '../models/GcpAmountConstraint';
 export * from '../models/GcpAmountUnit';
 export * from '../models/GcpCommitmentAmountPerPeriodTemplate';
+export * from '../models/GcpMarketplaceAgreementDocument';
 export * from '../models/GcpMarketplaceConsumer';
 export * from '../models/GcpMarketplaceDocument';
 export * from '../models/GcpMarketplaceEntitlement';
@@ -710,6 +711,7 @@ import { EulaType } from '../models/EulaType';
 import { GcpAmountConstraint } from '../models/GcpAmountConstraint';
 import { GcpAmountUnit } from '../models/GcpAmountUnit';
 import { GcpCommitmentAmountPerPeriodTemplate } from '../models/GcpCommitmentAmountPerPeriodTemplate';
+import { GcpMarketplaceAgreementDocument } from '../models/GcpMarketplaceAgreementDocument';
 import { GcpMarketplaceConsumer } from '../models/GcpMarketplaceConsumer';
 import { GcpMarketplaceDocument } from '../models/GcpMarketplaceDocument';
 import { GcpMarketplaceEntitlement                            } from '../models/GcpMarketplaceEntitlement';
@@ -726,7 +728,7 @@ import { GcpMarketplaceOfferProration } from '../models/GcpMarketplaceOfferProra
 import { GcpMarketplaceOfferStartPolicy } from '../models/GcpMarketplaceOfferStartPolicy';
 import { GcpMarketplaceOfferTemplatePolicies     } from '../models/GcpMarketplaceOfferTemplatePolicies';
 import { GcpMarketplacePriceModel } from '../models/GcpMarketplacePriceModel';
-import { GcpMarketplacePrivateOffer                , GcpMarketplacePrivateOfferOfferSourceEnum                       } from '../models/GcpMarketplacePrivateOffer';
+import { GcpMarketplacePrivateOffer               , GcpMarketplacePrivateOfferOfferSourceEnum                       } from '../models/GcpMarketplacePrivateOffer';
 import { GcpMarketplacePrivateOfferCustomerInfo } from '../models/GcpMarketplacePrivateOfferCustomerInfo';
 import { GcpMarketplacePrivateOfferInstallment } from '../models/GcpMarketplacePrivateOfferInstallment';
 import { GcpMarketplacePrivateOfferInstallmentTimeline } from '../models/GcpMarketplacePrivateOfferInstallmentTimeline';
@@ -1301,6 +1303,7 @@ let typeMap: {[index: string]: any} = {
     "GcpAmountConstraint": GcpAmountConstraint,
     "GcpAmountUnit": GcpAmountUnit,
     "GcpCommitmentAmountPerPeriodTemplate": GcpCommitmentAmountPerPeriodTemplate,
+    "GcpMarketplaceAgreementDocument": GcpMarketplaceAgreementDocument,
     "GcpMarketplaceConsumer": GcpMarketplaceConsumer,
     "GcpMarketplaceDocument": GcpMarketplaceDocument,
     "GcpMarketplaceEntitlement": GcpMarketplaceEntitlement,

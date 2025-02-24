@@ -21,5 +21,6 @@ export enum GcpMarketplaceResellerPrivateOfferPlanStateType {
     GcpMarketplaceResellerPrivateOfferPlanStateType_USED = 'STATE_TYPE_USED',
     GcpMarketplaceResellerPrivateOfferPlanStateType_CANCELED = 'STATE_TYPE_CANCELED',
     GcpMarketplaceResellerPrivateOfferPlanStateType_EXPIRED_NEVER_ACCEPTED = 'STATE_TYPE_EXPIRED_NEVER_ACCEPTED',
-    GcpMarketplaceResellerPrivateOfferPlanStateType_EXPIRED_ACCEPTED = 'STATE_TYPE_EXPIRED_ACCEPTED'
+    GcpMarketplaceResellerPrivateOfferPlanStateType_EXPIRED_ACCEPTED = 'STATE_TYPE_EXPIRED_ACCEPTED',
+    GcpMarketplaceResellerPrivateOfferPlanStateType_COMPLETED = 'STATE_TYPE_COMPLETED'
 }
