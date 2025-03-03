@@ -281,7 +281,7 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/github_com_sugerio_marketplace-service_rds-db_lib.IdentityApiClient'
+                  $ref: '#/components/schemas/github_com_sugerio_marketplace-service_pkg_legacy_rds-db_lib.IdentityApiClient'
                 type: array
           description: OK
         "400":
@@ -325,7 +325,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/github_com_sugerio_marketplace-service_rds-db_lib.IdentityApiClient'
+                $ref: '#/components/schemas/github_com_sugerio_marketplace-service_pkg_legacy_rds-db_lib.IdentityApiClient'
           description: OK
         "400":
           content:
@@ -2289,7 +2289,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/github_com_sugerio_marketplace-service_rds-db_lib.UpdateEntitlementNameParams'
+              $ref: '#/components/schemas/github_com_sugerio_marketplace-service_pkg_legacy_rds-db_lib.UpdateEntitlementNameParams'
         description: UpdateEntitlementNameParams
         required: true
       responses:
@@ -2463,275 +2463,6 @@ paths:
       - Entitlement
       x-accepts:
       - application/json
-  /org/{orgId}/entitlement/{entitlementId}/invoice/{invoiceId}:
-    get:
-      description: Get the invoice by ID
-      operationId: GetInvoice
-      parameters:
-      - description: Organization ID
-        in: path
-        name: orgId
-        required: true
-        schema:
-          type: string
-      - description: Entitlement ID
-        in: path
-        name: entitlementId
-        required: true
-        schema:
-          type: string
-      - description: Invoice ID
-        in: path
-        name: invoiceId
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BillingInvoice'
-          description: OK
-        "400":
-          content:
-            application/json:
-              schema:
-                type: string
-          description: Bad request error
-        "500":
-          content:
-            application/json:
-              schema:
-                type: string
-          description: Internal server error
-      security:
-      - APIKeyAuth: []
-      summary: get invoice
-      tags:
-      - Billing
-      x-accepts:
-      - application/json
-  /org/{orgId}/entitlement/{entitlementId}/invoice/{invoiceId}/info:
-    patch:
-      description: "Update a draft invoice. Only DueDate, OverallDiscount, and Memo\
-        \ can be updated."
-      operationId: UpdateInvoiceInfo
-      parameters:
-      - description: Organization ID
-        in: path
-        name: orgId
-        required: true
-        schema:
-          type: string
-      - description: Entitlement ID
-        in: path
-        name: entitlementId
-        required: true
-        schema:
-          type: string
-      - description: Invoice ID
-        in: path
-        name: invoiceId
-        required: true
-        schema:
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UpdateInvoiceInfoRequest'
-        description: Update Invoice Info Request Params
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BillingInvoiceInfo'
-          description: Updated Invoice info
-        "400":
-          content:
-            application/json:
-              schema:
-                type: string
-          description: Bad request error
-        "500":
-          content:
-            application/json:
-              schema:
-                type: string
-          description: Internal server error
-      security:
-      - APIKeyAuth: []
-      summary: Update invoice info
-      tags:
-      - Billing
-      x-codegen-request-body-name: data
-      x-content-type: application/json
-      x-accepts:
-      - application/json
-  /org/{orgId}/entitlement/{entitlementId}/invoice/{invoiceId}/issue:
-    patch:
-      description: Issue the invoice immediately. It can be used for manual issue
-        or reissue invoice.
-      operationId: IssueInvoice
-      parameters:
-      - description: Organization ID
-        in: path
-        name: orgId
-        required: true
-        schema:
-          type: string
-      - description: Entitlement ID
-        in: path
-        name: entitlementId
-        required: true
-        schema:
-          type: string
-      - description: Invoice ID
-        in: path
-        name: invoiceId
-        required: true
-        schema:
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              items:
-                type: string
-              type: array
-        description: List of Contact IDs
-        required: false
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BillingInvoice'
-          description: the issued Invoice
-        "400":
-          content:
-            application/json:
-              schema:
-                type: string
-          description: Bad request error
-        "500":
-          content:
-            application/json:
-              schema:
-                type: string
-          description: Internal server error
-      security:
-      - APIKeyAuth: []
-      summary: issue invoice
-      tags:
-      - Billing
-      x-codegen-request-body-name: contactIds
-      x-content-type: application/json
-      x-accepts:
-      - application/json
-  /org/{orgId}/entitlement/{entitlementId}/invoice/{invoiceId}/pay:
-    patch:
-      description: Initiate the payment for the invoice immediately. It can be used
-        for manual payment or retry payment.
-      operationId: PayInvoice
-      parameters:
-      - description: Organization ID
-        in: path
-        name: orgId
-        required: true
-        schema:
-          type: string
-      - description: Entitlement ID
-        in: path
-        name: entitlementId
-        required: true
-        schema:
-          type: string
-      - description: Invoice ID
-        in: path
-        name: invoiceId
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BillingInvoice'
-          description: OK
-        "400":
-          content:
-            application/json:
-              schema:
-                type: string
-          description: Bad request error
-        "500":
-          content:
-            application/json:
-              schema:
-                type: string
-          description: Internal server error
-      security:
-      - APIKeyAuth: []
-      summary: pay invoice
-      tags:
-      - Billing
-      x-accepts:
-      - application/json
-  /org/{orgId}/entitlement/{entitlementId}/invoice/{invoiceId}/void:
-    patch:
-      description: Void the invoice. It can be used for manual void or cancel the
-        invoice.
-      operationId: VoidInvoice
-      parameters:
-      - description: Organization ID
-        in: path
-        name: orgId
-        required: true
-        schema:
-          type: string
-      - description: Entitlement ID
-        in: path
-        name: entitlementId
-        required: true
-        schema:
-          type: string
-      - description: Invoice ID
-        in: path
-        name: invoiceId
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BillingInvoice'
-          description: OK
-        "400":
-          content:
-            application/json:
-              schema:
-                type: string
-          description: Bad request error
-        "500":
-          content:
-            application/json:
-              schema:
-                type: string
-          description: Internal server error
-      security:
-      - APIKeyAuth: []
-      summary: void invoice
-      tags:
-      - Billing
-      x-accepts:
-      - application/json
   /org/{orgId}/entitlement/{entitlementId}/metaInfo:
     patch:
       description: Update the meta info of the given entitlement.
@@ -2838,7 +2569,8 @@ paths:
       - application/json
   /org/{orgId}/entitlement/{entitlementId}/seat:
     patch:
-      description: Update the seat number for the active AZURE subscription.
+      description: Update the seat number of the entitlement. Only active AZURE entitlement
+        can be updated.
       operationId: UpdateEntitlementSeat
       parameters:
       - description: Organization ID
@@ -2880,7 +2612,7 @@ paths:
           description: Internal server error
       security:
       - APIKeyAuth: []
-      summary: update seat for the active AZURE subscription
+      summary: update entitlement seat
       tags:
       - Entitlement
       x-accepts:
@@ -3142,7 +2874,7 @@ paths:
           description: Internal server error
       security:
       - APIKeyAuth: []
-      summary: Update invoice info
+      summary: update invoice info
       tags:
       - Billing
       x-codegen-request-body-name: data
@@ -3251,7 +2983,7 @@ paths:
   /org/{orgId}/invoice/{invoiceId}/preview:
     get:
       description: Returns the preview HTML content of the invoice issued email.
-      operationId: GetInvoiceIssuedEmailPreview
+      operationId: PreviewInvoiceEmail
       parameters:
       - description: Organization ID
         in: path
@@ -3286,7 +3018,7 @@ paths:
           description: Internal server error
       security:
       - APIKeyAuth: []
-      summary: Get the preview of the invoice issued email
+      summary: preview invoice email
       tags:
       - Billing
       x-accepts:
@@ -5655,6 +5387,11 @@ paths:
         required: true
         schema:
           type: string
+      - description: UsageRecordGroup's creation date (UTC) in YYYY-MM-DD format
+        in: query
+        name: creationDate
+        schema:
+          type: string
       responses:
         "200":
           content:
@@ -5704,6 +5441,11 @@ paths:
         in: path
         name: usageRecordGroupId
         required: true
+        schema:
+          type: string
+      - description: UsageRecordGroup's creation date (UTC) in YYYY-MM-DD format
+        in: query
+        name: creationDate
         schema:
           type: string
       responses:
@@ -5814,44 +5556,6 @@ paths:
       summary: list usageRecordReports
       tags:
       - Metering
-      x-accepts:
-      - application/json
-  /public/apiClient/accessToken:
-    post:
-      description: Get the Bearer Access Token by giving the Suger API Client ID &
-        Client Secret.
-      operationId: GetApiClientAccessToken
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/GetApiClientAccessTokenParams'
-        description: Suger API Client
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiClientAccessToken'
-          description: OK
-        "400":
-          content:
-            application/json:
-              schema:
-                type: string
-          description: Bad request error
-        "500":
-          content:
-            application/json:
-              schema:
-                type: string
-          description: Internal server error
-      summary: get api access token
-      tags:
-      - API
-      x-codegen-request-body-name: data
-      x-content-type: application/json
       x-accepts:
       - application/json
 components:
@@ -7013,26 +6717,6 @@ components:
           items:
             $ref: '#/components/schemas/AlibabaMarketplaceProductSku'
           type: array
-      type: object
-    ApiClientAccessToken:
-      example:
-        access_token: access_token
-        expires_on: 2000-01-23T04:56:07.000+00:00
-        token_type: Bearer
-        expires_in: 0
-      properties:
-        access_token:
-          type: string
-        expires_in:
-          description: The token expires in 1 hour
-          type: integer
-        expires_on:
-          description: The UTC timestamp when the token expires
-          format: date-time
-          type: string
-        token_type:
-          default: Bearer
-          type: string
       type: object
     AuditingEventPriority:
       enum:
@@ -17221,6 +16905,7 @@ components:
       - WORKFLOW
       - WORKFLOW_EXECUTION
       - WORKFLOW_WEBHOOK
+      - CLICKUP_TASK_WEBHOOK
       type: string
       x-enum-varnames:
       - EntityType_UNKNOWN
@@ -17251,6 +16936,7 @@ components:
       - EntityType_WORKFLOW
       - EntityType_WORKFLOW_EXECUTION
       - EntityType_WORKFLOW_WEBHOOK
+      - EntityType_CLICKUP_TASK_WEBHOOK
     EulaType:
       enum:
       - ""
@@ -20998,25 +20684,6 @@ components:
             \ Open ID Connect."
           type: string
       type: object
-    GetApiClientAccessTokenParams:
-      example:
-        organizationID: organizationID
-        id: id
-        secret: secret
-      properties:
-        id:
-          description: The ID of the API Client.
-          type: string
-        organizationID:
-          type: string
-        secret:
-          description: The secret of the API Client.
-          type: string
-      required:
-      - id
-      - organizationID
-      - secret
-      type: object
     GetRevenueReportParams:
       example:
         organizationID: organizationID
@@ -23098,7 +22765,7 @@ components:
           type: object
         azureMeteringResponse:
           allOf:
-          - $ref: '#/components/schemas/github_com_sugerio_marketplace-service_azure_sdk_marketplacemeteringv1.BatchUsageEventOkResponse'
+          - $ref: '#/components/schemas/github_com_sugerio_marketplace-service_third_party_azure_sdk_marketplacemeteringv1.BatchUsageEventOkResponse'
           description: The raw response from Azure metering service.
           type: object
         commitAmount:
@@ -24648,12 +24315,14 @@ components:
       enum:
       - UNKNOWN
       - AMI
+      - APPLICATION
       - CONTAINER
       - CONTRACT
       - CPPO_OUT
       - CPPO_IN
       - CPPO
       - CUD
+      - DATA
       - DEFAULT
       - FIXED_FEE
       - FIXED_FEE_WITH_OVERAGE
@@ -24669,12 +24338,14 @@ components:
       x-enum-varnames:
       - OfferType_UNKNOWN
       - OfferType_AMI
+      - OfferType_APPLICATION
       - OfferType_CONTAINER
       - OfferType_CONTRACT
       - OfferType_CPPO_OUT
       - OfferType_CPPO_IN
       - OfferType_CPPO
       - OfferType_CUD
+      - OfferType_DATA
       - OfferType_DEFAULT
       - OfferType_FIXED_FEE
       - OfferType_FIXED_FEE_WITH_OVERAGE
@@ -26463,6 +26134,85 @@ components:
             Description: Description
         eulaUrl: eulaUrl
         sellerNotes: sellerNotes
+        snowflakeProduct:
+          UniformListingLocator:
+            valid: true
+            string: string
+          IsByRequest:
+            valid: true
+            bool: true
+          Owner:
+            valid: true
+            string: string
+          PublishedOn:
+            valid: true
+            time: time
+          DetailedTargetAccounts:
+            valid: true
+            string: string
+          RejectedOn:
+            valid: true
+            time: time
+          TargetAccounts:
+            valid: true
+            string: string
+          Profile:
+            valid: true
+            string: string
+          IsApplication:
+            valid: true
+            bool: true
+          IsLimitedTrial:
+            valid: true
+            bool: true
+          organizationProfileName:
+            valid: true
+            string: string
+          UpdatedOn:
+            valid: true
+            time: time
+          CreatedOn:
+            valid: true
+            time: time
+          Comment:
+            valid: true
+            string: string
+          IsMonetized:
+            valid: true
+            bool: true
+          Title:
+            valid: true
+            string: string
+          Regions:
+            valid: true
+            string: string
+          IsTargeted:
+            valid: true
+            bool: true
+          GlobalName:
+            valid: true
+            string: string
+          Subtitle:
+            valid: true
+            string: string
+          OwnerRoleType:
+            valid: true
+            string: string
+          ReviewState:
+            valid: true
+            string: string
+          State:
+            valid: true
+            string: string
+          Distribution:
+            valid: true
+            string: string
+          name:
+            valid: true
+            string: string
+          IsMountlessQueryable:
+            valid: true
+            bool: true
         azureProduct:
           availabilities:
           - visibility: visibility
@@ -28290,6 +28040,8 @@ components:
           type: string
         sellerNotes:
           type: string
+        snowflakeProduct:
+          $ref: '#/components/schemas/pkg_structs.SnowflakeMarketplaceProduct'
         stripeProduct:
           $ref: '#/components/schemas/StripeProduct'
       type: object
@@ -28564,17 +28316,17 @@ components:
       properties:
         awsRevenueRecordDetail:
           allOf:
-          - $ref: '#/components/schemas/github_com_sugerio_marketplace-service_rds-db_lib.BillingAwsBillingEvent'
+          - $ref: '#/components/schemas/github_com_sugerio_marketplace-service_pkg_legacy_rds-db_lib.BillingAwsBillingEvent'
           description: For AWS Marketplace
           type: object
         azureRevenueRecordDetail:
           allOf:
-          - $ref: '#/components/schemas/github_com_sugerio_marketplace-service_rds-db_lib.BillingAzureCmaRevenue'
+          - $ref: '#/components/schemas/github_com_sugerio_marketplace-service_pkg_legacy_rds-db_lib.BillingAzureCmaRevenue'
           description: For Azure Marketplace
           type: object
         gcpRevenueRecordDetail:
           allOf:
-          - $ref: '#/components/schemas/github_com_sugerio_marketplace-service_rds-db_lib.BillingGcpChargeUsage'
+          - $ref: '#/components/schemas/github_com_sugerio_marketplace-service_pkg_legacy_rds-db_lib.BillingGcpChargeUsage'
           description: For GCP Marketplace
           type: object
       type: object
@@ -28769,12 +28521,12 @@ components:
         awsRevenueRecords:
           description: For raw revenue records in AWS Marketplace
           items:
-            $ref: '#/components/schemas/github_com_sugerio_marketplace-service_rds-db_lib.BillingAwsBillingEvent'
+            $ref: '#/components/schemas/github_com_sugerio_marketplace-service_pkg_legacy_rds-db_lib.BillingAwsBillingEvent'
           type: array
         azureRevenueRecords:
           description: For raw revenue records in Azure Marketplace
           items:
-            $ref: '#/components/schemas/github_com_sugerio_marketplace-service_rds-db_lib.BillingAzureCmaRevenue'
+            $ref: '#/components/schemas/github_com_sugerio_marketplace-service_pkg_legacy_rds-db_lib.BillingAzureCmaRevenue'
           type: array
         creditAmount:
           description: The credit amount used in the revenue record.
@@ -28786,7 +28538,7 @@ components:
         gcpRevenueRecords:
           description: For raw revenue records in GCP Marketplace
           items:
-            $ref: '#/components/schemas/github_com_sugerio_marketplace-service_rds-db_lib.BillingGcpChargeUsage'
+            $ref: '#/components/schemas/github_com_sugerio_marketplace-service_pkg_legacy_rds-db_lib.BillingGcpChargeUsage'
           type: array
         idSource:
           description: Source of the revenue record ID.
@@ -35164,6 +34916,85 @@ components:
               Description: Description
           eulaUrl: eulaUrl
           sellerNotes: sellerNotes
+          snowflakeProduct:
+            UniformListingLocator:
+              valid: true
+              string: string
+            IsByRequest:
+              valid: true
+              bool: true
+            Owner:
+              valid: true
+              string: string
+            PublishedOn:
+              valid: true
+              time: time
+            DetailedTargetAccounts:
+              valid: true
+              string: string
+            RejectedOn:
+              valid: true
+              time: time
+            TargetAccounts:
+              valid: true
+              string: string
+            Profile:
+              valid: true
+              string: string
+            IsApplication:
+              valid: true
+              bool: true
+            IsLimitedTrial:
+              valid: true
+              bool: true
+            organizationProfileName:
+              valid: true
+              string: string
+            UpdatedOn:
+              valid: true
+              time: time
+            CreatedOn:
+              valid: true
+              time: time
+            Comment:
+              valid: true
+              string: string
+            IsMonetized:
+              valid: true
+              bool: true
+            Title:
+              valid: true
+              string: string
+            Regions:
+              valid: true
+              string: string
+            IsTargeted:
+              valid: true
+              bool: true
+            GlobalName:
+              valid: true
+              string: string
+            Subtitle:
+              valid: true
+              string: string
+            OwnerRoleType:
+              valid: true
+              string: string
+            ReviewState:
+              valid: true
+              string: string
+            State:
+              valid: true
+              string: string
+            Distribution:
+              valid: true
+              string: string
+            name:
+              valid: true
+              string: string
+            IsMountlessQueryable:
+              valid: true
+              bool: true
           azureProduct:
             availabilities:
             - visibility: visibility
@@ -37551,6 +37382,28 @@ components:
         Success:
           type: boolean
       type: object
+    database_sql.NullBool:
+      example:
+        valid: true
+        bool: true
+      properties:
+        bool:
+          type: boolean
+        valid:
+          description: Valid is true if Bool is not NULL
+          type: boolean
+      type: object
+    database_sql.NullString:
+      example:
+        valid: true
+        string: string
+      properties:
+        string:
+          type: string
+        valid:
+          description: Valid is true if String is not NULL
+          type: boolean
+      type: object
     database_sql.NullTime:
       example:
         valid: true
@@ -37579,120 +37432,7 @@ components:
             This member is required.
           type: string
       type: object
-    github_com_sugerio_marketplace-service_azure_sdk_marketplacemeteringv1.BatchUsageEventOkResponse:
-      properties:
-        count:
-          type: integer
-        result:
-          items:
-            $ref: '#/components/schemas/github_com_sugerio_marketplace-service_azure_sdk_marketplacemeteringv1.UsageBatchEventOkMessage'
-          type: array
-      type: object
-    github_com_sugerio_marketplace-service_azure_sdk_marketplacemeteringv1.UsageBatchEventOkMessage:
-      properties:
-        dimension:
-          description: Dimension identifier
-          type: string
-        effectiveStartTime:
-          description: Time in UTC when the usage event occurred
-          type: string
-        error:
-          $ref: '#/components/schemas/github_com_sugerio_marketplace-service_azure_sdk_marketplacemeteringv1.UsageEventConflictResponse'
-        messageTime:
-          description: Time this message was created in UTC
-          type: string
-        planId:
-          description: Plan associated with the purchased offer
-          type: string
-        quantity:
-          description: Number of units consumed
-          type: number
-        resourceId:
-          description: Identifier of the resource against which usage is emitted
-          type: string
-        resourceUri:
-          description: Identifier of the managed app resource against which usage
-            is emitted
-          type: string
-        status:
-          allOf:
-          - $ref: '#/components/schemas/github_com_sugerio_marketplace-service_azure_sdk_marketplacemeteringv1.UsageEventStatusEnum'
-          description: Status of the operation.
-          type: object
-        usageEventId:
-          description: Unique identifier associated with the usage event
-          type: string
-      type: object
-    github_com_sugerio_marketplace-service_azure_sdk_marketplacemeteringv1.UsageEventConflictResponse:
-      properties:
-        additionalInfo:
-          $ref: '#/components/schemas/github_com_sugerio_marketplace-service_azure_sdk_marketplacemeteringv1.UsageEventConflictResponseAdditionalInfo'
-        code:
-          type: string
-        message:
-          type: string
-      type: object
-    github_com_sugerio_marketplace-service_azure_sdk_marketplacemeteringv1.UsageEventConflictResponseAdditionalInfo:
-      properties:
-        acceptedMessage:
-          $ref: '#/components/schemas/github_com_sugerio_marketplace-service_azure_sdk_marketplacemeteringv1.UsageEventOkResponse'
-      type: object
-    github_com_sugerio_marketplace-service_azure_sdk_marketplacemeteringv1.UsageEventOkResponse:
-      properties:
-        dimension:
-          description: Dimension identifier
-          type: string
-        effectiveStartTime:
-          description: Time in UTC when the usage event occurred
-          type: string
-        messageTime:
-          description: Time this message was created in UTC
-          type: string
-        planId:
-          description: Plan associated with the purchased offer
-          type: string
-        quantity:
-          description: Number of units consumed
-          type: number
-        resourceId:
-          description: Identifier of the resource against which usage is emitted
-          type: string
-        resourceUri:
-          description: Identifier of the managed app resource against which usage
-            is emitted
-          type: string
-        status:
-          allOf:
-          - $ref: '#/components/schemas/github_com_sugerio_marketplace-service_azure_sdk_marketplacemeteringv1.UsageEventStatusEnum'
-          description: Status of the operation.
-          type: object
-        usageEventId:
-          description: Unique identifier associated with the usage event
-          type: string
-      type: object
-    github_com_sugerio_marketplace-service_azure_sdk_marketplacemeteringv1.UsageEventStatusEnum:
-      enum:
-      - Accepted
-      - Expired
-      - Duplicate
-      - Error
-      - ResourceNotFound
-      - ResourceNotAuthorized
-      - InvalidDimension
-      - InvalidQuantity
-      - BadArgument
-      type: string
-      x-enum-varnames:
-      - UsageEventStatusEnumAccepted
-      - UsageEventStatusEnumExpired
-      - UsageEventStatusEnumDuplicate
-      - UsageEventStatusEnumError
-      - UsageEventStatusEnumResourceNotFound
-      - UsageEventStatusEnumResourceNotAuthorized
-      - UsageEventStatusEnumInvalidDimension
-      - UsageEventStatusEnumInvalidQuantity
-      - UsageEventStatusEnumBadArgument
-    github_com_sugerio_marketplace-service_rds-db_lib.BillingAwsBillingEvent:
+    github_com_sugerio_marketplace-service_pkg_legacy_rds-db_lib.BillingAwsBillingEvent:
       example:
         brokerID: brokerID
         usagePeriodStartDate:
@@ -37790,7 +37530,7 @@ components:
         usagePeriodStartDate:
           $ref: '#/components/schemas/database_sql.NullTime'
       type: object
-    github_com_sugerio_marketplace-service_rds-db_lib.BillingAzureCmaRevenue:
+    github_com_sugerio_marketplace-service_pkg_legacy_rds-db_lib.BillingAzureCmaRevenue:
       example:
         purchaseRecordID: purchaseRecordID
         revenueUsd: 7.061401241503109
@@ -37855,7 +37595,7 @@ components:
         termStartDate:
           type: string
       type: object
-    github_com_sugerio_marketplace-service_rds-db_lib.BillingGcpChargeUsage:
+    github_com_sugerio_marketplace-service_pkg_legacy_rds-db_lib.BillingGcpChargeUsage:
       example:
         productID: productID
         usage: 1.1730742509559433
@@ -37943,7 +37683,7 @@ components:
         withheld:
           type: number
       type: object
-    github_com_sugerio_marketplace-service_rds-db_lib.IdentityApiClient:
+    github_com_sugerio_marketplace-service_pkg_legacy_rds-db_lib.IdentityApiClient:
       example:
         organizationID: organizationID
         role: role
@@ -37981,7 +37721,7 @@ components:
         type:
           type: string
       type: object
-    github_com_sugerio_marketplace-service_rds-db_lib.UpdateEntitlementNameParams:
+    github_com_sugerio_marketplace-service_pkg_legacy_rds-db_lib.UpdateEntitlementNameParams:
       properties:
         id:
           type: string
@@ -37990,6 +37730,119 @@ components:
         organizationID:
           type: string
       type: object
+    github_com_sugerio_marketplace-service_third_party_azure_sdk_marketplacemeteringv1.BatchUsageEventOkResponse:
+      properties:
+        count:
+          type: integer
+        result:
+          items:
+            $ref: '#/components/schemas/github_com_sugerio_marketplace-service_third_party_azure_sdk_marketplacemeteringv1.UsageBatchEventOkMessage'
+          type: array
+      type: object
+    github_com_sugerio_marketplace-service_third_party_azure_sdk_marketplacemeteringv1.UsageBatchEventOkMessage:
+      properties:
+        dimension:
+          description: Dimension identifier
+          type: string
+        effectiveStartTime:
+          description: Time in UTC when the usage event occurred
+          type: string
+        error:
+          $ref: '#/components/schemas/github_com_sugerio_marketplace-service_third_party_azure_sdk_marketplacemeteringv1.UsageEventConflictResponse'
+        messageTime:
+          description: Time this message was created in UTC
+          type: string
+        planId:
+          description: Plan associated with the purchased offer
+          type: string
+        quantity:
+          description: Number of units consumed
+          type: number
+        resourceId:
+          description: Identifier of the resource against which usage is emitted
+          type: string
+        resourceUri:
+          description: Identifier of the managed app resource against which usage
+            is emitted
+          type: string
+        status:
+          allOf:
+          - $ref: '#/components/schemas/github_com_sugerio_marketplace-service_third_party_azure_sdk_marketplacemeteringv1.UsageEventStatusEnum'
+          description: Status of the operation.
+          type: object
+        usageEventId:
+          description: Unique identifier associated with the usage event
+          type: string
+      type: object
+    github_com_sugerio_marketplace-service_third_party_azure_sdk_marketplacemeteringv1.UsageEventConflictResponse:
+      properties:
+        additionalInfo:
+          $ref: '#/components/schemas/github_com_sugerio_marketplace-service_third_party_azure_sdk_marketplacemeteringv1.UsageEventConflictResponseAdditionalInfo'
+        code:
+          type: string
+        message:
+          type: string
+      type: object
+    github_com_sugerio_marketplace-service_third_party_azure_sdk_marketplacemeteringv1.UsageEventConflictResponseAdditionalInfo:
+      properties:
+        acceptedMessage:
+          $ref: '#/components/schemas/github_com_sugerio_marketplace-service_third_party_azure_sdk_marketplacemeteringv1.UsageEventOkResponse'
+      type: object
+    github_com_sugerio_marketplace-service_third_party_azure_sdk_marketplacemeteringv1.UsageEventOkResponse:
+      properties:
+        dimension:
+          description: Dimension identifier
+          type: string
+        effectiveStartTime:
+          description: Time in UTC when the usage event occurred
+          type: string
+        messageTime:
+          description: Time this message was created in UTC
+          type: string
+        planId:
+          description: Plan associated with the purchased offer
+          type: string
+        quantity:
+          description: Number of units consumed
+          type: number
+        resourceId:
+          description: Identifier of the resource against which usage is emitted
+          type: string
+        resourceUri:
+          description: Identifier of the managed app resource against which usage
+            is emitted
+          type: string
+        status:
+          allOf:
+          - $ref: '#/components/schemas/github_com_sugerio_marketplace-service_third_party_azure_sdk_marketplacemeteringv1.UsageEventStatusEnum'
+          description: Status of the operation.
+          type: object
+        usageEventId:
+          description: Unique identifier associated with the usage event
+          type: string
+      type: object
+    github_com_sugerio_marketplace-service_third_party_azure_sdk_marketplacemeteringv1.UsageEventStatusEnum:
+      enum:
+      - Accepted
+      - Expired
+      - Duplicate
+      - Error
+      - ResourceNotFound
+      - ResourceNotAuthorized
+      - InvalidDimension
+      - InvalidQuantity
+      - BadArgument
+      type: string
+      x-enum-varnames:
+      - UsageEventStatusEnumAccepted
+      - UsageEventStatusEnumExpired
+      - UsageEventStatusEnumDuplicate
+      - UsageEventStatusEnumError
+      - UsageEventStatusEnumResourceNotFound
+      - UsageEventStatusEnumResourceNotAuthorized
+      - UsageEventStatusEnumInvalidDimension
+      - UsageEventStatusEnumInvalidQuantity
+      - UsageEventStatusEnumBadArgument
     marketplacemetering.BatchMeterUsageOutput:
       properties:
         resultMetadata:
@@ -38015,6 +37868,140 @@ components:
           type: array
       type: object
     middleware.Metadata:
+      type: object
+    pkg_structs.SnowflakeMarketplaceProduct:
+      example:
+        UniformListingLocator:
+          valid: true
+          string: string
+        IsByRequest:
+          valid: true
+          bool: true
+        Owner:
+          valid: true
+          string: string
+        PublishedOn:
+          valid: true
+          time: time
+        DetailedTargetAccounts:
+          valid: true
+          string: string
+        RejectedOn:
+          valid: true
+          time: time
+        TargetAccounts:
+          valid: true
+          string: string
+        Profile:
+          valid: true
+          string: string
+        IsApplication:
+          valid: true
+          bool: true
+        IsLimitedTrial:
+          valid: true
+          bool: true
+        organizationProfileName:
+          valid: true
+          string: string
+        UpdatedOn:
+          valid: true
+          time: time
+        CreatedOn:
+          valid: true
+          time: time
+        Comment:
+          valid: true
+          string: string
+        IsMonetized:
+          valid: true
+          bool: true
+        Title:
+          valid: true
+          string: string
+        Regions:
+          valid: true
+          string: string
+        IsTargeted:
+          valid: true
+          bool: true
+        GlobalName:
+          valid: true
+          string: string
+        Subtitle:
+          valid: true
+          string: string
+        OwnerRoleType:
+          valid: true
+          string: string
+        ReviewState:
+          valid: true
+          string: string
+        State:
+          valid: true
+          string: string
+        Distribution:
+          valid: true
+          string: string
+        name:
+          valid: true
+          string: string
+        IsMountlessQueryable:
+          valid: true
+          bool: true
+      properties:
+        Comment:
+          $ref: '#/components/schemas/database_sql.NullString'
+        CreatedOn:
+          $ref: '#/components/schemas/database_sql.NullTime'
+        DetailedTargetAccounts:
+          $ref: '#/components/schemas/database_sql.NullString'
+        Distribution:
+          $ref: '#/components/schemas/database_sql.NullString'
+        GlobalName:
+          $ref: '#/components/schemas/database_sql.NullString'
+        IsApplication:
+          $ref: '#/components/schemas/database_sql.NullBool'
+        IsByRequest:
+          $ref: '#/components/schemas/database_sql.NullBool'
+        IsLimitedTrial:
+          $ref: '#/components/schemas/database_sql.NullBool'
+        IsMonetized:
+          $ref: '#/components/schemas/database_sql.NullBool'
+        IsMountlessQueryable:
+          $ref: '#/components/schemas/database_sql.NullBool'
+        IsTargeted:
+          $ref: '#/components/schemas/database_sql.NullBool'
+        Owner:
+          $ref: '#/components/schemas/database_sql.NullString'
+        OwnerRoleType:
+          $ref: '#/components/schemas/database_sql.NullString'
+        Profile:
+          $ref: '#/components/schemas/database_sql.NullString'
+        PublishedOn:
+          $ref: '#/components/schemas/database_sql.NullTime'
+        Regions:
+          $ref: '#/components/schemas/database_sql.NullString'
+        RejectedOn:
+          $ref: '#/components/schemas/database_sql.NullTime'
+        ReviewState:
+          $ref: '#/components/schemas/database_sql.NullString'
+        State:
+          $ref: '#/components/schemas/database_sql.NullString'
+        Subtitle:
+          $ref: '#/components/schemas/database_sql.NullString'
+        TargetAccounts:
+          $ref: '#/components/schemas/database_sql.NullString'
+        Title:
+          $ref: '#/components/schemas/database_sql.NullString'
+        UniformListingLocator:
+          $ref: '#/components/schemas/database_sql.NullString'
+        UpdatedOn:
+          $ref: '#/components/schemas/database_sql.NullTime'
+        name:
+          $ref: '#/components/schemas/database_sql.NullString'
+        organizationProfileName:
+          $ref: '#/components/schemas/database_sql.NullString'
       type: object
     servicecontrol.ReportError:
       properties:

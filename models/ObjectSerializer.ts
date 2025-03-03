@@ -19,7 +19,6 @@ export * from '../models/AlibabaMarketplaceProductSkuModules';
 export * from '../models/AlibabaMarketplaceProductSkuOrderPeriod';
 export * from '../models/AlibabaMarketplaceProductSkuOrderPeriods';
 export * from '../models/AlibabaMarketplaceProductSkus';
-export * from '../models/ApiClientAccessToken';
 export * from '../models/AuditingEventPriority';
 export * from '../models/AwsAccountIdentifier';
 export * from '../models/AwsChannelPartner';
@@ -228,6 +227,8 @@ export * from '../models/CreateAndUpdateAddonParams';
 export * from '../models/CreateBuyerParams';
 export * from '../models/CreateEntitlementParams';
 export * from '../models/CreateUsageRecordGroupParams';
+export * from '../models/DatabaseSqlNullBool';
+export * from '../models/DatabaseSqlNullString';
 export * from '../models/DatabaseSqlNullTime';
 export * from '../models/DivideEntitlementCommitParams';
 export * from '../models/EntitlementInfo';
@@ -332,20 +333,19 @@ export * from '../models/GcpPriceModelDiscountTemplate';
 export * from '../models/GcpPriceTier';
 export * from '../models/GcpPriceValue';
 export * from '../models/GcpUserInfo';
-export * from '../models/GetApiClientAccessTokenParams';
 export * from '../models/GetRevenueReportParams';
 export * from '../models/GithubComAwsAwsSdkGoV2ServiceMarketplacemeteringTypesTag';
-export * from '../models/GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1BatchUsageEventOkResponse';
-export * from '../models/GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageBatchEventOkMessage';
-export * from '../models/GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventConflictResponse';
-export * from '../models/GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventConflictResponseAdditionalInfo';
-export * from '../models/GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventOkResponse';
-export * from '../models/GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventStatusEnum';
-export * from '../models/GithubComSugerioMarketplaceServiceRdsDbLibBillingAwsBillingEvent';
-export * from '../models/GithubComSugerioMarketplaceServiceRdsDbLibBillingAzureCmaRevenue';
-export * from '../models/GithubComSugerioMarketplaceServiceRdsDbLibBillingGcpChargeUsage';
-export * from '../models/GithubComSugerioMarketplaceServiceRdsDbLibIdentityApiClient';
-export * from '../models/GithubComSugerioMarketplaceServiceRdsDbLibUpdateEntitlementNameParams';
+export * from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAwsBillingEvent';
+export * from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAzureCmaRevenue';
+export * from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingGcpChargeUsage';
+export * from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient';
+export * from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibUpdateEntitlementNameParams';
+export * from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1BatchUsageEventOkResponse';
+export * from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageBatchEventOkMessage';
+export * from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventConflictResponse';
+export * from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventConflictResponseAdditionalInfo';
+export * from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventOkResponse';
+export * from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventStatusEnum';
 export * from '../models/IdentityBuyer';
 export * from '../models/IdentityConctactInfo';
 export * from '../models/IdentityContact';
@@ -387,6 +387,7 @@ export * from '../models/PartnerUsageMeteringConfig';
 export * from '../models/PaymentConfig';
 export * from '../models/PaymentInstallment';
 export * from '../models/PaymentScheduleType';
+export * from '../models/PkgStructsSnowflakeMarketplaceProduct';
 export * from '../models/PriceModelBasic';
 export * from '../models/PriceModelBulk';
 export * from '../models/PriceModelCategory';
@@ -491,7 +492,6 @@ import { AlibabaMarketplaceProductSkuModules } from '../models/AlibabaMarketplac
 import { AlibabaMarketplaceProductSkuOrderPeriod } from '../models/AlibabaMarketplaceProductSkuOrderPeriod';
 import { AlibabaMarketplaceProductSkuOrderPeriods } from '../models/AlibabaMarketplaceProductSkuOrderPeriods';
 import { AlibabaMarketplaceProductSkus } from '../models/AlibabaMarketplaceProductSkus';
-import { ApiClientAccessToken } from '../models/ApiClientAccessToken';
 import { AuditingEventPriority } from '../models/AuditingEventPriority';
 import { AwsAccountIdentifier } from '../models/AwsAccountIdentifier';
 import { AwsChannelPartner } from '../models/AwsChannelPartner';
@@ -700,6 +700,8 @@ import { CreateAndUpdateAddonParams } from '../models/CreateAndUpdateAddonParams
 import { CreateBuyerParams            } from '../models/CreateBuyerParams';
 import { CreateEntitlementParams } from '../models/CreateEntitlementParams';
 import { CreateUsageRecordGroupParams } from '../models/CreateUsageRecordGroupParams';
+import { DatabaseSqlNullBool } from '../models/DatabaseSqlNullBool';
+import { DatabaseSqlNullString } from '../models/DatabaseSqlNullString';
 import { DatabaseSqlNullTime } from '../models/DatabaseSqlNullTime';
 import { DivideEntitlementCommitParams } from '../models/DivideEntitlementCommitParams';
 import { EntitlementInfo                                 } from '../models/EntitlementInfo';
@@ -804,20 +806,19 @@ import { GcpPriceModelDiscountTemplate } from '../models/GcpPriceModelDiscountTe
 import { GcpPriceTier } from '../models/GcpPriceTier';
 import { GcpPriceValue } from '../models/GcpPriceValue';
 import { GcpUserInfo } from '../models/GcpUserInfo';
-import { GetApiClientAccessTokenParams } from '../models/GetApiClientAccessTokenParams';
 import { GetRevenueReportParams   , GetRevenueReportParamsPartnerEnum    , GetRevenueReportParamsServiceEnum   } from '../models/GetRevenueReportParams';
 import { GithubComAwsAwsSdkGoV2ServiceMarketplacemeteringTypesTag } from '../models/GithubComAwsAwsSdkGoV2ServiceMarketplacemeteringTypesTag';
-import { GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1BatchUsageEventOkResponse } from '../models/GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1BatchUsageEventOkResponse';
-import { GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageBatchEventOkMessage           } from '../models/GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageBatchEventOkMessage';
-import { GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventConflictResponse } from '../models/GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventConflictResponse';
-import { GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventConflictResponseAdditionalInfo } from '../models/GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventConflictResponseAdditionalInfo';
-import { GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventOkResponse          } from '../models/GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventOkResponse';
-import { GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventStatusEnum } from '../models/GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventStatusEnum';
-import { GithubComSugerioMarketplaceServiceRdsDbLibBillingAwsBillingEvent } from '../models/GithubComSugerioMarketplaceServiceRdsDbLibBillingAwsBillingEvent';
-import { GithubComSugerioMarketplaceServiceRdsDbLibBillingAzureCmaRevenue } from '../models/GithubComSugerioMarketplaceServiceRdsDbLibBillingAzureCmaRevenue';
-import { GithubComSugerioMarketplaceServiceRdsDbLibBillingGcpChargeUsage } from '../models/GithubComSugerioMarketplaceServiceRdsDbLibBillingGcpChargeUsage';
-import { GithubComSugerioMarketplaceServiceRdsDbLibIdentityApiClient } from '../models/GithubComSugerioMarketplaceServiceRdsDbLibIdentityApiClient';
-import { GithubComSugerioMarketplaceServiceRdsDbLibUpdateEntitlementNameParams } from '../models/GithubComSugerioMarketplaceServiceRdsDbLibUpdateEntitlementNameParams';
+import { GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAwsBillingEvent } from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAwsBillingEvent';
+import { GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAzureCmaRevenue } from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAzureCmaRevenue';
+import { GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingGcpChargeUsage } from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingGcpChargeUsage';
+import { GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient } from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient';
+import { GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibUpdateEntitlementNameParams } from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibUpdateEntitlementNameParams';
+import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1BatchUsageEventOkResponse } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1BatchUsageEventOkResponse';
+import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageBatchEventOkMessage           } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageBatchEventOkMessage';
+import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventConflictResponse } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventConflictResponse';
+import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventConflictResponseAdditionalInfo } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventConflictResponseAdditionalInfo';
+import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventOkResponse          } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventOkResponse';
+import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventStatusEnum } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventStatusEnum';
 import { IdentityBuyer           } from '../models/IdentityBuyer';
 import { IdentityConctactInfo } from '../models/IdentityConctactInfo';
 import { IdentityContact } from '../models/IdentityContact';
@@ -859,6 +860,7 @@ import { PartnerUsageMeteringConfig        } from '../models/PartnerUsageMeterin
 import { PaymentConfig } from '../models/PaymentConfig';
 import { PaymentInstallment } from '../models/PaymentInstallment';
 import { PaymentScheduleType } from '../models/PaymentScheduleType';
+import { PkgStructsSnowflakeMarketplaceProduct } from '../models/PkgStructsSnowflakeMarketplaceProduct';
 import { PriceModelBasic } from '../models/PriceModelBasic';
 import { PriceModelBulk } from '../models/PriceModelBulk';
 import { PriceModelCategory } from '../models/PriceModelCategory';
@@ -873,7 +875,7 @@ import { PriceModelTieredPercentageConfig } from '../models/PriceModelTieredPerc
 import { PriceModelVolume } from '../models/PriceModelVolume';
 import { PriceModelVolumeConfig } from '../models/PriceModelVolumeConfig';
 import { PrivateOfferDiscountType } from '../models/PrivateOfferDiscountType';
-import { ProductInfo                   } from '../models/ProductInfo';
+import { ProductInfo                    } from '../models/ProductInfo';
 import { RevenueRecord } from '../models/RevenueRecord';
 import { RevenueRecordDetail } from '../models/RevenueRecordDetail';
 import { RevenueRecordInfo } from '../models/RevenueRecordInfo';
@@ -1072,7 +1074,7 @@ let enumsMap: Set<string> = new Set<string>([
     "GcpPeriodDurationUnit",
     "GetRevenueReportParamsPartnerEnum",
     "GetRevenueReportParamsServiceEnum",
-    "GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventStatusEnum",
+    "GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventStatusEnum",
     "MeteringUsageRecordGroupPartnerEnum",
     "NotificationChannel",
     "NotificationEventAction",
@@ -1122,7 +1124,6 @@ let typeMap: {[index: string]: any} = {
     "AlibabaMarketplaceProductSkuOrderPeriod": AlibabaMarketplaceProductSkuOrderPeriod,
     "AlibabaMarketplaceProductSkuOrderPeriods": AlibabaMarketplaceProductSkuOrderPeriods,
     "AlibabaMarketplaceProductSkus": AlibabaMarketplaceProductSkus,
-    "ApiClientAccessToken": ApiClientAccessToken,
     "AwsAccountIdentifier": AwsAccountIdentifier,
     "AwsChannelPartner": AwsChannelPartner,
     "AwsMarketplaceAgreementV2": AwsMarketplaceAgreementV2,
@@ -1296,6 +1297,8 @@ let typeMap: {[index: string]: any} = {
     "CreateBuyerParams": CreateBuyerParams,
     "CreateEntitlementParams": CreateEntitlementParams,
     "CreateUsageRecordGroupParams": CreateUsageRecordGroupParams,
+    "DatabaseSqlNullBool": DatabaseSqlNullBool,
+    "DatabaseSqlNullString": DatabaseSqlNullString,
     "DatabaseSqlNullTime": DatabaseSqlNullTime,
     "DivideEntitlementCommitParams": DivideEntitlementCommitParams,
     "EntitlementInfo": EntitlementInfo,
@@ -1382,19 +1385,18 @@ let typeMap: {[index: string]: any} = {
     "GcpPriceTier": GcpPriceTier,
     "GcpPriceValue": GcpPriceValue,
     "GcpUserInfo": GcpUserInfo,
-    "GetApiClientAccessTokenParams": GetApiClientAccessTokenParams,
     "GetRevenueReportParams": GetRevenueReportParams,
     "GithubComAwsAwsSdkGoV2ServiceMarketplacemeteringTypesTag": GithubComAwsAwsSdkGoV2ServiceMarketplacemeteringTypesTag,
-    "GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1BatchUsageEventOkResponse": GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1BatchUsageEventOkResponse,
-    "GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageBatchEventOkMessage": GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageBatchEventOkMessage,
-    "GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventConflictResponse": GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventConflictResponse,
-    "GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventConflictResponseAdditionalInfo": GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventConflictResponseAdditionalInfo,
-    "GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventOkResponse": GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventOkResponse,
-    "GithubComSugerioMarketplaceServiceRdsDbLibBillingAwsBillingEvent": GithubComSugerioMarketplaceServiceRdsDbLibBillingAwsBillingEvent,
-    "GithubComSugerioMarketplaceServiceRdsDbLibBillingAzureCmaRevenue": GithubComSugerioMarketplaceServiceRdsDbLibBillingAzureCmaRevenue,
-    "GithubComSugerioMarketplaceServiceRdsDbLibBillingGcpChargeUsage": GithubComSugerioMarketplaceServiceRdsDbLibBillingGcpChargeUsage,
-    "GithubComSugerioMarketplaceServiceRdsDbLibIdentityApiClient": GithubComSugerioMarketplaceServiceRdsDbLibIdentityApiClient,
-    "GithubComSugerioMarketplaceServiceRdsDbLibUpdateEntitlementNameParams": GithubComSugerioMarketplaceServiceRdsDbLibUpdateEntitlementNameParams,
+    "GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAwsBillingEvent": GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAwsBillingEvent,
+    "GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAzureCmaRevenue": GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAzureCmaRevenue,
+    "GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingGcpChargeUsage": GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingGcpChargeUsage,
+    "GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient": GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient,
+    "GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibUpdateEntitlementNameParams": GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibUpdateEntitlementNameParams,
+    "GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1BatchUsageEventOkResponse": GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1BatchUsageEventOkResponse,
+    "GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageBatchEventOkMessage": GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageBatchEventOkMessage,
+    "GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventConflictResponse": GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventConflictResponse,
+    "GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventConflictResponseAdditionalInfo": GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventConflictResponseAdditionalInfo,
+    "GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventOkResponse": GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventOkResponse,
     "IdentityBuyer": IdentityBuyer,
     "IdentityConctactInfo": IdentityConctactInfo,
     "IdentityContact": IdentityContact,
@@ -1428,6 +1430,7 @@ let typeMap: {[index: string]: any} = {
     "PartnerUsageMeteringConfig": PartnerUsageMeteringConfig,
     "PaymentConfig": PaymentConfig,
     "PaymentInstallment": PaymentInstallment,
+    "PkgStructsSnowflakeMarketplaceProduct": PkgStructsSnowflakeMarketplaceProduct,
     "PriceModelBasic": PriceModelBasic,
     "PriceModelBulk": PriceModelBulk,
     "PriceModelMatrix": PriceModelMatrix,

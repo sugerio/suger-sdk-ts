@@ -22,7 +22,6 @@ import { AlibabaMarketplaceProductSkuModules } from '../models/AlibabaMarketplac
 import { AlibabaMarketplaceProductSkuOrderPeriod } from '../models/AlibabaMarketplaceProductSkuOrderPeriod';
 import { AlibabaMarketplaceProductSkuOrderPeriods } from '../models/AlibabaMarketplaceProductSkuOrderPeriods';
 import { AlibabaMarketplaceProductSkus } from '../models/AlibabaMarketplaceProductSkus';
-import { ApiClientAccessToken } from '../models/ApiClientAccessToken';
 import { AuditingEventPriority } from '../models/AuditingEventPriority';
 import { AwsAccountIdentifier } from '../models/AwsAccountIdentifier';
 import { AwsChannelPartner } from '../models/AwsChannelPartner';
@@ -231,6 +230,8 @@ import { CreateAndUpdateAddonParams } from '../models/CreateAndUpdateAddonParams
 import { CreateBuyerParams } from '../models/CreateBuyerParams';
 import { CreateEntitlementParams } from '../models/CreateEntitlementParams';
 import { CreateUsageRecordGroupParams } from '../models/CreateUsageRecordGroupParams';
+import { DatabaseSqlNullBool } from '../models/DatabaseSqlNullBool';
+import { DatabaseSqlNullString } from '../models/DatabaseSqlNullString';
 import { DatabaseSqlNullTime } from '../models/DatabaseSqlNullTime';
 import { DivideEntitlementCommitParams } from '../models/DivideEntitlementCommitParams';
 import { EntitlementInfo } from '../models/EntitlementInfo';
@@ -335,20 +336,19 @@ import { GcpPriceModelDiscountTemplate } from '../models/GcpPriceModelDiscountTe
 import { GcpPriceTier } from '../models/GcpPriceTier';
 import { GcpPriceValue } from '../models/GcpPriceValue';
 import { GcpUserInfo } from '../models/GcpUserInfo';
-import { GetApiClientAccessTokenParams } from '../models/GetApiClientAccessTokenParams';
 import { GetRevenueReportParams } from '../models/GetRevenueReportParams';
 import { GithubComAwsAwsSdkGoV2ServiceMarketplacemeteringTypesTag } from '../models/GithubComAwsAwsSdkGoV2ServiceMarketplacemeteringTypesTag';
-import { GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1BatchUsageEventOkResponse } from '../models/GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1BatchUsageEventOkResponse';
-import { GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageBatchEventOkMessage } from '../models/GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageBatchEventOkMessage';
-import { GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventConflictResponse } from '../models/GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventConflictResponse';
-import { GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventConflictResponseAdditionalInfo } from '../models/GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventConflictResponseAdditionalInfo';
-import { GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventOkResponse } from '../models/GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventOkResponse';
-import { GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventStatusEnum } from '../models/GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventStatusEnum';
-import { GithubComSugerioMarketplaceServiceRdsDbLibBillingAwsBillingEvent } from '../models/GithubComSugerioMarketplaceServiceRdsDbLibBillingAwsBillingEvent';
-import { GithubComSugerioMarketplaceServiceRdsDbLibBillingAzureCmaRevenue } from '../models/GithubComSugerioMarketplaceServiceRdsDbLibBillingAzureCmaRevenue';
-import { GithubComSugerioMarketplaceServiceRdsDbLibBillingGcpChargeUsage } from '../models/GithubComSugerioMarketplaceServiceRdsDbLibBillingGcpChargeUsage';
-import { GithubComSugerioMarketplaceServiceRdsDbLibIdentityApiClient } from '../models/GithubComSugerioMarketplaceServiceRdsDbLibIdentityApiClient';
-import { GithubComSugerioMarketplaceServiceRdsDbLibUpdateEntitlementNameParams } from '../models/GithubComSugerioMarketplaceServiceRdsDbLibUpdateEntitlementNameParams';
+import { GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAwsBillingEvent } from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAwsBillingEvent';
+import { GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAzureCmaRevenue } from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAzureCmaRevenue';
+import { GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingGcpChargeUsage } from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingGcpChargeUsage';
+import { GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient } from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient';
+import { GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibUpdateEntitlementNameParams } from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibUpdateEntitlementNameParams';
+import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1BatchUsageEventOkResponse } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1BatchUsageEventOkResponse';
+import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageBatchEventOkMessage } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageBatchEventOkMessage';
+import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventConflictResponse } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventConflictResponse';
+import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventConflictResponseAdditionalInfo } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventConflictResponseAdditionalInfo';
+import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventOkResponse } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventOkResponse';
+import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventStatusEnum } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventStatusEnum';
 import { IdentityBuyer } from '../models/IdentityBuyer';
 import { IdentityConctactInfo } from '../models/IdentityConctactInfo';
 import { IdentityContact } from '../models/IdentityContact';
@@ -390,6 +390,7 @@ import { PartnerUsageMeteringConfig } from '../models/PartnerUsageMeteringConfig
 import { PaymentConfig } from '../models/PaymentConfig';
 import { PaymentInstallment } from '../models/PaymentInstallment';
 import { PaymentScheduleType } from '../models/PaymentScheduleType';
+import { PkgStructsSnowflakeMarketplaceProduct } from '../models/PkgStructsSnowflakeMarketplaceProduct';
 import { PriceModelBasic } from '../models/PriceModelBasic';
 import { PriceModelBulk } from '../models/PriceModelBulk';
 import { PriceModelCategory } from '../models/PriceModelCategory';
@@ -492,7 +493,7 @@ export class PromiseAPIApi {
      * @param orgId Organization ID
      * @param apiClientId API client ID
      */
-    public getApiClientWithHttpInfo(orgId: string, apiClientId: string, _options?: Configuration): Promise<HttpInfo<GithubComSugerioMarketplaceServiceRdsDbLibIdentityApiClient>> {
+    public getApiClientWithHttpInfo(orgId: string, apiClientId: string, _options?: Configuration): Promise<HttpInfo<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient>> {
         const result = this.api.getApiClientWithHttpInfo(orgId, apiClientId, _options);
         return result.toPromise();
     }
@@ -503,28 +504,8 @@ export class PromiseAPIApi {
      * @param orgId Organization ID
      * @param apiClientId API client ID
      */
-    public getApiClient(orgId: string, apiClientId: string, _options?: Configuration): Promise<GithubComSugerioMarketplaceServiceRdsDbLibIdentityApiClient> {
+    public getApiClient(orgId: string, apiClientId: string, _options?: Configuration): Promise<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient> {
         const result = this.api.getApiClient(orgId, apiClientId, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * Get the Bearer Access Token by giving the Suger API Client ID & Client Secret.
-     * get api access token
-     * @param data Suger API Client
-     */
-    public getApiClientAccessTokenWithHttpInfo(data: GetApiClientAccessTokenParams, _options?: Configuration): Promise<HttpInfo<ApiClientAccessToken>> {
-        const result = this.api.getApiClientAccessTokenWithHttpInfo(data, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * Get the Bearer Access Token by giving the Suger API Client ID & Client Secret.
-     * get api access token
-     * @param data Suger API Client
-     */
-    public getApiClientAccessToken(data: GetApiClientAccessTokenParams, _options?: Configuration): Promise<ApiClientAccessToken> {
-        const result = this.api.getApiClientAccessToken(data, _options);
         return result.toPromise();
     }
 
@@ -533,7 +514,7 @@ export class PromiseAPIApi {
      * list api clients
      * @param orgId Organization ID
      */
-    public listApiClientsWithHttpInfo(orgId: string, _options?: Configuration): Promise<HttpInfo<Array<GithubComSugerioMarketplaceServiceRdsDbLibIdentityApiClient>>> {
+    public listApiClientsWithHttpInfo(orgId: string, _options?: Configuration): Promise<HttpInfo<Array<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient>>> {
         const result = this.api.listApiClientsWithHttpInfo(orgId, _options);
         return result.toPromise();
     }
@@ -543,7 +524,7 @@ export class PromiseAPIApi {
      * list api clients
      * @param orgId Organization ID
      */
-    public listApiClients(orgId: string, _options?: Configuration): Promise<Array<GithubComSugerioMarketplaceServiceRdsDbLibIdentityApiClient>> {
+    public listApiClients(orgId: string, _options?: Configuration): Promise<Array<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient>> {
         const result = this.api.listApiClients(orgId, _options);
         return result.toPromise();
     }
@@ -663,52 +644,6 @@ export class PromiseBillingApi {
      * Get the invoice by ID
      * get invoice
      * @param orgId Organization ID
-     * @param entitlementId Entitlement ID
-     * @param invoiceId Invoice ID
-     */
-    public getInvoiceWithHttpInfo(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Promise<HttpInfo<BillingInvoice>> {
-        const result = this.api.getInvoiceWithHttpInfo(orgId, entitlementId, invoiceId, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * Get the invoice by ID
-     * get invoice
-     * @param orgId Organization ID
-     * @param entitlementId Entitlement ID
-     * @param invoiceId Invoice ID
-     */
-    public getInvoice(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Promise<BillingInvoice> {
-        const result = this.api.getInvoice(orgId, entitlementId, invoiceId, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * Returns the preview HTML content of the invoice issued email.
-     * Get the preview of the invoice issued email
-     * @param orgId Organization ID
-     * @param invoiceId Invoice ID
-     */
-    public getInvoiceIssuedEmailPreviewWithHttpInfo(orgId: string, invoiceId: string, _options?: Configuration): Promise<HttpInfo<string>> {
-        const result = this.api.getInvoiceIssuedEmailPreviewWithHttpInfo(orgId, invoiceId, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * Returns the preview HTML content of the invoice issued email.
-     * Get the preview of the invoice issued email
-     * @param orgId Organization ID
-     * @param invoiceId Invoice ID
-     */
-    public getInvoiceIssuedEmailPreview(orgId: string, invoiceId: string, _options?: Configuration): Promise<string> {
-        const result = this.api.getInvoiceIssuedEmailPreview(orgId, invoiceId, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * Get the invoice by ID
-     * get invoice
-     * @param orgId Organization ID
      * @param invoiceId Invoice ID
      */
     public getInvoiceV2WithHttpInfo(orgId: string, invoiceId: string, _options?: Configuration): Promise<HttpInfo<BillingInvoice>> {
@@ -724,32 +659,6 @@ export class PromiseBillingApi {
      */
     public getInvoiceV2(orgId: string, invoiceId: string, _options?: Configuration): Promise<BillingInvoice> {
         const result = this.api.getInvoiceV2(orgId, invoiceId, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * Issue the invoice immediately. It can be used for manual issue or reissue invoice.
-     * issue invoice
-     * @param orgId Organization ID
-     * @param entitlementId Entitlement ID
-     * @param invoiceId Invoice ID
-     * @param [contactIds] List of Contact IDs
-     */
-    public issueInvoiceWithHttpInfo(orgId: string, entitlementId: string, invoiceId: string, contactIds?: Array<string>, _options?: Configuration): Promise<HttpInfo<BillingInvoice>> {
-        const result = this.api.issueInvoiceWithHttpInfo(orgId, entitlementId, invoiceId, contactIds, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * Issue the invoice immediately. It can be used for manual issue or reissue invoice.
-     * issue invoice
-     * @param orgId Organization ID
-     * @param entitlementId Entitlement ID
-     * @param invoiceId Invoice ID
-     * @param [contactIds] List of Contact IDs
-     */
-    public issueInvoice(orgId: string, entitlementId: string, invoiceId: string, contactIds?: Array<string>, _options?: Configuration): Promise<BillingInvoice> {
-        const result = this.api.issueInvoice(orgId, entitlementId, invoiceId, contactIds, _options);
         return result.toPromise();
     }
 
@@ -893,30 +802,6 @@ export class PromiseBillingApi {
      * Initiate the payment for the invoice immediately. It can be used for manual payment or retry payment.
      * pay invoice
      * @param orgId Organization ID
-     * @param entitlementId Entitlement ID
-     * @param invoiceId Invoice ID
-     */
-    public payInvoiceWithHttpInfo(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Promise<HttpInfo<BillingInvoice>> {
-        const result = this.api.payInvoiceWithHttpInfo(orgId, entitlementId, invoiceId, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * Initiate the payment for the invoice immediately. It can be used for manual payment or retry payment.
-     * pay invoice
-     * @param orgId Organization ID
-     * @param entitlementId Entitlement ID
-     * @param invoiceId Invoice ID
-     */
-    public payInvoice(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Promise<BillingInvoice> {
-        const result = this.api.payInvoice(orgId, entitlementId, invoiceId, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * Initiate the payment for the invoice immediately. It can be used for manual payment or retry payment.
-     * pay invoice
-     * @param orgId Organization ID
      * @param invoiceId Invoice ID
      */
     public payInvoiceV2WithHttpInfo(orgId: string, invoiceId: string, _options?: Configuration): Promise<HttpInfo<BillingInvoice>> {
@@ -932,6 +817,28 @@ export class PromiseBillingApi {
      */
     public payInvoiceV2(orgId: string, invoiceId: string, _options?: Configuration): Promise<BillingInvoice> {
         const result = this.api.payInvoiceV2(orgId, invoiceId, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Returns the preview HTML content of the invoice issued email.
+     * preview invoice email
+     * @param orgId Organization ID
+     * @param invoiceId Invoice ID
+     */
+    public previewInvoiceEmailWithHttpInfo(orgId: string, invoiceId: string, _options?: Configuration): Promise<HttpInfo<string>> {
+        const result = this.api.previewInvoiceEmailWithHttpInfo(orgId, invoiceId, _options);
+        return result.toPromise();
+    }
+
+    /**
+     * Returns the preview HTML content of the invoice issued email.
+     * preview invoice email
+     * @param orgId Organization ID
+     * @param invoiceId Invoice ID
+     */
+    public previewInvoiceEmail(orgId: string, invoiceId: string, _options?: Configuration): Promise<string> {
+        const result = this.api.previewInvoiceEmail(orgId, invoiceId, _options);
         return result.toPromise();
     }
 
@@ -961,33 +868,7 @@ export class PromiseBillingApi {
 
     /**
      * Update a draft invoice. Only DueDate, OverallDiscount, and Memo can be updated.
-     * Update invoice info
-     * @param orgId Organization ID
-     * @param entitlementId Entitlement ID
-     * @param invoiceId Invoice ID
-     * @param data Update Invoice Info Request Params
-     */
-    public updateInvoiceInfoWithHttpInfo(orgId: string, entitlementId: string, invoiceId: string, data: UpdateInvoiceInfoRequest, _options?: Configuration): Promise<HttpInfo<BillingInvoiceInfo>> {
-        const result = this.api.updateInvoiceInfoWithHttpInfo(orgId, entitlementId, invoiceId, data, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * Update a draft invoice. Only DueDate, OverallDiscount, and Memo can be updated.
-     * Update invoice info
-     * @param orgId Organization ID
-     * @param entitlementId Entitlement ID
-     * @param invoiceId Invoice ID
-     * @param data Update Invoice Info Request Params
-     */
-    public updateInvoiceInfo(orgId: string, entitlementId: string, invoiceId: string, data: UpdateInvoiceInfoRequest, _options?: Configuration): Promise<BillingInvoiceInfo> {
-        const result = this.api.updateInvoiceInfo(orgId, entitlementId, invoiceId, data, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * Update a draft invoice. Only DueDate, OverallDiscount, and Memo can be updated.
-     * Update invoice info
+     * update invoice info
      * @param orgId Organization ID
      * @param invoiceId Invoice ID
      * @param data Update Invoice Info Request Params
@@ -999,37 +880,13 @@ export class PromiseBillingApi {
 
     /**
      * Update a draft invoice. Only DueDate, OverallDiscount, and Memo can be updated.
-     * Update invoice info
+     * update invoice info
      * @param orgId Organization ID
      * @param invoiceId Invoice ID
      * @param data Update Invoice Info Request Params
      */
     public updateInvoiceInfoV2(orgId: string, invoiceId: string, data: UpdateInvoiceInfoRequest, _options?: Configuration): Promise<BillingInvoiceInfo> {
         const result = this.api.updateInvoiceInfoV2(orgId, invoiceId, data, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * Void the invoice. It can be used for manual void or cancel the invoice.
-     * void invoice
-     * @param orgId Organization ID
-     * @param entitlementId Entitlement ID
-     * @param invoiceId Invoice ID
-     */
-    public voidInvoiceWithHttpInfo(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Promise<HttpInfo<BillingInvoice>> {
-        const result = this.api.voidInvoiceWithHttpInfo(orgId, entitlementId, invoiceId, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * Void the invoice. It can be used for manual void or cancel the invoice.
-     * void invoice
-     * @param orgId Organization ID
-     * @param entitlementId Entitlement ID
-     * @param invoiceId Invoice ID
-     */
-    public voidInvoice(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Promise<BillingInvoice> {
-        const result = this.api.voidInvoice(orgId, entitlementId, invoiceId, _options);
         return result.toPromise();
     }
 
@@ -1899,7 +1756,7 @@ export class PromiseEntitlementApi {
      * @param entitlementId Entitlement ID
      * @param data UpdateEntitlementNameParams
      */
-    public updateEntitlementNameWithHttpInfo(orgId: string, entitlementId: string, data: GithubComSugerioMarketplaceServiceRdsDbLibUpdateEntitlementNameParams, _options?: Configuration): Promise<HttpInfo<WorkloadEntitlement>> {
+    public updateEntitlementNameWithHttpInfo(orgId: string, entitlementId: string, data: GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibUpdateEntitlementNameParams, _options?: Configuration): Promise<HttpInfo<WorkloadEntitlement>> {
         const result = this.api.updateEntitlementNameWithHttpInfo(orgId, entitlementId, data, _options);
         return result.toPromise();
     }
@@ -1911,14 +1768,14 @@ export class PromiseEntitlementApi {
      * @param entitlementId Entitlement ID
      * @param data UpdateEntitlementNameParams
      */
-    public updateEntitlementName(orgId: string, entitlementId: string, data: GithubComSugerioMarketplaceServiceRdsDbLibUpdateEntitlementNameParams, _options?: Configuration): Promise<WorkloadEntitlement> {
+    public updateEntitlementName(orgId: string, entitlementId: string, data: GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibUpdateEntitlementNameParams, _options?: Configuration): Promise<WorkloadEntitlement> {
         const result = this.api.updateEntitlementName(orgId, entitlementId, data, _options);
         return result.toPromise();
     }
 
     /**
-     * Update the seat number for the active AZURE subscription.
-     * update seat for the active AZURE subscription
+     * Update the seat number of the entitlement. Only active AZURE entitlement can be updated.
+     * update entitlement seat
      * @param orgId Organization ID
      * @param entitlementId Entitlement ID
      * @param newSeat New seat number
@@ -1929,8 +1786,8 @@ export class PromiseEntitlementApi {
     }
 
     /**
-     * Update the seat number for the active AZURE subscription.
-     * update seat for the active AZURE subscription
+     * Update the seat number of the entitlement. Only active AZURE entitlement can be updated.
+     * update entitlement seat
      * @param orgId Organization ID
      * @param entitlementId Entitlement ID
      * @param newSeat New seat number
@@ -2030,9 +1887,10 @@ export class PromiseMeteringApi {
      * delete usageRecordGroup
      * @param orgId Organization ID
      * @param usageRecordGroupId UsageRecordGroup ID
+     * @param [creationDate] UsageRecordGroup\&#39;s creation date (UTC) in YYYY-MM-DD format
      */
-    public deleteUsageRecordGroupWithHttpInfo(orgId: string, usageRecordGroupId: string, _options?: Configuration): Promise<HttpInfo<MeteringUsageRecordGroup>> {
-        const result = this.api.deleteUsageRecordGroupWithHttpInfo(orgId, usageRecordGroupId, _options);
+    public deleteUsageRecordGroupWithHttpInfo(orgId: string, usageRecordGroupId: string, creationDate?: string, _options?: Configuration): Promise<HttpInfo<MeteringUsageRecordGroup>> {
+        const result = this.api.deleteUsageRecordGroupWithHttpInfo(orgId, usageRecordGroupId, creationDate, _options);
         return result.toPromise();
     }
 
@@ -2041,9 +1899,10 @@ export class PromiseMeteringApi {
      * delete usageRecordGroup
      * @param orgId Organization ID
      * @param usageRecordGroupId UsageRecordGroup ID
+     * @param [creationDate] UsageRecordGroup\&#39;s creation date (UTC) in YYYY-MM-DD format
      */
-    public deleteUsageRecordGroup(orgId: string, usageRecordGroupId: string, _options?: Configuration): Promise<MeteringUsageRecordGroup> {
-        const result = this.api.deleteUsageRecordGroup(orgId, usageRecordGroupId, _options);
+    public deleteUsageRecordGroup(orgId: string, usageRecordGroupId: string, creationDate?: string, _options?: Configuration): Promise<MeteringUsageRecordGroup> {
+        const result = this.api.deleteUsageRecordGroup(orgId, usageRecordGroupId, creationDate, _options);
         return result.toPromise();
     }
 
@@ -2214,9 +2073,10 @@ export class PromiseMeteringApi {
      * retry usageRecordGroup
      * @param orgId Organization ID
      * @param usageRecordGroupId UsageRecordGroup ID
+     * @param [creationDate] UsageRecordGroup\&#39;s creation date (UTC) in YYYY-MM-DD format
      */
-    public retryUsageRecordGroupWithHttpInfo(orgId: string, usageRecordGroupId: string, _options?: Configuration): Promise<HttpInfo<MeteringUsageRecordGroup>> {
-        const result = this.api.retryUsageRecordGroupWithHttpInfo(orgId, usageRecordGroupId, _options);
+    public retryUsageRecordGroupWithHttpInfo(orgId: string, usageRecordGroupId: string, creationDate?: string, _options?: Configuration): Promise<HttpInfo<MeteringUsageRecordGroup>> {
+        const result = this.api.retryUsageRecordGroupWithHttpInfo(orgId, usageRecordGroupId, creationDate, _options);
         return result.toPromise();
     }
 
@@ -2225,9 +2085,10 @@ export class PromiseMeteringApi {
      * retry usageRecordGroup
      * @param orgId Organization ID
      * @param usageRecordGroupId UsageRecordGroup ID
+     * @param [creationDate] UsageRecordGroup\&#39;s creation date (UTC) in YYYY-MM-DD format
      */
-    public retryUsageRecordGroup(orgId: string, usageRecordGroupId: string, _options?: Configuration): Promise<MeteringUsageRecordGroup> {
-        const result = this.api.retryUsageRecordGroup(orgId, usageRecordGroupId, _options);
+    public retryUsageRecordGroup(orgId: string, usageRecordGroupId: string, creationDate?: string, _options?: Configuration): Promise<MeteringUsageRecordGroup> {
+        const result = this.api.retryUsageRecordGroup(orgId, usageRecordGroupId, creationDate, _options);
         return result.toPromise();
     }
 

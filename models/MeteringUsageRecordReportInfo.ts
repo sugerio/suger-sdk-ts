@@ -16,7 +16,7 @@ import { AzureMarketplaceMeteringBatchUsageEvent } from '../models/AzureMarketpl
 import { ClientPushMeteringDataRequest } from '../models/ClientPushMeteringDataRequest';
 import { ClientPushMeteringDataResponseBody } from '../models/ClientPushMeteringDataResponseBody';
 import { GcpMarketplaceMeteringOperation } from '../models/GcpMarketplaceMeteringOperation';
-import { GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1BatchUsageEventOkResponse } from '../models/GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1BatchUsageEventOkResponse';
+import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1BatchUsageEventOkResponse } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1BatchUsageEventOkResponse';
 import { MarketplacemeteringBatchMeterUsageOutput } from '../models/MarketplacemeteringBatchMeterUsageOutput';
 import { ServicecontrolReportResponse } from '../models/ServicecontrolReportResponse';
 import { UsageRecordReportStatus } from '../models/UsageRecordReportStatus';
@@ -50,7 +50,7 @@ export class MeteringUsageRecordReportInfo {
     /**
     * The raw response from Azure metering service.
     */
-    'azureMeteringResponse'?: GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1BatchUsageEventOkResponse;
+    'azureMeteringResponse'?: GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1BatchUsageEventOkResponse;
     /**
     * The amount of the commit if applicable.
     */
@@ -182,7 +182,7 @@ export class MeteringUsageRecordReportInfo {
         {
             "name": "azureMeteringResponse",
             "baseName": "azureMeteringResponse",
-            "type": "GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1BatchUsageEventOkResponse",
+            "type": "GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1BatchUsageEventOkResponse",
             "format": ""
         },
         {

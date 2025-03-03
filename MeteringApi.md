@@ -272,6 +272,8 @@ const request: MeteringApiDeleteUsageRecordGroupRequest = {
   orgId: "orgId_example",
     // UsageRecordGroup ID
   usageRecordGroupId: "usageRecordGroupId_example",
+    // UsageRecordGroup\'s creation date (UTC) in YYYY-MM-DD format (optional)
+  creationDate: "creationDate_example",
 };
 
 const data = await apiInstance.deleteUsageRecordGroup(request);
@@ -285,6 +287,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **orgId** | [**string**] | Organization ID | defaults to undefined
  **usageRecordGroupId** | [**string**] | UsageRecordGroup ID | defaults to undefined
+ **creationDate** | [**string**] | UsageRecordGroup\&#39;s creation date (UTC) in YYYY-MM-DD format | (optional) defaults to undefined
 
 
 ### Return type
@@ -741,6 +744,8 @@ const request: MeteringApiRetryUsageRecordGroupRequest = {
   orgId: "orgId_example",
     // UsageRecordGroup ID
   usageRecordGroupId: "usageRecordGroupId_example",
+    // UsageRecordGroup\'s creation date (UTC) in YYYY-MM-DD format (optional)
+  creationDate: "creationDate_example",
 };
 
 const data = await apiInstance.retryUsageRecordGroup(request);
@@ -754,6 +759,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **orgId** | [**string**] | Organization ID | defaults to undefined
  **usageRecordGroupId** | [**string**] | UsageRecordGroup ID | defaults to undefined
+ **creationDate** | [**string**] | UsageRecordGroup\&#39;s creation date (UTC) in YYYY-MM-DD format | (optional) defaults to undefined
 
 
 ### Return type

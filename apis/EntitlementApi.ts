@@ -14,7 +14,7 @@ import { BillingAddonRecord } from '../models/BillingAddonRecord';
 import { CancellationSchedule } from '../models/CancellationSchedule';
 import { CreateEntitlementParams } from '../models/CreateEntitlementParams';
 import { DivideEntitlementCommitParams } from '../models/DivideEntitlementCommitParams';
-import { GithubComSugerioMarketplaceServiceRdsDbLibUpdateEntitlementNameParams } from '../models/GithubComSugerioMarketplaceServiceRdsDbLibUpdateEntitlementNameParams';
+import { GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibUpdateEntitlementNameParams } from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibUpdateEntitlementNameParams';
 import { WorkloadEntitlement } from '../models/WorkloadEntitlement';
 import { WorkloadEntitlementTerm } from '../models/WorkloadEntitlementTerm';
 import { WorkloadMetaInfo } from '../models/WorkloadMetaInfo';
@@ -825,7 +825,7 @@ export class EntitlementApiRequestFactory extends BaseAPIRequestFactory {
      * @param entitlementId Entitlement ID
      * @param data UpdateEntitlementNameParams
      */
-    public async updateEntitlementName(orgId: string, entitlementId: string, data: GithubComSugerioMarketplaceServiceRdsDbLibUpdateEntitlementNameParams, _options?: Configuration): Promise<RequestContext> {
+    public async updateEntitlementName(orgId: string, entitlementId: string, data: GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibUpdateEntitlementNameParams, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'orgId' is not null or undefined
@@ -862,7 +862,7 @@ export class EntitlementApiRequestFactory extends BaseAPIRequestFactory {
         ]);
         requestContext.setHeaderParam("Content-Type", contentType);
         const serializedBody = ObjectSerializer.stringify(
-            ObjectSerializer.serialize(data, "GithubComSugerioMarketplaceServiceRdsDbLibUpdateEntitlementNameParams", ""),
+            ObjectSerializer.serialize(data, "GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibUpdateEntitlementNameParams", ""),
             contentType
         );
         requestContext.setBody(serializedBody);
@@ -883,8 +883,8 @@ export class EntitlementApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * Update the seat number for the active AZURE subscription.
-     * update seat for the active AZURE subscription
+     * Update the seat number of the entitlement. Only active AZURE entitlement can be updated.
+     * update entitlement seat
      * @param orgId Organization ID
      * @param entitlementId Entitlement ID
      * @param newSeat New seat number

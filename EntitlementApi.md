@@ -19,7 +19,7 @@ Method | HTTP request | Description
 [**unscheduleEntitlementCancellation**](EntitlementApi.md#unscheduleEntitlementCancellation) | **POST** /org/{orgId}/entitlement/{entitlementId}/unscheduleCancellation | unschedule entitlement cancellation
 [**updateEntitlementMetaInfo**](EntitlementApi.md#updateEntitlementMetaInfo) | **PATCH** /org/{orgId}/entitlement/{entitlementId}/metaInfo | update entitlement meta info
 [**updateEntitlementName**](EntitlementApi.md#updateEntitlementName) | **PATCH** /org/{orgId}/entitlement/{entitlementId}/entitlementName | update entitlement name
-[**updateEntitlementSeat**](EntitlementApi.md#updateEntitlementSeat) | **PATCH** /org/{orgId}/entitlement/{entitlementId}/seat | update seat for the active AZURE subscription
+[**updateEntitlementSeat**](EntitlementApi.md#updateEntitlementSeat) | **PATCH** /org/{orgId}/entitlement/{entitlementId}/seat | update entitlement seat
 
 
 # **addEntitlementCredit**
@@ -1032,7 +1032,7 @@ console.log('API called successfully. Returned data:', data);
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **data** | **GithubComSugerioMarketplaceServiceRdsDbLibUpdateEntitlementNameParams**| UpdateEntitlementNameParams |
+ **data** | **GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibUpdateEntitlementNameParams**| UpdateEntitlementNameParams |
  **orgId** | [**string**] | Organization ID | defaults to undefined
  **entitlementId** | [**string**] | Entitlement ID | defaults to undefined
 
@@ -1063,7 +1063,7 @@ Name | Type | Description  | Notes
 # **updateEntitlementSeat**
 > WorkloadEntitlement updateEntitlementSeat()
 
-Update the seat number for the active AZURE subscription.
+Update the seat number of the entitlement. Only active AZURE entitlement can be updated.
 
 ### Example
 

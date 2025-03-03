@@ -195,8 +195,9 @@ export class MeteringApiRequestFactory extends BaseAPIRequestFactory {
      * delete usageRecordGroup
      * @param orgId Organization ID
      * @param usageRecordGroupId UsageRecordGroup ID
+     * @param creationDate UsageRecordGroup\&#39;s creation date (UTC) in YYYY-MM-DD format
      */
-    public async deleteUsageRecordGroup(orgId: string, usageRecordGroupId: string, _options?: Configuration): Promise<RequestContext> {
+    public async deleteUsageRecordGroup(orgId: string, usageRecordGroupId: string, creationDate?: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'orgId' is not null or undefined
@@ -211,6 +212,7 @@ export class MeteringApiRequestFactory extends BaseAPIRequestFactory {
         }
 
 
+
         // Path Params
         const localVarPath = '/org/{orgId}/usageRecordGroup/{usageRecordGroupId}'
             .replace('{' + 'orgId' + '}', encodeURIComponent(String(orgId)))
@@ -219,6 +221,11 @@ export class MeteringApiRequestFactory extends BaseAPIRequestFactory {
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.DELETE);
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+        // Query Params
+        if (creationDate !== undefined) {
+            requestContext.setQueryParam("creationDate", ObjectSerializer.serialize(creationDate, "string", ""));
+        }
 
 
         let authMethod: SecurityAuthentication | undefined;
@@ -629,8 +636,9 @@ export class MeteringApiRequestFactory extends BaseAPIRequestFactory {
      * retry usageRecordGroup
      * @param orgId Organization ID
      * @param usageRecordGroupId UsageRecordGroup ID
+     * @param creationDate UsageRecordGroup\&#39;s creation date (UTC) in YYYY-MM-DD format
      */
-    public async retryUsageRecordGroup(orgId: string, usageRecordGroupId: string, _options?: Configuration): Promise<RequestContext> {
+    public async retryUsageRecordGroup(orgId: string, usageRecordGroupId: string, creationDate?: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'orgId' is not null or undefined
@@ -645,6 +653,7 @@ export class MeteringApiRequestFactory extends BaseAPIRequestFactory {
         }
 
 
+
         // Path Params
         const localVarPath = '/org/{orgId}/usageRecordGroup/{usageRecordGroupId}/retry'
             .replace('{' + 'orgId' + '}', encodeURIComponent(String(orgId)))
@@ -653,6 +662,11 @@ export class MeteringApiRequestFactory extends BaseAPIRequestFactory {
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.POST);
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+        // Query Params
+        if (creationDate !== undefined) {
+            requestContext.setQueryParam("creationDate", ObjectSerializer.serialize(creationDate, "string", ""));
+        }
 
 
         let authMethod: SecurityAuthentication | undefined;

@@ -10,20 +10,20 @@
  * Do not edit the class manually.
  */
 
-import { GithubComSugerioMarketplaceServiceRdsDbLibBillingAwsBillingEvent } from '../models/GithubComSugerioMarketplaceServiceRdsDbLibBillingAwsBillingEvent';
-import { GithubComSugerioMarketplaceServiceRdsDbLibBillingAzureCmaRevenue } from '../models/GithubComSugerioMarketplaceServiceRdsDbLibBillingAzureCmaRevenue';
-import { GithubComSugerioMarketplaceServiceRdsDbLibBillingGcpChargeUsage } from '../models/GithubComSugerioMarketplaceServiceRdsDbLibBillingGcpChargeUsage';
+import { GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAwsBillingEvent } from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAwsBillingEvent';
+import { GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAzureCmaRevenue } from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAzureCmaRevenue';
+import { GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingGcpChargeUsage } from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingGcpChargeUsage';
 import { HttpFile } from '../http/http';
 
 export class RevenueRecordInfo {
     /**
     * For raw revenue records in AWS Marketplace
     */
-    'awsRevenueRecords'?: Array<GithubComSugerioMarketplaceServiceRdsDbLibBillingAwsBillingEvent>;
+    'awsRevenueRecords'?: Array<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAwsBillingEvent>;
     /**
     * For raw revenue records in Azure Marketplace
     */
-    'azureRevenueRecords'?: Array<GithubComSugerioMarketplaceServiceRdsDbLibBillingAzureCmaRevenue>;
+    'azureRevenueRecords'?: Array<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAzureCmaRevenue>;
     /**
     * The credit amount used in the revenue record.
     */
@@ -35,7 +35,7 @@ export class RevenueRecordInfo {
     /**
     * For raw revenue records in GCP Marketplace
     */
-    'gcpRevenueRecords'?: Array<GithubComSugerioMarketplaceServiceRdsDbLibBillingGcpChargeUsage>;
+    'gcpRevenueRecords'?: Array<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingGcpChargeUsage>;
     /**
     * Source of the revenue record ID.
     */
@@ -53,13 +53,13 @@ export class RevenueRecordInfo {
         {
             "name": "awsRevenueRecords",
             "baseName": "awsRevenueRecords",
-            "type": "Array<GithubComSugerioMarketplaceServiceRdsDbLibBillingAwsBillingEvent>",
+            "type": "Array<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAwsBillingEvent>",
             "format": ""
         },
         {
             "name": "azureRevenueRecords",
             "baseName": "azureRevenueRecords",
-            "type": "Array<GithubComSugerioMarketplaceServiceRdsDbLibBillingAzureCmaRevenue>",
+            "type": "Array<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAzureCmaRevenue>",
             "format": ""
         },
         {
@@ -77,7 +77,7 @@ export class RevenueRecordInfo {
         {
             "name": "gcpRevenueRecords",
             "baseName": "gcpRevenueRecords",
-            "type": "Array<GithubComSugerioMarketplaceServiceRdsDbLibBillingGcpChargeUsage>",
+            "type": "Array<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingGcpChargeUsage>",
             "format": ""
         },
         {

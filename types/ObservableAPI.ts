@@ -23,7 +23,6 @@ import { AlibabaMarketplaceProductSkuModules } from '../models/AlibabaMarketplac
 import { AlibabaMarketplaceProductSkuOrderPeriod } from '../models/AlibabaMarketplaceProductSkuOrderPeriod';
 import { AlibabaMarketplaceProductSkuOrderPeriods } from '../models/AlibabaMarketplaceProductSkuOrderPeriods';
 import { AlibabaMarketplaceProductSkus } from '../models/AlibabaMarketplaceProductSkus';
-import { ApiClientAccessToken } from '../models/ApiClientAccessToken';
 import { AuditingEventPriority } from '../models/AuditingEventPriority';
 import { AwsAccountIdentifier } from '../models/AwsAccountIdentifier';
 import { AwsChannelPartner } from '../models/AwsChannelPartner';
@@ -232,6 +231,8 @@ import { CreateAndUpdateAddonParams } from '../models/CreateAndUpdateAddonParams
 import { CreateBuyerParams } from '../models/CreateBuyerParams';
 import { CreateEntitlementParams } from '../models/CreateEntitlementParams';
 import { CreateUsageRecordGroupParams } from '../models/CreateUsageRecordGroupParams';
+import { DatabaseSqlNullBool } from '../models/DatabaseSqlNullBool';
+import { DatabaseSqlNullString } from '../models/DatabaseSqlNullString';
 import { DatabaseSqlNullTime } from '../models/DatabaseSqlNullTime';
 import { DivideEntitlementCommitParams } from '../models/DivideEntitlementCommitParams';
 import { EntitlementInfo } from '../models/EntitlementInfo';
@@ -336,20 +337,19 @@ import { GcpPriceModelDiscountTemplate } from '../models/GcpPriceModelDiscountTe
 import { GcpPriceTier } from '../models/GcpPriceTier';
 import { GcpPriceValue } from '../models/GcpPriceValue';
 import { GcpUserInfo } from '../models/GcpUserInfo';
-import { GetApiClientAccessTokenParams } from '../models/GetApiClientAccessTokenParams';
 import { GetRevenueReportParams } from '../models/GetRevenueReportParams';
 import { GithubComAwsAwsSdkGoV2ServiceMarketplacemeteringTypesTag } from '../models/GithubComAwsAwsSdkGoV2ServiceMarketplacemeteringTypesTag';
-import { GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1BatchUsageEventOkResponse } from '../models/GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1BatchUsageEventOkResponse';
-import { GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageBatchEventOkMessage } from '../models/GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageBatchEventOkMessage';
-import { GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventConflictResponse } from '../models/GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventConflictResponse';
-import { GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventConflictResponseAdditionalInfo } from '../models/GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventConflictResponseAdditionalInfo';
-import { GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventOkResponse } from '../models/GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventOkResponse';
-import { GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventStatusEnum } from '../models/GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventStatusEnum';
-import { GithubComSugerioMarketplaceServiceRdsDbLibBillingAwsBillingEvent } from '../models/GithubComSugerioMarketplaceServiceRdsDbLibBillingAwsBillingEvent';
-import { GithubComSugerioMarketplaceServiceRdsDbLibBillingAzureCmaRevenue } from '../models/GithubComSugerioMarketplaceServiceRdsDbLibBillingAzureCmaRevenue';
-import { GithubComSugerioMarketplaceServiceRdsDbLibBillingGcpChargeUsage } from '../models/GithubComSugerioMarketplaceServiceRdsDbLibBillingGcpChargeUsage';
-import { GithubComSugerioMarketplaceServiceRdsDbLibIdentityApiClient } from '../models/GithubComSugerioMarketplaceServiceRdsDbLibIdentityApiClient';
-import { GithubComSugerioMarketplaceServiceRdsDbLibUpdateEntitlementNameParams } from '../models/GithubComSugerioMarketplaceServiceRdsDbLibUpdateEntitlementNameParams';
+import { GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAwsBillingEvent } from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAwsBillingEvent';
+import { GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAzureCmaRevenue } from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAzureCmaRevenue';
+import { GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingGcpChargeUsage } from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingGcpChargeUsage';
+import { GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient } from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient';
+import { GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibUpdateEntitlementNameParams } from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibUpdateEntitlementNameParams';
+import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1BatchUsageEventOkResponse } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1BatchUsageEventOkResponse';
+import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageBatchEventOkMessage } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageBatchEventOkMessage';
+import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventConflictResponse } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventConflictResponse';
+import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventConflictResponseAdditionalInfo } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventConflictResponseAdditionalInfo';
+import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventOkResponse } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventOkResponse';
+import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventStatusEnum } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventStatusEnum';
 import { IdentityBuyer } from '../models/IdentityBuyer';
 import { IdentityConctactInfo } from '../models/IdentityConctactInfo';
 import { IdentityContact } from '../models/IdentityContact';
@@ -391,6 +391,7 @@ import { PartnerUsageMeteringConfig } from '../models/PartnerUsageMeteringConfig
 import { PaymentConfig } from '../models/PaymentConfig';
 import { PaymentInstallment } from '../models/PaymentInstallment';
 import { PaymentScheduleType } from '../models/PaymentScheduleType';
+import { PkgStructsSnowflakeMarketplaceProduct } from '../models/PkgStructsSnowflakeMarketplaceProduct';
 import { PriceModelBasic } from '../models/PriceModelBasic';
 import { PriceModelBulk } from '../models/PriceModelBulk';
 import { PriceModelCategory } from '../models/PriceModelCategory';
@@ -496,7 +497,7 @@ export class ObservableAPIApi {
      * @param orgId Organization ID
      * @param apiClientId API client ID
      */
-    public getApiClientWithHttpInfo(orgId: string, apiClientId: string, _options?: Configuration): Observable<HttpInfo<GithubComSugerioMarketplaceServiceRdsDbLibIdentityApiClient>> {
+    public getApiClientWithHttpInfo(orgId: string, apiClientId: string, _options?: Configuration): Observable<HttpInfo<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient>> {
         const requestContextPromise = this.requestFactory.getApiClient(orgId, apiClientId, _options);
 
         // build promise chain
@@ -521,41 +522,8 @@ export class ObservableAPIApi {
      * @param orgId Organization ID
      * @param apiClientId API client ID
      */
-    public getApiClient(orgId: string, apiClientId: string, _options?: Configuration): Observable<GithubComSugerioMarketplaceServiceRdsDbLibIdentityApiClient> {
-        return this.getApiClientWithHttpInfo(orgId, apiClientId, _options).pipe(map((apiResponse: HttpInfo<GithubComSugerioMarketplaceServiceRdsDbLibIdentityApiClient>) => apiResponse.data));
-    }
-
-    /**
-     * Get the Bearer Access Token by giving the Suger API Client ID & Client Secret.
-     * get api access token
-     * @param data Suger API Client
-     */
-    public getApiClientAccessTokenWithHttpInfo(data: GetApiClientAccessTokenParams, _options?: Configuration): Observable<HttpInfo<ApiClientAccessToken>> {
-        const requestContextPromise = this.requestFactory.getApiClientAccessToken(data, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (const middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (const middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getApiClientAccessTokenWithHttpInfo(rsp)));
-            }));
-    }
-
-    /**
-     * Get the Bearer Access Token by giving the Suger API Client ID & Client Secret.
-     * get api access token
-     * @param data Suger API Client
-     */
-    public getApiClientAccessToken(data: GetApiClientAccessTokenParams, _options?: Configuration): Observable<ApiClientAccessToken> {
-        return this.getApiClientAccessTokenWithHttpInfo(data, _options).pipe(map((apiResponse: HttpInfo<ApiClientAccessToken>) => apiResponse.data));
+    public getApiClient(orgId: string, apiClientId: string, _options?: Configuration): Observable<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient> {
+        return this.getApiClientWithHttpInfo(orgId, apiClientId, _options).pipe(map((apiResponse: HttpInfo<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient>) => apiResponse.data));
     }
 
     /**
@@ -563,7 +531,7 @@ export class ObservableAPIApi {
      * list api clients
      * @param orgId Organization ID
      */
-    public listApiClientsWithHttpInfo(orgId: string, _options?: Configuration): Observable<HttpInfo<Array<GithubComSugerioMarketplaceServiceRdsDbLibIdentityApiClient>>> {
+    public listApiClientsWithHttpInfo(orgId: string, _options?: Configuration): Observable<HttpInfo<Array<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient>>> {
         const requestContextPromise = this.requestFactory.listApiClients(orgId, _options);
 
         // build promise chain
@@ -587,8 +555,8 @@ export class ObservableAPIApi {
      * list api clients
      * @param orgId Organization ID
      */
-    public listApiClients(orgId: string, _options?: Configuration): Observable<Array<GithubComSugerioMarketplaceServiceRdsDbLibIdentityApiClient>> {
-        return this.listApiClientsWithHttpInfo(orgId, _options).pipe(map((apiResponse: HttpInfo<Array<GithubComSugerioMarketplaceServiceRdsDbLibIdentityApiClient>>) => apiResponse.data));
+    public listApiClients(orgId: string, _options?: Configuration): Observable<Array<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient>> {
+        return this.listApiClientsWithHttpInfo(orgId, _options).pipe(map((apiResponse: HttpInfo<Array<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient>>) => apiResponse.data));
     }
 
 }
@@ -757,78 +725,6 @@ export class ObservableBillingApi {
      * Get the invoice by ID
      * get invoice
      * @param orgId Organization ID
-     * @param entitlementId Entitlement ID
-     * @param invoiceId Invoice ID
-     */
-    public getInvoiceWithHttpInfo(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Observable<HttpInfo<BillingInvoice>> {
-        const requestContextPromise = this.requestFactory.getInvoice(orgId, entitlementId, invoiceId, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (const middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (const middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getInvoiceWithHttpInfo(rsp)));
-            }));
-    }
-
-    /**
-     * Get the invoice by ID
-     * get invoice
-     * @param orgId Organization ID
-     * @param entitlementId Entitlement ID
-     * @param invoiceId Invoice ID
-     */
-    public getInvoice(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Observable<BillingInvoice> {
-        return this.getInvoiceWithHttpInfo(orgId, entitlementId, invoiceId, _options).pipe(map((apiResponse: HttpInfo<BillingInvoice>) => apiResponse.data));
-    }
-
-    /**
-     * Returns the preview HTML content of the invoice issued email.
-     * Get the preview of the invoice issued email
-     * @param orgId Organization ID
-     * @param invoiceId Invoice ID
-     */
-    public getInvoiceIssuedEmailPreviewWithHttpInfo(orgId: string, invoiceId: string, _options?: Configuration): Observable<HttpInfo<string>> {
-        const requestContextPromise = this.requestFactory.getInvoiceIssuedEmailPreview(orgId, invoiceId, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (const middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (const middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.getInvoiceIssuedEmailPreviewWithHttpInfo(rsp)));
-            }));
-    }
-
-    /**
-     * Returns the preview HTML content of the invoice issued email.
-     * Get the preview of the invoice issued email
-     * @param orgId Organization ID
-     * @param invoiceId Invoice ID
-     */
-    public getInvoiceIssuedEmailPreview(orgId: string, invoiceId: string, _options?: Configuration): Observable<string> {
-        return this.getInvoiceIssuedEmailPreviewWithHttpInfo(orgId, invoiceId, _options).pipe(map((apiResponse: HttpInfo<string>) => apiResponse.data));
-    }
-
-    /**
-     * Get the invoice by ID
-     * get invoice
-     * @param orgId Organization ID
      * @param invoiceId Invoice ID
      */
     public getInvoiceV2WithHttpInfo(orgId: string, invoiceId: string, _options?: Configuration): Observable<HttpInfo<BillingInvoice>> {
@@ -858,45 +754,6 @@ export class ObservableBillingApi {
      */
     public getInvoiceV2(orgId: string, invoiceId: string, _options?: Configuration): Observable<BillingInvoice> {
         return this.getInvoiceV2WithHttpInfo(orgId, invoiceId, _options).pipe(map((apiResponse: HttpInfo<BillingInvoice>) => apiResponse.data));
-    }
-
-    /**
-     * Issue the invoice immediately. It can be used for manual issue or reissue invoice.
-     * issue invoice
-     * @param orgId Organization ID
-     * @param entitlementId Entitlement ID
-     * @param invoiceId Invoice ID
-     * @param [contactIds] List of Contact IDs
-     */
-    public issueInvoiceWithHttpInfo(orgId: string, entitlementId: string, invoiceId: string, contactIds?: Array<string>, _options?: Configuration): Observable<HttpInfo<BillingInvoice>> {
-        const requestContextPromise = this.requestFactory.issueInvoice(orgId, entitlementId, invoiceId, contactIds, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (const middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (const middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.issueInvoiceWithHttpInfo(rsp)));
-            }));
-    }
-
-    /**
-     * Issue the invoice immediately. It can be used for manual issue or reissue invoice.
-     * issue invoice
-     * @param orgId Organization ID
-     * @param entitlementId Entitlement ID
-     * @param invoiceId Invoice ID
-     * @param [contactIds] List of Contact IDs
-     */
-    public issueInvoice(orgId: string, entitlementId: string, invoiceId: string, contactIds?: Array<string>, _options?: Configuration): Observable<BillingInvoice> {
-        return this.issueInvoiceWithHttpInfo(orgId, entitlementId, invoiceId, contactIds, _options).pipe(map((apiResponse: HttpInfo<BillingInvoice>) => apiResponse.data));
     }
 
     /**
@@ -1104,43 +961,6 @@ export class ObservableBillingApi {
      * Initiate the payment for the invoice immediately. It can be used for manual payment or retry payment.
      * pay invoice
      * @param orgId Organization ID
-     * @param entitlementId Entitlement ID
-     * @param invoiceId Invoice ID
-     */
-    public payInvoiceWithHttpInfo(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Observable<HttpInfo<BillingInvoice>> {
-        const requestContextPromise = this.requestFactory.payInvoice(orgId, entitlementId, invoiceId, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (const middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (const middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.payInvoiceWithHttpInfo(rsp)));
-            }));
-    }
-
-    /**
-     * Initiate the payment for the invoice immediately. It can be used for manual payment or retry payment.
-     * pay invoice
-     * @param orgId Organization ID
-     * @param entitlementId Entitlement ID
-     * @param invoiceId Invoice ID
-     */
-    public payInvoice(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Observable<BillingInvoice> {
-        return this.payInvoiceWithHttpInfo(orgId, entitlementId, invoiceId, _options).pipe(map((apiResponse: HttpInfo<BillingInvoice>) => apiResponse.data));
-    }
-
-    /**
-     * Initiate the payment for the invoice immediately. It can be used for manual payment or retry payment.
-     * pay invoice
-     * @param orgId Organization ID
      * @param invoiceId Invoice ID
      */
     public payInvoiceV2WithHttpInfo(orgId: string, invoiceId: string, _options?: Configuration): Observable<HttpInfo<BillingInvoice>> {
@@ -1170,6 +990,41 @@ export class ObservableBillingApi {
      */
     public payInvoiceV2(orgId: string, invoiceId: string, _options?: Configuration): Observable<BillingInvoice> {
         return this.payInvoiceV2WithHttpInfo(orgId, invoiceId, _options).pipe(map((apiResponse: HttpInfo<BillingInvoice>) => apiResponse.data));
+    }
+
+    /**
+     * Returns the preview HTML content of the invoice issued email.
+     * preview invoice email
+     * @param orgId Organization ID
+     * @param invoiceId Invoice ID
+     */
+    public previewInvoiceEmailWithHttpInfo(orgId: string, invoiceId: string, _options?: Configuration): Observable<HttpInfo<string>> {
+        const requestContextPromise = this.requestFactory.previewInvoiceEmail(orgId, invoiceId, _options);
+
+        // build promise chain
+        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
+        for (const middleware of this.configuration.middleware) {
+            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
+        }
+
+        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
+            pipe(mergeMap((response: ResponseContext) => {
+                let middlewarePostObservable = of(response);
+                for (const middleware of this.configuration.middleware) {
+                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
+                }
+                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.previewInvoiceEmailWithHttpInfo(rsp)));
+            }));
+    }
+
+    /**
+     * Returns the preview HTML content of the invoice issued email.
+     * preview invoice email
+     * @param orgId Organization ID
+     * @param invoiceId Invoice ID
+     */
+    public previewInvoiceEmail(orgId: string, invoiceId: string, _options?: Configuration): Observable<string> {
+        return this.previewInvoiceEmailWithHttpInfo(orgId, invoiceId, _options).pipe(map((apiResponse: HttpInfo<string>) => apiResponse.data));
     }
 
     /**
@@ -1211,46 +1066,7 @@ export class ObservableBillingApi {
 
     /**
      * Update a draft invoice. Only DueDate, OverallDiscount, and Memo can be updated.
-     * Update invoice info
-     * @param orgId Organization ID
-     * @param entitlementId Entitlement ID
-     * @param invoiceId Invoice ID
-     * @param data Update Invoice Info Request Params
-     */
-    public updateInvoiceInfoWithHttpInfo(orgId: string, entitlementId: string, invoiceId: string, data: UpdateInvoiceInfoRequest, _options?: Configuration): Observable<HttpInfo<BillingInvoiceInfo>> {
-        const requestContextPromise = this.requestFactory.updateInvoiceInfo(orgId, entitlementId, invoiceId, data, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (const middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (const middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.updateInvoiceInfoWithHttpInfo(rsp)));
-            }));
-    }
-
-    /**
-     * Update a draft invoice. Only DueDate, OverallDiscount, and Memo can be updated.
-     * Update invoice info
-     * @param orgId Organization ID
-     * @param entitlementId Entitlement ID
-     * @param invoiceId Invoice ID
-     * @param data Update Invoice Info Request Params
-     */
-    public updateInvoiceInfo(orgId: string, entitlementId: string, invoiceId: string, data: UpdateInvoiceInfoRequest, _options?: Configuration): Observable<BillingInvoiceInfo> {
-        return this.updateInvoiceInfoWithHttpInfo(orgId, entitlementId, invoiceId, data, _options).pipe(map((apiResponse: HttpInfo<BillingInvoiceInfo>) => apiResponse.data));
-    }
-
-    /**
-     * Update a draft invoice. Only DueDate, OverallDiscount, and Memo can be updated.
-     * Update invoice info
+     * update invoice info
      * @param orgId Organization ID
      * @param invoiceId Invoice ID
      * @param data Update Invoice Info Request Params
@@ -1276,50 +1092,13 @@ export class ObservableBillingApi {
 
     /**
      * Update a draft invoice. Only DueDate, OverallDiscount, and Memo can be updated.
-     * Update invoice info
+     * update invoice info
      * @param orgId Organization ID
      * @param invoiceId Invoice ID
      * @param data Update Invoice Info Request Params
      */
     public updateInvoiceInfoV2(orgId: string, invoiceId: string, data: UpdateInvoiceInfoRequest, _options?: Configuration): Observable<BillingInvoiceInfo> {
         return this.updateInvoiceInfoV2WithHttpInfo(orgId, invoiceId, data, _options).pipe(map((apiResponse: HttpInfo<BillingInvoiceInfo>) => apiResponse.data));
-    }
-
-    /**
-     * Void the invoice. It can be used for manual void or cancel the invoice.
-     * void invoice
-     * @param orgId Organization ID
-     * @param entitlementId Entitlement ID
-     * @param invoiceId Invoice ID
-     */
-    public voidInvoiceWithHttpInfo(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Observable<HttpInfo<BillingInvoice>> {
-        const requestContextPromise = this.requestFactory.voidInvoice(orgId, entitlementId, invoiceId, _options);
-
-        // build promise chain
-        let middlewarePreObservable = from<RequestContext>(requestContextPromise);
-        for (const middleware of this.configuration.middleware) {
-            middlewarePreObservable = middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => middleware.pre(ctx)));
-        }
-
-        return middlewarePreObservable.pipe(mergeMap((ctx: RequestContext) => this.configuration.httpApi.send(ctx))).
-            pipe(mergeMap((response: ResponseContext) => {
-                let middlewarePostObservable = of(response);
-                for (const middleware of this.configuration.middleware) {
-                    middlewarePostObservable = middlewarePostObservable.pipe(mergeMap((rsp: ResponseContext) => middleware.post(rsp)));
-                }
-                return middlewarePostObservable.pipe(map((rsp: ResponseContext) => this.responseProcessor.voidInvoiceWithHttpInfo(rsp)));
-            }));
-    }
-
-    /**
-     * Void the invoice. It can be used for manual void or cancel the invoice.
-     * void invoice
-     * @param orgId Organization ID
-     * @param entitlementId Entitlement ID
-     * @param invoiceId Invoice ID
-     */
-    public voidInvoice(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Observable<BillingInvoice> {
-        return this.voidInvoiceWithHttpInfo(orgId, entitlementId, invoiceId, _options).pipe(map((apiResponse: HttpInfo<BillingInvoice>) => apiResponse.data));
     }
 
     /**
@@ -2627,7 +2406,7 @@ export class ObservableEntitlementApi {
      * @param entitlementId Entitlement ID
      * @param data UpdateEntitlementNameParams
      */
-    public updateEntitlementNameWithHttpInfo(orgId: string, entitlementId: string, data: GithubComSugerioMarketplaceServiceRdsDbLibUpdateEntitlementNameParams, _options?: Configuration): Observable<HttpInfo<WorkloadEntitlement>> {
+    public updateEntitlementNameWithHttpInfo(orgId: string, entitlementId: string, data: GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibUpdateEntitlementNameParams, _options?: Configuration): Observable<HttpInfo<WorkloadEntitlement>> {
         const requestContextPromise = this.requestFactory.updateEntitlementName(orgId, entitlementId, data, _options);
 
         // build promise chain
@@ -2653,13 +2432,13 @@ export class ObservableEntitlementApi {
      * @param entitlementId Entitlement ID
      * @param data UpdateEntitlementNameParams
      */
-    public updateEntitlementName(orgId: string, entitlementId: string, data: GithubComSugerioMarketplaceServiceRdsDbLibUpdateEntitlementNameParams, _options?: Configuration): Observable<WorkloadEntitlement> {
+    public updateEntitlementName(orgId: string, entitlementId: string, data: GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibUpdateEntitlementNameParams, _options?: Configuration): Observable<WorkloadEntitlement> {
         return this.updateEntitlementNameWithHttpInfo(orgId, entitlementId, data, _options).pipe(map((apiResponse: HttpInfo<WorkloadEntitlement>) => apiResponse.data));
     }
 
     /**
-     * Update the seat number for the active AZURE subscription.
-     * update seat for the active AZURE subscription
+     * Update the seat number of the entitlement. Only active AZURE entitlement can be updated.
+     * update entitlement seat
      * @param orgId Organization ID
      * @param entitlementId Entitlement ID
      * @param newSeat New seat number
@@ -2684,8 +2463,8 @@ export class ObservableEntitlementApi {
     }
 
     /**
-     * Update the seat number for the active AZURE subscription.
-     * update seat for the active AZURE subscription
+     * Update the seat number of the entitlement. Only active AZURE entitlement can be updated.
+     * update entitlement seat
      * @param orgId Organization ID
      * @param entitlementId Entitlement ID
      * @param newSeat New seat number
@@ -2822,9 +2601,10 @@ export class ObservableMeteringApi {
      * delete usageRecordGroup
      * @param orgId Organization ID
      * @param usageRecordGroupId UsageRecordGroup ID
+     * @param [creationDate] UsageRecordGroup\&#39;s creation date (UTC) in YYYY-MM-DD format
      */
-    public deleteUsageRecordGroupWithHttpInfo(orgId: string, usageRecordGroupId: string, _options?: Configuration): Observable<HttpInfo<MeteringUsageRecordGroup>> {
-        const requestContextPromise = this.requestFactory.deleteUsageRecordGroup(orgId, usageRecordGroupId, _options);
+    public deleteUsageRecordGroupWithHttpInfo(orgId: string, usageRecordGroupId: string, creationDate?: string, _options?: Configuration): Observable<HttpInfo<MeteringUsageRecordGroup>> {
+        const requestContextPromise = this.requestFactory.deleteUsageRecordGroup(orgId, usageRecordGroupId, creationDate, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -2847,9 +2627,10 @@ export class ObservableMeteringApi {
      * delete usageRecordGroup
      * @param orgId Organization ID
      * @param usageRecordGroupId UsageRecordGroup ID
+     * @param [creationDate] UsageRecordGroup\&#39;s creation date (UTC) in YYYY-MM-DD format
      */
-    public deleteUsageRecordGroup(orgId: string, usageRecordGroupId: string, _options?: Configuration): Observable<MeteringUsageRecordGroup> {
-        return this.deleteUsageRecordGroupWithHttpInfo(orgId, usageRecordGroupId, _options).pipe(map((apiResponse: HttpInfo<MeteringUsageRecordGroup>) => apiResponse.data));
+    public deleteUsageRecordGroup(orgId: string, usageRecordGroupId: string, creationDate?: string, _options?: Configuration): Observable<MeteringUsageRecordGroup> {
+        return this.deleteUsageRecordGroupWithHttpInfo(orgId, usageRecordGroupId, creationDate, _options).pipe(map((apiResponse: HttpInfo<MeteringUsageRecordGroup>) => apiResponse.data));
     }
 
     /**
@@ -3097,9 +2878,10 @@ export class ObservableMeteringApi {
      * retry usageRecordGroup
      * @param orgId Organization ID
      * @param usageRecordGroupId UsageRecordGroup ID
+     * @param [creationDate] UsageRecordGroup\&#39;s creation date (UTC) in YYYY-MM-DD format
      */
-    public retryUsageRecordGroupWithHttpInfo(orgId: string, usageRecordGroupId: string, _options?: Configuration): Observable<HttpInfo<MeteringUsageRecordGroup>> {
-        const requestContextPromise = this.requestFactory.retryUsageRecordGroup(orgId, usageRecordGroupId, _options);
+    public retryUsageRecordGroupWithHttpInfo(orgId: string, usageRecordGroupId: string, creationDate?: string, _options?: Configuration): Observable<HttpInfo<MeteringUsageRecordGroup>> {
+        const requestContextPromise = this.requestFactory.retryUsageRecordGroup(orgId, usageRecordGroupId, creationDate, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -3122,9 +2904,10 @@ export class ObservableMeteringApi {
      * retry usageRecordGroup
      * @param orgId Organization ID
      * @param usageRecordGroupId UsageRecordGroup ID
+     * @param [creationDate] UsageRecordGroup\&#39;s creation date (UTC) in YYYY-MM-DD format
      */
-    public retryUsageRecordGroup(orgId: string, usageRecordGroupId: string, _options?: Configuration): Observable<MeteringUsageRecordGroup> {
-        return this.retryUsageRecordGroupWithHttpInfo(orgId, usageRecordGroupId, _options).pipe(map((apiResponse: HttpInfo<MeteringUsageRecordGroup>) => apiResponse.data));
+    public retryUsageRecordGroup(orgId: string, usageRecordGroupId: string, creationDate?: string, _options?: Configuration): Observable<MeteringUsageRecordGroup> {
+        return this.retryUsageRecordGroupWithHttpInfo(orgId, usageRecordGroupId, creationDate, _options).pipe(map((apiResponse: HttpInfo<MeteringUsageRecordGroup>) => apiResponse.data));
     }
 
     /**

@@ -22,7 +22,6 @@ import { AlibabaMarketplaceProductSkuModules } from '../models/AlibabaMarketplac
 import { AlibabaMarketplaceProductSkuOrderPeriod } from '../models/AlibabaMarketplaceProductSkuOrderPeriod';
 import { AlibabaMarketplaceProductSkuOrderPeriods } from '../models/AlibabaMarketplaceProductSkuOrderPeriods';
 import { AlibabaMarketplaceProductSkus } from '../models/AlibabaMarketplaceProductSkus';
-import { ApiClientAccessToken } from '../models/ApiClientAccessToken';
 import { AuditingEventPriority } from '../models/AuditingEventPriority';
 import { AwsAccountIdentifier } from '../models/AwsAccountIdentifier';
 import { AwsChannelPartner } from '../models/AwsChannelPartner';
@@ -231,6 +230,8 @@ import { CreateAndUpdateAddonParams } from '../models/CreateAndUpdateAddonParams
 import { CreateBuyerParams } from '../models/CreateBuyerParams';
 import { CreateEntitlementParams } from '../models/CreateEntitlementParams';
 import { CreateUsageRecordGroupParams } from '../models/CreateUsageRecordGroupParams';
+import { DatabaseSqlNullBool } from '../models/DatabaseSqlNullBool';
+import { DatabaseSqlNullString } from '../models/DatabaseSqlNullString';
 import { DatabaseSqlNullTime } from '../models/DatabaseSqlNullTime';
 import { DivideEntitlementCommitParams } from '../models/DivideEntitlementCommitParams';
 import { EntitlementInfo } from '../models/EntitlementInfo';
@@ -335,20 +336,19 @@ import { GcpPriceModelDiscountTemplate } from '../models/GcpPriceModelDiscountTe
 import { GcpPriceTier } from '../models/GcpPriceTier';
 import { GcpPriceValue } from '../models/GcpPriceValue';
 import { GcpUserInfo } from '../models/GcpUserInfo';
-import { GetApiClientAccessTokenParams } from '../models/GetApiClientAccessTokenParams';
 import { GetRevenueReportParams } from '../models/GetRevenueReportParams';
 import { GithubComAwsAwsSdkGoV2ServiceMarketplacemeteringTypesTag } from '../models/GithubComAwsAwsSdkGoV2ServiceMarketplacemeteringTypesTag';
-import { GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1BatchUsageEventOkResponse } from '../models/GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1BatchUsageEventOkResponse';
-import { GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageBatchEventOkMessage } from '../models/GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageBatchEventOkMessage';
-import { GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventConflictResponse } from '../models/GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventConflictResponse';
-import { GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventConflictResponseAdditionalInfo } from '../models/GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventConflictResponseAdditionalInfo';
-import { GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventOkResponse } from '../models/GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventOkResponse';
-import { GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventStatusEnum } from '../models/GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageEventStatusEnum';
-import { GithubComSugerioMarketplaceServiceRdsDbLibBillingAwsBillingEvent } from '../models/GithubComSugerioMarketplaceServiceRdsDbLibBillingAwsBillingEvent';
-import { GithubComSugerioMarketplaceServiceRdsDbLibBillingAzureCmaRevenue } from '../models/GithubComSugerioMarketplaceServiceRdsDbLibBillingAzureCmaRevenue';
-import { GithubComSugerioMarketplaceServiceRdsDbLibBillingGcpChargeUsage } from '../models/GithubComSugerioMarketplaceServiceRdsDbLibBillingGcpChargeUsage';
-import { GithubComSugerioMarketplaceServiceRdsDbLibIdentityApiClient } from '../models/GithubComSugerioMarketplaceServiceRdsDbLibIdentityApiClient';
-import { GithubComSugerioMarketplaceServiceRdsDbLibUpdateEntitlementNameParams } from '../models/GithubComSugerioMarketplaceServiceRdsDbLibUpdateEntitlementNameParams';
+import { GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAwsBillingEvent } from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAwsBillingEvent';
+import { GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAzureCmaRevenue } from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAzureCmaRevenue';
+import { GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingGcpChargeUsage } from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingGcpChargeUsage';
+import { GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient } from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient';
+import { GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibUpdateEntitlementNameParams } from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibUpdateEntitlementNameParams';
+import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1BatchUsageEventOkResponse } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1BatchUsageEventOkResponse';
+import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageBatchEventOkMessage } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageBatchEventOkMessage';
+import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventConflictResponse } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventConflictResponse';
+import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventConflictResponseAdditionalInfo } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventConflictResponseAdditionalInfo';
+import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventOkResponse } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventOkResponse';
+import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventStatusEnum } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventStatusEnum';
 import { IdentityBuyer } from '../models/IdentityBuyer';
 import { IdentityConctactInfo } from '../models/IdentityConctactInfo';
 import { IdentityContact } from '../models/IdentityContact';
@@ -390,6 +390,7 @@ import { PartnerUsageMeteringConfig } from '../models/PartnerUsageMeteringConfig
 import { PaymentConfig } from '../models/PaymentConfig';
 import { PaymentInstallment } from '../models/PaymentInstallment';
 import { PaymentScheduleType } from '../models/PaymentScheduleType';
+import { PkgStructsSnowflakeMarketplaceProduct } from '../models/PkgStructsSnowflakeMarketplaceProduct';
 import { PriceModelBasic } from '../models/PriceModelBasic';
 import { PriceModelBulk } from '../models/PriceModelBulk';
 import { PriceModelCategory } from '../models/PriceModelCategory';
@@ -493,15 +494,6 @@ export interface APIApiGetApiClientRequest {
     apiClientId: string
 }
 
-export interface APIApiGetApiClientAccessTokenRequest {
-    /**
-     * Suger API Client
-     * @type GetApiClientAccessTokenParams
-     * @memberof APIApigetApiClientAccessToken
-     */
-    data: GetApiClientAccessTokenParams
-}
-
 export interface APIApiListApiClientsRequest {
     /**
      * Organization ID
@@ -524,7 +516,7 @@ export class ObjectAPIApi {
      * get api client
      * @param param the request object
      */
-    public getApiClientWithHttpInfo(param: APIApiGetApiClientRequest, options?: Configuration): Promise<HttpInfo<GithubComSugerioMarketplaceServiceRdsDbLibIdentityApiClient>> {
+    public getApiClientWithHttpInfo(param: APIApiGetApiClientRequest, options?: Configuration): Promise<HttpInfo<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient>> {
         return this.api.getApiClientWithHttpInfo(param.orgId, param.apiClientId,  options).toPromise();
     }
 
@@ -533,26 +525,8 @@ export class ObjectAPIApi {
      * get api client
      * @param param the request object
      */
-    public getApiClient(param: APIApiGetApiClientRequest, options?: Configuration): Promise<GithubComSugerioMarketplaceServiceRdsDbLibIdentityApiClient> {
+    public getApiClient(param: APIApiGetApiClientRequest, options?: Configuration): Promise<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient> {
         return this.api.getApiClient(param.orgId, param.apiClientId,  options).toPromise();
-    }
-
-    /**
-     * Get the Bearer Access Token by giving the Suger API Client ID & Client Secret.
-     * get api access token
-     * @param param the request object
-     */
-    public getApiClientAccessTokenWithHttpInfo(param: APIApiGetApiClientAccessTokenRequest, options?: Configuration): Promise<HttpInfo<ApiClientAccessToken>> {
-        return this.api.getApiClientAccessTokenWithHttpInfo(param.data,  options).toPromise();
-    }
-
-    /**
-     * Get the Bearer Access Token by giving the Suger API Client ID & Client Secret.
-     * get api access token
-     * @param param the request object
-     */
-    public getApiClientAccessToken(param: APIApiGetApiClientAccessTokenRequest, options?: Configuration): Promise<ApiClientAccessToken> {
-        return this.api.getApiClientAccessToken(param.data,  options).toPromise();
     }
 
     /**
@@ -560,7 +534,7 @@ export class ObjectAPIApi {
      * list api clients
      * @param param the request object
      */
-    public listApiClientsWithHttpInfo(param: APIApiListApiClientsRequest, options?: Configuration): Promise<HttpInfo<Array<GithubComSugerioMarketplaceServiceRdsDbLibIdentityApiClient>>> {
+    public listApiClientsWithHttpInfo(param: APIApiListApiClientsRequest, options?: Configuration): Promise<HttpInfo<Array<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient>>> {
         return this.api.listApiClientsWithHttpInfo(param.orgId,  options).toPromise();
     }
 
@@ -569,7 +543,7 @@ export class ObjectAPIApi {
      * list api clients
      * @param param the request object
      */
-    public listApiClients(param: APIApiListApiClientsRequest, options?: Configuration): Promise<Array<GithubComSugerioMarketplaceServiceRdsDbLibIdentityApiClient>> {
+    public listApiClients(param: APIApiListApiClientsRequest, options?: Configuration): Promise<Array<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient>> {
         return this.api.listApiClients(param.orgId,  options).toPromise();
     }
 
@@ -659,47 +633,6 @@ export interface BillingApiGetAddonRequest {
     addonId: string
 }
 
-export interface BillingApiGetInvoiceRequest {
-    /**
-     * Organization ID
-     * Defaults to: undefined
-     * @type string
-     * @memberof BillingApigetInvoice
-     */
-    orgId: string
-    /**
-     * Entitlement ID
-     * Defaults to: undefined
-     * @type string
-     * @memberof BillingApigetInvoice
-     */
-    entitlementId: string
-    /**
-     * Invoice ID
-     * Defaults to: undefined
-     * @type string
-     * @memberof BillingApigetInvoice
-     */
-    invoiceId: string
-}
-
-export interface BillingApiGetInvoiceIssuedEmailPreviewRequest {
-    /**
-     * Organization ID
-     * Defaults to: undefined
-     * @type string
-     * @memberof BillingApigetInvoiceIssuedEmailPreview
-     */
-    orgId: string
-    /**
-     * Invoice ID
-     * Defaults to: undefined
-     * @type string
-     * @memberof BillingApigetInvoiceIssuedEmailPreview
-     */
-    invoiceId: string
-}
-
 export interface BillingApiGetInvoiceV2Request {
     /**
      * Organization ID
@@ -715,36 +648,6 @@ export interface BillingApiGetInvoiceV2Request {
      * @memberof BillingApigetInvoiceV2
      */
     invoiceId: string
-}
-
-export interface BillingApiIssueInvoiceRequest {
-    /**
-     * Organization ID
-     * Defaults to: undefined
-     * @type string
-     * @memberof BillingApiissueInvoice
-     */
-    orgId: string
-    /**
-     * Entitlement ID
-     * Defaults to: undefined
-     * @type string
-     * @memberof BillingApiissueInvoice
-     */
-    entitlementId: string
-    /**
-     * Invoice ID
-     * Defaults to: undefined
-     * @type string
-     * @memberof BillingApiissueInvoice
-     */
-    invoiceId: string
-    /**
-     * List of Contact IDs
-     * @type Array&lt;string&gt;
-     * @memberof BillingApiissueInvoice
-     */
-    contactIds?: Array<string>
 }
 
 export interface BillingApiIssueInvoiceV2Request {
@@ -922,30 +825,6 @@ export interface BillingApiListRefundOfPaymentTransactionRequest {
     paymentTransactionId: string
 }
 
-export interface BillingApiPayInvoiceRequest {
-    /**
-     * Organization ID
-     * Defaults to: undefined
-     * @type string
-     * @memberof BillingApipayInvoice
-     */
-    orgId: string
-    /**
-     * Entitlement ID
-     * Defaults to: undefined
-     * @type string
-     * @memberof BillingApipayInvoice
-     */
-    entitlementId: string
-    /**
-     * Invoice ID
-     * Defaults to: undefined
-     * @type string
-     * @memberof BillingApipayInvoice
-     */
-    invoiceId: string
-}
-
 export interface BillingApiPayInvoiceV2Request {
     /**
      * Organization ID
@@ -959,6 +838,23 @@ export interface BillingApiPayInvoiceV2Request {
      * Defaults to: undefined
      * @type string
      * @memberof BillingApipayInvoiceV2
+     */
+    invoiceId: string
+}
+
+export interface BillingApiPreviewInvoiceEmailRequest {
+    /**
+     * Organization ID
+     * Defaults to: undefined
+     * @type string
+     * @memberof BillingApipreviewInvoiceEmail
+     */
+    orgId: string
+    /**
+     * Invoice ID
+     * Defaults to: undefined
+     * @type string
+     * @memberof BillingApipreviewInvoiceEmail
      */
     invoiceId: string
 }
@@ -986,36 +882,6 @@ export interface BillingApiUpdateAddonRequest {
     data: CreateAndUpdateAddonParams
 }
 
-export interface BillingApiUpdateInvoiceInfoRequest {
-    /**
-     * Organization ID
-     * Defaults to: undefined
-     * @type string
-     * @memberof BillingApiupdateInvoiceInfo
-     */
-    orgId: string
-    /**
-     * Entitlement ID
-     * Defaults to: undefined
-     * @type string
-     * @memberof BillingApiupdateInvoiceInfo
-     */
-    entitlementId: string
-    /**
-     * Invoice ID
-     * Defaults to: undefined
-     * @type string
-     * @memberof BillingApiupdateInvoiceInfo
-     */
-    invoiceId: string
-    /**
-     * Update Invoice Info Request Params
-     * @type UpdateInvoiceInfoRequest
-     * @memberof BillingApiupdateInvoiceInfo
-     */
-    data: UpdateInvoiceInfoRequest
-}
-
 export interface BillingApiUpdateInvoiceInfoV2Request {
     /**
      * Organization ID
@@ -1037,30 +903,6 @@ export interface BillingApiUpdateInvoiceInfoV2Request {
      * @memberof BillingApiupdateInvoiceInfoV2
      */
     data: UpdateInvoiceInfoRequest
-}
-
-export interface BillingApiVoidInvoiceRequest {
-    /**
-     * Organization ID
-     * Defaults to: undefined
-     * @type string
-     * @memberof BillingApivoidInvoice
-     */
-    orgId: string
-    /**
-     * Entitlement ID
-     * Defaults to: undefined
-     * @type string
-     * @memberof BillingApivoidInvoice
-     */
-    entitlementId: string
-    /**
-     * Invoice ID
-     * Defaults to: undefined
-     * @type string
-     * @memberof BillingApivoidInvoice
-     */
-    invoiceId: string
 }
 
 export interface BillingApiVoidInvoiceV2Request {
@@ -1164,42 +1006,6 @@ export class ObjectBillingApi {
      * get invoice
      * @param param the request object
      */
-    public getInvoiceWithHttpInfo(param: BillingApiGetInvoiceRequest, options?: Configuration): Promise<HttpInfo<BillingInvoice>> {
-        return this.api.getInvoiceWithHttpInfo(param.orgId, param.entitlementId, param.invoiceId,  options).toPromise();
-    }
-
-    /**
-     * Get the invoice by ID
-     * get invoice
-     * @param param the request object
-     */
-    public getInvoice(param: BillingApiGetInvoiceRequest, options?: Configuration): Promise<BillingInvoice> {
-        return this.api.getInvoice(param.orgId, param.entitlementId, param.invoiceId,  options).toPromise();
-    }
-
-    /**
-     * Returns the preview HTML content of the invoice issued email.
-     * Get the preview of the invoice issued email
-     * @param param the request object
-     */
-    public getInvoiceIssuedEmailPreviewWithHttpInfo(param: BillingApiGetInvoiceIssuedEmailPreviewRequest, options?: Configuration): Promise<HttpInfo<string>> {
-        return this.api.getInvoiceIssuedEmailPreviewWithHttpInfo(param.orgId, param.invoiceId,  options).toPromise();
-    }
-
-    /**
-     * Returns the preview HTML content of the invoice issued email.
-     * Get the preview of the invoice issued email
-     * @param param the request object
-     */
-    public getInvoiceIssuedEmailPreview(param: BillingApiGetInvoiceIssuedEmailPreviewRequest, options?: Configuration): Promise<string> {
-        return this.api.getInvoiceIssuedEmailPreview(param.orgId, param.invoiceId,  options).toPromise();
-    }
-
-    /**
-     * Get the invoice by ID
-     * get invoice
-     * @param param the request object
-     */
     public getInvoiceV2WithHttpInfo(param: BillingApiGetInvoiceV2Request, options?: Configuration): Promise<HttpInfo<BillingInvoice>> {
         return this.api.getInvoiceV2WithHttpInfo(param.orgId, param.invoiceId,  options).toPromise();
     }
@@ -1211,24 +1017,6 @@ export class ObjectBillingApi {
      */
     public getInvoiceV2(param: BillingApiGetInvoiceV2Request, options?: Configuration): Promise<BillingInvoice> {
         return this.api.getInvoiceV2(param.orgId, param.invoiceId,  options).toPromise();
-    }
-
-    /**
-     * Issue the invoice immediately. It can be used for manual issue or reissue invoice.
-     * issue invoice
-     * @param param the request object
-     */
-    public issueInvoiceWithHttpInfo(param: BillingApiIssueInvoiceRequest, options?: Configuration): Promise<HttpInfo<BillingInvoice>> {
-        return this.api.issueInvoiceWithHttpInfo(param.orgId, param.entitlementId, param.invoiceId, param.contactIds,  options).toPromise();
-    }
-
-    /**
-     * Issue the invoice immediately. It can be used for manual issue or reissue invoice.
-     * issue invoice
-     * @param param the request object
-     */
-    public issueInvoice(param: BillingApiIssueInvoiceRequest, options?: Configuration): Promise<BillingInvoice> {
-        return this.api.issueInvoice(param.orgId, param.entitlementId, param.invoiceId, param.contactIds,  options).toPromise();
     }
 
     /**
@@ -1326,24 +1114,6 @@ export class ObjectBillingApi {
      * pay invoice
      * @param param the request object
      */
-    public payInvoiceWithHttpInfo(param: BillingApiPayInvoiceRequest, options?: Configuration): Promise<HttpInfo<BillingInvoice>> {
-        return this.api.payInvoiceWithHttpInfo(param.orgId, param.entitlementId, param.invoiceId,  options).toPromise();
-    }
-
-    /**
-     * Initiate the payment for the invoice immediately. It can be used for manual payment or retry payment.
-     * pay invoice
-     * @param param the request object
-     */
-    public payInvoice(param: BillingApiPayInvoiceRequest, options?: Configuration): Promise<BillingInvoice> {
-        return this.api.payInvoice(param.orgId, param.entitlementId, param.invoiceId,  options).toPromise();
-    }
-
-    /**
-     * Initiate the payment for the invoice immediately. It can be used for manual payment or retry payment.
-     * pay invoice
-     * @param param the request object
-     */
     public payInvoiceV2WithHttpInfo(param: BillingApiPayInvoiceV2Request, options?: Configuration): Promise<HttpInfo<BillingInvoice>> {
         return this.api.payInvoiceV2WithHttpInfo(param.orgId, param.invoiceId,  options).toPromise();
     }
@@ -1355,6 +1125,24 @@ export class ObjectBillingApi {
      */
     public payInvoiceV2(param: BillingApiPayInvoiceV2Request, options?: Configuration): Promise<BillingInvoice> {
         return this.api.payInvoiceV2(param.orgId, param.invoiceId,  options).toPromise();
+    }
+
+    /**
+     * Returns the preview HTML content of the invoice issued email.
+     * preview invoice email
+     * @param param the request object
+     */
+    public previewInvoiceEmailWithHttpInfo(param: BillingApiPreviewInvoiceEmailRequest, options?: Configuration): Promise<HttpInfo<string>> {
+        return this.api.previewInvoiceEmailWithHttpInfo(param.orgId, param.invoiceId,  options).toPromise();
+    }
+
+    /**
+     * Returns the preview HTML content of the invoice issued email.
+     * preview invoice email
+     * @param param the request object
+     */
+    public previewInvoiceEmail(param: BillingApiPreviewInvoiceEmailRequest, options?: Configuration): Promise<string> {
+        return this.api.previewInvoiceEmail(param.orgId, param.invoiceId,  options).toPromise();
     }
 
     /**
@@ -1377,25 +1165,7 @@ export class ObjectBillingApi {
 
     /**
      * Update a draft invoice. Only DueDate, OverallDiscount, and Memo can be updated.
-     * Update invoice info
-     * @param param the request object
-     */
-    public updateInvoiceInfoWithHttpInfo(param: BillingApiUpdateInvoiceInfoRequest, options?: Configuration): Promise<HttpInfo<BillingInvoiceInfo>> {
-        return this.api.updateInvoiceInfoWithHttpInfo(param.orgId, param.entitlementId, param.invoiceId, param.data,  options).toPromise();
-    }
-
-    /**
-     * Update a draft invoice. Only DueDate, OverallDiscount, and Memo can be updated.
-     * Update invoice info
-     * @param param the request object
-     */
-    public updateInvoiceInfo(param: BillingApiUpdateInvoiceInfoRequest, options?: Configuration): Promise<BillingInvoiceInfo> {
-        return this.api.updateInvoiceInfo(param.orgId, param.entitlementId, param.invoiceId, param.data,  options).toPromise();
-    }
-
-    /**
-     * Update a draft invoice. Only DueDate, OverallDiscount, and Memo can be updated.
-     * Update invoice info
+     * update invoice info
      * @param param the request object
      */
     public updateInvoiceInfoV2WithHttpInfo(param: BillingApiUpdateInvoiceInfoV2Request, options?: Configuration): Promise<HttpInfo<BillingInvoiceInfo>> {
@@ -1404,29 +1174,11 @@ export class ObjectBillingApi {
 
     /**
      * Update a draft invoice. Only DueDate, OverallDiscount, and Memo can be updated.
-     * Update invoice info
+     * update invoice info
      * @param param the request object
      */
     public updateInvoiceInfoV2(param: BillingApiUpdateInvoiceInfoV2Request, options?: Configuration): Promise<BillingInvoiceInfo> {
         return this.api.updateInvoiceInfoV2(param.orgId, param.invoiceId, param.data,  options).toPromise();
-    }
-
-    /**
-     * Void the invoice. It can be used for manual void or cancel the invoice.
-     * void invoice
-     * @param param the request object
-     */
-    public voidInvoiceWithHttpInfo(param: BillingApiVoidInvoiceRequest, options?: Configuration): Promise<HttpInfo<BillingInvoice>> {
-        return this.api.voidInvoiceWithHttpInfo(param.orgId, param.entitlementId, param.invoiceId,  options).toPromise();
-    }
-
-    /**
-     * Void the invoice. It can be used for manual void or cancel the invoice.
-     * void invoice
-     * @param param the request object
-     */
-    public voidInvoice(param: BillingApiVoidInvoiceRequest, options?: Configuration): Promise<BillingInvoice> {
-        return this.api.voidInvoice(param.orgId, param.entitlementId, param.invoiceId,  options).toPromise();
     }
 
     /**
@@ -2574,10 +2326,10 @@ export interface EntitlementApiUpdateEntitlementNameRequest {
     entitlementId: string
     /**
      * UpdateEntitlementNameParams
-     * @type GithubComSugerioMarketplaceServiceRdsDbLibUpdateEntitlementNameParams
+     * @type GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibUpdateEntitlementNameParams
      * @memberof EntitlementApiupdateEntitlementName
      */
-    data: GithubComSugerioMarketplaceServiceRdsDbLibUpdateEntitlementNameParams
+    data: GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibUpdateEntitlementNameParams
 }
 
 export interface EntitlementApiUpdateEntitlementSeatRequest {
@@ -2882,8 +2634,8 @@ export class ObjectEntitlementApi {
     }
 
     /**
-     * Update the seat number for the active AZURE subscription.
-     * update seat for the active AZURE subscription
+     * Update the seat number of the entitlement. Only active AZURE entitlement can be updated.
+     * update entitlement seat
      * @param param the request object
      */
     public updateEntitlementSeatWithHttpInfo(param: EntitlementApiUpdateEntitlementSeatRequest, options?: Configuration): Promise<HttpInfo<WorkloadEntitlement>> {
@@ -2891,8 +2643,8 @@ export class ObjectEntitlementApi {
     }
 
     /**
-     * Update the seat number for the active AZURE subscription.
-     * update seat for the active AZURE subscription
+     * Update the seat number of the entitlement. Only active AZURE entitlement can be updated.
+     * update entitlement seat
      * @param param the request object
      */
     public updateEntitlementSeat(param: EntitlementApiUpdateEntitlementSeatRequest, options?: Configuration): Promise<WorkloadEntitlement> {
@@ -2967,6 +2719,13 @@ export interface MeteringApiDeleteUsageRecordGroupRequest {
      * @memberof MeteringApideleteUsageRecordGroup
      */
     usageRecordGroupId: string
+    /**
+     * UsageRecordGroup\&#39;s creation date (UTC) in YYYY-MM-DD format
+     * Defaults to: undefined
+     * @type string
+     * @memberof MeteringApideleteUsageRecordGroup
+     */
+    creationDate?: string
 }
 
 export interface MeteringApiGetBillableMetricRequest {
@@ -3190,6 +2949,13 @@ export interface MeteringApiRetryUsageRecordGroupRequest {
      * @memberof MeteringApiretryUsageRecordGroup
      */
     usageRecordGroupId: string
+    /**
+     * UsageRecordGroup\&#39;s creation date (UTC) in YYYY-MM-DD format
+     * Defaults to: undefined
+     * @type string
+     * @memberof MeteringApiretryUsageRecordGroup
+     */
+    creationDate?: string
 }
 
 export interface MeteringApiUpdateBillableMetricRequest {
@@ -3298,7 +3064,7 @@ export class ObjectMeteringApi {
      * @param param the request object
      */
     public deleteUsageRecordGroupWithHttpInfo(param: MeteringApiDeleteUsageRecordGroupRequest, options?: Configuration): Promise<HttpInfo<MeteringUsageRecordGroup>> {
-        return this.api.deleteUsageRecordGroupWithHttpInfo(param.orgId, param.usageRecordGroupId,  options).toPromise();
+        return this.api.deleteUsageRecordGroupWithHttpInfo(param.orgId, param.usageRecordGroupId, param.creationDate,  options).toPromise();
     }
 
     /**
@@ -3307,7 +3073,7 @@ export class ObjectMeteringApi {
      * @param param the request object
      */
     public deleteUsageRecordGroup(param: MeteringApiDeleteUsageRecordGroupRequest, options?: Configuration): Promise<MeteringUsageRecordGroup> {
-        return this.api.deleteUsageRecordGroup(param.orgId, param.usageRecordGroupId,  options).toPromise();
+        return this.api.deleteUsageRecordGroup(param.orgId, param.usageRecordGroupId, param.creationDate,  options).toPromise();
     }
 
     /**
@@ -3424,7 +3190,7 @@ export class ObjectMeteringApi {
      * @param param the request object
      */
     public retryUsageRecordGroupWithHttpInfo(param: MeteringApiRetryUsageRecordGroupRequest, options?: Configuration): Promise<HttpInfo<MeteringUsageRecordGroup>> {
-        return this.api.retryUsageRecordGroupWithHttpInfo(param.orgId, param.usageRecordGroupId,  options).toPromise();
+        return this.api.retryUsageRecordGroupWithHttpInfo(param.orgId, param.usageRecordGroupId, param.creationDate,  options).toPromise();
     }
 
     /**
@@ -3433,7 +3199,7 @@ export class ObjectMeteringApi {
      * @param param the request object
      */
     public retryUsageRecordGroup(param: MeteringApiRetryUsageRecordGroupRequest, options?: Configuration): Promise<MeteringUsageRecordGroup> {
-        return this.api.retryUsageRecordGroup(param.orgId, param.usageRecordGroupId,  options).toPromise();
+        return this.api.retryUsageRecordGroup(param.orgId, param.usageRecordGroupId, param.creationDate,  options).toPromise();
     }
 
     /**

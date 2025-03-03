@@ -1688,6 +1688,112 @@ const request: ProductApiCreateOrUpdateDraftProductRequest = {
       },
       refundCancellationPolicy: "refundCancellationPolicy_example",
       sellerNotes: "sellerNotes_example",
+      snowflakeProduct: {
+        comment: {
+          string: "string_example",
+          valid: true,
+        },
+        createdOn: {
+          time: "time_example",
+          valid: true,
+        },
+        detailedTargetAccounts: {
+          string: "string_example",
+          valid: true,
+        },
+        distribution: {
+          string: "string_example",
+          valid: true,
+        },
+        globalName: {
+          string: "string_example",
+          valid: true,
+        },
+        isApplication: {
+          bool: true,
+          valid: true,
+        },
+        isByRequest: {
+          bool: true,
+          valid: true,
+        },
+        isLimitedTrial: {
+          bool: true,
+          valid: true,
+        },
+        isMonetized: {
+          bool: true,
+          valid: true,
+        },
+        isMountlessQueryable: {
+          bool: true,
+          valid: true,
+        },
+        isTargeted: {
+          bool: true,
+          valid: true,
+        },
+        owner: {
+          string: "string_example",
+          valid: true,
+        },
+        ownerRoleType: {
+          string: "string_example",
+          valid: true,
+        },
+        profile: {
+          string: "string_example",
+          valid: true,
+        },
+        publishedOn: {
+          time: "time_example",
+          valid: true,
+        },
+        regions: {
+          string: "string_example",
+          valid: true,
+        },
+        rejectedOn: {
+          time: "time_example",
+          valid: true,
+        },
+        reviewState: {
+          string: "string_example",
+          valid: true,
+        },
+        state: {
+          string: "string_example",
+          valid: true,
+        },
+        subtitle: {
+          string: "string_example",
+          valid: true,
+        },
+        targetAccounts: {
+          string: "string_example",
+          valid: true,
+        },
+        title: {
+          string: "string_example",
+          valid: true,
+        },
+        uniformListingLocator: {
+          string: "string_example",
+          valid: true,
+        },
+        updatedOn: {
+          time: "time_example",
+          valid: true,
+        },
+        name: {
+          string: "string_example",
+          valid: true,
+        },
+        organizationProfileName: {
+          string: "string_example",
+          valid: true,
+        },
+      },
       stripeProduct: {
         active: true,
         created: 1,
@@ -3531,6 +3637,112 @@ const request: ProductApiCreateProductRequest = {
       },
       refundCancellationPolicy: "refundCancellationPolicy_example",
       sellerNotes: "sellerNotes_example",
+      snowflakeProduct: {
+        comment: {
+          string: "string_example",
+          valid: true,
+        },
+        createdOn: {
+          time: "time_example",
+          valid: true,
+        },
+        detailedTargetAccounts: {
+          string: "string_example",
+          valid: true,
+        },
+        distribution: {
+          string: "string_example",
+          valid: true,
+        },
+        globalName: {
+          string: "string_example",
+          valid: true,
+        },
+        isApplication: {
+          bool: true,
+          valid: true,
+        },
+        isByRequest: {
+          bool: true,
+          valid: true,
+        },
+        isLimitedTrial: {
+          bool: true,
+          valid: true,
+        },
+        isMonetized: {
+          bool: true,
+          valid: true,
+        },
+        isMountlessQueryable: {
+          bool: true,
+          valid: true,
+        },
+        isTargeted: {
+          bool: true,
+          valid: true,
+        },
+        owner: {
+          string: "string_example",
+          valid: true,
+        },
+        ownerRoleType: {
+          string: "string_example",
+          valid: true,
+        },
+        profile: {
+          string: "string_example",
+          valid: true,
+        },
+        publishedOn: {
+          time: "time_example",
+          valid: true,
+        },
+        regions: {
+          string: "string_example",
+          valid: true,
+        },
+        rejectedOn: {
+          time: "time_example",
+          valid: true,
+        },
+        reviewState: {
+          string: "string_example",
+          valid: true,
+        },
+        state: {
+          string: "string_example",
+          valid: true,
+        },
+        subtitle: {
+          string: "string_example",
+          valid: true,
+        },
+        targetAccounts: {
+          string: "string_example",
+          valid: true,
+        },
+        title: {
+          string: "string_example",
+          valid: true,
+        },
+        uniformListingLocator: {
+          string: "string_example",
+          valid: true,
+        },
+        updatedOn: {
+          time: "time_example",
+          valid: true,
+        },
+        name: {
+          string: "string_example",
+          valid: true,
+        },
+        organizationProfileName: {
+          string: "string_example",
+          valid: true,
+        },
+      },
       stripeProduct: {
         active: true,
         created: 1,
@@ -5675,6 +5887,112 @@ const request: ProductApiPublishProductRequest = {
       },
       refundCancellationPolicy: "refundCancellationPolicy_example",
       sellerNotes: "sellerNotes_example",
+      snowflakeProduct: {
+        comment: {
+          string: "string_example",
+          valid: true,
+        },
+        createdOn: {
+          time: "time_example",
+          valid: true,
+        },
+        detailedTargetAccounts: {
+          string: "string_example",
+          valid: true,
+        },
+        distribution: {
+          string: "string_example",
+          valid: true,
+        },
+        globalName: {
+          string: "string_example",
+          valid: true,
+        },
+        isApplication: {
+          bool: true,
+          valid: true,
+        },
+        isByRequest: {
+          bool: true,
+          valid: true,
+        },
+        isLimitedTrial: {
+          bool: true,
+          valid: true,
+        },
+        isMonetized: {
+          bool: true,
+          valid: true,
+        },
+        isMountlessQueryable: {
+          bool: true,
+          valid: true,
+        },
+        isTargeted: {
+          bool: true,
+          valid: true,
+        },
+        owner: {
+          string: "string_example",
+          valid: true,
+        },
+        ownerRoleType: {
+          string: "string_example",
+          valid: true,
+        },
+        profile: {
+          string: "string_example",
+          valid: true,
+        },
+        publishedOn: {
+          time: "time_example",
+          valid: true,
+        },
+        regions: {
+          string: "string_example",
+          valid: true,
+        },
+        rejectedOn: {
+          time: "time_example",
+          valid: true,
+        },
+        reviewState: {
+          string: "string_example",
+          valid: true,
+        },
+        state: {
+          string: "string_example",
+          valid: true,
+        },
+        subtitle: {
+          string: "string_example",
+          valid: true,
+        },
+        targetAccounts: {
+          string: "string_example",
+          valid: true,
+        },
+        title: {
+          string: "string_example",
+          valid: true,
+        },
+        uniformListingLocator: {
+          string: "string_example",
+          valid: true,
+        },
+        updatedOn: {
+          time: "time_example",
+          valid: true,
+        },
+        name: {
+          string: "string_example",
+          valid: true,
+        },
+        organizationProfileName: {
+          string: "string_example",
+          valid: true,
+        },
+      },
       stripeProduct: {
         active: true,
         created: 1,
@@ -7522,6 +7840,112 @@ const request: ProductApiUpdateProductRequest = {
       },
       refundCancellationPolicy: "refundCancellationPolicy_example",
       sellerNotes: "sellerNotes_example",
+      snowflakeProduct: {
+        comment: {
+          string: "string_example",
+          valid: true,
+        },
+        createdOn: {
+          time: "time_example",
+          valid: true,
+        },
+        detailedTargetAccounts: {
+          string: "string_example",
+          valid: true,
+        },
+        distribution: {
+          string: "string_example",
+          valid: true,
+        },
+        globalName: {
+          string: "string_example",
+          valid: true,
+        },
+        isApplication: {
+          bool: true,
+          valid: true,
+        },
+        isByRequest: {
+          bool: true,
+          valid: true,
+        },
+        isLimitedTrial: {
+          bool: true,
+          valid: true,
+        },
+        isMonetized: {
+          bool: true,
+          valid: true,
+        },
+        isMountlessQueryable: {
+          bool: true,
+          valid: true,
+        },
+        isTargeted: {
+          bool: true,
+          valid: true,
+        },
+        owner: {
+          string: "string_example",
+          valid: true,
+        },
+        ownerRoleType: {
+          string: "string_example",
+          valid: true,
+        },
+        profile: {
+          string: "string_example",
+          valid: true,
+        },
+        publishedOn: {
+          time: "time_example",
+          valid: true,
+        },
+        regions: {
+          string: "string_example",
+          valid: true,
+        },
+        rejectedOn: {
+          time: "time_example",
+          valid: true,
+        },
+        reviewState: {
+          string: "string_example",
+          valid: true,
+        },
+        state: {
+          string: "string_example",
+          valid: true,
+        },
+        subtitle: {
+          string: "string_example",
+          valid: true,
+        },
+        targetAccounts: {
+          string: "string_example",
+          valid: true,
+        },
+        title: {
+          string: "string_example",
+          valid: true,
+        },
+        uniformListingLocator: {
+          string: "string_example",
+          valid: true,
+        },
+        updatedOn: {
+          time: "time_example",
+          valid: true,
+        },
+        name: {
+          string: "string_example",
+          valid: true,
+        },
+        organizationProfileName: {
+          string: "string_example",
+          valid: true,
+        },
+      },
       stripeProduct: {
         active: true,
         created: 1,

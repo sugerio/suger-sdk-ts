@@ -19,6 +19,7 @@ import { CommitDimension } from '../models/CommitDimension';
 import { EulaType } from '../models/EulaType';
 import { GcpMarketplaceProduct } from '../models/GcpMarketplaceProduct';
 import { MeteringDimension } from '../models/MeteringDimension';
+import { PkgStructsSnowflakeMarketplaceProduct } from '../models/PkgStructsSnowflakeMarketplaceProduct';
 import { StripeProduct } from '../models/StripeProduct';
 import { HttpFile } from '../http/http';
 
@@ -46,6 +47,7 @@ export class ProductInfo {
     'gcpProduct'?: GcpMarketplaceProduct;
     'refundCancellationPolicy'?: string;
     'sellerNotes'?: string;
+    'snowflakeProduct'?: PkgStructsSnowflakeMarketplaceProduct;
     'stripeProduct'?: StripeProduct;
 
     static readonly discriminator: string | undefined = undefined;
@@ -153,6 +155,12 @@ export class ProductInfo {
             "name": "sellerNotes",
             "baseName": "sellerNotes",
             "type": "string",
+            "format": ""
+        },
+        {
+            "name": "snowflakeProduct",
+            "baseName": "snowflakeProduct",
+            "type": "PkgStructsSnowflakeMarketplaceProduct",
             "format": ""
         },
         {

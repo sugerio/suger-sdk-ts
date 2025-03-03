@@ -238,106 +238,6 @@ export class BillingApiRequestFactory extends BaseAPIRequestFactory {
      * Get the invoice by ID
      * get invoice
      * @param orgId Organization ID
-     * @param entitlementId Entitlement ID
-     * @param invoiceId Invoice ID
-     */
-    public async getInvoice(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Promise<RequestContext> {
-        let _config = _options || this.configuration;
-
-        // verify required parameter 'orgId' is not null or undefined
-        if (orgId === null || orgId === undefined) {
-            throw new RequiredError("BillingApi", "getInvoice", "orgId");
-        }
-
-
-        // verify required parameter 'entitlementId' is not null or undefined
-        if (entitlementId === null || entitlementId === undefined) {
-            throw new RequiredError("BillingApi", "getInvoice", "entitlementId");
-        }
-
-
-        // verify required parameter 'invoiceId' is not null or undefined
-        if (invoiceId === null || invoiceId === undefined) {
-            throw new RequiredError("BillingApi", "getInvoice", "invoiceId");
-        }
-
-
-        // Path Params
-        const localVarPath = '/org/{orgId}/entitlement/{entitlementId}/invoice/{invoiceId}'
-            .replace('{' + 'orgId' + '}', encodeURIComponent(String(orgId)))
-            .replace('{' + 'entitlementId' + '}', encodeURIComponent(String(entitlementId)))
-            .replace('{' + 'invoiceId' + '}', encodeURIComponent(String(invoiceId)));
-
-        // Make Request Context
-        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
-        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
-
-
-        let authMethod: SecurityAuthentication | undefined;
-        // Apply auth methods
-        authMethod = _config.authMethods["APIKeyAuth"]
-        if (authMethod?.applySecurityAuthentication) {
-            await authMethod?.applySecurityAuthentication(requestContext);
-        }
-        
-        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
-        if (defaultAuth?.applySecurityAuthentication) {
-            await defaultAuth?.applySecurityAuthentication(requestContext);
-        }
-
-        return requestContext;
-    }
-
-    /**
-     * Returns the preview HTML content of the invoice issued email.
-     * Get the preview of the invoice issued email
-     * @param orgId Organization ID
-     * @param invoiceId Invoice ID
-     */
-    public async getInvoiceIssuedEmailPreview(orgId: string, invoiceId: string, _options?: Configuration): Promise<RequestContext> {
-        let _config = _options || this.configuration;
-
-        // verify required parameter 'orgId' is not null or undefined
-        if (orgId === null || orgId === undefined) {
-            throw new RequiredError("BillingApi", "getInvoiceIssuedEmailPreview", "orgId");
-        }
-
-
-        // verify required parameter 'invoiceId' is not null or undefined
-        if (invoiceId === null || invoiceId === undefined) {
-            throw new RequiredError("BillingApi", "getInvoiceIssuedEmailPreview", "invoiceId");
-        }
-
-
-        // Path Params
-        const localVarPath = '/org/{orgId}/invoice/{invoiceId}/preview'
-            .replace('{' + 'orgId' + '}', encodeURIComponent(String(orgId)))
-            .replace('{' + 'invoiceId' + '}', encodeURIComponent(String(invoiceId)));
-
-        // Make Request Context
-        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
-        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
-
-
-        let authMethod: SecurityAuthentication | undefined;
-        // Apply auth methods
-        authMethod = _config.authMethods["APIKeyAuth"]
-        if (authMethod?.applySecurityAuthentication) {
-            await authMethod?.applySecurityAuthentication(requestContext);
-        }
-        
-        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
-        if (defaultAuth?.applySecurityAuthentication) {
-            await defaultAuth?.applySecurityAuthentication(requestContext);
-        }
-
-        return requestContext;
-    }
-
-    /**
-     * Get the invoice by ID
-     * get invoice
-     * @param orgId Organization ID
      * @param invoiceId Invoice ID
      */
     public async getInvoiceV2(orgId: string, invoiceId: string, _options?: Configuration): Promise<RequestContext> {
@@ -364,73 +264,6 @@ export class BillingApiRequestFactory extends BaseAPIRequestFactory {
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
-
-        let authMethod: SecurityAuthentication | undefined;
-        // Apply auth methods
-        authMethod = _config.authMethods["APIKeyAuth"]
-        if (authMethod?.applySecurityAuthentication) {
-            await authMethod?.applySecurityAuthentication(requestContext);
-        }
-        
-        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
-        if (defaultAuth?.applySecurityAuthentication) {
-            await defaultAuth?.applySecurityAuthentication(requestContext);
-        }
-
-        return requestContext;
-    }
-
-    /**
-     * Issue the invoice immediately. It can be used for manual issue or reissue invoice.
-     * issue invoice
-     * @param orgId Organization ID
-     * @param entitlementId Entitlement ID
-     * @param invoiceId Invoice ID
-     * @param contactIds List of Contact IDs
-     */
-    public async issueInvoice(orgId: string, entitlementId: string, invoiceId: string, contactIds?: Array<string>, _options?: Configuration): Promise<RequestContext> {
-        let _config = _options || this.configuration;
-
-        // verify required parameter 'orgId' is not null or undefined
-        if (orgId === null || orgId === undefined) {
-            throw new RequiredError("BillingApi", "issueInvoice", "orgId");
-        }
-
-
-        // verify required parameter 'entitlementId' is not null or undefined
-        if (entitlementId === null || entitlementId === undefined) {
-            throw new RequiredError("BillingApi", "issueInvoice", "entitlementId");
-        }
-
-
-        // verify required parameter 'invoiceId' is not null or undefined
-        if (invoiceId === null || invoiceId === undefined) {
-            throw new RequiredError("BillingApi", "issueInvoice", "invoiceId");
-        }
-
-
-
-        // Path Params
-        const localVarPath = '/org/{orgId}/entitlement/{entitlementId}/invoice/{invoiceId}/issue'
-            .replace('{' + 'orgId' + '}', encodeURIComponent(String(orgId)))
-            .replace('{' + 'entitlementId' + '}', encodeURIComponent(String(entitlementId)))
-            .replace('{' + 'invoiceId' + '}', encodeURIComponent(String(invoiceId)));
-
-        // Make Request Context
-        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.PATCH);
-        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
-
-
-        // Body Params
-        const contentType = ObjectSerializer.getPreferredMediaType([
-            "application/json"
-        ]);
-        requestContext.setHeaderParam("Content-Type", contentType);
-        const serializedBody = ObjectSerializer.stringify(
-            ObjectSerializer.serialize(contactIds, "Array<string>", ""),
-            contentType
-        );
-        requestContext.setBody(serializedBody);
 
         let authMethod: SecurityAuthentication | undefined;
         // Apply auth methods
@@ -776,60 +609,6 @@ export class BillingApiRequestFactory extends BaseAPIRequestFactory {
      * Initiate the payment for the invoice immediately. It can be used for manual payment or retry payment.
      * pay invoice
      * @param orgId Organization ID
-     * @param entitlementId Entitlement ID
-     * @param invoiceId Invoice ID
-     */
-    public async payInvoice(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Promise<RequestContext> {
-        let _config = _options || this.configuration;
-
-        // verify required parameter 'orgId' is not null or undefined
-        if (orgId === null || orgId === undefined) {
-            throw new RequiredError("BillingApi", "payInvoice", "orgId");
-        }
-
-
-        // verify required parameter 'entitlementId' is not null or undefined
-        if (entitlementId === null || entitlementId === undefined) {
-            throw new RequiredError("BillingApi", "payInvoice", "entitlementId");
-        }
-
-
-        // verify required parameter 'invoiceId' is not null or undefined
-        if (invoiceId === null || invoiceId === undefined) {
-            throw new RequiredError("BillingApi", "payInvoice", "invoiceId");
-        }
-
-
-        // Path Params
-        const localVarPath = '/org/{orgId}/entitlement/{entitlementId}/invoice/{invoiceId}/pay'
-            .replace('{' + 'orgId' + '}', encodeURIComponent(String(orgId)))
-            .replace('{' + 'entitlementId' + '}', encodeURIComponent(String(entitlementId)))
-            .replace('{' + 'invoiceId' + '}', encodeURIComponent(String(invoiceId)));
-
-        // Make Request Context
-        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.PATCH);
-        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
-
-
-        let authMethod: SecurityAuthentication | undefined;
-        // Apply auth methods
-        authMethod = _config.authMethods["APIKeyAuth"]
-        if (authMethod?.applySecurityAuthentication) {
-            await authMethod?.applySecurityAuthentication(requestContext);
-        }
-        
-        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
-        if (defaultAuth?.applySecurityAuthentication) {
-            await defaultAuth?.applySecurityAuthentication(requestContext);
-        }
-
-        return requestContext;
-    }
-
-    /**
-     * Initiate the payment for the invoice immediately. It can be used for manual payment or retry payment.
-     * pay invoice
-     * @param orgId Organization ID
      * @param invoiceId Invoice ID
      */
     public async payInvoiceV2(orgId: string, invoiceId: string, _options?: Configuration): Promise<RequestContext> {
@@ -854,6 +633,52 @@ export class BillingApiRequestFactory extends BaseAPIRequestFactory {
 
         // Make Request Context
         const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.PATCH);
+        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
+
+
+        let authMethod: SecurityAuthentication | undefined;
+        // Apply auth methods
+        authMethod = _config.authMethods["APIKeyAuth"]
+        if (authMethod?.applySecurityAuthentication) {
+            await authMethod?.applySecurityAuthentication(requestContext);
+        }
+        
+        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        if (defaultAuth?.applySecurityAuthentication) {
+            await defaultAuth?.applySecurityAuthentication(requestContext);
+        }
+
+        return requestContext;
+    }
+
+    /**
+     * Returns the preview HTML content of the invoice issued email.
+     * preview invoice email
+     * @param orgId Organization ID
+     * @param invoiceId Invoice ID
+     */
+    public async previewInvoiceEmail(orgId: string, invoiceId: string, _options?: Configuration): Promise<RequestContext> {
+        let _config = _options || this.configuration;
+
+        // verify required parameter 'orgId' is not null or undefined
+        if (orgId === null || orgId === undefined) {
+            throw new RequiredError("BillingApi", "previewInvoiceEmail", "orgId");
+        }
+
+
+        // verify required parameter 'invoiceId' is not null or undefined
+        if (invoiceId === null || invoiceId === undefined) {
+            throw new RequiredError("BillingApi", "previewInvoiceEmail", "invoiceId");
+        }
+
+
+        // Path Params
+        const localVarPath = '/org/{orgId}/invoice/{invoiceId}/preview'
+            .replace('{' + 'orgId' + '}', encodeURIComponent(String(orgId)))
+            .replace('{' + 'invoiceId' + '}', encodeURIComponent(String(invoiceId)));
+
+        // Make Request Context
+        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.GET);
         requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
 
 
@@ -938,79 +763,7 @@ export class BillingApiRequestFactory extends BaseAPIRequestFactory {
 
     /**
      * Update a draft invoice. Only DueDate, OverallDiscount, and Memo can be updated.
-     * Update invoice info
-     * @param orgId Organization ID
-     * @param entitlementId Entitlement ID
-     * @param invoiceId Invoice ID
-     * @param data Update Invoice Info Request Params
-     */
-    public async updateInvoiceInfo(orgId: string, entitlementId: string, invoiceId: string, data: UpdateInvoiceInfoRequest, _options?: Configuration): Promise<RequestContext> {
-        let _config = _options || this.configuration;
-
-        // verify required parameter 'orgId' is not null or undefined
-        if (orgId === null || orgId === undefined) {
-            throw new RequiredError("BillingApi", "updateInvoiceInfo", "orgId");
-        }
-
-
-        // verify required parameter 'entitlementId' is not null or undefined
-        if (entitlementId === null || entitlementId === undefined) {
-            throw new RequiredError("BillingApi", "updateInvoiceInfo", "entitlementId");
-        }
-
-
-        // verify required parameter 'invoiceId' is not null or undefined
-        if (invoiceId === null || invoiceId === undefined) {
-            throw new RequiredError("BillingApi", "updateInvoiceInfo", "invoiceId");
-        }
-
-
-        // verify required parameter 'data' is not null or undefined
-        if (data === null || data === undefined) {
-            throw new RequiredError("BillingApi", "updateInvoiceInfo", "data");
-        }
-
-
-        // Path Params
-        const localVarPath = '/org/{orgId}/entitlement/{entitlementId}/invoice/{invoiceId}/info'
-            .replace('{' + 'orgId' + '}', encodeURIComponent(String(orgId)))
-            .replace('{' + 'entitlementId' + '}', encodeURIComponent(String(entitlementId)))
-            .replace('{' + 'invoiceId' + '}', encodeURIComponent(String(invoiceId)));
-
-        // Make Request Context
-        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.PATCH);
-        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
-
-
-        // Body Params
-        const contentType = ObjectSerializer.getPreferredMediaType([
-            "application/json"
-        ]);
-        requestContext.setHeaderParam("Content-Type", contentType);
-        const serializedBody = ObjectSerializer.stringify(
-            ObjectSerializer.serialize(data, "UpdateInvoiceInfoRequest", ""),
-            contentType
-        );
-        requestContext.setBody(serializedBody);
-
-        let authMethod: SecurityAuthentication | undefined;
-        // Apply auth methods
-        authMethod = _config.authMethods["APIKeyAuth"]
-        if (authMethod?.applySecurityAuthentication) {
-            await authMethod?.applySecurityAuthentication(requestContext);
-        }
-        
-        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
-        if (defaultAuth?.applySecurityAuthentication) {
-            await defaultAuth?.applySecurityAuthentication(requestContext);
-        }
-
-        return requestContext;
-    }
-
-    /**
-     * Update a draft invoice. Only DueDate, OverallDiscount, and Memo can be updated.
-     * Update invoice info
+     * update invoice info
      * @param orgId Organization ID
      * @param invoiceId Invoice ID
      * @param data Update Invoice Info Request Params
@@ -1056,60 +809,6 @@ export class BillingApiRequestFactory extends BaseAPIRequestFactory {
             contentType
         );
         requestContext.setBody(serializedBody);
-
-        let authMethod: SecurityAuthentication | undefined;
-        // Apply auth methods
-        authMethod = _config.authMethods["APIKeyAuth"]
-        if (authMethod?.applySecurityAuthentication) {
-            await authMethod?.applySecurityAuthentication(requestContext);
-        }
-        
-        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
-        if (defaultAuth?.applySecurityAuthentication) {
-            await defaultAuth?.applySecurityAuthentication(requestContext);
-        }
-
-        return requestContext;
-    }
-
-    /**
-     * Void the invoice. It can be used for manual void or cancel the invoice.
-     * void invoice
-     * @param orgId Organization ID
-     * @param entitlementId Entitlement ID
-     * @param invoiceId Invoice ID
-     */
-    public async voidInvoice(orgId: string, entitlementId: string, invoiceId: string, _options?: Configuration): Promise<RequestContext> {
-        let _config = _options || this.configuration;
-
-        // verify required parameter 'orgId' is not null or undefined
-        if (orgId === null || orgId === undefined) {
-            throw new RequiredError("BillingApi", "voidInvoice", "orgId");
-        }
-
-
-        // verify required parameter 'entitlementId' is not null or undefined
-        if (entitlementId === null || entitlementId === undefined) {
-            throw new RequiredError("BillingApi", "voidInvoice", "entitlementId");
-        }
-
-
-        // verify required parameter 'invoiceId' is not null or undefined
-        if (invoiceId === null || invoiceId === undefined) {
-            throw new RequiredError("BillingApi", "voidInvoice", "invoiceId");
-        }
-
-
-        // Path Params
-        const localVarPath = '/org/{orgId}/entitlement/{entitlementId}/invoice/{invoiceId}/void'
-            .replace('{' + 'orgId' + '}', encodeURIComponent(String(orgId)))
-            .replace('{' + 'entitlementId' + '}', encodeURIComponent(String(entitlementId)))
-            .replace('{' + 'invoiceId' + '}', encodeURIComponent(String(invoiceId)));
-
-        // Make Request Context
-        const requestContext = _config.baseServer.makeRequestContext(localVarPath, HttpMethod.PATCH);
-        requestContext.setHeaderParam("Accept", "application/json, */*;q=0.8")
-
 
         let authMethod: SecurityAuthentication | undefined;
         // Apply auth methods
@@ -1352,139 +1051,10 @@ export class BillingApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to getInvoice
-     * @throws ApiException if the response code was not in [200, 299]
-     */
-     public async getInvoiceWithHttpInfo(response: ResponseContext): Promise<HttpInfo<BillingInvoice >> {
-        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
-        if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: BillingInvoice = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "BillingInvoice", ""
-            ) as BillingInvoice;
-            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
-        }
-        if (isCodeInRange("400", response.httpStatusCode)) {
-            const body: string = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
-            throw new ApiException<string>(response.httpStatusCode, "Bad request error", body, response.headers);
-        }
-        if (isCodeInRange("500", response.httpStatusCode)) {
-            const body: string = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
-            throw new ApiException<string>(response.httpStatusCode, "Internal server error", body, response.headers);
-        }
-
-        // Work around for missing responses in specification, e.g. for petstore.yaml
-        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: BillingInvoice = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "BillingInvoice", ""
-            ) as BillingInvoice;
-            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
-        }
-
-        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
-    }
-
-    /**
-     * Unwraps the actual response sent by the server from the response context and deserializes the response content
-     * to the expected objects
-     *
-     * @params response Response returned by the server for a request to getInvoiceIssuedEmailPreview
-     * @throws ApiException if the response code was not in [200, 299]
-     */
-     public async getInvoiceIssuedEmailPreviewWithHttpInfo(response: ResponseContext): Promise<HttpInfo<string >> {
-        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
-        if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: string = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
-            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
-        }
-        if (isCodeInRange("400", response.httpStatusCode)) {
-            const body: string = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
-            throw new ApiException<string>(response.httpStatusCode, "Bad request error", body, response.headers);
-        }
-        if (isCodeInRange("500", response.httpStatusCode)) {
-            const body: string = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
-            throw new ApiException<string>(response.httpStatusCode, "Internal server error", body, response.headers);
-        }
-
-        // Work around for missing responses in specification, e.g. for petstore.yaml
-        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: string = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
-            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
-        }
-
-        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
-    }
-
-    /**
-     * Unwraps the actual response sent by the server from the response context and deserializes the response content
-     * to the expected objects
-     *
      * @params response Response returned by the server for a request to getInvoiceV2
      * @throws ApiException if the response code was not in [200, 299]
      */
      public async getInvoiceV2WithHttpInfo(response: ResponseContext): Promise<HttpInfo<BillingInvoice >> {
-        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
-        if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: BillingInvoice = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "BillingInvoice", ""
-            ) as BillingInvoice;
-            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
-        }
-        if (isCodeInRange("400", response.httpStatusCode)) {
-            const body: string = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
-            throw new ApiException<string>(response.httpStatusCode, "Bad request error", body, response.headers);
-        }
-        if (isCodeInRange("500", response.httpStatusCode)) {
-            const body: string = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
-            throw new ApiException<string>(response.httpStatusCode, "Internal server error", body, response.headers);
-        }
-
-        // Work around for missing responses in specification, e.g. for petstore.yaml
-        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: BillingInvoice = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "BillingInvoice", ""
-            ) as BillingInvoice;
-            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
-        }
-
-        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
-    }
-
-    /**
-     * Unwraps the actual response sent by the server from the response context and deserializes the response content
-     * to the expected objects
-     *
-     * @params response Response returned by the server for a request to issueInvoice
-     * @throws ApiException if the response code was not in [200, 299]
-     */
-     public async issueInvoiceWithHttpInfo(response: ResponseContext): Promise<HttpInfo<BillingInvoice >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: BillingInvoice = ObjectSerializer.deserialize(
@@ -1739,10 +1309,10 @@ export class BillingApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to payInvoice
+     * @params response Response returned by the server for a request to payInvoiceV2
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async payInvoiceWithHttpInfo(response: ResponseContext): Promise<HttpInfo<BillingInvoice >> {
+     public async payInvoiceV2WithHttpInfo(response: ResponseContext): Promise<HttpInfo<BillingInvoice >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: BillingInvoice = ObjectSerializer.deserialize(
@@ -1782,16 +1352,16 @@ export class BillingApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to payInvoiceV2
+     * @params response Response returned by the server for a request to previewInvoiceEmail
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async payInvoiceV2WithHttpInfo(response: ResponseContext): Promise<HttpInfo<BillingInvoice >> {
+     public async previewInvoiceEmailWithHttpInfo(response: ResponseContext): Promise<HttpInfo<string >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: BillingInvoice = ObjectSerializer.deserialize(
+            const body: string = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "BillingInvoice", ""
-            ) as BillingInvoice;
+                "string", ""
+            ) as string;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
         if (isCodeInRange("400", response.httpStatusCode)) {
@@ -1811,10 +1381,10 @@ export class BillingApiResponseProcessor {
 
         // Work around for missing responses in specification, e.g. for petstore.yaml
         if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: BillingInvoice = ObjectSerializer.deserialize(
+            const body: string = ObjectSerializer.deserialize(
                 ObjectSerializer.parse(await response.body.text(), contentType),
-                "BillingInvoice", ""
-            ) as BillingInvoice;
+                "string", ""
+            ) as string;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
@@ -1868,49 +1438,6 @@ export class BillingApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to updateInvoiceInfo
-     * @throws ApiException if the response code was not in [200, 299]
-     */
-     public async updateInvoiceInfoWithHttpInfo(response: ResponseContext): Promise<HttpInfo<BillingInvoiceInfo >> {
-        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
-        if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: BillingInvoiceInfo = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "BillingInvoiceInfo", ""
-            ) as BillingInvoiceInfo;
-            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
-        }
-        if (isCodeInRange("400", response.httpStatusCode)) {
-            const body: string = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
-            throw new ApiException<string>(response.httpStatusCode, "Bad request error", body, response.headers);
-        }
-        if (isCodeInRange("500", response.httpStatusCode)) {
-            const body: string = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
-            throw new ApiException<string>(response.httpStatusCode, "Internal server error", body, response.headers);
-        }
-
-        // Work around for missing responses in specification, e.g. for petstore.yaml
-        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: BillingInvoiceInfo = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "BillingInvoiceInfo", ""
-            ) as BillingInvoiceInfo;
-            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
-        }
-
-        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
-    }
-
-    /**
-     * Unwraps the actual response sent by the server from the response context and deserializes the response content
-     * to the expected objects
-     *
      * @params response Response returned by the server for a request to updateInvoiceInfoV2
      * @throws ApiException if the response code was not in [200, 299]
      */
@@ -1944,49 +1471,6 @@ export class BillingApiResponseProcessor {
                 ObjectSerializer.parse(await response.body.text(), contentType),
                 "BillingInvoiceInfo", ""
             ) as BillingInvoiceInfo;
-            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
-        }
-
-        throw new ApiException<string | Blob | undefined>(response.httpStatusCode, "Unknown API Status Code!", await response.getBodyAsAny(), response.headers);
-    }
-
-    /**
-     * Unwraps the actual response sent by the server from the response context and deserializes the response content
-     * to the expected objects
-     *
-     * @params response Response returned by the server for a request to voidInvoice
-     * @throws ApiException if the response code was not in [200, 299]
-     */
-     public async voidInvoiceWithHttpInfo(response: ResponseContext): Promise<HttpInfo<BillingInvoice >> {
-        const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
-        if (isCodeInRange("200", response.httpStatusCode)) {
-            const body: BillingInvoice = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "BillingInvoice", ""
-            ) as BillingInvoice;
-            return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
-        }
-        if (isCodeInRange("400", response.httpStatusCode)) {
-            const body: string = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
-            throw new ApiException<string>(response.httpStatusCode, "Bad request error", body, response.headers);
-        }
-        if (isCodeInRange("500", response.httpStatusCode)) {
-            const body: string = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "string", ""
-            ) as string;
-            throw new ApiException<string>(response.httpStatusCode, "Internal server error", body, response.headers);
-        }
-
-        // Work around for missing responses in specification, e.g. for petstore.yaml
-        if (response.httpStatusCode >= 200 && response.httpStatusCode <= 299) {
-            const body: BillingInvoice = ObjectSerializer.deserialize(
-                ObjectSerializer.parse(await response.body.text(), contentType),
-                "BillingInvoice", ""
-            ) as BillingInvoice;
             return new HttpInfo(response.httpStatusCode, response.headers, response.body, body);
         }
 
