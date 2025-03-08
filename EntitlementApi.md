@@ -19,7 +19,7 @@ Method | HTTP request | Description
 [**unscheduleEntitlementCancellation**](EntitlementApi.md#unscheduleEntitlementCancellation) | **POST** /org/{orgId}/entitlement/{entitlementId}/unscheduleCancellation | unschedule entitlement cancellation
 [**updateEntitlementMetaInfo**](EntitlementApi.md#updateEntitlementMetaInfo) | **PATCH** /org/{orgId}/entitlement/{entitlementId}/metaInfo | update entitlement meta info
 [**updateEntitlementName**](EntitlementApi.md#updateEntitlementName) | **PATCH** /org/{orgId}/entitlement/{entitlementId}/entitlementName | update entitlement name
-[**updateEntitlementSeat**](EntitlementApi.md#updateEntitlementSeat) | **PATCH** /org/{orgId}/entitlement/{entitlementId}/seat | update entitlement seat
+[**updateEntitlementSeat**](EntitlementApi.md#updateEntitlementSeat) | **PATCH** /org/{orgId}/entitlement/{entitlementId}/seat | update seat for the active AZURE subscription
 
 
 # **addEntitlementCredit**
@@ -668,6 +668,10 @@ const request: EntitlementApiListEntitlementsRequest = {
   offerId: "offerId_example",
     // filter by buyerId (optional)
   buyerId: "buyerId_example",
+    // filter by externalId (optional)
+  externalId: "externalId_example",
+    // filter by buyerAccountId is currently supported only for AWS (optional)
+  buyerAccountId: "buyerAccountId_example",
     // List pagination size, default 1000, max value is 1000 (optional)
   limit: 1,
     // List pagination offset, default 0 (optional)
@@ -688,6 +692,8 @@ Name | Type | Description  | Notes
  **productId** | [**string**] | filter by productId | (optional) defaults to undefined
  **offerId** | [**string**] | filter by offerId | (optional) defaults to undefined
  **buyerId** | [**string**] | filter by buyerId | (optional) defaults to undefined
+ **externalId** | [**string**] | filter by externalId | (optional) defaults to undefined
+ **buyerAccountId** | [**string**] | filter by buyerAccountId is currently supported only for AWS | (optional) defaults to undefined
  **limit** | [**number**] | List pagination size, default 1000, max value is 1000 | (optional) defaults to undefined
  **offset** | [**number**] | List pagination offset, default 0 | (optional) defaults to undefined
 
@@ -1063,7 +1069,7 @@ Name | Type | Description  | Notes
 # **updateEntitlementSeat**
 > WorkloadEntitlement updateEntitlementSeat()
 
-Update the seat number of the entitlement. Only active AZURE entitlement can be updated.
+Update the seat number for the active AZURE subscription.
 
 ### Example
 

@@ -54,6 +54,14 @@ export class BillingInvoiceInfo {
     */
     'creationDate'?: Date;
     'currency'?: string;
+    /**
+    * The amount of the committed amount that has been deducted from the usage. It works only when IsMeteringOverageCommit is true.
+    */
+    'deductedCommitAmount'?: number;
+    /**
+    * The ID of the commit invoice that has been deducted from the usage. It works only when IsMeteringOverageCommit is true.
+    */
+    'deductedCommitInvoiceID'?: string;
     'description'?: string;
     /**
     * Due amount = SubtotalAmount + TaxAmount - AdjustOverallDiscount
@@ -67,6 +75,10 @@ export class BillingInvoiceInfo {
     * Grace Period in number of days
     */
     'gracePeriodInDays'?: number;
+    /**
+    * Whether the usage metering is charged for the amount that exceeds the committed amount from the entitlement.
+    */
+    'isMeteringOverageCommit'?: boolean;
     /**
     * IssueDate, issue invoice automatically when CreationDate + GracePeriod, or issue invoice manually IssueDate >= CreationDate && IssueDate <= CreationDate + GracePeriod
     */
@@ -165,6 +177,18 @@ export class BillingInvoiceInfo {
             "format": ""
         },
         {
+            "name": "deductedCommitAmount",
+            "baseName": "deductedCommitAmount",
+            "type": "number",
+            "format": ""
+        },
+        {
+            "name": "deductedCommitInvoiceID",
+            "baseName": "deductedCommitInvoiceID",
+            "type": "string",
+            "format": ""
+        },
+        {
             "name": "description",
             "baseName": "description",
             "type": "string",
@@ -186,6 +210,12 @@ export class BillingInvoiceInfo {
             "name": "gracePeriodInDays",
             "baseName": "gracePeriodInDays",
             "type": "number",
+            "format": ""
+        },
+        {
+            "name": "isMeteringOverageCommit",
+            "baseName": "isMeteringOverageCommit",
+            "type": "boolean",
             "format": ""
         },
         {

@@ -67,6 +67,7 @@ import { AwsProductRepository } from '../models/AwsProductRepository';
 import { AwsProductSignatureVerificationKey } from '../models/AwsProductSignatureVerificationKey';
 import { AwsProductSupportInformation } from '../models/AwsProductSupportInformation';
 import { AwsProductVersion } from '../models/AwsProductVersion';
+import { AwsProductVideo } from '../models/AwsProductVideo';
 import { AwsRenewalOfferType } from '../models/AwsRenewalOfferType';
 import { AwsSnsSubscription } from '../models/AwsSnsSubscription';
 import { AwsSnsSubscriptionStatus } from '../models/AwsSnsSubscriptionStatus';
@@ -390,7 +391,6 @@ import { PartnerUsageMeteringConfig } from '../models/PartnerUsageMeteringConfig
 import { PaymentConfig } from '../models/PaymentConfig';
 import { PaymentInstallment } from '../models/PaymentInstallment';
 import { PaymentScheduleType } from '../models/PaymentScheduleType';
-import { PkgStructsSnowflakeMarketplaceProduct } from '../models/PkgStructsSnowflakeMarketplaceProduct';
 import { PriceModelBasic } from '../models/PriceModelBasic';
 import { PriceModelBulk } from '../models/PriceModelBulk';
 import { PriceModelCategory } from '../models/PriceModelCategory';
@@ -414,6 +414,7 @@ import { RevenueReportType } from '../models/RevenueReportType';
 import { ServicecontrolReportError } from '../models/ServicecontrolReportError';
 import { ServicecontrolReportResponse } from '../models/ServicecontrolReportResponse';
 import { ServicecontrolStatus } from '../models/ServicecontrolStatus';
+import { SnowflakeMarketplaceProduct } from '../models/SnowflakeMarketplaceProduct';
 import { StripeBalanceTransaction } from '../models/StripeBalanceTransaction';
 import { StripeBalanceTransactionFeeDetail } from '../models/StripeBalanceTransactionFeeDetail';
 import { StripeCustomer } from '../models/StripeCustomer';
@@ -2231,6 +2232,20 @@ export interface EntitlementApiListEntitlementsRequest {
      */
     buyerId?: string
     /**
+     * filter by externalId
+     * Defaults to: undefined
+     * @type string
+     * @memberof EntitlementApilistEntitlements
+     */
+    externalId?: string
+    /**
+     * filter by buyerAccountId is currently supported only for AWS
+     * Defaults to: undefined
+     * @type string
+     * @memberof EntitlementApilistEntitlements
+     */
+    buyerAccountId?: string
+    /**
      * List pagination size, default 1000, max value is 1000
      * Defaults to: undefined
      * @type number
@@ -2549,7 +2564,7 @@ export class ObjectEntitlementApi {
      * @param param the request object
      */
     public listEntitlementsWithHttpInfo(param: EntitlementApiListEntitlementsRequest, options?: Configuration): Promise<HttpInfo<Array<WorkloadEntitlement>>> {
-        return this.api.listEntitlementsWithHttpInfo(param.orgId, param.partner, param.productId, param.offerId, param.buyerId, param.limit, param.offset,  options).toPromise();
+        return this.api.listEntitlementsWithHttpInfo(param.orgId, param.partner, param.productId, param.offerId, param.buyerId, param.externalId, param.buyerAccountId, param.limit, param.offset,  options).toPromise();
     }
 
     /**
@@ -2558,7 +2573,7 @@ export class ObjectEntitlementApi {
      * @param param the request object
      */
     public listEntitlements(param: EntitlementApiListEntitlementsRequest, options?: Configuration): Promise<Array<WorkloadEntitlement>> {
-        return this.api.listEntitlements(param.orgId, param.partner, param.productId, param.offerId, param.buyerId, param.limit, param.offset,  options).toPromise();
+        return this.api.listEntitlements(param.orgId, param.partner, param.productId, param.offerId, param.buyerId, param.externalId, param.buyerAccountId, param.limit, param.offset,  options).toPromise();
     }
 
     /**
@@ -2634,8 +2649,8 @@ export class ObjectEntitlementApi {
     }
 
     /**
-     * Update the seat number of the entitlement. Only active AZURE entitlement can be updated.
-     * update entitlement seat
+     * Update the seat number for the active AZURE subscription.
+     * update seat for the active AZURE subscription
      * @param param the request object
      */
     public updateEntitlementSeatWithHttpInfo(param: EntitlementApiUpdateEntitlementSeatRequest, options?: Configuration): Promise<HttpInfo<WorkloadEntitlement>> {
@@ -2643,8 +2658,8 @@ export class ObjectEntitlementApi {
     }
 
     /**
-     * Update the seat number of the entitlement. Only active AZURE entitlement can be updated.
-     * update entitlement seat
+     * Update the seat number for the active AZURE subscription.
+     * update seat for the active AZURE subscription
      * @param param the request object
      */
     public updateEntitlementSeat(param: EntitlementApiUpdateEntitlementSeatRequest, options?: Configuration): Promise<WorkloadEntitlement> {

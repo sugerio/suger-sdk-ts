@@ -15,7 +15,7 @@ import { DatabaseSqlNullString } from '../models/DatabaseSqlNullString';
 import { DatabaseSqlNullTime } from '../models/DatabaseSqlNullTime';
 import { HttpFile } from '../http/http';
 
-export class PkgStructsSnowflakeMarketplaceProduct {
+export class SnowflakeMarketplaceProduct {
     'comment'?: DatabaseSqlNullString;
     'createdOn'?: DatabaseSqlNullTime;
     'detailedTargetAccounts'?: DatabaseSqlNullString;
@@ -206,7 +206,7 @@ export class PkgStructsSnowflakeMarketplaceProduct {
         }    ];
 
     static getAttributeTypeMap() {
-        return PkgStructsSnowflakeMarketplaceProduct.attributeTypeMap;
+        return SnowflakeMarketplaceProduct.attributeTypeMap;
     }
 
     public constructor() {

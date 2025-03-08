@@ -39,6 +39,9 @@ export class RevenueRecord {
     'invoiceAmount'?: number;
     'invoiceDate'?: Date;
     'organizationID'?: string;
+    /**
+    * The value is from type Partner string
+    */
     'partner'?: string;
     'paymentDueDate'?: Date;
     'productID'?: string;

@@ -96,6 +96,10 @@ export class OfferInfo {
     */
     'billingCycle'?: BillingCycle;
     /**
+    * Billing interval in months for the offer.
+    */
+    'billingIntervalInMonths'?: number;
+    /**
     * The buyers\' AWS Account IDs of this offer.
     */
     'buyerAwsAccountIds'?: Array<string>;
@@ -108,7 +112,7 @@ export class OfferInfo {
     */
     'commitAmount'?: number;
     /**
-    * Billing interval in months for commitDimensions
+    * Deprecated: Use BillingIntervalInMonths instead.
     */
     'commitBillingIntervalInMonths'?: number;
     /**
@@ -175,6 +179,10 @@ export class OfferInfo {
     */
     'gracePeriodInDays'?: number;
     /**
+    * Whether the usage metering will only be charged for the amount that exceeds the committed amount. e.g. the buyer has committed $100, and the usage is $120, - if true, the buyer will be charged for the usage at $20, and the commit at $100. - if false, the buyer will be charged for the usage at $120, and the commit at $100.
+    */
+    'isMeteringOverageCommit'?: boolean;
+    /**
     * The net terms in days for the offer. This is the number of days the buyer has to pay the invoice. This filed can be overridden at the entitlement level.
     */
     'netTermsInDays'?: number;
@@ -218,7 +226,7 @@ export class OfferInfo {
     */
     'trialConfig'?: TrialConfig;
     /**
-    * Billing interval in months for billableDimensions
+    * Deprecated: Use BillingIntervalInMonths instead.
     */
     'usageBillingIntervalInMonths'?: number;
     /**
@@ -319,6 +327,12 @@ export class OfferInfo {
             "name": "billingCycle",
             "baseName": "billingCycle",
             "type": "BillingCycle",
+            "format": ""
+        },
+        {
+            "name": "billingIntervalInMonths",
+            "baseName": "billingIntervalInMonths",
+            "type": "number",
             "format": ""
         },
         {
@@ -451,6 +465,12 @@ export class OfferInfo {
             "name": "gracePeriodInDays",
             "baseName": "gracePeriodInDays",
             "type": "number",
+            "format": ""
+        },
+        {
+            "name": "isMeteringOverageCommit",
+            "baseName": "isMeteringOverageCommit",
+            "type": "boolean",
             "format": ""
         },
         {

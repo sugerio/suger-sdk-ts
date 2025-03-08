@@ -191,8 +191,12 @@ const request: ProductApiCreateOrUpdateDraftProductRequest = {
             },
           ],
           logoUrl: "logoUrl_example",
-          videoUrls: [
-            "videoUrls_example",
+          videos: [
+            {
+              title: "title_example",
+              type: "type_example",
+              url: "url_example",
+            },
           ],
         },
         repositories: [
@@ -281,8 +285,12 @@ const request: ProductApiCreateOrUpdateDraftProductRequest = {
             },
           ],
           logoUrl: "logoUrl_example",
-          videoUrls: [
-            "videoUrls_example",
+          videos: [
+            {
+              title: "title_example",
+              type: "type_example",
+              url: "url_example",
+            },
           ],
         },
         repositories: [
@@ -371,8 +379,12 @@ const request: ProductApiCreateOrUpdateDraftProductRequest = {
             },
           ],
           logoUrl: "logoUrl_example",
-          videoUrls: [
-            "videoUrls_example",
+          videos: [
+            {
+              title: "title_example",
+              type: "type_example",
+              url: "url_example",
+            },
           ],
         },
         repositories: [
@@ -461,8 +473,12 @@ const request: ProductApiCreateOrUpdateDraftProductRequest = {
             },
           ],
           logoUrl: "logoUrl_example",
-          videoUrls: [
-            "videoUrls_example",
+          videos: [
+            {
+              title: "title_example",
+              type: "type_example",
+              url: "url_example",
+            },
           ],
         },
         repositories: [
@@ -2140,8 +2156,12 @@ const request: ProductApiCreateProductRequest = {
             },
           ],
           logoUrl: "logoUrl_example",
-          videoUrls: [
-            "videoUrls_example",
+          videos: [
+            {
+              title: "title_example",
+              type: "type_example",
+              url: "url_example",
+            },
           ],
         },
         repositories: [
@@ -2230,8 +2250,12 @@ const request: ProductApiCreateProductRequest = {
             },
           ],
           logoUrl: "logoUrl_example",
-          videoUrls: [
-            "videoUrls_example",
+          videos: [
+            {
+              title: "title_example",
+              type: "type_example",
+              url: "url_example",
+            },
           ],
         },
         repositories: [
@@ -2320,8 +2344,12 @@ const request: ProductApiCreateProductRequest = {
             },
           ],
           logoUrl: "logoUrl_example",
-          videoUrls: [
-            "videoUrls_example",
+          videos: [
+            {
+              title: "title_example",
+              type: "type_example",
+              url: "url_example",
+            },
           ],
         },
         repositories: [
@@ -2410,8 +2438,12 @@ const request: ProductApiCreateProductRequest = {
             },
           ],
           logoUrl: "logoUrl_example",
-          videoUrls: [
-            "videoUrls_example",
+          videos: [
+            {
+              title: "title_example",
+              type: "type_example",
+              url: "url_example",
+            },
           ],
         },
         repositories: [
@@ -4390,8 +4422,12 @@ const request: ProductApiPublishProductRequest = {
             },
           ],
           logoUrl: "logoUrl_example",
-          videoUrls: [
-            "videoUrls_example",
+          videos: [
+            {
+              title: "title_example",
+              type: "type_example",
+              url: "url_example",
+            },
           ],
         },
         repositories: [
@@ -4480,8 +4516,12 @@ const request: ProductApiPublishProductRequest = {
             },
           ],
           logoUrl: "logoUrl_example",
-          videoUrls: [
-            "videoUrls_example",
+          videos: [
+            {
+              title: "title_example",
+              type: "type_example",
+              url: "url_example",
+            },
           ],
         },
         repositories: [
@@ -4570,8 +4610,12 @@ const request: ProductApiPublishProductRequest = {
             },
           ],
           logoUrl: "logoUrl_example",
-          videoUrls: [
-            "videoUrls_example",
+          videos: [
+            {
+              title: "title_example",
+              type: "type_example",
+              url: "url_example",
+            },
           ],
         },
         repositories: [
@@ -4660,8 +4704,12 @@ const request: ProductApiPublishProductRequest = {
             },
           ],
           logoUrl: "logoUrl_example",
-          videoUrls: [
-            "videoUrls_example",
+          videos: [
+            {
+              title: "title_example",
+              type: "type_example",
+              url: "url_example",
+            },
           ],
         },
         repositories: [
@@ -6343,8 +6391,12 @@ const request: ProductApiUpdateProductRequest = {
             },
           ],
           logoUrl: "logoUrl_example",
-          videoUrls: [
-            "videoUrls_example",
+          videos: [
+            {
+              title: "title_example",
+              type: "type_example",
+              url: "url_example",
+            },
           ],
         },
         repositories: [
@@ -6433,8 +6485,12 @@ const request: ProductApiUpdateProductRequest = {
             },
           ],
           logoUrl: "logoUrl_example",
-          videoUrls: [
-            "videoUrls_example",
+          videos: [
+            {
+              title: "title_example",
+              type: "type_example",
+              url: "url_example",
+            },
           ],
         },
         repositories: [
@@ -6523,8 +6579,12 @@ const request: ProductApiUpdateProductRequest = {
             },
           ],
           logoUrl: "logoUrl_example",
-          videoUrls: [
-            "videoUrls_example",
+          videos: [
+            {
+              title: "title_example",
+              type: "type_example",
+              url: "url_example",
+            },
           ],
         },
         repositories: [
@@ -6613,8 +6673,12 @@ const request: ProductApiUpdateProductRequest = {
             },
           ],
           logoUrl: "logoUrl_example",
-          videoUrls: [
-            "videoUrls_example",
+          videos: [
+            {
+              title: "title_example",
+              type: "type_example",
+              url: "url_example",
+            },
           ],
         },
         repositories: [

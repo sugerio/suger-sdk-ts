@@ -64,6 +64,7 @@ export * from '../models/AwsProductRepository';
 export * from '../models/AwsProductSignatureVerificationKey';
 export * from '../models/AwsProductSupportInformation';
 export * from '../models/AwsProductVersion';
+export * from '../models/AwsProductVideo';
 export * from '../models/AwsRenewalOfferType';
 export * from '../models/AwsSnsSubscription';
 export * from '../models/AwsSnsSubscriptionStatus';
@@ -387,7 +388,6 @@ export * from '../models/PartnerUsageMeteringConfig';
 export * from '../models/PaymentConfig';
 export * from '../models/PaymentInstallment';
 export * from '../models/PaymentScheduleType';
-export * from '../models/PkgStructsSnowflakeMarketplaceProduct';
 export * from '../models/PriceModelBasic';
 export * from '../models/PriceModelBulk';
 export * from '../models/PriceModelCategory';
@@ -411,6 +411,7 @@ export * from '../models/RevenueReportType';
 export * from '../models/ServicecontrolReportError';
 export * from '../models/ServicecontrolReportResponse';
 export * from '../models/ServicecontrolStatus';
+export * from '../models/SnowflakeMarketplaceProduct';
 export * from '../models/StripeBalanceTransaction';
 export * from '../models/StripeBalanceTransactionFeeDetail';
 export * from '../models/StripeCustomer';
@@ -537,6 +538,7 @@ import { AwsProductRepository } from '../models/AwsProductRepository';
 import { AwsProductSignatureVerificationKey } from '../models/AwsProductSignatureVerificationKey';
 import { AwsProductSupportInformation } from '../models/AwsProductSupportInformation';
 import { AwsProductVersion } from '../models/AwsProductVersion';
+import { AwsProductVideo } from '../models/AwsProductVideo';
 import { AwsRenewalOfferType } from '../models/AwsRenewalOfferType';
 import { AwsSnsSubscription      } from '../models/AwsSnsSubscription';
 import { AwsSnsSubscriptionStatus } from '../models/AwsSnsSubscriptionStatus';
@@ -704,7 +706,7 @@ import { DatabaseSqlNullBool } from '../models/DatabaseSqlNullBool';
 import { DatabaseSqlNullString } from '../models/DatabaseSqlNullString';
 import { DatabaseSqlNullTime } from '../models/DatabaseSqlNullTime';
 import { DivideEntitlementCommitParams } from '../models/DivideEntitlementCommitParams';
-import { EntitlementInfo                                 } from '../models/EntitlementInfo';
+import { EntitlementInfo                                   } from '../models/EntitlementInfo';
 import { EntitlementStatus } from '../models/EntitlementStatus';
 import { EntitlementTermInfo      } from '../models/EntitlementTermInfo';
 import { EntitlementTermType } from '../models/EntitlementTermType';
@@ -851,7 +853,7 @@ import { NotificationEventAction } from '../models/NotificationEventAction';
 import { NotificationEventStatus } from '../models/NotificationEventStatus';
 import { NotificationMessage       } from '../models/NotificationMessage';
 import { NotificationMessageInfo         } from '../models/NotificationMessageInfo';
-import { OfferInfo                                                   , OfferInfoVisibilityEnum   } from '../models/OfferInfo';
+import { OfferInfo                                                     , OfferInfoVisibilityEnum   } from '../models/OfferInfo';
 import { OfferStatus } from '../models/OfferStatus';
 import { OfferType } from '../models/OfferType';
 import { Partner } from '../models/Partner';
@@ -860,7 +862,6 @@ import { PartnerUsageMeteringConfig        } from '../models/PartnerUsageMeterin
 import { PaymentConfig } from '../models/PaymentConfig';
 import { PaymentInstallment } from '../models/PaymentInstallment';
 import { PaymentScheduleType } from '../models/PaymentScheduleType';
-import { PkgStructsSnowflakeMarketplaceProduct } from '../models/PkgStructsSnowflakeMarketplaceProduct';
 import { PriceModelBasic } from '../models/PriceModelBasic';
 import { PriceModelBulk } from '../models/PriceModelBulk';
 import { PriceModelCategory } from '../models/PriceModelCategory';
@@ -884,6 +885,7 @@ import { RevenueReportType } from '../models/RevenueReportType';
 import { ServicecontrolReportError } from '../models/ServicecontrolReportError';
 import { ServicecontrolReportResponse } from '../models/ServicecontrolReportResponse';
 import { ServicecontrolStatus } from '../models/ServicecontrolStatus';
+import { SnowflakeMarketplaceProduct } from '../models/SnowflakeMarketplaceProduct';
 import { StripeBalanceTransaction } from '../models/StripeBalanceTransaction';
 import { StripeBalanceTransactionFeeDetail } from '../models/StripeBalanceTransactionFeeDetail';
 import { StripeCustomer } from '../models/StripeCustomer';
@@ -1160,6 +1162,7 @@ let typeMap: {[index: string]: any} = {
     "AwsProductSignatureVerificationKey": AwsProductSignatureVerificationKey,
     "AwsProductSupportInformation": AwsProductSupportInformation,
     "AwsProductVersion": AwsProductVersion,
+    "AwsProductVideo": AwsProductVideo,
     "AwsSnsSubscription": AwsSnsSubscription,
     "AzureADIdentifier": AzureADIdentifier,
     "AzureAudience": AzureAudience,
@@ -1430,7 +1433,6 @@ let typeMap: {[index: string]: any} = {
     "PartnerUsageMeteringConfig": PartnerUsageMeteringConfig,
     "PaymentConfig": PaymentConfig,
     "PaymentInstallment": PaymentInstallment,
-    "PkgStructsSnowflakeMarketplaceProduct": PkgStructsSnowflakeMarketplaceProduct,
     "PriceModelBasic": PriceModelBasic,
     "PriceModelBulk": PriceModelBulk,
     "PriceModelMatrix": PriceModelMatrix,
@@ -1451,6 +1453,7 @@ let typeMap: {[index: string]: any} = {
     "ServicecontrolReportError": ServicecontrolReportError,
     "ServicecontrolReportResponse": ServicecontrolReportResponse,
     "ServicecontrolStatus": ServicecontrolStatus,
+    "SnowflakeMarketplaceProduct": SnowflakeMarketplaceProduct,
     "StripeBalanceTransaction": StripeBalanceTransaction,
     "StripeBalanceTransactionFeeDetail": StripeBalanceTransactionFeeDetail,
     "StripeCustomer": StripeCustomer,

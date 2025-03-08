@@ -98,6 +98,7 @@ models/AwsProductRepository.ts
 models/AwsProductSignatureVerificationKey.ts
 models/AwsProductSupportInformation.ts
 models/AwsProductVersion.ts
+models/AwsProductVideo.ts
 models/AwsRenewalOfferType.ts
 models/AwsSnsSubscription.ts
 models/AwsSnsSubscriptionStatus.ts
@@ -422,7 +423,6 @@ models/PartnerUsageMeteringConfig.ts
 models/PaymentConfig.ts
 models/PaymentInstallment.ts
 models/PaymentScheduleType.ts
-models/PkgStructsSnowflakeMarketplaceProduct.ts
 models/PriceModelBasic.ts
 models/PriceModelBulk.ts
 models/PriceModelCategory.ts
@@ -446,6 +446,7 @@ models/RevenueReportType.ts
 models/ServicecontrolReportError.ts
 models/ServicecontrolReportResponse.ts
 models/ServicecontrolStatus.ts
+models/SnowflakeMarketplaceProduct.ts
 models/StripeBalanceTransaction.ts
 models/StripeBalanceTransactionFeeDetail.ts
 models/StripeCustomer.ts

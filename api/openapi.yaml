@@ -1876,6 +1876,16 @@ paths:
         name: buyerId
         schema:
           type: string
+      - description: filter by externalId
+        in: query
+        name: externalId
+        schema:
+          type: string
+      - description: filter by buyerAccountId is currently supported only for AWS
+        in: query
+        name: buyerAccountId
+        schema:
+          type: string
       - description: "List pagination size, default 1000, max value is 1000"
         in: query
         name: limit
@@ -2569,8 +2579,7 @@ paths:
       - application/json
   /org/{orgId}/entitlement/{entitlementId}/seat:
     patch:
-      description: Update the seat number of the entitlement. Only active AZURE entitlement
-        can be updated.
+      description: Update the seat number for the active AZURE subscription.
       operationId: UpdateEntitlementSeat
       parameters:
       - description: Organization ID
@@ -2612,7 +2621,7 @@ paths:
           description: Internal server error
       security:
       - APIKeyAuth: []
-      summary: update entitlement seat
+      summary: update seat for the active AZURE subscription
       tags:
       - Entitlement
       x-accepts:
@@ -7398,17 +7407,21 @@ components:
             Text: Text
             Url: Url
           LogoUrl: LogoUrl
-          VideoUrls:
-          - VideoUrls
-          - VideoUrls
+          Videos:
+          - Type: Type
+            Title: Title
+            Url: Url
+          - Type: Type
+            Title: Title
+            Url: Url
         dataFeedProductId: dataFeedProductId
         Dimensions:
         - Types:
           - Types
           - Types
           Description: Description
-          Length: 3
-          Rate: 6.965117697638846
+          Length: 6
+          Rate: 1.284659006116532
           TimeUnit: DAY
           Unit: Unit
           Key: Key
@@ -7417,8 +7430,8 @@ components:
           - Types
           - Types
           Description: Description
-          Length: 3
-          Rate: 6.965117697638846
+          Length: 6
+          Rate: 1.284659006116532
           TimeUnit: DAY
           Unit: Unit
           Key: Key
@@ -7573,8 +7586,8 @@ components:
         - Types
         - Types
         Description: Description
-        Length: 3
-        Rate: 6.965117697638846
+        Length: 6
+        Rate: 1.284659006116532
         TimeUnit: DAY
         Unit: Unit
         Key: Key
@@ -7616,9 +7629,13 @@ components:
           Text: Text
           Url: Url
         LogoUrl: LogoUrl
-        VideoUrls:
-        - VideoUrls
-        - VideoUrls
+        Videos:
+        - Type: Type
+          Title: Title
+          Url: Url
+        - Type: Type
+          Title: Title
+          Url: Url
       properties:
         AdditionalResources:
           items:
@@ -7626,10 +7643,9 @@ components:
           type: array
         LogoUrl:
           type: string
-        VideoUrls:
-          description: "Currently, AWS only support 1 url in the array."
+        Videos:
           items:
-            type: string
+            $ref: '#/components/schemas/AwsProductVideo'
           type: array
       type: object
     AwsProductRepository:
@@ -7700,6 +7716,19 @@ components:
         ReleaseNotes:
           type: string
         VersionTitle:
+          type: string
+      type: object
+    AwsProductVideo:
+      example:
+        Type: Type
+        Title: Title
+        Url: Url
+      properties:
+        Title:
+          type: string
+        Type:
+          type: string
+        Url:
           type: string
       type: object
     AwsRenewalOfferType:
@@ -7865,7 +7894,7 @@ components:
       type: object
     AzureIncludedBaseQuantity:
       example:
-        quantity: 4.145608029883936
+        quantity: 7.386281948385884
         isInfinite: true
         recurringUnit: Monthly
       properties:
@@ -11750,10 +11779,10 @@ components:
             - unitOfMeasure: unitOfMeasure
               displayName: displayName
               includedBaseQuantities:
-              - quantity: 4.145608029883936
+              - quantity: 7.386281948385884
                 isInfinite: true
                 recurringUnit: Monthly
-              - quantity: 4.145608029883936
+              - quantity: 7.386281948385884
                 isInfinite: true
                 recurringUnit: Monthly
               isEnabled: true
@@ -11763,10 +11792,10 @@ components:
             - unitOfMeasure: unitOfMeasure
               displayName: displayName
               includedBaseQuantities:
-              - quantity: 4.145608029883936
+              - quantity: 7.386281948385884
                 isInfinite: true
                 recurringUnit: Monthly
-              - quantity: 4.145608029883936
+              - quantity: 7.386281948385884
                 isInfinite: true
                 recurringUnit: Monthly
               isEnabled: true
@@ -11920,10 +11949,10 @@ components:
             - unitOfMeasure: unitOfMeasure
               displayName: displayName
               includedBaseQuantities:
-              - quantity: 4.145608029883936
+              - quantity: 7.386281948385884
                 isInfinite: true
                 recurringUnit: Monthly
-              - quantity: 4.145608029883936
+              - quantity: 7.386281948385884
                 isInfinite: true
                 recurringUnit: Monthly
               isEnabled: true
@@ -11933,10 +11962,10 @@ components:
             - unitOfMeasure: unitOfMeasure
               displayName: displayName
               includedBaseQuantities:
-              - quantity: 4.145608029883936
+              - quantity: 7.386281948385884
                 isInfinite: true
                 recurringUnit: Monthly
-              - quantity: 4.145608029883936
+              - quantity: 7.386281948385884
                 isInfinite: true
                 recurringUnit: Monthly
               isEnabled: true
@@ -12130,10 +12159,10 @@ components:
             - unitOfMeasure: unitOfMeasure
               displayName: displayName
               includedBaseQuantities:
-              - quantity: 4.145608029883936
+              - quantity: 7.386281948385884
                 isInfinite: true
                 recurringUnit: Monthly
-              - quantity: 4.145608029883936
+              - quantity: 7.386281948385884
                 isInfinite: true
                 recurringUnit: Monthly
               isEnabled: true
@@ -12143,10 +12172,10 @@ components:
             - unitOfMeasure: unitOfMeasure
               displayName: displayName
               includedBaseQuantities:
-              - quantity: 4.145608029883936
+              - quantity: 7.386281948385884
                 isInfinite: true
                 recurringUnit: Monthly
-              - quantity: 4.145608029883936
+              - quantity: 7.386281948385884
                 isInfinite: true
                 recurringUnit: Monthly
               isEnabled: true
@@ -12300,10 +12329,10 @@ components:
             - unitOfMeasure: unitOfMeasure
               displayName: displayName
               includedBaseQuantities:
-              - quantity: 4.145608029883936
+              - quantity: 7.386281948385884
                 isInfinite: true
                 recurringUnit: Monthly
-              - quantity: 4.145608029883936
+              - quantity: 7.386281948385884
                 isInfinite: true
                 recurringUnit: Monthly
               isEnabled: true
@@ -12313,10 +12342,10 @@ components:
             - unitOfMeasure: unitOfMeasure
               displayName: displayName
               includedBaseQuantities:
-              - quantity: 4.145608029883936
+              - quantity: 7.386281948385884
                 isInfinite: true
                 recurringUnit: Monthly
-              - quantity: 4.145608029883936
+              - quantity: 7.386281948385884
                 isInfinite: true
                 recurringUnit: Monthly
               isEnabled: true
@@ -13036,10 +13065,10 @@ components:
         - unitOfMeasure: unitOfMeasure
           displayName: displayName
           includedBaseQuantities:
-          - quantity: 4.145608029883936
+          - quantity: 7.386281948385884
             isInfinite: true
             recurringUnit: Monthly
-          - quantity: 4.145608029883936
+          - quantity: 7.386281948385884
             isInfinite: true
             recurringUnit: Monthly
           isEnabled: true
@@ -13049,10 +13078,10 @@ components:
         - unitOfMeasure: unitOfMeasure
           displayName: displayName
           includedBaseQuantities:
-          - quantity: 4.145608029883936
+          - quantity: 7.386281948385884
             isInfinite: true
             recurringUnit: Monthly
-          - quantity: 4.145608029883936
+          - quantity: 7.386281948385884
             isInfinite: true
             recurringUnit: Monthly
           isEnabled: true
@@ -13670,10 +13699,10 @@ components:
           - unitOfMeasure: unitOfMeasure
             displayName: displayName
             includedBaseQuantities:
-            - quantity: 4.145608029883936
+            - quantity: 7.386281948385884
               isInfinite: true
               recurringUnit: Monthly
-            - quantity: 4.145608029883936
+            - quantity: 7.386281948385884
               isInfinite: true
               recurringUnit: Monthly
             isEnabled: true
@@ -13683,10 +13712,10 @@ components:
           - unitOfMeasure: unitOfMeasure
             displayName: displayName
             includedBaseQuantities:
-            - quantity: 4.145608029883936
+            - quantity: 7.386281948385884
               isInfinite: true
               recurringUnit: Monthly
-            - quantity: 4.145608029883936
+            - quantity: 7.386281948385884
               isInfinite: true
               recurringUnit: Monthly
             isEnabled: true
@@ -13840,10 +13869,10 @@ components:
           - unitOfMeasure: unitOfMeasure
             displayName: displayName
             includedBaseQuantities:
-            - quantity: 4.145608029883936
+            - quantity: 7.386281948385884
               isInfinite: true
               recurringUnit: Monthly
-            - quantity: 4.145608029883936
+            - quantity: 7.386281948385884
               isInfinite: true
               recurringUnit: Monthly
             isEnabled: true
@@ -13853,10 +13882,10 @@ components:
           - unitOfMeasure: unitOfMeasure
             displayName: displayName
             includedBaseQuantities:
-            - quantity: 4.145608029883936
+            - quantity: 7.386281948385884
               isInfinite: true
               recurringUnit: Monthly
-            - quantity: 4.145608029883936
+            - quantity: 7.386281948385884
               isInfinite: true
               recurringUnit: Monthly
             isEnabled: true
@@ -13945,10 +13974,10 @@ components:
         unitOfMeasure: unitOfMeasure
         displayName: displayName
         includedBaseQuantities:
-        - quantity: 4.145608029883936
+        - quantity: 7.386281948385884
           isInfinite: true
           recurringUnit: Monthly
-        - quantity: 4.145608029883936
+        - quantity: 7.386281948385884
           isInfinite: true
           recurringUnit: Monthly
         isEnabled: true
@@ -14331,7 +14360,7 @@ components:
         date: date
         uniquePropertyItems:
           key: ""
-        quantity: 1.1730742509559433
+        quantity: 4.965218492984954
         billableMetricKey:
           groupBysExpression: groupBysExpression
           id: id
@@ -14652,14 +14681,32 @@ components:
         paymentStatus: PENDING
         startDate: 2000-01-23T04:56:07.000+00:00
         info:
-          netTermsInDays: 1
-          trialPeriodInDays: 7
+          deductedCommitAmount: 4
           addonDetail:
             amount: 0.8008281904610115
             name: name
             description: description
             chargeOn: 2000-01-23T04:56:07.000+00:00
             id: id
+          dueDate: 2000-01-23T04:56:07.000+00:00
+          adjustDiscountByDimensions:
+          - reason: reason
+            dimensionKey: dimensionKey
+            discount:
+              discountType: PERCENTAGE
+              value: 1.4658129805029452
+          - reason: reason
+            dimensionKey: dimensionKey
+            discount:
+              discountType: PERCENTAGE
+              value: 1.4658129805029452
+          description: description
+          memo: memo
+          adjustOverallMinimumSpend: "{}"
+          currency: currency
+          issueDate: 2000-01-23T04:56:07.000+00:00
+          netTermsInDays: 1
+          trialPeriodInDays: 1
           commitsRevenueDetails:
           - amount: 9.301444243932576
             expression: expression
@@ -14675,23 +14722,9 @@ components:
             name: name
             description: description
             key: key
-          dueDate: 2000-01-23T04:56:07.000+00:00
-          adjustDiscountByDimensions:
-          - reason: reason
-            dimensionKey: dimensionKey
-            discount:
-              discountType: PERCENTAGE
-              value: 1.4658129805029452
-          - reason: reason
-            dimensionKey: dimensionKey
-            discount:
-              discountType: PERCENTAGE
-              value: 1.4658129805029452
-          description: description
-          gracePeriodInDays: 7
-          memo: memo
+          gracePeriodInDays: 1
           creationDate: 2000-01-23T04:56:07.000+00:00
-          subtotalAmount: 1.4894159098541704
+          subtotalAmount: 6.84685269835264
           addFixedFees:
           - reason: reason
             quantity: 0
@@ -14704,7 +14737,6 @@ components:
             rate: 6.027456183070403
             startDate: 2000-01-23T04:56:07.000+00:00
           adjustOverallDiscount: "{}"
-          adjustOverallMinimumSpend: "{}"
           billableDimensionDetails:
           - discountExpression: discountExpression
             amount: 5.637376656633329
@@ -14737,26 +14769,27 @@ components:
             isTrial: true
             minimumCommitScope: "{}"
           paymentInstallmentsDetail:
-            amount: 1.0246457001441578
+            amount: 1.4894159098541704
             description: description
             chargeOn: 2000-01-23T04:56:07.000+00:00
           usageDailyRevenues:
           - date: date
             uniquePropertyItems:
               key: ""
-            quantity: 1.1730742509559433
+            quantity: 4.965218492984954
             billableMetricKey:
               groupBysExpression: groupBysExpression
               id: id
           - date: date
             uniquePropertyItems:
               key: ""
-            quantity: 1.1730742509559433
+            quantity: 4.965218492984954
             billableMetricKey:
               groupBysExpression: groupBysExpression
               id: id
-          dueAmount: 4.145608029883936
-          currency: currency
+          dueAmount: 7.386281948385884
+          isMeteringOverageCommit: true
+          deductedCommitInvoiceID: deductedCommitInvoiceID
           adjustMinimumSpendByDimensions:
           - minimumSpend: 5.962133916683182
             reason: reason
@@ -14764,9 +14797,8 @@ components:
           - minimumSpend: 5.962133916683182
             reason: reason
             dimensionKey: dimensionKey
-          issueDate: 2000-01-23T04:56:07.000+00:00
           receiptUrl: receiptUrl
-          taxAmount: 6.84685269835264
+          taxAmount: 7.457744773683766
           spaUrl: spaUrl
         lastUpdateTime: 2000-01-23T04:56:07.000+00:00
         status: DRAFT
@@ -14809,14 +14841,32 @@ components:
       type: object
     BillingInvoiceInfo:
       example:
-        netTermsInDays: 1
-        trialPeriodInDays: 7
+        deductedCommitAmount: 4
         addonDetail:
           amount: 0.8008281904610115
           name: name
           description: description
           chargeOn: 2000-01-23T04:56:07.000+00:00
           id: id
+        dueDate: 2000-01-23T04:56:07.000+00:00
+        adjustDiscountByDimensions:
+        - reason: reason
+          dimensionKey: dimensionKey
+          discount:
+            discountType: PERCENTAGE
+            value: 1.4658129805029452
+        - reason: reason
+          dimensionKey: dimensionKey
+          discount:
+            discountType: PERCENTAGE
+            value: 1.4658129805029452
+        description: description
+        memo: memo
+        adjustOverallMinimumSpend: "{}"
+        currency: currency
+        issueDate: 2000-01-23T04:56:07.000+00:00
+        netTermsInDays: 1
+        trialPeriodInDays: 1
         commitsRevenueDetails:
         - amount: 9.301444243932576
           expression: expression
@@ -14832,23 +14882,9 @@ components:
           name: name
           description: description
           key: key
-        dueDate: 2000-01-23T04:56:07.000+00:00
-        adjustDiscountByDimensions:
-        - reason: reason
-          dimensionKey: dimensionKey
-          discount:
-            discountType: PERCENTAGE
-            value: 1.4658129805029452
-        - reason: reason
-          dimensionKey: dimensionKey
-          discount:
-            discountType: PERCENTAGE
-            value: 1.4658129805029452
-        description: description
-        gracePeriodInDays: 7
-        memo: memo
+        gracePeriodInDays: 1
         creationDate: 2000-01-23T04:56:07.000+00:00
-        subtotalAmount: 1.4894159098541704
+        subtotalAmount: 6.84685269835264
         addFixedFees:
         - reason: reason
           quantity: 0
@@ -14861,7 +14897,6 @@ components:
           rate: 6.027456183070403
           startDate: 2000-01-23T04:56:07.000+00:00
         adjustOverallDiscount: "{}"
-        adjustOverallMinimumSpend: "{}"
         billableDimensionDetails:
         - discountExpression: discountExpression
           amount: 5.637376656633329
@@ -14894,26 +14929,27 @@ components:
           isTrial: true
           minimumCommitScope: "{}"
         paymentInstallmentsDetail:
-          amount: 1.0246457001441578
+          amount: 1.4894159098541704
           description: description
           chargeOn: 2000-01-23T04:56:07.000+00:00
         usageDailyRevenues:
         - date: date
           uniquePropertyItems:
             key: ""
-          quantity: 1.1730742509559433
+          quantity: 4.965218492984954
           billableMetricKey:
             groupBysExpression: groupBysExpression
             id: id
         - date: date
           uniquePropertyItems:
             key: ""
-          quantity: 1.1730742509559433
+          quantity: 4.965218492984954
           billableMetricKey:
             groupBysExpression: groupBysExpression
             id: id
-        dueAmount: 4.145608029883936
-        currency: currency
+        dueAmount: 7.386281948385884
+        isMeteringOverageCommit: true
+        deductedCommitInvoiceID: deductedCommitInvoiceID
         adjustMinimumSpendByDimensions:
         - minimumSpend: 5.962133916683182
           reason: reason
@@ -14921,9 +14957,8 @@ components:
         - minimumSpend: 5.962133916683182
           reason: reason
           dimensionKey: dimensionKey
-        issueDate: 2000-01-23T04:56:07.000+00:00
         receiptUrl: receiptUrl
-        taxAmount: 6.84685269835264
+        taxAmount: 7.457744773683766
         spaUrl: spaUrl
       properties:
         addFixedFees:
@@ -14978,6 +15013,16 @@ components:
           type: string
         currency:
           type: string
+        deductedCommitAmount:
+          description: |-
+            The amount of the committed amount that has been deducted from the usage.
+            It works only when IsMeteringOverageCommit is true.
+          type: integer
+        deductedCommitInvoiceID:
+          description: |-
+            The ID of the commit invoice that has been deducted from the usage.
+            It works only when IsMeteringOverageCommit is true.
+          type: string
         description:
           type: string
         dueAmount:
@@ -14990,6 +15035,10 @@ components:
         gracePeriodInDays:
           description: Grace Period in number of days
           type: integer
+        isMeteringOverageCommit:
+          description: Whether the usage metering is charged for the amount that exceeds
+            the committed amount from the entitlement.
+          type: boolean
         issueDate:
           description: |-
             IssueDate, issue invoice automatically when CreationDate + GracePeriod, or issue invoice manually
@@ -15061,7 +15110,7 @@ components:
       - BillingMinimumCommitScope_DIMENSION_GROUP_BY
     BillingPaymentInstallmentDetail:
       example:
-        amount: 1.0246457001441578
+        amount: 1.4894159098541704
         description: description
         chargeOn: 2000-01-23T04:56:07.000+00:00
       properties:
@@ -15563,14 +15612,14 @@ components:
         types:
         - types
         - types
-        quantity: 3
-        length: 2
+        quantity: 2
+        length: 7
         description: description
         type: "{}"
-        maximumUsers: 706140
-        rate: 2.027123023002322
+        maximumUsers: 930144
+        rate: 4.145608029883936
         isUserCreated: true
-        minimumUsers: 930144
+        minimumUsers: 361608
         name: name
         term: term
         category: category
@@ -15965,7 +16014,7 @@ components:
             - InstanceId
           AccountQuantity: 9
           AliUid: 3
-        invoicedAmount: 9.018348186070783
+        invoicedAmount: 6.438423552598547
         addons:
         - amount: 0.8008281904610115
           name: name
@@ -16086,8 +16135,8 @@ components:
           newPlan: newPlan
           offer: offer
           inputProperties:
-          - 9
-          - 9
+          - 6
+          - 6
           provider: provider
           offerEndTime: 2000-01-23T04:56:07.000+00:00
           offerDuration: offerDuration
@@ -16117,8 +16166,8 @@ components:
           newPlan: newPlan
           offer: offer
           inputProperties:
-          - 9
-          - 9
+          - 6
+          - 6
           provider: provider
           offerEndTime: 2000-01-23T04:56:07.000+00:00
           offerDuration: offerDuration
@@ -16144,18 +16193,18 @@ components:
           productExternalName: productExternalName
           newOfferStartTime: newOfferStartTime
         paymentInstallments:
-        - discountPercentage: 8.762042012749001
-          amount: 9.369310271410669
-          originalAmount: 9.018348186070783
+        - discountPercentage: 9.018348186070783
+          amount: 6.683562403749608
+          originalAmount: 6.438423552598547
           chargeOn: 2000-01-23T04:56:07.000+00:00
           chargeOnStr: chargeOnStr
-          credit: 6.683562403749608
-        - discountPercentage: 8.762042012749001
-          amount: 9.369310271410669
-          originalAmount: 9.018348186070783
+          credit: 8.762042012749001
+        - discountPercentage: 9.018348186070783
+          amount: 6.683562403749608
+          originalAmount: 6.438423552598547
           chargeOn: 2000-01-23T04:56:07.000+00:00
           chargeOnStr: chargeOnStr
-          credit: 6.683562403749608
+          credit: 8.762042012749001
         billableDimensions:
         - priceModelTiered: "{}"
           priceModelTieredPercentage: "{}"
@@ -16192,6 +16241,7 @@ components:
           priceModelVolume: "{}"
           timeUnit: "{}"
         eulaUrl: eulaUrl
+        billingIntervalInMonths: 4
         refundCancellationPolicy: refundCancellationPolicy
         paymentSchedule: "{}"
         autoRenew: true
@@ -16421,12 +16471,12 @@ components:
           CreatedOn: 5
           HostJson: HostJson
           BeganOn: 1
-        disbursedAmount: 9.965781217890562
-        netTermsInDays: 6
+        disbursedAmount: 9.369310271410669
+        netTermsInDays: 3
         dimensionsOversized: true
         eulaType: ""
-        gracePeriodInDays: 6
-        grossAmount: 8.762042012749001
+        gracePeriodInDays: 8
+        grossAmount: 9.018348186070783
         gcpPlans:
         - priceInfo:
             usageFees:
@@ -16436,30 +16486,30 @@ components:
                   nanos: 1
                   units: units
                   currencyCode: currencyCode
-                fromAmount: 7.386281948385884
+                fromAmount: 1.2315135367772556
               - startingUsageAmount: startingUsageAmount
                 price:
                   nanos: 1
                   units: units
                   currencyCode: currencyCode
-                fromAmount: 7.386281948385884
+                fromAmount: 1.2315135367772556
               metricId: metricId
-              displayQuantity: 7
+              displayQuantity: 1
             - priceTiers:
               - startingUsageAmount: startingUsageAmount
                 price:
                   nanos: 1
                   units: units
                   currencyCode: currencyCode
-                fromAmount: 7.386281948385884
+                fromAmount: 1.2315135367772556
               - startingUsageAmount: startingUsageAmount
                 price:
                   nanos: 1
                   units: units
                   currencyCode: currencyCode
-                fromAmount: 7.386281948385884
+                fromAmount: 1.2315135367772556
               metricId: metricId
-              displayQuantity: 7
+              displayQuantity: 1
             subscriptionPlans:
             - period: period
               price:
@@ -16493,30 +16543,30 @@ components:
                   nanos: 1
                   units: units
                   currencyCode: currencyCode
-                fromAmount: 7.386281948385884
+                fromAmount: 1.2315135367772556
               - startingUsageAmount: startingUsageAmount
                 price:
                   nanos: 1
                   units: units
                   currencyCode: currencyCode
-                fromAmount: 7.386281948385884
+                fromAmount: 1.2315135367772556
               metricId: metricId
-              displayQuantity: 7
+              displayQuantity: 1
             - priceTiers:
               - startingUsageAmount: startingUsageAmount
                 price:
                   nanos: 1
                   units: units
                   currencyCode: currencyCode
-                fromAmount: 7.386281948385884
+                fromAmount: 1.2315135367772556
               - startingUsageAmount: startingUsageAmount
                 price:
                   nanos: 1
                   units: units
                   currencyCode: currencyCode
-                fromAmount: 7.386281948385884
+                fromAmount: 1.2315135367772556
               metricId: metricId
-              displayQuantity: 7
+              displayQuantity: 1
             subscriptionPlans:
             - period: period
               price:
@@ -16542,7 +16592,7 @@ components:
             featureTitle: featureTitle
             featureName: featureName
             featureDescription: featureDescription
-        collectableAmount: 4.965218492984954
+        collectableAmount: 5.025004791520295
         alertDaysBeforeEnd: 6
         sellerNotes: sellerNotes
         awsAgreement: "{}"
@@ -16551,14 +16601,14 @@ components:
         - types:
           - types
           - types
-          quantity: 3
-          length: 2
+          quantity: 2
+          length: 7
           description: description
           type: "{}"
-          maximumUsers: 706140
-          rate: 2.027123023002322
+          maximumUsers: 930144
+          rate: 4.145608029883936
           isUserCreated: true
-          minimumUsers: 930144
+          minimumUsers: 361608
           name: name
           term: term
           category: category
@@ -16568,22 +16618,23 @@ components:
         - types:
           - types
           - types
-          quantity: 3
-          length: 2
+          quantity: 2
+          length: 7
           description: description
           type: "{}"
-          maximumUsers: 706140
-          rate: 2.027123023002322
+          maximumUsers: 930144
+          rate: 4.145608029883936
           isUserCreated: true
-          minimumUsers: 930144
+          minimumUsers: 361608
           name: name
           term: term
           category: category
           termEndTime: termEndTime
           key: key
           timeUnit: "{}"
+        isMeteringOverageCommit: true
         awsChannelPartner: "{}"
-        commitAmount: 5.025004791520295
+        commitAmount: 9.965781217890562
         dimensions:
         - priceTiers:
           - startingUsageAmount: startingUsageAmount
@@ -16591,25 +16642,25 @@ components:
               nanos: 1
               units: units
               currencyCode: currencyCode
-            fromAmount: 7.386281948385884
+            fromAmount: 1.2315135367772556
           - startingUsageAmount: startingUsageAmount
             price:
               nanos: 1
               units: units
               currencyCode: currencyCode
-            fromAmount: 7.386281948385884
+            fromAmount: 1.2315135367772556
           types:
           - types
           - types
           description: description
           planName: planName
           usageCount: "{}"
-          rate: 1.0246457001441578
+          rate: 1.4894159098541704
           includedBaseQuantities:
-          - quantity: 4.145608029883936
+          - quantity: 7.386281948385884
             isInfinite: true
             recurringUnit: Monthly
-          - quantity: 4.145608029883936
+          - quantity: 7.386281948385884
             isInfinite: true
             recurringUnit: Monthly
           valueType: "{}"
@@ -16624,25 +16675,25 @@ components:
               nanos: 1
               units: units
               currencyCode: currencyCode
-            fromAmount: 7.386281948385884
+            fromAmount: 1.2315135367772556
           - startingUsageAmount: startingUsageAmount
             price:
               nanos: 1
               units: units
               currencyCode: currencyCode
-            fromAmount: 7.386281948385884
+            fromAmount: 1.2315135367772556
           types:
           - types
           - types
           description: description
           planName: planName
           usageCount: "{}"
-          rate: 1.0246457001441578
+          rate: 1.4894159098541704
           includedBaseQuantities:
-          - quantity: 4.145608029883936
+          - quantity: 7.386281948385884
             isInfinite: true
             recurringUnit: Monthly
-          - quantity: 4.145608029883936
+          - quantity: 7.386281948385884
             isInfinite: true
             recurringUnit: Monthly
           valueType: "{}"
@@ -16706,6 +16757,9 @@ components:
           - $ref: '#/components/schemas/BillingCycle'
           description: Billing Cycle
           type: object
+        billingIntervalInMonths:
+          description: The billing interval from the offer.
+          type: integer
         collectableAmount:
           description: The amount that the seller can collect. It excludes the marketplace
             commision fee.
@@ -16764,6 +16818,10 @@ components:
         invoicedAmount:
           description: The amount that the buyer has got invoiced.
           type: number
+        isMeteringOverageCommit:
+          description: Whether the usage metering will be charged for the amount that
+            exceeds the committed amount from the offer.
+          type: boolean
         netTermsInDays:
           description: |-
             The net terms for the offer.
@@ -16905,7 +16963,6 @@ components:
       - WORKFLOW
       - WORKFLOW_EXECUTION
       - WORKFLOW_WEBHOOK
-      - CLICKUP_TASK_WEBHOOK
       type: string
       x-enum-varnames:
       - EntityType_UNKNOWN
@@ -16936,7 +16993,6 @@ components:
       - EntityType_WORKFLOW
       - EntityType_WORKFLOW_EXECUTION
       - EntityType_WORKFLOW_WEBHOOK
-      - EntityType_CLICKUP_TASK_WEBHOOK
     EulaType:
       enum:
       - ""
@@ -16965,13 +17021,13 @@ components:
     GcpAmountConstraint:
       example:
         minAmount:
-          nanos: 1
+          nanos: 4
           units: units
         defaultAmount:
-          nanos: 1
+          nanos: 4
           units: units
         maxAmount:
-          nanos: 1
+          nanos: 4
           units: units
       properties:
         defaultAmount:
@@ -16983,7 +17039,7 @@ components:
       type: object
     GcpAmountUnit:
       example:
-        nanos: 1
+        nanos: 4
         units: units
       properties:
         nanos:
@@ -16995,13 +17051,13 @@ components:
       example:
         decimalAmountConstraint:
           minAmount:
-            nanos: 1
+            nanos: 4
             units: units
           defaultAmount:
-            nanos: 1
+            nanos: 4
             units: units
           maxAmount:
-            nanos: 1
+            nanos: 4
             units: units
         currencyCode: currencyCode
       properties:
@@ -17062,8 +17118,8 @@ components:
         newPlan: newPlan
         offer: offer
         inputProperties:
-        - 9
-        - 9
+        - 6
+        - 6
         provider: provider
         offerEndTime: 2000-01-23T04:56:07.000+00:00
         offerDuration: offerDuration
@@ -17848,7 +17904,7 @@ components:
       example:
         defaultDuration:
           unit: MONTHLY_PERIOD
-          count: 4
+          count: 5
       properties:
         defaultDuration:
           $ref: '#/components/schemas/GcpPeriodDuration'
@@ -17859,14 +17915,14 @@ components:
         termDurationConstraint:
           defaultDuration:
             unit: MONTHLY_PERIOD
-            count: 4
+            count: 5
         startPolicy: ""
         startTime: 2000-01-23T04:56:07.000+00:00
         endTime: 2000-01-23T04:56:07.000+00:00
         enableScheduledStartTimes: true
         termDuration:
           unit: MONTHLY_PERIOD
-          count: 4
+          count: 5
       properties:
         enableScheduledStartTimes:
           type: boolean
@@ -17899,13 +17955,13 @@ components:
                 nanos: 1
                 units: units
                 currencyCode: currencyCode
-              fromAmount: 7.386281948385884
+              fromAmount: 1.2315135367772556
             - startingUsageAmount: startingUsageAmount
               price:
                 nanos: 1
                 units: units
                 currencyCode: currencyCode
-              fromAmount: 7.386281948385884
+              fromAmount: 1.2315135367772556
             displayUnitDescription: displayUnitDescription
             unit: unit
             metricKind: metricKind
@@ -17923,13 +17979,13 @@ components:
                 nanos: 1
                 units: units
                 currencyCode: currencyCode
-              fromAmount: 7.386281948385884
+              fromAmount: 1.2315135367772556
             - startingUsageAmount: startingUsageAmount
               price:
                 nanos: 1
                 units: units
                 currencyCode: currencyCode
-              fromAmount: 7.386281948385884
+              fromAmount: 1.2315135367772556
             displayUnitDescription: displayUnitDescription
             unit: unit
             metricKind: metricKind
@@ -18000,30 +18056,30 @@ components:
                       nanos: 1
                       units: units
                       currencyCode: currencyCode
-                    fromAmount: 7.386281948385884
+                    fromAmount: 1.2315135367772556
                   - startingUsageAmount: startingUsageAmount
                     price:
                       nanos: 1
                       units: units
                       currencyCode: currencyCode
-                    fromAmount: 7.386281948385884
+                    fromAmount: 1.2315135367772556
                   metricId: metricId
-                  displayQuantity: 7
+                  displayQuantity: 1
                 - priceTiers:
                   - startingUsageAmount: startingUsageAmount
                     price:
                       nanos: 1
                       units: units
                       currencyCode: currencyCode
-                    fromAmount: 7.386281948385884
+                    fromAmount: 1.2315135367772556
                   - startingUsageAmount: startingUsageAmount
                     price:
                       nanos: 1
                       units: units
                       currencyCode: currencyCode
-                    fromAmount: 7.386281948385884
+                    fromAmount: 1.2315135367772556
                   metricId: metricId
-                  displayQuantity: 7
+                  displayQuantity: 1
                 subscriptionPlans:
                 - period: period
                   price:
@@ -18057,30 +18113,30 @@ components:
                       nanos: 1
                       units: units
                       currencyCode: currencyCode
-                    fromAmount: 7.386281948385884
+                    fromAmount: 1.2315135367772556
                   - startingUsageAmount: startingUsageAmount
                     price:
                       nanos: 1
                       units: units
                       currencyCode: currencyCode
-                    fromAmount: 7.386281948385884
+                    fromAmount: 1.2315135367772556
                   metricId: metricId
-                  displayQuantity: 7
+                  displayQuantity: 1
                 - priceTiers:
                   - startingUsageAmount: startingUsageAmount
                     price:
                       nanos: 1
                       units: units
                       currencyCode: currencyCode
-                    fromAmount: 7.386281948385884
+                    fromAmount: 1.2315135367772556
                   - startingUsageAmount: startingUsageAmount
                     price:
                       nanos: 1
                       units: units
                       currencyCode: currencyCode
-                    fromAmount: 7.386281948385884
+                    fromAmount: 1.2315135367772556
                   metricId: metricId
-                  displayQuantity: 7
+                  displayQuantity: 1
                 subscriptionPlans:
                 - period: period
                   price:
@@ -18113,13 +18169,13 @@ components:
                   nanos: 1
                   units: units
                   currencyCode: currencyCode
-                fromAmount: 7.386281948385884
+                fromAmount: 1.2315135367772556
               - startingUsageAmount: startingUsageAmount
                 price:
                   nanos: 1
                   units: units
                   currencyCode: currencyCode
-                fromAmount: 7.386281948385884
+                fromAmount: 1.2315135367772556
               displayUnitDescription: displayUnitDescription
               unit: unit
               metricKind: metricKind
@@ -18137,13 +18193,13 @@ components:
                   nanos: 1
                   units: units
                   currencyCode: currencyCode
-                fromAmount: 7.386281948385884
+                fromAmount: 1.2315135367772556
               - startingUsageAmount: startingUsageAmount
                 price:
                   nanos: 1
                   units: units
                   currencyCode: currencyCode
-                fromAmount: 7.386281948385884
+                fromAmount: 1.2315135367772556
               displayUnitDescription: displayUnitDescription
               unit: unit
               metricKind: metricKind
@@ -18374,30 +18430,30 @@ components:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 - startingUsageAmount: startingUsageAmount
                   price:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 metricId: metricId
-                displayQuantity: 7
+                displayQuantity: 1
               - priceTiers:
                 - startingUsageAmount: startingUsageAmount
                   price:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 - startingUsageAmount: startingUsageAmount
                   price:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 metricId: metricId
-                displayQuantity: 7
+                displayQuantity: 1
               subscriptionPlans:
               - period: period
                 price:
@@ -18431,30 +18487,30 @@ components:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 - startingUsageAmount: startingUsageAmount
                   price:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 metricId: metricId
-                displayQuantity: 7
+                displayQuantity: 1
               - priceTiers:
                 - startingUsageAmount: startingUsageAmount
                   price:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 - startingUsageAmount: startingUsageAmount
                   price:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 metricId: metricId
-                displayQuantity: 7
+                displayQuantity: 1
               subscriptionPlans:
               - period: period
                 price:
@@ -18487,13 +18543,13 @@ components:
                 nanos: 1
                 units: units
                 currencyCode: currencyCode
-              fromAmount: 7.386281948385884
+              fromAmount: 1.2315135367772556
             - startingUsageAmount: startingUsageAmount
               price:
                 nanos: 1
                 units: units
                 currencyCode: currencyCode
-              fromAmount: 7.386281948385884
+              fromAmount: 1.2315135367772556
             displayUnitDescription: displayUnitDescription
             unit: unit
             metricKind: metricKind
@@ -18511,13 +18567,13 @@ components:
                 nanos: 1
                 units: units
                 currencyCode: currencyCode
-              fromAmount: 7.386281948385884
+              fromAmount: 1.2315135367772556
             - startingUsageAmount: startingUsageAmount
               price:
                 nanos: 1
                 units: units
                 currencyCode: currencyCode
-              fromAmount: 7.386281948385884
+              fromAmount: 1.2315135367772556
             displayUnitDescription: displayUnitDescription
             unit: unit
             metricKind: metricKind
@@ -18636,13 +18692,13 @@ components:
             nanos: 1
             units: units
             currencyCode: currencyCode
-          fromAmount: 7.386281948385884
+          fromAmount: 1.2315135367772556
         - startingUsageAmount: startingUsageAmount
           price:
             nanos: 1
             units: units
             currencyCode: currencyCode
-          fromAmount: 7.386281948385884
+          fromAmount: 1.2315135367772556
         displayUnitDescription: displayUnitDescription
         unit: unit
         metricKind: metricKind
@@ -18712,30 +18768,30 @@ components:
               nanos: 1
               units: units
               currencyCode: currencyCode
-            fromAmount: 7.386281948385884
+            fromAmount: 1.2315135367772556
           - startingUsageAmount: startingUsageAmount
             price:
               nanos: 1
               units: units
               currencyCode: currencyCode
-            fromAmount: 7.386281948385884
+            fromAmount: 1.2315135367772556
           metricId: metricId
-          displayQuantity: 7
+          displayQuantity: 1
         - priceTiers:
           - startingUsageAmount: startingUsageAmount
             price:
               nanos: 1
               units: units
               currencyCode: currencyCode
-            fromAmount: 7.386281948385884
+            fromAmount: 1.2315135367772556
           - startingUsageAmount: startingUsageAmount
             price:
               nanos: 1
               units: units
               currencyCode: currencyCode
-            fromAmount: 7.386281948385884
+            fromAmount: 1.2315135367772556
           metricId: metricId
-          displayQuantity: 7
+          displayQuantity: 1
         subscriptionPlans:
         - period: period
           price:
@@ -18775,30 +18831,30 @@ components:
                 nanos: 1
                 units: units
                 currencyCode: currencyCode
-              fromAmount: 7.386281948385884
+              fromAmount: 1.2315135367772556
             - startingUsageAmount: startingUsageAmount
               price:
                 nanos: 1
                 units: units
                 currencyCode: currencyCode
-              fromAmount: 7.386281948385884
+              fromAmount: 1.2315135367772556
             metricId: metricId
-            displayQuantity: 7
+            displayQuantity: 1
           - priceTiers:
             - startingUsageAmount: startingUsageAmount
               price:
                 nanos: 1
                 units: units
                 currencyCode: currencyCode
-              fromAmount: 7.386281948385884
+              fromAmount: 1.2315135367772556
             - startingUsageAmount: startingUsageAmount
               price:
                 nanos: 1
                 units: units
                 currencyCode: currencyCode
-              fromAmount: 7.386281948385884
+              fromAmount: 1.2315135367772556
             metricId: metricId
-            displayQuantity: 7
+            displayQuantity: 1
           subscriptionPlans:
           - period: period
             price:
@@ -18862,30 +18918,30 @@ components:
                   nanos: 1
                   units: units
                   currencyCode: currencyCode
-                fromAmount: 7.386281948385884
+                fromAmount: 1.2315135367772556
               - startingUsageAmount: startingUsageAmount
                 price:
                   nanos: 1
                   units: units
                   currencyCode: currencyCode
-                fromAmount: 7.386281948385884
+                fromAmount: 1.2315135367772556
               metricId: metricId
-              displayQuantity: 7
+              displayQuantity: 1
             - priceTiers:
               - startingUsageAmount: startingUsageAmount
                 price:
                   nanos: 1
                   units: units
                   currencyCode: currencyCode
-                fromAmount: 7.386281948385884
+                fromAmount: 1.2315135367772556
               - startingUsageAmount: startingUsageAmount
                 price:
                   nanos: 1
                   units: units
                   currencyCode: currencyCode
-                fromAmount: 7.386281948385884
+                fromAmount: 1.2315135367772556
               metricId: metricId
-              displayQuantity: 7
+              displayQuantity: 1
             subscriptionPlans:
             - period: period
               price:
@@ -18919,30 +18975,30 @@ components:
                   nanos: 1
                   units: units
                   currencyCode: currencyCode
-                fromAmount: 7.386281948385884
+                fromAmount: 1.2315135367772556
               - startingUsageAmount: startingUsageAmount
                 price:
                   nanos: 1
                   units: units
                   currencyCode: currencyCode
-                fromAmount: 7.386281948385884
+                fromAmount: 1.2315135367772556
               metricId: metricId
-              displayQuantity: 7
+              displayQuantity: 1
             - priceTiers:
               - startingUsageAmount: startingUsageAmount
                 price:
                   nanos: 1
                   units: units
                   currencyCode: currencyCode
-                fromAmount: 7.386281948385884
+                fromAmount: 1.2315135367772556
               - startingUsageAmount: startingUsageAmount
                 price:
                   nanos: 1
                   units: units
                   currencyCode: currencyCode
-                fromAmount: 7.386281948385884
+                fromAmount: 1.2315135367772556
               metricId: metricId
-              displayQuantity: 7
+              displayQuantity: 1
             subscriptionPlans:
             - period: period
               price:
@@ -18975,13 +19031,13 @@ components:
               nanos: 1
               units: units
               currencyCode: currencyCode
-            fromAmount: 7.386281948385884
+            fromAmount: 1.2315135367772556
           - startingUsageAmount: startingUsageAmount
             price:
               nanos: 1
               units: units
               currencyCode: currencyCode
-            fromAmount: 7.386281948385884
+            fromAmount: 1.2315135367772556
           displayUnitDescription: displayUnitDescription
           unit: unit
           metricKind: metricKind
@@ -18999,13 +19055,13 @@ components:
               nanos: 1
               units: units
               currencyCode: currencyCode
-            fromAmount: 7.386281948385884
+            fromAmount: 1.2315135367772556
           - startingUsageAmount: startingUsageAmount
             price:
               nanos: 1
               units: units
               currencyCode: currencyCode
-            fromAmount: 7.386281948385884
+            fromAmount: 1.2315135367772556
           displayUnitDescription: displayUnitDescription
           unit: unit
           metricKind: metricKind
@@ -19044,13 +19100,13 @@ components:
               nanos: 1
               units: units
               currencyCode: currencyCode
-            fromAmount: 7.386281948385884
+            fromAmount: 1.2315135367772556
           - startingUsageAmount: startingUsageAmount
             price:
               nanos: 1
               units: units
               currencyCode: currencyCode
-            fromAmount: 7.386281948385884
+            fromAmount: 1.2315135367772556
           displayUnitDescription: displayUnitDescription
           unit: unit
           metricKind: metricKind
@@ -19068,13 +19124,13 @@ components:
               nanos: 1
               units: units
               currencyCode: currencyCode
-            fromAmount: 7.386281948385884
+            fromAmount: 1.2315135367772556
           - startingUsageAmount: startingUsageAmount
             price:
               nanos: 1
               units: units
               currencyCode: currencyCode
-            fromAmount: 7.386281948385884
+            fromAmount: 1.2315135367772556
           displayUnitDescription: displayUnitDescription
           unit: unit
           metricKind: metricKind
@@ -19172,15 +19228,15 @@ components:
             nanos: 1
             units: units
             currencyCode: currencyCode
-          fromAmount: 7.386281948385884
+          fromAmount: 1.2315135367772556
         - startingUsageAmount: startingUsageAmount
           price:
             nanos: 1
             units: units
             currencyCode: currencyCode
-          fromAmount: 7.386281948385884
+          fromAmount: 1.2315135367772556
         metricId: metricId
-        displayQuantity: 7
+        displayQuantity: 1
       properties:
         displayQuantity:
           description: such as 1
@@ -19292,28 +19348,28 @@ components:
                 commitmentAmountPerPeriodTemplate:
                   decimalAmountConstraint:
                     minAmount:
-                      nanos: 1
+                      nanos: 4
                       units: units
                     defaultAmount:
-                      nanos: 1
+                      nanos: 4
                       units: units
                     maxAmount:
-                      nanos: 1
+                      nanos: 4
                       units: units
                   currencyCode: currencyCode
                 period:
                   unit: MONTHLY_PERIOD
-                  count: 4
+                  count: 5
                 discountTemplate:
                   discountPercentage:
                     minAmount:
-                      nanos: 1
+                      nanos: 4
                       units: units
                     defaultAmount:
-                      nanos: 1
+                      nanos: 4
                       units: units
                     maxAmount:
-                      nanos: 1
+                      nanos: 4
                       units: units
                   discountEconomics: discountEconomics
                   hideDiscountPercentage: true
@@ -19325,17 +19381,17 @@ components:
               payg:
                 period:
                   unit: MONTHLY_PERIOD
-                  count: 4
+                  count: 5
                 discountTemplate:
                   discountPercentage:
                     minAmount:
-                      nanos: 1
+                      nanos: 4
                       units: units
                     defaultAmount:
-                      nanos: 1
+                      nanos: 4
                       units: units
                     maxAmount:
-                      nanos: 1
+                      nanos: 4
                       units: units
                   discountEconomics: discountEconomics
                   hideDiscountPercentage: true
@@ -19357,17 +19413,17 @@ components:
               fixedPrice:
                 period:
                   unit: MONTHLY_PERIOD
-                  count: 4
+                  count: 5
                 discountTemplate:
                   discountPercentage:
                     minAmount:
-                      nanos: 1
+                      nanos: 4
                       units: units
                     defaultAmount:
-                      nanos: 1
+                      nanos: 4
                       units: units
                     maxAmount:
-                      nanos: 1
+                      nanos: 4
                       units: units
                   discountEconomics: discountEconomics
                   hideDiscountPercentage: true
@@ -19379,13 +19435,13 @@ components:
                 discountTemplate:
                   discountPercentage:
                     minAmount:
-                      nanos: 1
+                      nanos: 4
                       units: units
                     defaultAmount:
-                      nanos: 1
+                      nanos: 4
                       units: units
                     maxAmount:
-                      nanos: 1
+                      nanos: 4
                       units: units
                   discountEconomics: discountEconomics
                   hideDiscountPercentage: true
@@ -19410,28 +19466,28 @@ components:
                 commitmentAmountPerPeriodTemplate:
                   decimalAmountConstraint:
                     minAmount:
-                      nanos: 1
+                      nanos: 4
                       units: units
                     defaultAmount:
-                      nanos: 1
+                      nanos: 4
                       units: units
                     maxAmount:
-                      nanos: 1
+                      nanos: 4
                       units: units
                   currencyCode: currencyCode
                 period:
                   unit: MONTHLY_PERIOD
-                  count: 4
+                  count: 5
                 discountTemplate:
                   discountPercentage:
                     minAmount:
-                      nanos: 1
+                      nanos: 4
                       units: units
                     defaultAmount:
-                      nanos: 1
+                      nanos: 4
                       units: units
                     maxAmount:
-                      nanos: 1
+                      nanos: 4
                       units: units
                   discountEconomics: discountEconomics
                   hideDiscountPercentage: true
@@ -19443,17 +19499,17 @@ components:
               payg:
                 period:
                   unit: MONTHLY_PERIOD
-                  count: 4
+                  count: 5
                 discountTemplate:
                   discountPercentage:
                     minAmount:
-                      nanos: 1
+                      nanos: 4
                       units: units
                     defaultAmount:
-                      nanos: 1
+                      nanos: 4
                       units: units
                     maxAmount:
-                      nanos: 1
+                      nanos: 4
                       units: units
                   discountEconomics: discountEconomics
                   hideDiscountPercentage: true
@@ -19475,17 +19531,17 @@ components:
               fixedPrice:
                 period:
                   unit: MONTHLY_PERIOD
-                  count: 4
+                  count: 5
                 discountTemplate:
                   discountPercentage:
                     minAmount:
-                      nanos: 1
+                      nanos: 4
                       units: units
                     defaultAmount:
-                      nanos: 1
+                      nanos: 4
                       units: units
                     maxAmount:
-                      nanos: 1
+                      nanos: 4
                       units: units
                   discountEconomics: discountEconomics
                   hideDiscountPercentage: true
@@ -19497,13 +19553,13 @@ components:
                 discountTemplate:
                   discountPercentage:
                     minAmount:
-                      nanos: 1
+                      nanos: 4
                       units: units
                     defaultAmount:
-                      nanos: 1
+                      nanos: 4
                       units: units
                     maxAmount:
-                      nanos: 1
+                      nanos: 4
                       units: units
                   discountEconomics: discountEconomics
                   hideDiscountPercentage: true
@@ -19577,14 +19633,14 @@ components:
           termDurationConstraint:
             defaultDuration:
               unit: MONTHLY_PERIOD
-              count: 4
+              count: 5
           startPolicy: ""
           startTime: 2000-01-23T04:56:07.000+00:00
           endTime: 2000-01-23T04:56:07.000+00:00
           enableScheduledStartTimes: true
           termDuration:
             unit: MONTHLY_PERIOD
-            count: 4
+            count: 5
       properties:
         acceptanceDeadlineTime:
           format: date-time
@@ -19698,28 +19754,28 @@ components:
             commitmentAmountPerPeriodTemplate:
               decimalAmountConstraint:
                 minAmount:
-                  nanos: 1
+                  nanos: 4
                   units: units
                 defaultAmount:
-                  nanos: 1
+                  nanos: 4
                   units: units
                 maxAmount:
-                  nanos: 1
+                  nanos: 4
                   units: units
               currencyCode: currencyCode
             period:
               unit: MONTHLY_PERIOD
-              count: 4
+              count: 5
             discountTemplate:
               discountPercentage:
                 minAmount:
-                  nanos: 1
+                  nanos: 4
                   units: units
                 defaultAmount:
-                  nanos: 1
+                  nanos: 4
                   units: units
                 maxAmount:
-                  nanos: 1
+                  nanos: 4
                   units: units
               discountEconomics: discountEconomics
               hideDiscountPercentage: true
@@ -19731,17 +19787,17 @@ components:
           payg:
             period:
               unit: MONTHLY_PERIOD
-              count: 4
+              count: 5
             discountTemplate:
               discountPercentage:
                 minAmount:
-                  nanos: 1
+                  nanos: 4
                   units: units
                 defaultAmount:
-                  nanos: 1
+                  nanos: 4
                   units: units
                 maxAmount:
-                  nanos: 1
+                  nanos: 4
                   units: units
               discountEconomics: discountEconomics
               hideDiscountPercentage: true
@@ -19763,17 +19819,17 @@ components:
           fixedPrice:
             period:
               unit: MONTHLY_PERIOD
-              count: 4
+              count: 5
             discountTemplate:
               discountPercentage:
                 minAmount:
-                  nanos: 1
+                  nanos: 4
                   units: units
                 defaultAmount:
-                  nanos: 1
+                  nanos: 4
                   units: units
                 maxAmount:
-                  nanos: 1
+                  nanos: 4
                   units: units
               discountEconomics: discountEconomics
               hideDiscountPercentage: true
@@ -19785,13 +19841,13 @@ components:
             discountTemplate:
               discountPercentage:
                 minAmount:
-                  nanos: 1
+                  nanos: 4
                   units: units
                 defaultAmount:
-                  nanos: 1
+                  nanos: 4
                   units: units
                 maxAmount:
-                  nanos: 1
+                  nanos: 4
                   units: units
               discountEconomics: discountEconomics
               hideDiscountPercentage: true
@@ -19826,28 +19882,28 @@ components:
               commitmentAmountPerPeriodTemplate:
                 decimalAmountConstraint:
                   minAmount:
-                    nanos: 1
+                    nanos: 4
                     units: units
                   defaultAmount:
-                    nanos: 1
+                    nanos: 4
                     units: units
                   maxAmount:
-                    nanos: 1
+                    nanos: 4
                     units: units
                 currencyCode: currencyCode
               period:
                 unit: MONTHLY_PERIOD
-                count: 4
+                count: 5
               discountTemplate:
                 discountPercentage:
                   minAmount:
-                    nanos: 1
+                    nanos: 4
                     units: units
                   defaultAmount:
-                    nanos: 1
+                    nanos: 4
                     units: units
                   maxAmount:
-                    nanos: 1
+                    nanos: 4
                     units: units
                 discountEconomics: discountEconomics
                 hideDiscountPercentage: true
@@ -19859,17 +19915,17 @@ components:
             payg:
               period:
                 unit: MONTHLY_PERIOD
-                count: 4
+                count: 5
               discountTemplate:
                 discountPercentage:
                   minAmount:
-                    nanos: 1
+                    nanos: 4
                     units: units
                   defaultAmount:
-                    nanos: 1
+                    nanos: 4
                     units: units
                   maxAmount:
-                    nanos: 1
+                    nanos: 4
                     units: units
                 discountEconomics: discountEconomics
                 hideDiscountPercentage: true
@@ -19891,17 +19947,17 @@ components:
             fixedPrice:
               period:
                 unit: MONTHLY_PERIOD
-                count: 4
+                count: 5
               discountTemplate:
                 discountPercentage:
                   minAmount:
-                    nanos: 1
+                    nanos: 4
                     units: units
                   defaultAmount:
-                    nanos: 1
+                    nanos: 4
                     units: units
                   maxAmount:
-                    nanos: 1
+                    nanos: 4
                     units: units
                 discountEconomics: discountEconomics
                 hideDiscountPercentage: true
@@ -19913,13 +19969,13 @@ components:
               discountTemplate:
                 discountPercentage:
                   minAmount:
-                    nanos: 1
+                    nanos: 4
                     units: units
                   defaultAmount:
-                    nanos: 1
+                    nanos: 4
                     units: units
                   maxAmount:
-                    nanos: 1
+                    nanos: 4
                     units: units
                 discountEconomics: discountEconomics
                 hideDiscountPercentage: true
@@ -19944,28 +20000,28 @@ components:
               commitmentAmountPerPeriodTemplate:
                 decimalAmountConstraint:
                   minAmount:
-                    nanos: 1
+                    nanos: 4
                     units: units
                   defaultAmount:
-                    nanos: 1
+                    nanos: 4
                     units: units
                   maxAmount:
-                    nanos: 1
+                    nanos: 4
                     units: units
                 currencyCode: currencyCode
               period:
                 unit: MONTHLY_PERIOD
-                count: 4
+                count: 5
               discountTemplate:
                 discountPercentage:
                   minAmount:
-                    nanos: 1
+                    nanos: 4
                     units: units
                   defaultAmount:
-                    nanos: 1
+                    nanos: 4
                     units: units
                   maxAmount:
-                    nanos: 1
+                    nanos: 4
                     units: units
                 discountEconomics: discountEconomics
                 hideDiscountPercentage: true
@@ -19977,17 +20033,17 @@ components:
             payg:
               period:
                 unit: MONTHLY_PERIOD
-                count: 4
+                count: 5
               discountTemplate:
                 discountPercentage:
                   minAmount:
-                    nanos: 1
+                    nanos: 4
                     units: units
                   defaultAmount:
-                    nanos: 1
+                    nanos: 4
                     units: units
                   maxAmount:
-                    nanos: 1
+                    nanos: 4
                     units: units
                 discountEconomics: discountEconomics
                 hideDiscountPercentage: true
@@ -20009,17 +20065,17 @@ components:
             fixedPrice:
               period:
                 unit: MONTHLY_PERIOD
-                count: 4
+                count: 5
               discountTemplate:
                 discountPercentage:
                   minAmount:
-                    nanos: 1
+                    nanos: 4
                     units: units
                   defaultAmount:
-                    nanos: 1
+                    nanos: 4
                     units: units
                   maxAmount:
-                    nanos: 1
+                    nanos: 4
                     units: units
                 discountEconomics: discountEconomics
                 hideDiscountPercentage: true
@@ -20031,13 +20087,13 @@ components:
               discountTemplate:
                 discountPercentage:
                   minAmount:
-                    nanos: 1
+                    nanos: 4
                     units: units
                   defaultAmount:
-                    nanos: 1
+                    nanos: 4
                     units: units
                   maxAmount:
-                    nanos: 1
+                    nanos: 4
                     units: units
                 discountEconomics: discountEconomics
                 hideDiscountPercentage: true
@@ -20131,28 +20187,28 @@ components:
           commitmentAmountPerPeriodTemplate:
             decimalAmountConstraint:
               minAmount:
-                nanos: 1
+                nanos: 4
                 units: units
               defaultAmount:
-                nanos: 1
+                nanos: 4
                 units: units
               maxAmount:
-                nanos: 1
+                nanos: 4
                 units: units
             currencyCode: currencyCode
           period:
             unit: MONTHLY_PERIOD
-            count: 4
+            count: 5
           discountTemplate:
             discountPercentage:
               minAmount:
-                nanos: 1
+                nanos: 4
                 units: units
               defaultAmount:
-                nanos: 1
+                nanos: 4
                 units: units
               maxAmount:
-                nanos: 1
+                nanos: 4
                 units: units
             discountEconomics: discountEconomics
             hideDiscountPercentage: true
@@ -20164,17 +20220,17 @@ components:
         payg:
           period:
             unit: MONTHLY_PERIOD
-            count: 4
+            count: 5
           discountTemplate:
             discountPercentage:
               minAmount:
-                nanos: 1
+                nanos: 4
                 units: units
               defaultAmount:
-                nanos: 1
+                nanos: 4
                 units: units
               maxAmount:
-                nanos: 1
+                nanos: 4
                 units: units
             discountEconomics: discountEconomics
             hideDiscountPercentage: true
@@ -20196,17 +20252,17 @@ components:
         fixedPrice:
           period:
             unit: MONTHLY_PERIOD
-            count: 4
+            count: 5
           discountTemplate:
             discountPercentage:
               minAmount:
-                nanos: 1
+                nanos: 4
                 units: units
               defaultAmount:
-                nanos: 1
+                nanos: 4
                 units: units
               maxAmount:
-                nanos: 1
+                nanos: 4
                 units: units
             discountEconomics: discountEconomics
             hideDiscountPercentage: true
@@ -20218,13 +20274,13 @@ components:
           discountTemplate:
             discountPercentage:
               minAmount:
-                nanos: 1
+                nanos: 4
                 units: units
               defaultAmount:
-                nanos: 1
+                nanos: 4
                 units: units
               maxAmount:
-                nanos: 1
+                nanos: 4
                 units: units
             discountEconomics: discountEconomics
             hideDiscountPercentage: true
@@ -20270,28 +20326,28 @@ components:
         commitmentAmountPerPeriodTemplate:
           decimalAmountConstraint:
             minAmount:
-              nanos: 1
+              nanos: 4
               units: units
             defaultAmount:
-              nanos: 1
+              nanos: 4
               units: units
             maxAmount:
-              nanos: 1
+              nanos: 4
               units: units
           currencyCode: currencyCode
         period:
           unit: MONTHLY_PERIOD
-          count: 4
+          count: 5
         discountTemplate:
           discountPercentage:
             minAmount:
-              nanos: 1
+              nanos: 4
               units: units
             defaultAmount:
-              nanos: 1
+              nanos: 4
               units: units
             maxAmount:
-              nanos: 1
+              nanos: 4
               units: units
           discountEconomics: discountEconomics
           hideDiscountPercentage: true
@@ -20311,17 +20367,17 @@ components:
       example:
         period:
           unit: MONTHLY_PERIOD
-          count: 4
+          count: 5
         discountTemplate:
           discountPercentage:
             minAmount:
-              nanos: 1
+              nanos: 4
               units: units
             defaultAmount:
-              nanos: 1
+              nanos: 4
               units: units
             maxAmount:
-              nanos: 1
+              nanos: 4
               units: units
           discountEconomics: discountEconomics
           hideDiscountPercentage: true
@@ -20340,13 +20396,13 @@ components:
         discountTemplate:
           discountPercentage:
             minAmount:
-              nanos: 1
+              nanos: 4
               units: units
             defaultAmount:
-              nanos: 1
+              nanos: 4
               units: units
             maxAmount:
-              nanos: 1
+              nanos: 4
               units: units
           discountEconomics: discountEconomics
           hideDiscountPercentage: true
@@ -20378,17 +20434,17 @@ components:
       example:
         period:
           unit: MONTHLY_PERIOD
-          count: 4
+          count: 5
         discountTemplate:
           discountPercentage:
             minAmount:
-              nanos: 1
+              nanos: 4
               units: units
             defaultAmount:
-              nanos: 1
+              nanos: 4
               units: units
             maxAmount:
-              nanos: 1
+              nanos: 4
               units: units
           discountEconomics: discountEconomics
           hideDiscountPercentage: true
@@ -20589,7 +20645,7 @@ components:
     GcpPeriodDuration:
       example:
         unit: MONTHLY_PERIOD
-        count: 4
+        count: 5
       properties:
         count:
           description: "such as 1, 6, 12"
@@ -20609,13 +20665,13 @@ components:
       example:
         discountPercentage:
           minAmount:
-            nanos: 1
+            nanos: 4
             units: units
           defaultAmount:
-            nanos: 1
+            nanos: 4
             units: units
           maxAmount:
-            nanos: 1
+            nanos: 4
             units: units
         discountEconomics: discountEconomics
         hideDiscountPercentage: true
@@ -20640,7 +20696,7 @@ components:
           nanos: 1
           units: units
           currencyCode: currencyCode
-        fromAmount: 7.386281948385884
+        fromAmount: 1.2315135367772556
       properties:
         fromAmount:
           description: such as 0
@@ -21520,6 +21576,7 @@ components:
         nextOffset:
           type: integer
         revenueRecords:
+          description: list of revenue records.
           items:
             $ref: '#/components/schemas/RevenueRecord'
           type: array
@@ -22188,25 +22245,25 @@ components:
             nanos: 1
             units: units
             currencyCode: currencyCode
-          fromAmount: 7.386281948385884
+          fromAmount: 1.2315135367772556
         - startingUsageAmount: startingUsageAmount
           price:
             nanos: 1
             units: units
             currencyCode: currencyCode
-          fromAmount: 7.386281948385884
+          fromAmount: 1.2315135367772556
         types:
         - types
         - types
         description: description
         planName: planName
         usageCount: "{}"
-        rate: 1.0246457001441578
+        rate: 1.4894159098541704
         includedBaseQuantities:
-        - quantity: 4.145608029883936
+        - quantity: 7.386281948385884
           isInfinite: true
           recurringUnit: Monthly
-        - quantity: 4.145608029883936
+        - quantity: 7.386281948385884
           isInfinite: true
           recurringUnit: Monthly
         valueType: "{}"
@@ -23132,6 +23189,7 @@ components:
       - REVIEW_APPROVAL_REQUEST
       - COMPLETE
       - FAIL
+      - WEBHOOK
       type: string
       x-enum-comments:
         NotificationEventAction_ADD: Add user to organization
@@ -23174,6 +23232,7 @@ components:
       - NotificationEventAction_REVIEW_APPROVAL_REQUEST
       - NotificationEventAction_COMPLETE
       - NotificationEventAction_FAIL
+      - NotificationEventAction_WEBHOOK
     NotificationEventStatus:
       enum:
       - ""
@@ -23285,18 +23344,18 @@ components:
         - taxIds
         - taxIds
         paymentInstallments:
-        - discountPercentage: 8.762042012749001
-          amount: 9.369310271410669
-          originalAmount: 9.018348186070783
+        - discountPercentage: 9.018348186070783
+          amount: 6.683562403749608
+          originalAmount: 6.438423552598547
           chargeOn: 2000-01-23T04:56:07.000+00:00
           chargeOnStr: chargeOnStr
-          credit: 6.683562403749608
-        - discountPercentage: 8.762042012749001
-          amount: 9.369310271410669
-          originalAmount: 9.018348186070783
+          credit: 8.762042012749001
+        - discountPercentage: 9.018348186070783
+          amount: 6.683562403749608
+          originalAmount: 6.438423552598547
           chargeOn: 2000-01-23T04:56:07.000+00:00
           chargeOnStr: chargeOnStr
-          credit: 6.683562403749608
+          credit: 8.762042012749001
         billableDimensions:
         - priceModelTiered: "{}"
           priceModelTieredPercentage: "{}"
@@ -23395,28 +23454,28 @@ components:
                   commitmentAmountPerPeriodTemplate:
                     decimalAmountConstraint:
                       minAmount:
-                        nanos: 1
+                        nanos: 4
                         units: units
                       defaultAmount:
-                        nanos: 1
+                        nanos: 4
                         units: units
                       maxAmount:
-                        nanos: 1
+                        nanos: 4
                         units: units
                     currencyCode: currencyCode
                   period:
                     unit: MONTHLY_PERIOD
-                    count: 4
+                    count: 5
                   discountTemplate:
                     discountPercentage:
                       minAmount:
-                        nanos: 1
+                        nanos: 4
                         units: units
                       defaultAmount:
-                        nanos: 1
+                        nanos: 4
                         units: units
                       maxAmount:
-                        nanos: 1
+                        nanos: 4
                         units: units
                     discountEconomics: discountEconomics
                     hideDiscountPercentage: true
@@ -23428,17 +23487,17 @@ components:
                 payg:
                   period:
                     unit: MONTHLY_PERIOD
-                    count: 4
+                    count: 5
                   discountTemplate:
                     discountPercentage:
                       minAmount:
-                        nanos: 1
+                        nanos: 4
                         units: units
                       defaultAmount:
-                        nanos: 1
+                        nanos: 4
                         units: units
                       maxAmount:
-                        nanos: 1
+                        nanos: 4
                         units: units
                     discountEconomics: discountEconomics
                     hideDiscountPercentage: true
@@ -23460,17 +23519,17 @@ components:
                 fixedPrice:
                   period:
                     unit: MONTHLY_PERIOD
-                    count: 4
+                    count: 5
                   discountTemplate:
                     discountPercentage:
                       minAmount:
-                        nanos: 1
+                        nanos: 4
                         units: units
                       defaultAmount:
-                        nanos: 1
+                        nanos: 4
                         units: units
                       maxAmount:
-                        nanos: 1
+                        nanos: 4
                         units: units
                     discountEconomics: discountEconomics
                     hideDiscountPercentage: true
@@ -23482,13 +23541,13 @@ components:
                   discountTemplate:
                     discountPercentage:
                       minAmount:
-                        nanos: 1
+                        nanos: 4
                         units: units
                       defaultAmount:
-                        nanos: 1
+                        nanos: 4
                         units: units
                       maxAmount:
-                        nanos: 1
+                        nanos: 4
                         units: units
                     discountEconomics: discountEconomics
                     hideDiscountPercentage: true
@@ -23513,28 +23572,28 @@ components:
                   commitmentAmountPerPeriodTemplate:
                     decimalAmountConstraint:
                       minAmount:
-                        nanos: 1
+                        nanos: 4
                         units: units
                       defaultAmount:
-                        nanos: 1
+                        nanos: 4
                         units: units
                       maxAmount:
-                        nanos: 1
+                        nanos: 4
                         units: units
                     currencyCode: currencyCode
                   period:
                     unit: MONTHLY_PERIOD
-                    count: 4
+                    count: 5
                   discountTemplate:
                     discountPercentage:
                       minAmount:
-                        nanos: 1
+                        nanos: 4
                         units: units
                       defaultAmount:
-                        nanos: 1
+                        nanos: 4
                         units: units
                       maxAmount:
-                        nanos: 1
+                        nanos: 4
                         units: units
                     discountEconomics: discountEconomics
                     hideDiscountPercentage: true
@@ -23546,17 +23605,17 @@ components:
                 payg:
                   period:
                     unit: MONTHLY_PERIOD
-                    count: 4
+                    count: 5
                   discountTemplate:
                     discountPercentage:
                       minAmount:
-                        nanos: 1
+                        nanos: 4
                         units: units
                       defaultAmount:
-                        nanos: 1
+                        nanos: 4
                         units: units
                       maxAmount:
-                        nanos: 1
+                        nanos: 4
                         units: units
                     discountEconomics: discountEconomics
                     hideDiscountPercentage: true
@@ -23578,17 +23637,17 @@ components:
                 fixedPrice:
                   period:
                     unit: MONTHLY_PERIOD
-                    count: 4
+                    count: 5
                   discountTemplate:
                     discountPercentage:
                       minAmount:
-                        nanos: 1
+                        nanos: 4
                         units: units
                       defaultAmount:
-                        nanos: 1
+                        nanos: 4
                         units: units
                       maxAmount:
-                        nanos: 1
+                        nanos: 4
                         units: units
                     discountEconomics: discountEconomics
                     hideDiscountPercentage: true
@@ -23600,13 +23659,13 @@ components:
                   discountTemplate:
                     discountPercentage:
                       minAmount:
-                        nanos: 1
+                        nanos: 4
                         units: units
                       defaultAmount:
-                        nanos: 1
+                        nanos: 4
                         units: units
                       maxAmount:
-                        nanos: 1
+                        nanos: 4
                         units: units
                     discountEconomics: discountEconomics
                     hideDiscountPercentage: true
@@ -23680,21 +23739,21 @@ components:
             termDurationConstraint:
               defaultDuration:
                 unit: MONTHLY_PERIOD
-                count: 4
+                count: 5
             startPolicy: ""
             startTime: 2000-01-23T04:56:07.000+00:00
             endTime: 2000-01-23T04:56:07.000+00:00
             enableScheduledStartTimes: true
             termDuration:
               unit: MONTHLY_PERIOD
-              count: 4
+              count: 5
         visibility: PRIVATE
         eulaType: ""
         awsMarkupPercentage: 0.8008281904610115
-        gracePeriodInDays: 5
+        gracePeriodInDays: 9
         gcpCustomerInfo: "{}"
         gcpProviderPublicNote: gcpProviderPublicNote
-        gcpDuration: 6
+        gcpDuration: 7
         billingCycle: "{}"
         gcpMetrics:
         - priceTiers:
@@ -23703,13 +23762,13 @@ components:
               nanos: 1
               units: units
               currencyCode: currencyCode
-            fromAmount: 7.386281948385884
+            fromAmount: 1.2315135367772556
           - startingUsageAmount: startingUsageAmount
             price:
               nanos: 1
               units: units
               currencyCode: currencyCode
-            fromAmount: 7.386281948385884
+            fromAmount: 1.2315135367772556
           displayUnitDescription: displayUnitDescription
           unit: unit
           metricKind: metricKind
@@ -23727,13 +23786,13 @@ components:
               nanos: 1
               units: units
               currencyCode: currencyCode
-            fromAmount: 7.386281948385884
+            fromAmount: 1.2315135367772556
           - startingUsageAmount: startingUsageAmount
             price:
               nanos: 1
               units: units
               currencyCode: currencyCode
-            fromAmount: 7.386281948385884
+            fromAmount: 1.2315135367772556
           displayUnitDescription: displayUnitDescription
           unit: unit
           metricKind: metricKind
@@ -23749,14 +23808,14 @@ components:
         - types:
           - types
           - types
-          quantity: 3
-          length: 2
+          quantity: 2
+          length: 7
           description: description
           type: "{}"
-          maximumUsers: 706140
-          rate: 2.027123023002322
+          maximumUsers: 930144
+          rate: 4.145608029883936
           isUserCreated: true
-          minimumUsers: 930144
+          minimumUsers: 361608
           name: name
           term: term
           category: category
@@ -23766,27 +23825,29 @@ components:
         - types:
           - types
           - types
-          quantity: 3
-          length: 2
+          quantity: 2
+          length: 7
           description: description
           type: "{}"
-          maximumUsers: 706140
-          rate: 2.027123023002322
+          maximumUsers: 930144
+          rate: 4.145608029883936
           isUserCreated: true
-          minimumUsers: 930144
+          minimumUsers: 361608
           name: name
           term: term
           category: category
           termEndTime: termEndTime
           key: key
           timeUnit: "{}"
+        isMeteringOverageCommit: true
         proratedBilling: true
         awsChannelPartner: "{}"
         awsCppoOpportunity: "{}"
-        usageBillingIntervalInMonths: 6
+        usageBillingIntervalInMonths: 3
         privateOfferUrl: privateOfferUrl
-        discountPercentage: 1.4894159098541704
-        commitBillingIntervalInMonths: 5
+        discountPercentage: 6.84685269835264
+        commitBillingIntervalInMonths: 2
+        billingIntervalInMonths: 5
         gcpProviderInfo: "{}"
         autoRenew: true
         currency: currency
@@ -23803,30 +23864,30 @@ components:
                   nanos: 1
                   units: units
                   currencyCode: currencyCode
-                fromAmount: 7.386281948385884
+                fromAmount: 1.2315135367772556
               - startingUsageAmount: startingUsageAmount
                 price:
                   nanos: 1
                   units: units
                   currencyCode: currencyCode
-                fromAmount: 7.386281948385884
+                fromAmount: 1.2315135367772556
               metricId: metricId
-              displayQuantity: 7
+              displayQuantity: 1
             - priceTiers:
               - startingUsageAmount: startingUsageAmount
                 price:
                   nanos: 1
                   units: units
                   currencyCode: currencyCode
-                fromAmount: 7.386281948385884
+                fromAmount: 1.2315135367772556
               - startingUsageAmount: startingUsageAmount
                 price:
                   nanos: 1
                   units: units
                   currencyCode: currencyCode
-                fromAmount: 7.386281948385884
+                fromAmount: 1.2315135367772556
               metricId: metricId
-              displayQuantity: 7
+              displayQuantity: 1
             subscriptionPlans:
             - period: period
               price:
@@ -23860,30 +23921,30 @@ components:
                   nanos: 1
                   units: units
                   currencyCode: currencyCode
-                fromAmount: 7.386281948385884
+                fromAmount: 1.2315135367772556
               - startingUsageAmount: startingUsageAmount
                 price:
                   nanos: 1
                   units: units
                   currencyCode: currencyCode
-                fromAmount: 7.386281948385884
+                fromAmount: 1.2315135367772556
               metricId: metricId
-              displayQuantity: 7
+              displayQuantity: 1
             - priceTiers:
               - startingUsageAmount: startingUsageAmount
                 price:
                   nanos: 1
                   units: units
                   currencyCode: currencyCode
-                fromAmount: 7.386281948385884
+                fromAmount: 1.2315135367772556
               - startingUsageAmount: startingUsageAmount
                 price:
                   nanos: 1
                   units: units
                   currencyCode: currencyCode
-                fromAmount: 7.386281948385884
+                fromAmount: 1.2315135367772556
               metricId: metricId
-              displayQuantity: 7
+              displayQuantity: 1
             subscriptionPlans:
             - period: period
               price:
@@ -23920,7 +23981,7 @@ components:
         - additionalEulaUrls
         - additionalEulaUrls
         resellerEulaType: "{}"
-        commitAmount: 5.962133916683182
+        commitAmount: 5.637376656633329
         dimensions:
         - priceTiers:
           - startingUsageAmount: startingUsageAmount
@@ -23928,25 +23989,25 @@ components:
               nanos: 1
               units: units
               currencyCode: currencyCode
-            fromAmount: 7.386281948385884
+            fromAmount: 1.2315135367772556
           - startingUsageAmount: startingUsageAmount
             price:
               nanos: 1
               units: units
               currencyCode: currencyCode
-            fromAmount: 7.386281948385884
+            fromAmount: 1.2315135367772556
           types:
           - types
           - types
           description: description
           planName: planName
           usageCount: "{}"
-          rate: 1.0246457001441578
+          rate: 1.4894159098541704
           includedBaseQuantities:
-          - quantity: 4.145608029883936
+          - quantity: 7.386281948385884
             isInfinite: true
             recurringUnit: Monthly
-          - quantity: 4.145608029883936
+          - quantity: 7.386281948385884
             isInfinite: true
             recurringUnit: Monthly
           valueType: "{}"
@@ -23961,25 +24022,25 @@ components:
               nanos: 1
               units: units
               currencyCode: currencyCode
-            fromAmount: 7.386281948385884
+            fromAmount: 1.2315135367772556
           - startingUsageAmount: startingUsageAmount
             price:
               nanos: 1
               units: units
               currencyCode: currencyCode
-            fromAmount: 7.386281948385884
+            fromAmount: 1.2315135367772556
           types:
           - types
           - types
           description: description
           planName: planName
           usageCount: "{}"
-          rate: 1.0246457001441578
+          rate: 1.4894159098541704
           includedBaseQuantities:
-          - quantity: 4.145608029883936
+          - quantity: 7.386281948385884
             isInfinite: true
             recurringUnit: Monthly
-          - quantity: 4.145608029883936
+          - quantity: 7.386281948385884
             isInfinite: true
             recurringUnit: Monthly
           valueType: "{}"
@@ -24070,6 +24131,9 @@ components:
           - $ref: '#/components/schemas/BillingCycle'
           description: Billing Cycle for the offer.
           type: object
+        billingIntervalInMonths:
+          description: Billing interval in months for the offer.
+          type: integer
         buyerAwsAccountIds:
           description: The buyers' AWS Account IDs of this offer.
           items:
@@ -24087,7 +24151,7 @@ components:
             For frontend display or analysis purposes, not used for billing.
           type: number
         commitBillingIntervalInMonths:
-          description: Billing interval in months for commitDimensions
+          description: "Deprecated: Use BillingIntervalInMonths instead."
           type: integer
         commits:
           description: "Recurring flat fee for the offer, managed by cloud marketplaces\
@@ -24176,6 +24240,13 @@ components:
             This is the number of days during which invoices remain in draft status, for reviewing.
             This filed can be overridden at the entitlement level.
           type: integer
+        isMeteringOverageCommit:
+          description: |-
+            Whether the usage metering will only be charged for the amount that exceeds the committed amount.
+            e.g. the buyer has committed $100, and the usage is $120,
+            - if true, the buyer will be charged for the usage at $20, and the commit at $100.
+            - if false, the buyer will be charged for the usage at $120, and the commit at $100.
+          type: boolean
         netTermsInDays:
           description: |-
             The net terms in days for the offer.
@@ -24246,7 +24317,7 @@ components:
             The trial configuration for the offer.
           type: object
         usageBillingIntervalInMonths:
-          description: Billing interval in months for billableDimensions
+          description: "Deprecated: Use BillingIntervalInMonths instead."
           type: integer
         visibility:
           description: The default visibility of offer is PRIVATE.
@@ -24539,12 +24610,12 @@ components:
       type: object
     PaymentInstallment:
       example:
-        discountPercentage: 8.762042012749001
-        amount: 9.369310271410669
-        originalAmount: 9.018348186070783
+        discountPercentage: 9.018348186070783
+        amount: 6.683562403749608
+        originalAmount: 6.438423552598547
         chargeOn: 2000-01-23T04:56:07.000+00:00
         chargeOnStr: chargeOnStr
-        credit: 6.683562403749608
+        credit: 8.762042012749001
       properties:
         amount:
           description: |-
@@ -24812,17 +24883,21 @@ components:
               Text: Text
               Url: Url
             LogoUrl: LogoUrl
-            VideoUrls:
-            - VideoUrls
-            - VideoUrls
+            Videos:
+            - Type: Type
+              Title: Title
+              Url: Url
+            - Type: Type
+              Title: Title
+              Url: Url
           dataFeedProductId: dataFeedProductId
           Dimensions:
           - Types:
             - Types
             - Types
             Description: Description
-            Length: 3
-            Rate: 6.965117697638846
+            Length: 6
+            Rate: 1.284659006116532
             TimeUnit: DAY
             Unit: Unit
             Key: Key
@@ -24831,8 +24906,8 @@ components:
             - Types
             - Types
             Description: Description
-            Length: 3
-            Rate: 6.965117697638846
+            Length: 6
+            Rate: 1.284659006116532
             TimeUnit: DAY
             Unit: Unit
             Key: Key
@@ -24930,17 +25005,21 @@ components:
               Text: Text
               Url: Url
             LogoUrl: LogoUrl
-            VideoUrls:
-            - VideoUrls
-            - VideoUrls
+            Videos:
+            - Type: Type
+              Title: Title
+              Url: Url
+            - Type: Type
+              Title: Title
+              Url: Url
           dataFeedProductId: dataFeedProductId
           Dimensions:
           - Types:
             - Types
             - Types
             Description: Description
-            Length: 3
-            Rate: 6.965117697638846
+            Length: 6
+            Rate: 1.284659006116532
             TimeUnit: DAY
             Unit: Unit
             Key: Key
@@ -24949,8 +25028,8 @@ components:
             - Types
             - Types
             Description: Description
-            Length: 3
-            Rate: 6.965117697638846
+            Length: 6
+            Rate: 1.284659006116532
             TimeUnit: DAY
             Unit: Unit
             Key: Key
@@ -26098,17 +26177,21 @@ components:
               Text: Text
               Url: Url
             LogoUrl: LogoUrl
-            VideoUrls:
-            - VideoUrls
-            - VideoUrls
+            Videos:
+            - Type: Type
+              Title: Title
+              Url: Url
+            - Type: Type
+              Title: Title
+              Url: Url
           dataFeedProductId: dataFeedProductId
           Dimensions:
           - Types:
             - Types
             - Types
             Description: Description
-            Length: 3
-            Rate: 6.965117697638846
+            Length: 6
+            Rate: 1.284659006116532
             TimeUnit: DAY
             Unit: Unit
             Key: Key
@@ -26117,8 +26200,8 @@ components:
             - Types
             - Types
             Description: Description
-            Length: 3
-            Rate: 6.965117697638846
+            Length: 6
+            Rate: 1.284659006116532
             TimeUnit: DAY
             Unit: Unit
             Key: Key
@@ -26400,10 +26483,10 @@ components:
               - unitOfMeasure: unitOfMeasure
                 displayName: displayName
                 includedBaseQuantities:
-                - quantity: 4.145608029883936
+                - quantity: 7.386281948385884
                   isInfinite: true
                   recurringUnit: Monthly
-                - quantity: 4.145608029883936
+                - quantity: 7.386281948385884
                   isInfinite: true
                   recurringUnit: Monthly
                 isEnabled: true
@@ -26413,10 +26496,10 @@ components:
               - unitOfMeasure: unitOfMeasure
                 displayName: displayName
                 includedBaseQuantities:
-                - quantity: 4.145608029883936
+                - quantity: 7.386281948385884
                   isInfinite: true
                   recurringUnit: Monthly
-                - quantity: 4.145608029883936
+                - quantity: 7.386281948385884
                   isInfinite: true
                   recurringUnit: Monthly
                 isEnabled: true
@@ -26570,10 +26653,10 @@ components:
               - unitOfMeasure: unitOfMeasure
                 displayName: displayName
                 includedBaseQuantities:
-                - quantity: 4.145608029883936
+                - quantity: 7.386281948385884
                   isInfinite: true
                   recurringUnit: Monthly
-                - quantity: 4.145608029883936
+                - quantity: 7.386281948385884
                   isInfinite: true
                   recurringUnit: Monthly
                 isEnabled: true
@@ -26583,10 +26666,10 @@ components:
               - unitOfMeasure: unitOfMeasure
                 displayName: displayName
                 includedBaseQuantities:
-                - quantity: 4.145608029883936
+                - quantity: 7.386281948385884
                   isInfinite: true
                   recurringUnit: Monthly
-                - quantity: 4.145608029883936
+                - quantity: 7.386281948385884
                   isInfinite: true
                   recurringUnit: Monthly
                 isEnabled: true
@@ -26780,10 +26863,10 @@ components:
               - unitOfMeasure: unitOfMeasure
                 displayName: displayName
                 includedBaseQuantities:
-                - quantity: 4.145608029883936
+                - quantity: 7.386281948385884
                   isInfinite: true
                   recurringUnit: Monthly
-                - quantity: 4.145608029883936
+                - quantity: 7.386281948385884
                   isInfinite: true
                   recurringUnit: Monthly
                 isEnabled: true
@@ -26793,10 +26876,10 @@ components:
               - unitOfMeasure: unitOfMeasure
                 displayName: displayName
                 includedBaseQuantities:
-                - quantity: 4.145608029883936
+                - quantity: 7.386281948385884
                   isInfinite: true
                   recurringUnit: Monthly
-                - quantity: 4.145608029883936
+                - quantity: 7.386281948385884
                   isInfinite: true
                   recurringUnit: Monthly
                 isEnabled: true
@@ -26950,10 +27033,10 @@ components:
               - unitOfMeasure: unitOfMeasure
                 displayName: displayName
                 includedBaseQuantities:
-                - quantity: 4.145608029883936
+                - quantity: 7.386281948385884
                   isInfinite: true
                   recurringUnit: Monthly
-                - quantity: 4.145608029883936
+                - quantity: 7.386281948385884
                   isInfinite: true
                   recurringUnit: Monthly
                 isEnabled: true
@@ -26963,10 +27046,10 @@ components:
               - unitOfMeasure: unitOfMeasure
                 displayName: displayName
                 includedBaseQuantities:
-                - quantity: 4.145608029883936
+                - quantity: 7.386281948385884
                   isInfinite: true
                   recurringUnit: Monthly
-                - quantity: 4.145608029883936
+                - quantity: 7.386281948385884
                   isInfinite: true
                   recurringUnit: Monthly
                 isEnabled: true
@@ -27473,13 +27556,13 @@ components:
                   nanos: 1
                   units: units
                   currencyCode: currencyCode
-                fromAmount: 7.386281948385884
+                fromAmount: 1.2315135367772556
               - startingUsageAmount: startingUsageAmount
                 price:
                   nanos: 1
                   units: units
                   currencyCode: currencyCode
-                fromAmount: 7.386281948385884
+                fromAmount: 1.2315135367772556
               displayUnitDescription: displayUnitDescription
               unit: unit
               metricKind: metricKind
@@ -27497,13 +27580,13 @@ components:
                   nanos: 1
                   units: units
                   currencyCode: currencyCode
-                fromAmount: 7.386281948385884
+                fromAmount: 1.2315135367772556
               - startingUsageAmount: startingUsageAmount
                 price:
                   nanos: 1
                   units: units
                   currencyCode: currencyCode
-                fromAmount: 7.386281948385884
+                fromAmount: 1.2315135367772556
               displayUnitDescription: displayUnitDescription
               unit: unit
               metricKind: metricKind
@@ -27574,30 +27657,30 @@ components:
                         nanos: 1
                         units: units
                         currencyCode: currencyCode
-                      fromAmount: 7.386281948385884
+                      fromAmount: 1.2315135367772556
                     - startingUsageAmount: startingUsageAmount
                       price:
                         nanos: 1
                         units: units
                         currencyCode: currencyCode
-                      fromAmount: 7.386281948385884
+                      fromAmount: 1.2315135367772556
                     metricId: metricId
-                    displayQuantity: 7
+                    displayQuantity: 1
                   - priceTiers:
                     - startingUsageAmount: startingUsageAmount
                       price:
                         nanos: 1
                         units: units
                         currencyCode: currencyCode
-                      fromAmount: 7.386281948385884
+                      fromAmount: 1.2315135367772556
                     - startingUsageAmount: startingUsageAmount
                       price:
                         nanos: 1
                         units: units
                         currencyCode: currencyCode
-                      fromAmount: 7.386281948385884
+                      fromAmount: 1.2315135367772556
                     metricId: metricId
-                    displayQuantity: 7
+                    displayQuantity: 1
                   subscriptionPlans:
                   - period: period
                     price:
@@ -27631,30 +27714,30 @@ components:
                         nanos: 1
                         units: units
                         currencyCode: currencyCode
-                      fromAmount: 7.386281948385884
+                      fromAmount: 1.2315135367772556
                     - startingUsageAmount: startingUsageAmount
                       price:
                         nanos: 1
                         units: units
                         currencyCode: currencyCode
-                      fromAmount: 7.386281948385884
+                      fromAmount: 1.2315135367772556
                     metricId: metricId
-                    displayQuantity: 7
+                    displayQuantity: 1
                   - priceTiers:
                     - startingUsageAmount: startingUsageAmount
                       price:
                         nanos: 1
                         units: units
                         currencyCode: currencyCode
-                      fromAmount: 7.386281948385884
+                      fromAmount: 1.2315135367772556
                     - startingUsageAmount: startingUsageAmount
                       price:
                         nanos: 1
                         units: units
                         currencyCode: currencyCode
-                      fromAmount: 7.386281948385884
+                      fromAmount: 1.2315135367772556
                     metricId: metricId
-                    displayQuantity: 7
+                    displayQuantity: 1
                   subscriptionPlans:
                   - period: period
                     price:
@@ -27687,13 +27770,13 @@ components:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 - startingUsageAmount: startingUsageAmount
                   price:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 displayUnitDescription: displayUnitDescription
                 unit: unit
                 metricKind: metricKind
@@ -27711,13 +27794,13 @@ components:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 - startingUsageAmount: startingUsageAmount
                   price:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 displayUnitDescription: displayUnitDescription
                 unit: unit
                 metricKind: metricKind
@@ -27831,17 +27914,21 @@ components:
               Text: Text
               Url: Url
             LogoUrl: LogoUrl
-            VideoUrls:
-            - VideoUrls
-            - VideoUrls
+            Videos:
+            - Type: Type
+              Title: Title
+              Url: Url
+            - Type: Type
+              Title: Title
+              Url: Url
           dataFeedProductId: dataFeedProductId
           Dimensions:
           - Types:
             - Types
             - Types
             Description: Description
-            Length: 3
-            Rate: 6.965117697638846
+            Length: 6
+            Rate: 1.284659006116532
             TimeUnit: DAY
             Unit: Unit
             Key: Key
@@ -27850,8 +27937,8 @@ components:
             - Types
             - Types
             Description: Description
-            Length: 3
-            Rate: 6.965117697638846
+            Length: 6
+            Rate: 1.284659006116532
             TimeUnit: DAY
             Unit: Unit
             Key: Key
@@ -27869,14 +27956,14 @@ components:
         - types:
           - types
           - types
-          quantity: 3
-          length: 2
+          quantity: 2
+          length: 7
           description: description
           type: "{}"
-          maximumUsers: 706140
-          rate: 2.027123023002322
+          maximumUsers: 930144
+          rate: 4.145608029883936
           isUserCreated: true
-          minimumUsers: 930144
+          minimumUsers: 361608
           name: name
           term: term
           category: category
@@ -27886,14 +27973,14 @@ components:
         - types:
           - types
           - types
-          quantity: 3
-          length: 2
+          quantity: 2
+          length: 7
           description: description
           type: "{}"
-          maximumUsers: 706140
-          rate: 2.027123023002322
+          maximumUsers: 930144
+          rate: 4.145608029883936
           isUserCreated: true
-          minimumUsers: 930144
+          minimumUsers: 361608
           name: name
           term: term
           category: category
@@ -27933,25 +28020,25 @@ components:
               nanos: 1
               units: units
               currencyCode: currencyCode
-            fromAmount: 7.386281948385884
+            fromAmount: 1.2315135367772556
           - startingUsageAmount: startingUsageAmount
             price:
               nanos: 1
               units: units
               currencyCode: currencyCode
-            fromAmount: 7.386281948385884
+            fromAmount: 1.2315135367772556
           types:
           - types
           - types
           description: description
           planName: planName
           usageCount: "{}"
-          rate: 1.0246457001441578
+          rate: 1.4894159098541704
           includedBaseQuantities:
-          - quantity: 4.145608029883936
+          - quantity: 7.386281948385884
             isInfinite: true
             recurringUnit: Monthly
-          - quantity: 4.145608029883936
+          - quantity: 7.386281948385884
             isInfinite: true
             recurringUnit: Monthly
           valueType: "{}"
@@ -27966,25 +28053,25 @@ components:
               nanos: 1
               units: units
               currencyCode: currencyCode
-            fromAmount: 7.386281948385884
+            fromAmount: 1.2315135367772556
           - startingUsageAmount: startingUsageAmount
             price:
               nanos: 1
               units: units
               currencyCode: currencyCode
-            fromAmount: 7.386281948385884
+            fromAmount: 1.2315135367772556
           types:
           - types
           - types
           description: description
           planName: planName
           usageCount: "{}"
-          rate: 1.0246457001441578
+          rate: 1.4894159098541704
           includedBaseQuantities:
-          - quantity: 4.145608029883936
+          - quantity: 7.386281948385884
             isInfinite: true
             recurringUnit: Monthly
-          - quantity: 4.145608029883936
+          - quantity: 7.386281948385884
             isInfinite: true
             recurringUnit: Monthly
           valueType: "{}"
@@ -28041,7 +28128,7 @@ components:
         sellerNotes:
           type: string
         snowflakeProduct:
-          $ref: '#/components/schemas/pkg_structs.SnowflakeMarketplaceProduct'
+          $ref: '#/components/schemas/SnowflakeMarketplaceProduct'
         stripeProduct:
           $ref: '#/components/schemas/StripeProduct'
       type: object
@@ -28289,6 +28376,7 @@ components:
         organizationID:
           type: string
         partner:
+          description: The value is from type Partner string
           type: string
         paymentDueDate:
           format: date-time
@@ -29006,6 +29094,140 @@ components:
       - RevenueReportType_InvoicedAmount
       - RevenueReportType_CollectableAmount
       - RevenueReportType_DisbursedAmount
+    SnowflakeMarketplaceProduct:
+      example:
+        UniformListingLocator:
+          valid: true
+          string: string
+        IsByRequest:
+          valid: true
+          bool: true
+        Owner:
+          valid: true
+          string: string
+        PublishedOn:
+          valid: true
+          time: time
+        DetailedTargetAccounts:
+          valid: true
+          string: string
+        RejectedOn:
+          valid: true
+          time: time
+        TargetAccounts:
+          valid: true
+          string: string
+        Profile:
+          valid: true
+          string: string
+        IsApplication:
+          valid: true
+          bool: true
+        IsLimitedTrial:
+          valid: true
+          bool: true
+        organizationProfileName:
+          valid: true
+          string: string
+        UpdatedOn:
+          valid: true
+          time: time
+        CreatedOn:
+          valid: true
+          time: time
+        Comment:
+          valid: true
+          string: string
+        IsMonetized:
+          valid: true
+          bool: true
+        Title:
+          valid: true
+          string: string
+        Regions:
+          valid: true
+          string: string
+        IsTargeted:
+          valid: true
+          bool: true
+        GlobalName:
+          valid: true
+          string: string
+        Subtitle:
+          valid: true
+          string: string
+        OwnerRoleType:
+          valid: true
+          string: string
+        ReviewState:
+          valid: true
+          string: string
+        State:
+          valid: true
+          string: string
+        Distribution:
+          valid: true
+          string: string
+        name:
+          valid: true
+          string: string
+        IsMountlessQueryable:
+          valid: true
+          bool: true
+      properties:
+        Comment:
+          $ref: '#/components/schemas/database_sql.NullString'
+        CreatedOn:
+          $ref: '#/components/schemas/database_sql.NullTime'
+        DetailedTargetAccounts:
+          $ref: '#/components/schemas/database_sql.NullString'
+        Distribution:
+          $ref: '#/components/schemas/database_sql.NullString'
+        GlobalName:
+          $ref: '#/components/schemas/database_sql.NullString'
+        IsApplication:
+          $ref: '#/components/schemas/database_sql.NullBool'
+        IsByRequest:
+          $ref: '#/components/schemas/database_sql.NullBool'
+        IsLimitedTrial:
+          $ref: '#/components/schemas/database_sql.NullBool'
+        IsMonetized:
+          $ref: '#/components/schemas/database_sql.NullBool'
+        IsMountlessQueryable:
+          $ref: '#/components/schemas/database_sql.NullBool'
+        IsTargeted:
+          $ref: '#/components/schemas/database_sql.NullBool'
+        Owner:
+          $ref: '#/components/schemas/database_sql.NullString'
+        OwnerRoleType:
+          $ref: '#/components/schemas/database_sql.NullString'
+        Profile:
+          $ref: '#/components/schemas/database_sql.NullString'
+        PublishedOn:
+          $ref: '#/components/schemas/database_sql.NullTime'
+        Regions:
+          $ref: '#/components/schemas/database_sql.NullString'
+        RejectedOn:
+          $ref: '#/components/schemas/database_sql.NullTime'
+        ReviewState:
+          $ref: '#/components/schemas/database_sql.NullString'
+        State:
+          $ref: '#/components/schemas/database_sql.NullString'
+        Subtitle:
+          $ref: '#/components/schemas/database_sql.NullString'
+        TargetAccounts:
+          $ref: '#/components/schemas/database_sql.NullString'
+        Title:
+          $ref: '#/components/schemas/database_sql.NullString'
+        UniformListingLocator:
+          $ref: '#/components/schemas/database_sql.NullString'
+        UpdatedOn:
+          $ref: '#/components/schemas/database_sql.NullTime'
+        name:
+          $ref: '#/components/schemas/database_sql.NullString'
+        organizationProfileName:
+          $ref: '#/components/schemas/database_sql.NullString'
+      type: object
     StripeBalanceTransaction:
       properties:
         amount:
@@ -30434,8 +30656,8 @@ components:
             - Types
             - Types
             Description: Description
-            Length: 3
-            Rate: 6.965117697638846
+            Length: 6
+            Rate: 1.284659006116532
             TimeUnit: DAY
             Unit: Unit
             Key: Key
@@ -30444,8 +30666,8 @@ components:
             - Types
             - Types
             Description: Description
-            Length: 3
-            Rate: 6.965117697638846
+            Length: 6
+            Rate: 1.284659006116532
             TimeUnit: DAY
             Unit: Unit
             Key: Key
@@ -30606,7 +30828,7 @@ components:
               - InstanceId
             AccountQuantity: 9
             AliUid: 3
-          invoicedAmount: 9.018348186070783
+          invoicedAmount: 6.438423552598547
           addons:
           - amount: 0.8008281904610115
             name: name
@@ -30727,8 +30949,8 @@ components:
             newPlan: newPlan
             offer: offer
             inputProperties:
-            - 9
-            - 9
+            - 6
+            - 6
             provider: provider
             offerEndTime: 2000-01-23T04:56:07.000+00:00
             offerDuration: offerDuration
@@ -30758,8 +30980,8 @@ components:
             newPlan: newPlan
             offer: offer
             inputProperties:
-            - 9
-            - 9
+            - 6
+            - 6
             provider: provider
             offerEndTime: 2000-01-23T04:56:07.000+00:00
             offerDuration: offerDuration
@@ -30785,18 +31007,18 @@ components:
             productExternalName: productExternalName
             newOfferStartTime: newOfferStartTime
           paymentInstallments:
-          - discountPercentage: 8.762042012749001
-            amount: 9.369310271410669
-            originalAmount: 9.018348186070783
+          - discountPercentage: 9.018348186070783
+            amount: 6.683562403749608
+            originalAmount: 6.438423552598547
             chargeOn: 2000-01-23T04:56:07.000+00:00
             chargeOnStr: chargeOnStr
-            credit: 6.683562403749608
-          - discountPercentage: 8.762042012749001
-            amount: 9.369310271410669
-            originalAmount: 9.018348186070783
+            credit: 8.762042012749001
+          - discountPercentage: 9.018348186070783
+            amount: 6.683562403749608
+            originalAmount: 6.438423552598547
             chargeOn: 2000-01-23T04:56:07.000+00:00
             chargeOnStr: chargeOnStr
-            credit: 6.683562403749608
+            credit: 8.762042012749001
           billableDimensions:
           - priceModelTiered: "{}"
             priceModelTieredPercentage: "{}"
@@ -30833,6 +31055,7 @@ components:
             priceModelVolume: "{}"
             timeUnit: "{}"
           eulaUrl: eulaUrl
+          billingIntervalInMonths: 4
           refundCancellationPolicy: refundCancellationPolicy
           paymentSchedule: "{}"
           autoRenew: true
@@ -31062,12 +31285,12 @@ components:
             CreatedOn: 5
             HostJson: HostJson
             BeganOn: 1
-          disbursedAmount: 9.965781217890562
-          netTermsInDays: 6
+          disbursedAmount: 9.369310271410669
+          netTermsInDays: 3
           dimensionsOversized: true
           eulaType: ""
-          gracePeriodInDays: 6
-          grossAmount: 8.762042012749001
+          gracePeriodInDays: 8
+          grossAmount: 9.018348186070783
           gcpPlans:
           - priceInfo:
               usageFees:
@@ -31077,30 +31300,30 @@ components:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 - startingUsageAmount: startingUsageAmount
                   price:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 metricId: metricId
-                displayQuantity: 7
+                displayQuantity: 1
               - priceTiers:
                 - startingUsageAmount: startingUsageAmount
                   price:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 - startingUsageAmount: startingUsageAmount
                   price:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 metricId: metricId
-                displayQuantity: 7
+                displayQuantity: 1
               subscriptionPlans:
               - period: period
                 price:
@@ -31134,30 +31357,30 @@ components:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 - startingUsageAmount: startingUsageAmount
                   price:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 metricId: metricId
-                displayQuantity: 7
+                displayQuantity: 1
               - priceTiers:
                 - startingUsageAmount: startingUsageAmount
                   price:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 - startingUsageAmount: startingUsageAmount
                   price:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 metricId: metricId
-                displayQuantity: 7
+                displayQuantity: 1
               subscriptionPlans:
               - period: period
                 price:
@@ -31183,7 +31406,7 @@ components:
               featureTitle: featureTitle
               featureName: featureName
               featureDescription: featureDescription
-          collectableAmount: 4.965218492984954
+          collectableAmount: 5.025004791520295
           alertDaysBeforeEnd: 6
           sellerNotes: sellerNotes
           awsAgreement: "{}"
@@ -31192,14 +31415,14 @@ components:
           - types:
             - types
             - types
-            quantity: 3
-            length: 2
+            quantity: 2
+            length: 7
             description: description
             type: "{}"
-            maximumUsers: 706140
-            rate: 2.027123023002322
+            maximumUsers: 930144
+            rate: 4.145608029883936
             isUserCreated: true
-            minimumUsers: 930144
+            minimumUsers: 361608
             name: name
             term: term
             category: category
@@ -31209,22 +31432,23 @@ components:
           - types:
             - types
             - types
-            quantity: 3
-            length: 2
+            quantity: 2
+            length: 7
             description: description
             type: "{}"
-            maximumUsers: 706140
-            rate: 2.027123023002322
+            maximumUsers: 930144
+            rate: 4.145608029883936
             isUserCreated: true
-            minimumUsers: 930144
+            minimumUsers: 361608
             name: name
             term: term
             category: category
             termEndTime: termEndTime
             key: key
             timeUnit: "{}"
+          isMeteringOverageCommit: true
           awsChannelPartner: "{}"
-          commitAmount: 5.025004791520295
+          commitAmount: 9.965781217890562
           dimensions:
           - priceTiers:
             - startingUsageAmount: startingUsageAmount
@@ -31232,25 +31456,25 @@ components:
                 nanos: 1
                 units: units
                 currencyCode: currencyCode
-              fromAmount: 7.386281948385884
+              fromAmount: 1.2315135367772556
             - startingUsageAmount: startingUsageAmount
               price:
                 nanos: 1
                 units: units
                 currencyCode: currencyCode
-              fromAmount: 7.386281948385884
+              fromAmount: 1.2315135367772556
             types:
             - types
             - types
             description: description
             planName: planName
             usageCount: "{}"
-            rate: 1.0246457001441578
+            rate: 1.4894159098541704
             includedBaseQuantities:
-            - quantity: 4.145608029883936
+            - quantity: 7.386281948385884
               isInfinite: true
               recurringUnit: Monthly
-            - quantity: 4.145608029883936
+            - quantity: 7.386281948385884
               isInfinite: true
               recurringUnit: Monthly
             valueType: "{}"
@@ -31265,25 +31489,25 @@ components:
                 nanos: 1
                 units: units
                 currencyCode: currencyCode
-              fromAmount: 7.386281948385884
+              fromAmount: 1.2315135367772556
             - startingUsageAmount: startingUsageAmount
               price:
                 nanos: 1
                 units: units
                 currencyCode: currencyCode
-              fromAmount: 7.386281948385884
+              fromAmount: 1.2315135367772556
             types:
             - types
             - types
             description: description
             planName: planName
             usageCount: "{}"
-            rate: 1.0246457001441578
+            rate: 1.4894159098541704
             includedBaseQuantities:
-            - quantity: 4.145608029883936
+            - quantity: 7.386281948385884
               isInfinite: true
               recurringUnit: Monthly
-            - quantity: 4.145608029883936
+            - quantity: 7.386281948385884
               isInfinite: true
               recurringUnit: Monthly
             valueType: "{}"
@@ -31422,7 +31646,7 @@ components:
               - InstanceId
             AccountQuantity: 9
             AliUid: 3
-          invoicedAmount: 9.018348186070783
+          invoicedAmount: 6.438423552598547
           addons:
           - amount: 0.8008281904610115
             name: name
@@ -31543,8 +31767,8 @@ components:
             newPlan: newPlan
             offer: offer
             inputProperties:
-            - 9
-            - 9
+            - 6
+            - 6
             provider: provider
             offerEndTime: 2000-01-23T04:56:07.000+00:00
             offerDuration: offerDuration
@@ -31574,8 +31798,8 @@ components:
             newPlan: newPlan
             offer: offer
             inputProperties:
-            - 9
-            - 9
+            - 6
+            - 6
             provider: provider
             offerEndTime: 2000-01-23T04:56:07.000+00:00
             offerDuration: offerDuration
@@ -31601,18 +31825,18 @@ components:
             productExternalName: productExternalName
             newOfferStartTime: newOfferStartTime
           paymentInstallments:
-          - discountPercentage: 8.762042012749001
-            amount: 9.369310271410669
-            originalAmount: 9.018348186070783
+          - discountPercentage: 9.018348186070783
+            amount: 6.683562403749608
+            originalAmount: 6.438423552598547
             chargeOn: 2000-01-23T04:56:07.000+00:00
             chargeOnStr: chargeOnStr
-            credit: 6.683562403749608
-          - discountPercentage: 8.762042012749001
-            amount: 9.369310271410669
-            originalAmount: 9.018348186070783
+            credit: 8.762042012749001
+          - discountPercentage: 9.018348186070783
+            amount: 6.683562403749608
+            originalAmount: 6.438423552598547
             chargeOn: 2000-01-23T04:56:07.000+00:00
             chargeOnStr: chargeOnStr
-            credit: 6.683562403749608
+            credit: 8.762042012749001
           billableDimensions:
           - priceModelTiered: "{}"
             priceModelTieredPercentage: "{}"
@@ -31649,6 +31873,7 @@ components:
             priceModelVolume: "{}"
             timeUnit: "{}"
           eulaUrl: eulaUrl
+          billingIntervalInMonths: 4
           refundCancellationPolicy: refundCancellationPolicy
           paymentSchedule: "{}"
           autoRenew: true
@@ -31878,12 +32103,12 @@ components:
             CreatedOn: 5
             HostJson: HostJson
             BeganOn: 1
-          disbursedAmount: 9.965781217890562
-          netTermsInDays: 6
+          disbursedAmount: 9.369310271410669
+          netTermsInDays: 3
           dimensionsOversized: true
           eulaType: ""
-          gracePeriodInDays: 6
-          grossAmount: 8.762042012749001
+          gracePeriodInDays: 8
+          grossAmount: 9.018348186070783
           gcpPlans:
           - priceInfo:
               usageFees:
@@ -31893,30 +32118,30 @@ components:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 - startingUsageAmount: startingUsageAmount
                   price:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 metricId: metricId
-                displayQuantity: 7
+                displayQuantity: 1
               - priceTiers:
                 - startingUsageAmount: startingUsageAmount
                   price:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 - startingUsageAmount: startingUsageAmount
                   price:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 metricId: metricId
-                displayQuantity: 7
+                displayQuantity: 1
               subscriptionPlans:
               - period: period
                 price:
@@ -31950,30 +32175,30 @@ components:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 - startingUsageAmount: startingUsageAmount
                   price:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 metricId: metricId
-                displayQuantity: 7
+                displayQuantity: 1
               - priceTiers:
                 - startingUsageAmount: startingUsageAmount
                   price:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 - startingUsageAmount: startingUsageAmount
                   price:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 metricId: metricId
-                displayQuantity: 7
+                displayQuantity: 1
               subscriptionPlans:
               - period: period
                 price:
@@ -31999,7 +32224,7 @@ components:
               featureTitle: featureTitle
               featureName: featureName
               featureDescription: featureDescription
-          collectableAmount: 4.965218492984954
+          collectableAmount: 5.025004791520295
           alertDaysBeforeEnd: 6
           sellerNotes: sellerNotes
           awsAgreement: "{}"
@@ -32008,14 +32233,14 @@ components:
           - types:
             - types
             - types
-            quantity: 3
-            length: 2
+            quantity: 2
+            length: 7
             description: description
             type: "{}"
-            maximumUsers: 706140
-            rate: 2.027123023002322
+            maximumUsers: 930144
+            rate: 4.145608029883936
             isUserCreated: true
-            minimumUsers: 930144
+            minimumUsers: 361608
             name: name
             term: term
             category: category
@@ -32025,22 +32250,23 @@ components:
           - types:
             - types
             - types
-            quantity: 3
-            length: 2
+            quantity: 2
+            length: 7
             description: description
             type: "{}"
-            maximumUsers: 706140
-            rate: 2.027123023002322
+            maximumUsers: 930144
+            rate: 4.145608029883936
             isUserCreated: true
-            minimumUsers: 930144
+            minimumUsers: 361608
             name: name
             term: term
             category: category
             termEndTime: termEndTime
             key: key
             timeUnit: "{}"
+          isMeteringOverageCommit: true
           awsChannelPartner: "{}"
-          commitAmount: 5.025004791520295
+          commitAmount: 9.965781217890562
           dimensions:
           - priceTiers:
             - startingUsageAmount: startingUsageAmount
@@ -32048,25 +32274,25 @@ components:
                 nanos: 1
                 units: units
                 currencyCode: currencyCode
-              fromAmount: 7.386281948385884
+              fromAmount: 1.2315135367772556
             - startingUsageAmount: startingUsageAmount
               price:
                 nanos: 1
                 units: units
                 currencyCode: currencyCode
-              fromAmount: 7.386281948385884
+              fromAmount: 1.2315135367772556
             types:
             - types
             - types
             description: description
             planName: planName
             usageCount: "{}"
-            rate: 1.0246457001441578
+            rate: 1.4894159098541704
             includedBaseQuantities:
-            - quantity: 4.145608029883936
+            - quantity: 7.386281948385884
               isInfinite: true
               recurringUnit: Monthly
-            - quantity: 4.145608029883936
+            - quantity: 7.386281948385884
               isInfinite: true
               recurringUnit: Monthly
             valueType: "{}"
@@ -32081,25 +32307,25 @@ components:
                 nanos: 1
                 units: units
                 currencyCode: currencyCode
-              fromAmount: 7.386281948385884
+              fromAmount: 1.2315135367772556
             - startingUsageAmount: startingUsageAmount
               price:
                 nanos: 1
                 units: units
                 currencyCode: currencyCode
-              fromAmount: 7.386281948385884
+              fromAmount: 1.2315135367772556
             types:
             - types
             - types
             description: description
             planName: planName
             usageCount: "{}"
-            rate: 1.0246457001441578
+            rate: 1.4894159098541704
             includedBaseQuantities:
-            - quantity: 4.145608029883936
+            - quantity: 7.386281948385884
               isInfinite: true
               recurringUnit: Monthly
-            - quantity: 4.145608029883936
+            - quantity: 7.386281948385884
               isInfinite: true
               recurringUnit: Monthly
             valueType: "{}"
@@ -32195,8 +32421,8 @@ components:
           - Types
           - Types
           Description: Description
-          Length: 3
-          Rate: 6.965117697638846
+          Length: 6
+          Rate: 1.284659006116532
           TimeUnit: DAY
           Unit: Unit
           Key: Key
@@ -32205,8 +32431,8 @@ components:
           - Types
           - Types
           Description: Description
-          Length: 3
-          Rate: 6.965117697638846
+          Length: 6
+          Rate: 1.284659006116532
           TimeUnit: DAY
           Unit: Unit
           Key: Key
@@ -32479,8 +32705,8 @@ components:
             - Types
             - Types
             Description: Description
-            Length: 3
-            Rate: 6.965117697638846
+            Length: 6
+            Rate: 1.284659006116532
             TimeUnit: DAY
             Unit: Unit
             Key: Key
@@ -32489,8 +32715,8 @@ components:
             - Types
             - Types
             Description: Description
-            Length: 3
-            Rate: 6.965117697638846
+            Length: 6
+            Rate: 1.284659006116532
             TimeUnit: DAY
             Unit: Unit
             Key: Key
@@ -32601,18 +32827,18 @@ components:
           - taxIds
           - taxIds
           paymentInstallments:
-          - discountPercentage: 8.762042012749001
-            amount: 9.369310271410669
-            originalAmount: 9.018348186070783
+          - discountPercentage: 9.018348186070783
+            amount: 6.683562403749608
+            originalAmount: 6.438423552598547
             chargeOn: 2000-01-23T04:56:07.000+00:00
             chargeOnStr: chargeOnStr
-            credit: 6.683562403749608
-          - discountPercentage: 8.762042012749001
-            amount: 9.369310271410669
-            originalAmount: 9.018348186070783
+            credit: 8.762042012749001
+          - discountPercentage: 9.018348186070783
+            amount: 6.683562403749608
+            originalAmount: 6.438423552598547
             chargeOn: 2000-01-23T04:56:07.000+00:00
             chargeOnStr: chargeOnStr
-            credit: 6.683562403749608
+            credit: 8.762042012749001
           billableDimensions:
           - priceModelTiered: "{}"
             priceModelTieredPercentage: "{}"
@@ -32711,28 +32937,28 @@ components:
                     commitmentAmountPerPeriodTemplate:
                       decimalAmountConstraint:
                         minAmount:
-                          nanos: 1
+                          nanos: 4
                           units: units
                         defaultAmount:
-                          nanos: 1
+                          nanos: 4
                           units: units
                         maxAmount:
-                          nanos: 1
+                          nanos: 4
                           units: units
                       currencyCode: currencyCode
                     period:
                       unit: MONTHLY_PERIOD
-                      count: 4
+                      count: 5
                     discountTemplate:
                       discountPercentage:
                         minAmount:
-                          nanos: 1
+                          nanos: 4
                           units: units
                         defaultAmount:
-                          nanos: 1
+                          nanos: 4
                           units: units
                         maxAmount:
-                          nanos: 1
+                          nanos: 4
                           units: units
                       discountEconomics: discountEconomics
                       hideDiscountPercentage: true
@@ -32744,17 +32970,17 @@ components:
                   payg:
                     period:
                       unit: MONTHLY_PERIOD
-                      count: 4
+                      count: 5
                     discountTemplate:
                       discountPercentage:
                         minAmount:
-                          nanos: 1
+                          nanos: 4
                           units: units
                         defaultAmount:
-                          nanos: 1
+                          nanos: 4
                           units: units
                         maxAmount:
-                          nanos: 1
+                          nanos: 4
                           units: units
                       discountEconomics: discountEconomics
                       hideDiscountPercentage: true
@@ -32776,17 +33002,17 @@ components:
                   fixedPrice:
                     period:
                       unit: MONTHLY_PERIOD
-                      count: 4
+                      count: 5
                     discountTemplate:
                       discountPercentage:
                         minAmount:
-                          nanos: 1
+                          nanos: 4
                           units: units
                         defaultAmount:
-                          nanos: 1
+                          nanos: 4
                           units: units
                         maxAmount:
-                          nanos: 1
+                          nanos: 4
                           units: units
                       discountEconomics: discountEconomics
                       hideDiscountPercentage: true
@@ -32798,13 +33024,13 @@ components:
                     discountTemplate:
                       discountPercentage:
                         minAmount:
-                          nanos: 1
+                          nanos: 4
                           units: units
                         defaultAmount:
-                          nanos: 1
+                          nanos: 4
                           units: units
                         maxAmount:
-                          nanos: 1
+                          nanos: 4
                           units: units
                       discountEconomics: discountEconomics
                       hideDiscountPercentage: true
@@ -32829,28 +33055,28 @@ components:
                     commitmentAmountPerPeriodTemplate:
                       decimalAmountConstraint:
                         minAmount:
-                          nanos: 1
+                          nanos: 4
                           units: units
                         defaultAmount:
-                          nanos: 1
+                          nanos: 4
                           units: units
                         maxAmount:
-                          nanos: 1
+                          nanos: 4
                           units: units
                       currencyCode: currencyCode
                     period:
                       unit: MONTHLY_PERIOD
-                      count: 4
+                      count: 5
                     discountTemplate:
                       discountPercentage:
                         minAmount:
-                          nanos: 1
+                          nanos: 4
                           units: units
                         defaultAmount:
-                          nanos: 1
+                          nanos: 4
                           units: units
                         maxAmount:
-                          nanos: 1
+                          nanos: 4
                           units: units
                       discountEconomics: discountEconomics
                       hideDiscountPercentage: true
@@ -32862,17 +33088,17 @@ components:
                   payg:
                     period:
                       unit: MONTHLY_PERIOD
-                      count: 4
+                      count: 5
                     discountTemplate:
                       discountPercentage:
                         minAmount:
-                          nanos: 1
+                          nanos: 4
                           units: units
                         defaultAmount:
-                          nanos: 1
+                          nanos: 4
                           units: units
                         maxAmount:
-                          nanos: 1
+                          nanos: 4
                           units: units
                       discountEconomics: discountEconomics
                       hideDiscountPercentage: true
@@ -32894,17 +33120,17 @@ components:
                   fixedPrice:
                     period:
                       unit: MONTHLY_PERIOD
-                      count: 4
+                      count: 5
                     discountTemplate:
                       discountPercentage:
                         minAmount:
-                          nanos: 1
+                          nanos: 4
                           units: units
                         defaultAmount:
-                          nanos: 1
+                          nanos: 4
                           units: units
                         maxAmount:
-                          nanos: 1
+                          nanos: 4
                           units: units
                       discountEconomics: discountEconomics
                       hideDiscountPercentage: true
@@ -32916,13 +33142,13 @@ components:
                     discountTemplate:
                       discountPercentage:
                         minAmount:
-                          nanos: 1
+                          nanos: 4
                           units: units
                         defaultAmount:
-                          nanos: 1
+                          nanos: 4
                           units: units
                         maxAmount:
-                          nanos: 1
+                          nanos: 4
                           units: units
                       discountEconomics: discountEconomics
                       hideDiscountPercentage: true
@@ -32996,21 +33222,21 @@ components:
               termDurationConstraint:
                 defaultDuration:
                   unit: MONTHLY_PERIOD
-                  count: 4
+                  count: 5
               startPolicy: ""
               startTime: 2000-01-23T04:56:07.000+00:00
               endTime: 2000-01-23T04:56:07.000+00:00
               enableScheduledStartTimes: true
               termDuration:
                 unit: MONTHLY_PERIOD
-                count: 4
+                count: 5
           visibility: PRIVATE
           eulaType: ""
           awsMarkupPercentage: 0.8008281904610115
-          gracePeriodInDays: 5
+          gracePeriodInDays: 9
           gcpCustomerInfo: "{}"
           gcpProviderPublicNote: gcpProviderPublicNote
-          gcpDuration: 6
+          gcpDuration: 7
           billingCycle: "{}"
           gcpMetrics:
           - priceTiers:
@@ -33019,13 +33245,13 @@ components:
                 nanos: 1
                 units: units
                 currencyCode: currencyCode
-              fromAmount: 7.386281948385884
+              fromAmount: 1.2315135367772556
             - startingUsageAmount: startingUsageAmount
               price:
                 nanos: 1
                 units: units
                 currencyCode: currencyCode
-              fromAmount: 7.386281948385884
+              fromAmount: 1.2315135367772556
             displayUnitDescription: displayUnitDescription
             unit: unit
             metricKind: metricKind
@@ -33043,13 +33269,13 @@ components:
                 nanos: 1
                 units: units
                 currencyCode: currencyCode
-              fromAmount: 7.386281948385884
+              fromAmount: 1.2315135367772556
             - startingUsageAmount: startingUsageAmount
               price:
                 nanos: 1
                 units: units
                 currencyCode: currencyCode
-              fromAmount: 7.386281948385884
+              fromAmount: 1.2315135367772556
             displayUnitDescription: displayUnitDescription
             unit: unit
             metricKind: metricKind
@@ -33065,14 +33291,14 @@ components:
           - types:
             - types
             - types
-            quantity: 3
-            length: 2
+            quantity: 2
+            length: 7
             description: description
             type: "{}"
-            maximumUsers: 706140
-            rate: 2.027123023002322
+            maximumUsers: 930144
+            rate: 4.145608029883936
             isUserCreated: true
-            minimumUsers: 930144
+            minimumUsers: 361608
             name: name
             term: term
             category: category
@@ -33082,27 +33308,29 @@ components:
           - types:
             - types
             - types
-            quantity: 3
-            length: 2
+            quantity: 2
+            length: 7
             description: description
             type: "{}"
-            maximumUsers: 706140
-            rate: 2.027123023002322
+            maximumUsers: 930144
+            rate: 4.145608029883936
             isUserCreated: true
-            minimumUsers: 930144
+            minimumUsers: 361608
             name: name
             term: term
             category: category
             termEndTime: termEndTime
             key: key
             timeUnit: "{}"
+          isMeteringOverageCommit: true
           proratedBilling: true
           awsChannelPartner: "{}"
           awsCppoOpportunity: "{}"
-          usageBillingIntervalInMonths: 6
+          usageBillingIntervalInMonths: 3
           privateOfferUrl: privateOfferUrl
-          discountPercentage: 1.4894159098541704
-          commitBillingIntervalInMonths: 5
+          discountPercentage: 6.84685269835264
+          commitBillingIntervalInMonths: 2
+          billingIntervalInMonths: 5
           gcpProviderInfo: "{}"
           autoRenew: true
           currency: currency
@@ -33119,30 +33347,30 @@ components:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 - startingUsageAmount: startingUsageAmount
                   price:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 metricId: metricId
-                displayQuantity: 7
+                displayQuantity: 1
               - priceTiers:
                 - startingUsageAmount: startingUsageAmount
                   price:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 - startingUsageAmount: startingUsageAmount
                   price:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 metricId: metricId
-                displayQuantity: 7
+                displayQuantity: 1
               subscriptionPlans:
               - period: period
                 price:
@@ -33176,30 +33404,30 @@ components:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 - startingUsageAmount: startingUsageAmount
                   price:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 metricId: metricId
-                displayQuantity: 7
+                displayQuantity: 1
               - priceTiers:
                 - startingUsageAmount: startingUsageAmount
                   price:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 - startingUsageAmount: startingUsageAmount
                   price:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 metricId: metricId
-                displayQuantity: 7
+                displayQuantity: 1
               subscriptionPlans:
               - period: period
                 price:
@@ -33236,7 +33464,7 @@ components:
           - additionalEulaUrls
           - additionalEulaUrls
           resellerEulaType: "{}"
-          commitAmount: 5.962133916683182
+          commitAmount: 5.637376656633329
           dimensions:
           - priceTiers:
             - startingUsageAmount: startingUsageAmount
@@ -33244,25 +33472,25 @@ components:
                 nanos: 1
                 units: units
                 currencyCode: currencyCode
-              fromAmount: 7.386281948385884
+              fromAmount: 1.2315135367772556
             - startingUsageAmount: startingUsageAmount
               price:
                 nanos: 1
                 units: units
                 currencyCode: currencyCode
-              fromAmount: 7.386281948385884
+              fromAmount: 1.2315135367772556
             types:
             - types
             - types
             description: description
             planName: planName
             usageCount: "{}"
-            rate: 1.0246457001441578
+            rate: 1.4894159098541704
             includedBaseQuantities:
-            - quantity: 4.145608029883936
+            - quantity: 7.386281948385884
               isInfinite: true
               recurringUnit: Monthly
-            - quantity: 4.145608029883936
+            - quantity: 7.386281948385884
               isInfinite: true
               recurringUnit: Monthly
             valueType: "{}"
@@ -33277,25 +33505,25 @@ components:
                 nanos: 1
                 units: units
                 currencyCode: currencyCode
-              fromAmount: 7.386281948385884
+              fromAmount: 1.2315135367772556
             - startingUsageAmount: startingUsageAmount
               price:
                 nanos: 1
                 units: units
                 currencyCode: currencyCode
-              fromAmount: 7.386281948385884
+              fromAmount: 1.2315135367772556
             types:
             - types
             - types
             description: description
             planName: planName
             usageCount: "{}"
-            rate: 1.0246457001441578
+            rate: 1.4894159098541704
             includedBaseQuantities:
-            - quantity: 4.145608029883936
+            - quantity: 7.386281948385884
               isInfinite: true
               recurringUnit: Monthly
-            - quantity: 4.145608029883936
+            - quantity: 7.386281948385884
               isInfinite: true
               recurringUnit: Monthly
             valueType: "{}"
@@ -33398,8 +33626,8 @@ components:
             - Types
             - Types
             Description: Description
-            Length: 3
-            Rate: 6.965117697638846
+            Length: 6
+            Rate: 1.284659006116532
             TimeUnit: DAY
             Unit: Unit
             Key: Key
@@ -33408,8 +33636,8 @@ components:
             - Types
             - Types
             Description: Description
-            Length: 3
-            Rate: 6.965117697638846
+            Length: 6
+            Rate: 1.284659006116532
             TimeUnit: DAY
             Unit: Unit
             Key: Key
@@ -33594,17 +33822,21 @@ components:
                 Text: Text
                 Url: Url
               LogoUrl: LogoUrl
-              VideoUrls:
-              - VideoUrls
-              - VideoUrls
+              Videos:
+              - Type: Type
+                Title: Title
+                Url: Url
+              - Type: Type
+                Title: Title
+                Url: Url
             dataFeedProductId: dataFeedProductId
             Dimensions:
             - Types:
               - Types
               - Types
               Description: Description
-              Length: 3
-              Rate: 6.965117697638846
+              Length: 6
+              Rate: 1.284659006116532
               TimeUnit: DAY
               Unit: Unit
               Key: Key
@@ -33613,8 +33845,8 @@ components:
               - Types
               - Types
               Description: Description
-              Length: 3
-              Rate: 6.965117697638846
+              Length: 6
+              Rate: 1.284659006116532
               TimeUnit: DAY
               Unit: Unit
               Key: Key
@@ -33712,17 +33944,21 @@ components:
                 Text: Text
                 Url: Url
               LogoUrl: LogoUrl
-              VideoUrls:
-              - VideoUrls
-              - VideoUrls
+              Videos:
+              - Type: Type
+                Title: Title
+                Url: Url
+              - Type: Type
+                Title: Title
+                Url: Url
             dataFeedProductId: dataFeedProductId
             Dimensions:
             - Types:
               - Types
               - Types
               Description: Description
-              Length: 3
-              Rate: 6.965117697638846
+              Length: 6
+              Rate: 1.284659006116532
               TimeUnit: DAY
               Unit: Unit
               Key: Key
@@ -33731,8 +33967,8 @@ components:
               - Types
               - Types
               Description: Description
-              Length: 3
-              Rate: 6.965117697638846
+              Length: 6
+              Rate: 1.284659006116532
               TimeUnit: DAY
               Unit: Unit
               Key: Key
@@ -34880,17 +35116,21 @@ components:
                 Text: Text
                 Url: Url
               LogoUrl: LogoUrl
-              VideoUrls:
-              - VideoUrls
-              - VideoUrls
+              Videos:
+              - Type: Type
+                Title: Title
+                Url: Url
+              - Type: Type
+                Title: Title
+                Url: Url
             dataFeedProductId: dataFeedProductId
             Dimensions:
             - Types:
               - Types
               - Types
               Description: Description
-              Length: 3
-              Rate: 6.965117697638846
+              Length: 6
+              Rate: 1.284659006116532
               TimeUnit: DAY
               Unit: Unit
               Key: Key
@@ -34899,8 +35139,8 @@ components:
               - Types
               - Types
               Description: Description
-              Length: 3
-              Rate: 6.965117697638846
+              Length: 6
+              Rate: 1.284659006116532
               TimeUnit: DAY
               Unit: Unit
               Key: Key
@@ -35182,10 +35422,10 @@ components:
                 - unitOfMeasure: unitOfMeasure
                   displayName: displayName
                   includedBaseQuantities:
-                  - quantity: 4.145608029883936
+                  - quantity: 7.386281948385884
                     isInfinite: true
                     recurringUnit: Monthly
-                  - quantity: 4.145608029883936
+                  - quantity: 7.386281948385884
                     isInfinite: true
                     recurringUnit: Monthly
                   isEnabled: true
@@ -35195,10 +35435,10 @@ components:
                 - unitOfMeasure: unitOfMeasure
                   displayName: displayName
                   includedBaseQuantities:
-                  - quantity: 4.145608029883936
+                  - quantity: 7.386281948385884
                     isInfinite: true
                     recurringUnit: Monthly
-                  - quantity: 4.145608029883936
+                  - quantity: 7.386281948385884
                     isInfinite: true
                     recurringUnit: Monthly
                   isEnabled: true
@@ -35352,10 +35592,10 @@ components:
                 - unitOfMeasure: unitOfMeasure
                   displayName: displayName
                   includedBaseQuantities:
-                  - quantity: 4.145608029883936
+                  - quantity: 7.386281948385884
                     isInfinite: true
                     recurringUnit: Monthly
-                  - quantity: 4.145608029883936
+                  - quantity: 7.386281948385884
                     isInfinite: true
                     recurringUnit: Monthly
                   isEnabled: true
@@ -35365,10 +35605,10 @@ components:
                 - unitOfMeasure: unitOfMeasure
                   displayName: displayName
                   includedBaseQuantities:
-                  - quantity: 4.145608029883936
+                  - quantity: 7.386281948385884
                     isInfinite: true
                     recurringUnit: Monthly
-                  - quantity: 4.145608029883936
+                  - quantity: 7.386281948385884
                     isInfinite: true
                     recurringUnit: Monthly
                   isEnabled: true
@@ -35562,10 +35802,10 @@ components:
                 - unitOfMeasure: unitOfMeasure
                   displayName: displayName
                   includedBaseQuantities:
-                  - quantity: 4.145608029883936
+                  - quantity: 7.386281948385884
                     isInfinite: true
                     recurringUnit: Monthly
-                  - quantity: 4.145608029883936
+                  - quantity: 7.386281948385884
                     isInfinite: true
                     recurringUnit: Monthly
                   isEnabled: true
@@ -35575,10 +35815,10 @@ components:
                 - unitOfMeasure: unitOfMeasure
                   displayName: displayName
                   includedBaseQuantities:
-                  - quantity: 4.145608029883936
+                  - quantity: 7.386281948385884
                     isInfinite: true
                     recurringUnit: Monthly
-                  - quantity: 4.145608029883936
+                  - quantity: 7.386281948385884
                     isInfinite: true
                     recurringUnit: Monthly
                   isEnabled: true
@@ -35732,10 +35972,10 @@ components:
                 - unitOfMeasure: unitOfMeasure
                   displayName: displayName
                   includedBaseQuantities:
-                  - quantity: 4.145608029883936
+                  - quantity: 7.386281948385884
                     isInfinite: true
                     recurringUnit: Monthly
-                  - quantity: 4.145608029883936
+                  - quantity: 7.386281948385884
                     isInfinite: true
                     recurringUnit: Monthly
                   isEnabled: true
@@ -35745,10 +35985,10 @@ components:
                 - unitOfMeasure: unitOfMeasure
                   displayName: displayName
                   includedBaseQuantities:
-                  - quantity: 4.145608029883936
+                  - quantity: 7.386281948385884
                     isInfinite: true
                     recurringUnit: Monthly
-                  - quantity: 4.145608029883936
+                  - quantity: 7.386281948385884
                     isInfinite: true
                     recurringUnit: Monthly
                   isEnabled: true
@@ -36255,13 +36495,13 @@ components:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 - startingUsageAmount: startingUsageAmount
                   price:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 displayUnitDescription: displayUnitDescription
                 unit: unit
                 metricKind: metricKind
@@ -36279,13 +36519,13 @@ components:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 - startingUsageAmount: startingUsageAmount
                   price:
                     nanos: 1
                     units: units
                     currencyCode: currencyCode
-                  fromAmount: 7.386281948385884
+                  fromAmount: 1.2315135367772556
                 displayUnitDescription: displayUnitDescription
                 unit: unit
                 metricKind: metricKind
@@ -36356,30 +36596,30 @@ components:
                           nanos: 1
                           units: units
                           currencyCode: currencyCode
-                        fromAmount: 7.386281948385884
+                        fromAmount: 1.2315135367772556
                       - startingUsageAmount: startingUsageAmount
                         price:
                           nanos: 1
                           units: units
                           currencyCode: currencyCode
-                        fromAmount: 7.386281948385884
+                        fromAmount: 1.2315135367772556
                       metricId: metricId
-                      displayQuantity: 7
+                      displayQuantity: 1
                     - priceTiers:
                       - startingUsageAmount: startingUsageAmount
                         price:
                           nanos: 1
                           units: units
                           currencyCode: currencyCode
-                        fromAmount: 7.386281948385884
+                        fromAmount: 1.2315135367772556
                       - startingUsageAmount: startingUsageAmount
                         price:
                           nanos: 1
                           units: units
                           currencyCode: currencyCode
-                        fromAmount: 7.386281948385884
+                        fromAmount: 1.2315135367772556
                       metricId: metricId
-                      displayQuantity: 7
+                      displayQuantity: 1
                     subscriptionPlans:
                     - period: period
                       price:
@@ -36413,30 +36653,30 @@ components:
                           nanos: 1
                           units: units
                           currencyCode: currencyCode
-                        fromAmount: 7.386281948385884
+                        fromAmount: 1.2315135367772556
                       - startingUsageAmount: startingUsageAmount
                         price:
                           nanos: 1
                           units: units
                           currencyCode: currencyCode
-                        fromAmount: 7.386281948385884
+                        fromAmount: 1.2315135367772556
                       metricId: metricId
-                      displayQuantity: 7
+                      displayQuantity: 1
                     - priceTiers:
                       - startingUsageAmount: startingUsageAmount
                         price:
                           nanos: 1
                           units: units
                           currencyCode: currencyCode
-                        fromAmount: 7.386281948385884
+                        fromAmount: 1.2315135367772556
                       - startingUsageAmount: startingUsageAmount
                         price:
                           nanos: 1
                           units: units
                           currencyCode: currencyCode
-                        fromAmount: 7.386281948385884
+                        fromAmount: 1.2315135367772556
                       metricId: metricId
-                      displayQuantity: 7
+                      displayQuantity: 1
                     subscriptionPlans:
                     - period: period
                       price:
@@ -36469,13 +36709,13 @@ components:
                       nanos: 1
                       units: units
                       currencyCode: currencyCode
-                    fromAmount: 7.386281948385884
+                    fromAmount: 1.2315135367772556
                   - startingUsageAmount: startingUsageAmount
                     price:
                       nanos: 1
                       units: units
                       currencyCode: currencyCode
-                    fromAmount: 7.386281948385884
+                    fromAmount: 1.2315135367772556
                   displayUnitDescription: displayUnitDescription
                   unit: unit
                   metricKind: metricKind
@@ -36493,13 +36733,13 @@ components:
                       nanos: 1
                       units: units
                       currencyCode: currencyCode
-                    fromAmount: 7.386281948385884
+                    fromAmount: 1.2315135367772556
                   - startingUsageAmount: startingUsageAmount
                     price:
                       nanos: 1
                       units: units
                       currencyCode: currencyCode
-                    fromAmount: 7.386281948385884
+                    fromAmount: 1.2315135367772556
                   displayUnitDescription: displayUnitDescription
                   unit: unit
                   metricKind: metricKind
@@ -36613,17 +36853,21 @@ components:
                 Text: Text
                 Url: Url
               LogoUrl: LogoUrl
-              VideoUrls:
-              - VideoUrls
-              - VideoUrls
+              Videos:
+              - Type: Type
+                Title: Title
+                Url: Url
+              - Type: Type
+                Title: Title
+                Url: Url
             dataFeedProductId: dataFeedProductId
             Dimensions:
             - Types:
               - Types
               - Types
               Description: Description
-              Length: 3
-              Rate: 6.965117697638846
+              Length: 6
+              Rate: 1.284659006116532
               TimeUnit: DAY
               Unit: Unit
               Key: Key
@@ -36632,8 +36876,8 @@ components:
               - Types
               - Types
               Description: Description
-              Length: 3
-              Rate: 6.965117697638846
+              Length: 6
+              Rate: 1.284659006116532
               TimeUnit: DAY
               Unit: Unit
               Key: Key
@@ -36651,14 +36895,14 @@ components:
           - types:
             - types
             - types
-            quantity: 3
-            length: 2
+            quantity: 2
+            length: 7
             description: description
             type: "{}"
-            maximumUsers: 706140
-            rate: 2.027123023002322
+            maximumUsers: 930144
+            rate: 4.145608029883936
             isUserCreated: true
-            minimumUsers: 930144
+            minimumUsers: 361608
             name: name
             term: term
             category: category
@@ -36668,14 +36912,14 @@ components:
           - types:
             - types
             - types
-            quantity: 3
-            length: 2
+            quantity: 2
+            length: 7
             description: description
             type: "{}"
-            maximumUsers: 706140
-            rate: 2.027123023002322
+            maximumUsers: 930144
+            rate: 4.145608029883936
             isUserCreated: true
-            minimumUsers: 930144
+            minimumUsers: 361608
             name: name
             term: term
             category: category
@@ -36715,25 +36959,25 @@ components:
                 nanos: 1
                 units: units
                 currencyCode: currencyCode
-              fromAmount: 7.386281948385884
+              fromAmount: 1.2315135367772556
             - startingUsageAmount: startingUsageAmount
               price:
                 nanos: 1
                 units: units
                 currencyCode: currencyCode
-              fromAmount: 7.386281948385884
+              fromAmount: 1.2315135367772556
             types:
             - types
             - types
             description: description
             planName: planName
             usageCount: "{}"
-            rate: 1.0246457001441578
+            rate: 1.4894159098541704
             includedBaseQuantities:
-            - quantity: 4.145608029883936
+            - quantity: 7.386281948385884
               isInfinite: true
               recurringUnit: Monthly
-            - quantity: 4.145608029883936
+            - quantity: 7.386281948385884
               isInfinite: true
               recurringUnit: Monthly
             valueType: "{}"
@@ -36748,25 +36992,25 @@ components:
                 nanos: 1
                 units: units
                 currencyCode: currencyCode
-              fromAmount: 7.386281948385884
+              fromAmount: 1.2315135367772556
             - startingUsageAmount: startingUsageAmount
               price:
                 nanos: 1
                 units: units
                 currencyCode: currencyCode
-              fromAmount: 7.386281948385884
+              fromAmount: 1.2315135367772556
             types:
             - types
             - types
             description: description
             planName: planName
             usageCount: "{}"
-            rate: 1.0246457001441578
+            rate: 1.4894159098541704
             includedBaseQuantities:
-            - quantity: 4.145608029883936
+            - quantity: 7.386281948385884
               isInfinite: true
               recurringUnit: Monthly
-            - quantity: 4.145608029883936
+            - quantity: 7.386281948385884
               isInfinite: true
               recurringUnit: Monthly
             valueType: "{}"
@@ -37868,140 +38112,6 @@ components:
           type: array
       type: object
     middleware.Metadata:
-      type: object
-    pkg_structs.SnowflakeMarketplaceProduct:
-      example:
-        UniformListingLocator:
-          valid: true
-          string: string
-        IsByRequest:
-          valid: true
-          bool: true
-        Owner:
-          valid: true
-          string: string
-        PublishedOn:
-          valid: true
-          time: time
-        DetailedTargetAccounts:
-          valid: true
-          string: string
-        RejectedOn:
-          valid: true
-          time: time
-        TargetAccounts:
-          valid: true
-          string: string
-        Profile:
-          valid: true
-          string: string
-        IsApplication:
-          valid: true
-          bool: true
-        IsLimitedTrial:
-          valid: true
-          bool: true
-        organizationProfileName:
-          valid: true
-          string: string
-        UpdatedOn:
-          valid: true
-          time: time
-        CreatedOn:
-          valid: true
-          time: time
-        Comment:
-          valid: true
-          string: string
-        IsMonetized:
-          valid: true
-          bool: true
-        Title:
-          valid: true
-          string: string
-        Regions:
-          valid: true
-          string: string
-        IsTargeted:
-          valid: true
-          bool: true
-        GlobalName:
-          valid: true
-          string: string
-        Subtitle:
-          valid: true
-          string: string
-        OwnerRoleType:
-          valid: true
-          string: string
-        ReviewState:
-          valid: true
-          string: string
-        State:
-          valid: true
-          string: string
-        Distribution:
-          valid: true
-          string: string
-        name:
-          valid: true
-          string: string
-        IsMountlessQueryable:
-          valid: true
-          bool: true
-      properties:
-        Comment:
-          $ref: '#/components/schemas/database_sql.NullString'
-        CreatedOn:
-          $ref: '#/components/schemas/database_sql.NullTime'
-        DetailedTargetAccounts:
-          $ref: '#/components/schemas/database_sql.NullString'
-        Distribution:
-          $ref: '#/components/schemas/database_sql.NullString'
-        GlobalName:
-          $ref: '#/components/schemas/database_sql.NullString'
-        IsApplication:
-          $ref: '#/components/schemas/database_sql.NullBool'
-        IsByRequest:
-          $ref: '#/components/schemas/database_sql.NullBool'
-        IsLimitedTrial:
-          $ref: '#/components/schemas/database_sql.NullBool'
-        IsMonetized:
-          $ref: '#/components/schemas/database_sql.NullBool'
-        IsMountlessQueryable:
-          $ref: '#/components/schemas/database_sql.NullBool'
-        IsTargeted:
-          $ref: '#/components/schemas/database_sql.NullBool'
-        Owner:
-          $ref: '#/components/schemas/database_sql.NullString'
-        OwnerRoleType:
-          $ref: '#/components/schemas/database_sql.NullString'
-        Profile:
-          $ref: '#/components/schemas/database_sql.NullString'
-        PublishedOn:
-          $ref: '#/components/schemas/database_sql.NullTime'
-        Regions:
-          $ref: '#/components/schemas/database_sql.NullString'
-        RejectedOn:
-          $ref: '#/components/schemas/database_sql.NullTime'
-        ReviewState:
-          $ref: '#/components/schemas/database_sql.NullString'
-        State:
-          $ref: '#/components/schemas/database_sql.NullString'
-        Subtitle:
-          $ref: '#/components/schemas/database_sql.NullString'
-        TargetAccounts:
-          $ref: '#/components/schemas/database_sql.NullString'
-        Title:
-          $ref: '#/components/schemas/database_sql.NullString'
-        UniformListingLocator:
-          $ref: '#/components/schemas/database_sql.NullString'
-        UpdatedOn:
-          $ref: '#/components/schemas/database_sql.NullTime'
-        name:
-          $ref: '#/components/schemas/database_sql.NullString'
-        organizationProfileName:
-          $ref: '#/components/schemas/database_sql.NullString'
       type: object
     servicecontrol.ReportError:
       properties:

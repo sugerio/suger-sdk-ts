@@ -50,5 +50,6 @@ export enum NotificationEventAction {
     NotificationEventAction_SUBMIT_APPROVAL_REQUEST = 'SUBMIT_APPROVAL_REQUEST',
     NotificationEventAction_REVIEW_APPROVAL_REQUEST = 'REVIEW_APPROVAL_REQUEST',
     NotificationEventAction_COMPLETE = 'COMPLETE',
-    NotificationEventAction_FAIL = 'FAIL'
+    NotificationEventAction_FAIL = 'FAIL',
+    NotificationEventAction_WEBHOOK = 'WEBHOOK'
 }

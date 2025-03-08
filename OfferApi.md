@@ -147,6 +147,7 @@ const request: OfferApiCreateOfferRequest = {
         },
       ],
       billingCycle: ,
+      billingIntervalInMonths: 1,
       buyerAwsAccountIds: [
         "buyerAwsAccountIds_example",
       ],
@@ -587,6 +588,7 @@ const request: OfferApiCreateOfferRequest = {
       },
       gcpUsagePlanPriceModel: ,
       gracePeriodInDays: 1,
+      isMeteringOverageCommit: true,
       netTermsInDays: 1,
       paymentInstallments: [
         {
@@ -830,6 +832,7 @@ const request: OfferApiCreateOrUpdateDraftOfferRequest = {
         },
       ],
       billingCycle: ,
+      billingIntervalInMonths: 1,
       buyerAwsAccountIds: [
         "buyerAwsAccountIds_example",
       ],
@@ -1270,6 +1273,7 @@ const request: OfferApiCreateOrUpdateDraftOfferRequest = {
       },
       gcpUsagePlanPriceModel: ,
       gracePeriodInDays: 1,
+      isMeteringOverageCommit: true,
       netTermsInDays: 1,
       paymentInstallments: [
         {

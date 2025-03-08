@@ -75,6 +75,10 @@ export class EntitlementInfo {
     */
     'billingCycle'?: BillingCycle;
     /**
+    * The billing interval from the offer.
+    */
+    'billingIntervalInMonths'?: number;
+    /**
     * The amount that the seller can collect. It excludes the marketplace commision fee.
     */
     'collectableAmount'?: number;
@@ -124,6 +128,10 @@ export class EntitlementInfo {
     * The amount that the buyer has got invoiced.
     */
     'invoicedAmount'?: number;
+    /**
+    * Whether the usage metering will be charged for the amount that exceeds the committed amount from the offer.
+    */
+    'isMeteringOverageCommit'?: boolean;
     /**
     * The net terms for the offer. It is same as the TrialConfig in DirectOfferInfo. But can be overridden at the entitlement level.
     */
@@ -219,6 +227,12 @@ export class EntitlementInfo {
             "format": ""
         },
         {
+            "name": "billingIntervalInMonths",
+            "baseName": "billingIntervalInMonths",
+            "type": "number",
+            "format": ""
+        },
+        {
             "name": "collectableAmount",
             "baseName": "collectableAmount",
             "type": "number",
@@ -300,6 +314,12 @@ export class EntitlementInfo {
             "name": "invoicedAmount",
             "baseName": "invoicedAmount",
             "type": "number",
+            "format": ""
+        },
+        {
+            "name": "isMeteringOverageCommit",
+            "baseName": "isMeteringOverageCommit",
+            "type": "boolean",
             "format": ""
         },
         {

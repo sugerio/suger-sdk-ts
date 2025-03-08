@@ -68,6 +68,7 @@ import { AwsProductRepository } from '../models/AwsProductRepository';
 import { AwsProductSignatureVerificationKey } from '../models/AwsProductSignatureVerificationKey';
 import { AwsProductSupportInformation } from '../models/AwsProductSupportInformation';
 import { AwsProductVersion } from '../models/AwsProductVersion';
+import { AwsProductVideo } from '../models/AwsProductVideo';
 import { AwsRenewalOfferType } from '../models/AwsRenewalOfferType';
 import { AwsSnsSubscription } from '../models/AwsSnsSubscription';
 import { AwsSnsSubscriptionStatus } from '../models/AwsSnsSubscriptionStatus';
@@ -391,7 +392,6 @@ import { PartnerUsageMeteringConfig } from '../models/PartnerUsageMeteringConfig
 import { PaymentConfig } from '../models/PaymentConfig';
 import { PaymentInstallment } from '../models/PaymentInstallment';
 import { PaymentScheduleType } from '../models/PaymentScheduleType';
-import { PkgStructsSnowflakeMarketplaceProduct } from '../models/PkgStructsSnowflakeMarketplaceProduct';
 import { PriceModelBasic } from '../models/PriceModelBasic';
 import { PriceModelBulk } from '../models/PriceModelBulk';
 import { PriceModelCategory } from '../models/PriceModelCategory';
@@ -415,6 +415,7 @@ import { RevenueReportType } from '../models/RevenueReportType';
 import { ServicecontrolReportError } from '../models/ServicecontrolReportError';
 import { ServicecontrolReportResponse } from '../models/ServicecontrolReportResponse';
 import { ServicecontrolStatus } from '../models/ServicecontrolStatus';
+import { SnowflakeMarketplaceProduct } from '../models/SnowflakeMarketplaceProduct';
 import { StripeBalanceTransaction } from '../models/StripeBalanceTransaction';
 import { StripeBalanceTransactionFeeDetail } from '../models/StripeBalanceTransactionFeeDetail';
 import { StripeCustomer } from '../models/StripeCustomer';
@@ -2253,11 +2254,13 @@ export class ObservableEntitlementApi {
      * @param [productId] filter by productId
      * @param [offerId] filter by offerId
      * @param [buyerId] filter by buyerId
+     * @param [externalId] filter by externalId
+     * @param [buyerAccountId] filter by buyerAccountId is currently supported only for AWS
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listEntitlementsWithHttpInfo(orgId: string, partner?: string, productId?: string, offerId?: string, buyerId?: string, limit?: number, offset?: number, _options?: Configuration): Observable<HttpInfo<Array<WorkloadEntitlement>>> {
-        const requestContextPromise = this.requestFactory.listEntitlements(orgId, partner, productId, offerId, buyerId, limit, offset, _options);
+    public listEntitlementsWithHttpInfo(orgId: string, partner?: string, productId?: string, offerId?: string, buyerId?: string, externalId?: string, buyerAccountId?: string, limit?: number, offset?: number, _options?: Configuration): Observable<HttpInfo<Array<WorkloadEntitlement>>> {
+        const requestContextPromise = this.requestFactory.listEntitlements(orgId, partner, productId, offerId, buyerId, externalId, buyerAccountId, limit, offset, _options);
 
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
@@ -2283,11 +2286,13 @@ export class ObservableEntitlementApi {
      * @param [productId] filter by productId
      * @param [offerId] filter by offerId
      * @param [buyerId] filter by buyerId
+     * @param [externalId] filter by externalId
+     * @param [buyerAccountId] filter by buyerAccountId is currently supported only for AWS
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listEntitlements(orgId: string, partner?: string, productId?: string, offerId?: string, buyerId?: string, limit?: number, offset?: number, _options?: Configuration): Observable<Array<WorkloadEntitlement>> {
-        return this.listEntitlementsWithHttpInfo(orgId, partner, productId, offerId, buyerId, limit, offset, _options).pipe(map((apiResponse: HttpInfo<Array<WorkloadEntitlement>>) => apiResponse.data));
+    public listEntitlements(orgId: string, partner?: string, productId?: string, offerId?: string, buyerId?: string, externalId?: string, buyerAccountId?: string, limit?: number, offset?: number, _options?: Configuration): Observable<Array<WorkloadEntitlement>> {
+        return this.listEntitlementsWithHttpInfo(orgId, partner, productId, offerId, buyerId, externalId, buyerAccountId, limit, offset, _options).pipe(map((apiResponse: HttpInfo<Array<WorkloadEntitlement>>) => apiResponse.data));
     }
 
     /**
@@ -2437,8 +2442,8 @@ export class ObservableEntitlementApi {
     }
 
     /**
-     * Update the seat number of the entitlement. Only active AZURE entitlement can be updated.
-     * update entitlement seat
+     * Update the seat number for the active AZURE subscription.
+     * update seat for the active AZURE subscription
      * @param orgId Organization ID
      * @param entitlementId Entitlement ID
      * @param newSeat New seat number
@@ -2463,8 +2468,8 @@ export class ObservableEntitlementApi {
     }
 
     /**
-     * Update the seat number of the entitlement. Only active AZURE entitlement can be updated.
-     * update entitlement seat
+     * Update the seat number for the active AZURE subscription.
+     * update seat for the active AZURE subscription
      * @param orgId Organization ID
      * @param entitlementId Entitlement ID
      * @param newSeat New seat number

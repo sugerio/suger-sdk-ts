@@ -11,15 +11,13 @@
  */
 
 import { AwsProductAdditionalResource } from '../models/AwsProductAdditionalResource';
+import { AwsProductVideo } from '../models/AwsProductVideo';
 import { HttpFile } from '../http/http';
 
 export class AwsProductPromotionalResources {
     'additionalResources'?: Array<AwsProductAdditionalResource>;
     'logoUrl'?: string;
-    /**
-    * Currently, AWS only support 1 url in the array.
-    */
-    'videoUrls'?: Array<string>;
+    'videos'?: Array<AwsProductVideo>;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -39,9 +37,9 @@ export class AwsProductPromotionalResources {
             "format": ""
         },
         {
-            "name": "videoUrls",
-            "baseName": "VideoUrls",
-            "type": "Array<string>",
+            "name": "videos",
+            "baseName": "Videos",
+            "type": "Array<AwsProductVideo>",
             "format": ""
         }    ];
 

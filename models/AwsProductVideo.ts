@@ -10,12 +10,12 @@
  * Do not edit the class manually.
  */
 
-import { GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageBatchEventOkMessage } from '../models/GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageBatchEventOkMessage';
 import { HttpFile } from '../http/http';
 
-export class GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1BatchUsageEventOkResponse {
-    'count'?: number;
-    'result'?: Array<GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageBatchEventOkMessage>;
+export class AwsProductVideo {
+    'title'?: string;
+    'type'?: string;
+    'url'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -23,20 +23,26 @@ export class GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1Batc
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
-            "name": "count",
-            "baseName": "count",
-            "type": "number",
+            "name": "title",
+            "baseName": "Title",
+            "type": "string",
             "format": ""
         },
         {
-            "name": "result",
-            "baseName": "result",
-            "type": "Array<GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1UsageBatchEventOkMessage>",
+            "name": "type",
+            "baseName": "Type",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "url",
+            "baseName": "Url",
+            "type": "string",
             "format": ""
         }    ];
 
     static getAttributeTypeMap() {
-        return GithubComSugerioMarketplaceServiceAzureSdkMarketplacemeteringv1BatchUsageEventOkResponse.attributeTypeMap;
+        return AwsProductVideo.attributeTypeMap;
     }
 
     public constructor() {

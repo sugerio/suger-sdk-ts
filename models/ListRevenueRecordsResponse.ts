@@ -15,6 +15,9 @@ import { HttpFile } from '../http/http';
 
 export class ListRevenueRecordsResponse {
     'nextOffset'?: number;
+    /**
+    * list of revenue records.
+    */
     'revenueRecords'?: Array<RevenueRecord>;
 
     static readonly discriminator: string | undefined = undefined;

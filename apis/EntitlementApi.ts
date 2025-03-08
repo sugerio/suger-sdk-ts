@@ -572,16 +572,20 @@ export class EntitlementApiRequestFactory extends BaseAPIRequestFactory {
      * @param productId filter by productId
      * @param offerId filter by offerId
      * @param buyerId filter by buyerId
+     * @param externalId filter by externalId
+     * @param buyerAccountId filter by buyerAccountId is currently supported only for AWS
      * @param limit List pagination size, default 1000, max value is 1000
      * @param offset List pagination offset, default 0
      */
-    public async listEntitlements(orgId: string, partner?: string, productId?: string, offerId?: string, buyerId?: string, limit?: number, offset?: number, _options?: Configuration): Promise<RequestContext> {
+    public async listEntitlements(orgId: string, partner?: string, productId?: string, offerId?: string, buyerId?: string, externalId?: string, buyerAccountId?: string, limit?: number, offset?: number, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'orgId' is not null or undefined
         if (orgId === null || orgId === undefined) {
             throw new RequiredError("EntitlementApi", "listEntitlements", "orgId");
         }
+
+
 
 
 
@@ -616,6 +620,16 @@ export class EntitlementApiRequestFactory extends BaseAPIRequestFactory {
         // Query Params
         if (buyerId !== undefined) {
             requestContext.setQueryParam("buyerId", ObjectSerializer.serialize(buyerId, "string", ""));
+        }
+
+        // Query Params
+        if (externalId !== undefined) {
+            requestContext.setQueryParam("externalId", ObjectSerializer.serialize(externalId, "string", ""));
+        }
+
+        // Query Params
+        if (buyerAccountId !== undefined) {
+            requestContext.setQueryParam("buyerAccountId", ObjectSerializer.serialize(buyerAccountId, "string", ""));
         }
 
         // Query Params
@@ -883,8 +897,8 @@ export class EntitlementApiRequestFactory extends BaseAPIRequestFactory {
     }
 
     /**
-     * Update the seat number of the entitlement. Only active AZURE entitlement can be updated.
-     * update entitlement seat
+     * Update the seat number for the active AZURE subscription.
+     * update seat for the active AZURE subscription
      * @param orgId Organization ID
      * @param entitlementId Entitlement ID
      * @param newSeat New seat number
