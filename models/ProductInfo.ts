@@ -28,6 +28,7 @@ export class ProductInfo {
     'attributes'?: { [key: string]: string; };
     'awsAmiProduct'?: AwsProduct;
     'awsContainerProduct'?: AwsProduct;
+    'awsMachineLearningProduct'?: AwsProduct;
     'awsProfessionalServicesProduct'?: AwsProduct;
     'awsSaasProduct'?: AwsProduct;
     'awsSnsSubscriptions'?: Array<AwsSnsSubscription>;
@@ -76,6 +77,12 @@ export class ProductInfo {
         {
             "name": "awsContainerProduct",
             "baseName": "awsContainerProduct",
+            "type": "AwsProduct",
+            "format": ""
+        },
+        {
+            "name": "awsMachineLearningProduct",
+            "baseName": "awsMachineLearningProduct",
             "type": "AwsProduct",
             "format": ""
         },

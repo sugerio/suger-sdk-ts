@@ -16,11 +16,11 @@ export class StripePaymentMethodUSBankAccount {
     /**
     * Account holder type: individual or company.
     */
-    'accountHolderType'?: string;
+    'accountHolderType'?: StripePaymentMethodUSBankAccountAccountHolderTypeEnum;
     /**
     * Account type: checkings or savings. Defaults to checking if omitted.
     */
-    'accountType'?: string;
+    'accountType'?: StripePaymentMethodUSBankAccountAccountTypeEnum;
     /**
     * The name of the bank.
     */
@@ -46,13 +46,13 @@ export class StripePaymentMethodUSBankAccount {
         {
             "name": "accountHolderType",
             "baseName": "account_holder_type",
-            "type": "string",
+            "type": "StripePaymentMethodUSBankAccountAccountHolderTypeEnum",
             "format": ""
         },
         {
             "name": "accountType",
             "baseName": "account_type",
-            "type": "string",
+            "type": "StripePaymentMethodUSBankAccountAccountTypeEnum",
             "format": ""
         },
         {
@@ -87,3 +87,13 @@ export class StripePaymentMethodUSBankAccount {
     public constructor() {
     }
 }
+
+export enum StripePaymentMethodUSBankAccountAccountHolderTypeEnum {
+    Individual = 'individual',
+    Company = 'company'
+}
+export enum StripePaymentMethodUSBankAccountAccountTypeEnum {
+    Checking = 'checking',
+    Savings = 'savings'
+}
+

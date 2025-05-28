@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 
+import { GcpMarketplaceOfferDealType } from '../models/GcpMarketplaceOfferDealType';
 import { GcpMarketplaceOfferProration } from '../models/GcpMarketplaceOfferProration';
 import { HttpFile } from '../http/http';
 
@@ -20,6 +21,7 @@ export class GcpMarketplaceOfferTemplatePolicies {
     * such as \"3\"
     */
     'maxRenewalTimes'?: string;
+    'offerDealType'?: GcpMarketplaceOfferDealType;
     'proration'?: GcpMarketplaceOfferProration;
 
     static readonly discriminator: string | undefined = undefined;
@@ -43,6 +45,12 @@ export class GcpMarketplaceOfferTemplatePolicies {
             "name": "maxRenewalTimes",
             "baseName": "maxRenewalTimes",
             "type": "string",
+            "format": ""
+        },
+        {
+            "name": "offerDealType",
+            "baseName": "offerDealType",
+            "type": "GcpMarketplaceOfferDealType",
             "format": ""
         },
         {

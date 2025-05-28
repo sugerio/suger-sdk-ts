@@ -68,7 +68,7 @@ export class BillingApiRequestFactory extends BaseAPIRequestFactory {
             await authMethod?.applySecurityAuthentication(requestContext);
         }
         
-        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        const defaultAuth: SecurityAuthentication | undefined = _config?.authMethods?.default
         if (defaultAuth?.applySecurityAuthentication) {
             await defaultAuth?.applySecurityAuthentication(requestContext);
         }
@@ -134,7 +134,7 @@ export class BillingApiRequestFactory extends BaseAPIRequestFactory {
             await authMethod?.applySecurityAuthentication(requestContext);
         }
         
-        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        const defaultAuth: SecurityAuthentication | undefined = _config?.authMethods?.default
         if (defaultAuth?.applySecurityAuthentication) {
             await defaultAuth?.applySecurityAuthentication(requestContext);
         }
@@ -180,7 +180,7 @@ export class BillingApiRequestFactory extends BaseAPIRequestFactory {
             await authMethod?.applySecurityAuthentication(requestContext);
         }
         
-        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        const defaultAuth: SecurityAuthentication | undefined = _config?.authMethods?.default
         if (defaultAuth?.applySecurityAuthentication) {
             await defaultAuth?.applySecurityAuthentication(requestContext);
         }
@@ -226,7 +226,7 @@ export class BillingApiRequestFactory extends BaseAPIRequestFactory {
             await authMethod?.applySecurityAuthentication(requestContext);
         }
         
-        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        const defaultAuth: SecurityAuthentication | undefined = _config?.authMethods?.default
         if (defaultAuth?.applySecurityAuthentication) {
             await defaultAuth?.applySecurityAuthentication(requestContext);
         }
@@ -240,18 +240,18 @@ export class BillingApiRequestFactory extends BaseAPIRequestFactory {
      * @param orgId Organization ID
      * @param invoiceId Invoice ID
      */
-    public async getInvoiceV2(orgId: string, invoiceId: string, _options?: Configuration): Promise<RequestContext> {
+    public async getInvoice(orgId: string, invoiceId: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'orgId' is not null or undefined
         if (orgId === null || orgId === undefined) {
-            throw new RequiredError("BillingApi", "getInvoiceV2", "orgId");
+            throw new RequiredError("BillingApi", "getInvoice", "orgId");
         }
 
 
         // verify required parameter 'invoiceId' is not null or undefined
         if (invoiceId === null || invoiceId === undefined) {
-            throw new RequiredError("BillingApi", "getInvoiceV2", "invoiceId");
+            throw new RequiredError("BillingApi", "getInvoice", "invoiceId");
         }
 
 
@@ -272,7 +272,7 @@ export class BillingApiRequestFactory extends BaseAPIRequestFactory {
             await authMethod?.applySecurityAuthentication(requestContext);
         }
         
-        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        const defaultAuth: SecurityAuthentication | undefined = _config?.authMethods?.default
         if (defaultAuth?.applySecurityAuthentication) {
             await defaultAuth?.applySecurityAuthentication(requestContext);
         }
@@ -287,18 +287,18 @@ export class BillingApiRequestFactory extends BaseAPIRequestFactory {
      * @param invoiceId Invoice ID
      * @param contactIds List of Contact IDs
      */
-    public async issueInvoiceV2(orgId: string, invoiceId: string, contactIds?: Array<string>, _options?: Configuration): Promise<RequestContext> {
+    public async issueInvoice(orgId: string, invoiceId: string, contactIds?: Array<string>, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'orgId' is not null or undefined
         if (orgId === null || orgId === undefined) {
-            throw new RequiredError("BillingApi", "issueInvoiceV2", "orgId");
+            throw new RequiredError("BillingApi", "issueInvoice", "orgId");
         }
 
 
         // verify required parameter 'invoiceId' is not null or undefined
         if (invoiceId === null || invoiceId === undefined) {
-            throw new RequiredError("BillingApi", "issueInvoiceV2", "invoiceId");
+            throw new RequiredError("BillingApi", "issueInvoice", "invoiceId");
         }
 
 
@@ -331,7 +331,7 @@ export class BillingApiRequestFactory extends BaseAPIRequestFactory {
             await authMethod?.applySecurityAuthentication(requestContext);
         }
         
-        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        const defaultAuth: SecurityAuthentication | undefined = _config?.authMethods?.default
         if (defaultAuth?.applySecurityAuthentication) {
             await defaultAuth?.applySecurityAuthentication(requestContext);
         }
@@ -383,7 +383,7 @@ export class BillingApiRequestFactory extends BaseAPIRequestFactory {
             await authMethod?.applySecurityAuthentication(requestContext);
         }
         
-        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        const defaultAuth: SecurityAuthentication | undefined = _config?.authMethods?.default
         if (defaultAuth?.applySecurityAuthentication) {
             await defaultAuth?.applySecurityAuthentication(requestContext);
         }
@@ -456,7 +456,7 @@ export class BillingApiRequestFactory extends BaseAPIRequestFactory {
             await authMethod?.applySecurityAuthentication(requestContext);
         }
         
-        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        const defaultAuth: SecurityAuthentication | undefined = _config?.authMethods?.default
         if (defaultAuth?.applySecurityAuthentication) {
             await defaultAuth?.applySecurityAuthentication(requestContext);
         }
@@ -543,7 +543,7 @@ export class BillingApiRequestFactory extends BaseAPIRequestFactory {
             await authMethod?.applySecurityAuthentication(requestContext);
         }
         
-        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        const defaultAuth: SecurityAuthentication | undefined = _config?.authMethods?.default
         if (defaultAuth?.applySecurityAuthentication) {
             await defaultAuth?.applySecurityAuthentication(requestContext);
         }
@@ -597,7 +597,7 @@ export class BillingApiRequestFactory extends BaseAPIRequestFactory {
             await authMethod?.applySecurityAuthentication(requestContext);
         }
         
-        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        const defaultAuth: SecurityAuthentication | undefined = _config?.authMethods?.default
         if (defaultAuth?.applySecurityAuthentication) {
             await defaultAuth?.applySecurityAuthentication(requestContext);
         }
@@ -611,18 +611,18 @@ export class BillingApiRequestFactory extends BaseAPIRequestFactory {
      * @param orgId Organization ID
      * @param invoiceId Invoice ID
      */
-    public async payInvoiceV2(orgId: string, invoiceId: string, _options?: Configuration): Promise<RequestContext> {
+    public async payInvoice(orgId: string, invoiceId: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'orgId' is not null or undefined
         if (orgId === null || orgId === undefined) {
-            throw new RequiredError("BillingApi", "payInvoiceV2", "orgId");
+            throw new RequiredError("BillingApi", "payInvoice", "orgId");
         }
 
 
         // verify required parameter 'invoiceId' is not null or undefined
         if (invoiceId === null || invoiceId === undefined) {
-            throw new RequiredError("BillingApi", "payInvoiceV2", "invoiceId");
+            throw new RequiredError("BillingApi", "payInvoice", "invoiceId");
         }
 
 
@@ -643,7 +643,7 @@ export class BillingApiRequestFactory extends BaseAPIRequestFactory {
             await authMethod?.applySecurityAuthentication(requestContext);
         }
         
-        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        const defaultAuth: SecurityAuthentication | undefined = _config?.authMethods?.default
         if (defaultAuth?.applySecurityAuthentication) {
             await defaultAuth?.applySecurityAuthentication(requestContext);
         }
@@ -689,7 +689,7 @@ export class BillingApiRequestFactory extends BaseAPIRequestFactory {
             await authMethod?.applySecurityAuthentication(requestContext);
         }
         
-        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        const defaultAuth: SecurityAuthentication | undefined = _config?.authMethods?.default
         if (defaultAuth?.applySecurityAuthentication) {
             await defaultAuth?.applySecurityAuthentication(requestContext);
         }
@@ -753,7 +753,7 @@ export class BillingApiRequestFactory extends BaseAPIRequestFactory {
             await authMethod?.applySecurityAuthentication(requestContext);
         }
         
-        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        const defaultAuth: SecurityAuthentication | undefined = _config?.authMethods?.default
         if (defaultAuth?.applySecurityAuthentication) {
             await defaultAuth?.applySecurityAuthentication(requestContext);
         }
@@ -768,24 +768,24 @@ export class BillingApiRequestFactory extends BaseAPIRequestFactory {
      * @param invoiceId Invoice ID
      * @param data Update Invoice Info Request Params
      */
-    public async updateInvoiceInfoV2(orgId: string, invoiceId: string, data: UpdateInvoiceInfoRequest, _options?: Configuration): Promise<RequestContext> {
+    public async updateInvoiceInfo(orgId: string, invoiceId: string, data: UpdateInvoiceInfoRequest, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'orgId' is not null or undefined
         if (orgId === null || orgId === undefined) {
-            throw new RequiredError("BillingApi", "updateInvoiceInfoV2", "orgId");
+            throw new RequiredError("BillingApi", "updateInvoiceInfo", "orgId");
         }
 
 
         // verify required parameter 'invoiceId' is not null or undefined
         if (invoiceId === null || invoiceId === undefined) {
-            throw new RequiredError("BillingApi", "updateInvoiceInfoV2", "invoiceId");
+            throw new RequiredError("BillingApi", "updateInvoiceInfo", "invoiceId");
         }
 
 
         // verify required parameter 'data' is not null or undefined
         if (data === null || data === undefined) {
-            throw new RequiredError("BillingApi", "updateInvoiceInfoV2", "data");
+            throw new RequiredError("BillingApi", "updateInvoiceInfo", "data");
         }
 
 
@@ -817,7 +817,7 @@ export class BillingApiRequestFactory extends BaseAPIRequestFactory {
             await authMethod?.applySecurityAuthentication(requestContext);
         }
         
-        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        const defaultAuth: SecurityAuthentication | undefined = _config?.authMethods?.default
         if (defaultAuth?.applySecurityAuthentication) {
             await defaultAuth?.applySecurityAuthentication(requestContext);
         }
@@ -831,18 +831,18 @@ export class BillingApiRequestFactory extends BaseAPIRequestFactory {
      * @param orgId Organization ID
      * @param invoiceId Invoice ID
      */
-    public async voidInvoiceV2(orgId: string, invoiceId: string, _options?: Configuration): Promise<RequestContext> {
+    public async voidInvoice(orgId: string, invoiceId: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'orgId' is not null or undefined
         if (orgId === null || orgId === undefined) {
-            throw new RequiredError("BillingApi", "voidInvoiceV2", "orgId");
+            throw new RequiredError("BillingApi", "voidInvoice", "orgId");
         }
 
 
         // verify required parameter 'invoiceId' is not null or undefined
         if (invoiceId === null || invoiceId === undefined) {
-            throw new RequiredError("BillingApi", "voidInvoiceV2", "invoiceId");
+            throw new RequiredError("BillingApi", "voidInvoice", "invoiceId");
         }
 
 
@@ -863,7 +863,7 @@ export class BillingApiRequestFactory extends BaseAPIRequestFactory {
             await authMethod?.applySecurityAuthentication(requestContext);
         }
         
-        const defaultAuth: SecurityAuthentication | undefined = _options?.authMethods?.default || this.configuration?.authMethods?.default
+        const defaultAuth: SecurityAuthentication | undefined = _config?.authMethods?.default
         if (defaultAuth?.applySecurityAuthentication) {
             await defaultAuth?.applySecurityAuthentication(requestContext);
         }
@@ -1051,10 +1051,10 @@ export class BillingApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to getInvoiceV2
+     * @params response Response returned by the server for a request to getInvoice
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async getInvoiceV2WithHttpInfo(response: ResponseContext): Promise<HttpInfo<BillingInvoice >> {
+     public async getInvoiceWithHttpInfo(response: ResponseContext): Promise<HttpInfo<BillingInvoice >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: BillingInvoice = ObjectSerializer.deserialize(
@@ -1094,10 +1094,10 @@ export class BillingApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to issueInvoiceV2
+     * @params response Response returned by the server for a request to issueInvoice
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async issueInvoiceV2WithHttpInfo(response: ResponseContext): Promise<HttpInfo<BillingInvoice >> {
+     public async issueInvoiceWithHttpInfo(response: ResponseContext): Promise<HttpInfo<BillingInvoice >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: BillingInvoice = ObjectSerializer.deserialize(
@@ -1309,10 +1309,10 @@ export class BillingApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to payInvoiceV2
+     * @params response Response returned by the server for a request to payInvoice
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async payInvoiceV2WithHttpInfo(response: ResponseContext): Promise<HttpInfo<BillingInvoice >> {
+     public async payInvoiceWithHttpInfo(response: ResponseContext): Promise<HttpInfo<BillingInvoice >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: BillingInvoice = ObjectSerializer.deserialize(
@@ -1438,10 +1438,10 @@ export class BillingApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to updateInvoiceInfoV2
+     * @params response Response returned by the server for a request to updateInvoiceInfo
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async updateInvoiceInfoV2WithHttpInfo(response: ResponseContext): Promise<HttpInfo<BillingInvoiceInfo >> {
+     public async updateInvoiceInfoWithHttpInfo(response: ResponseContext): Promise<HttpInfo<BillingInvoiceInfo >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: BillingInvoiceInfo = ObjectSerializer.deserialize(
@@ -1481,10 +1481,10 @@ export class BillingApiResponseProcessor {
      * Unwraps the actual response sent by the server from the response context and deserializes the response content
      * to the expected objects
      *
-     * @params response Response returned by the server for a request to voidInvoiceV2
+     * @params response Response returned by the server for a request to voidInvoice
      * @throws ApiException if the response code was not in [200, 299]
      */
-     public async voidInvoiceV2WithHttpInfo(response: ResponseContext): Promise<HttpInfo<BillingInvoice >> {
+     public async voidInvoiceWithHttpInfo(response: ResponseContext): Promise<HttpInfo<BillingInvoice >> {
         const contentType = ObjectSerializer.normalizeMediaType(response.headers["content-type"]);
         if (isCodeInRange("200", response.httpStatusCode)) {
             const body: BillingInvoice = ObjectSerializer.deserialize(

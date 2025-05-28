@@ -64,7 +64,7 @@ export class WorkloadMetaInfo {
     */
     'entitlementCancellationSchedule'?: CancellationSchedule;
     /**
-    * The error messages when the offer is invalid or offer related tasks failed. Populated by Suger service.
+    * The error messages when the offer is invalid or offer related tasks failed. This is the raw error messages from the offer related tasks.
     */
     'errorMessages'?: Array<string>;
     /**
@@ -103,6 +103,10 @@ export class WorkloadMetaInfo {
     * The date when the offer is accepted by the buyer. Only available when the private offer has been accepted.
     */
     'offerAcceptDate'?: Date;
+    /**
+    * The prettified ErrorMessages. Using AI to make it more readable and understandable. The prettified error messages will be used for the offer related UI display.
+    */
+    'prettifiedErrorMessages'?: Array<string>;
     /**
     * Applicable for AWS Marketplace only, required when the IsRenewalOffer is true.
     */
@@ -262,6 +266,12 @@ export class WorkloadMetaInfo {
             "baseName": "offerAcceptDate",
             "type": "Date",
             "format": "date-time"
+        },
+        {
+            "name": "prettifiedErrorMessages",
+            "baseName": "prettifiedErrorMessages",
+            "type": "Array<string>",
+            "format": ""
         },
         {
             "name": "renewalOfferType",

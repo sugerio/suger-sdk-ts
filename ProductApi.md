@@ -333,6 +333,100 @@ const request: ProductApiCreateOrUpdateDraftProductRequest = {
         dataFeedProductId: "dataFeedProductId_example",
         productId: "productId_example",
       },
+      awsMachineLearningProduct: {
+        description: {
+          associatedProducts: {},
+          categories: [
+            "categories_example",
+          ],
+          euW8Submitted: true,
+          highlights: [
+            "highlights_example",
+          ],
+          longDescription: "longDescription_example",
+          manufacturer: "manufacturer_example",
+          productCode: "productCode_example",
+          productTitle: "productTitle_example",
+          registered: true,
+          searchKeywords: [
+            "searchKeywords_example",
+          ],
+          shortDescription: "shortDescription_example",
+          sku: "sku_example",
+          usW9Submitted: true,
+          visibility: "Limited",
+        },
+        dimensions: [
+          {
+            description: "description_example",
+            key: "key_example",
+            length: 1,
+            name: "name_example",
+            rate: 3.14,
+            timeUnit: "DAY",
+            types: [
+              "types_example",
+            ],
+            unit: "unit_example",
+          },
+        ],
+        promotionalResources: {
+          additionalResources: [
+            {
+              text: "text_example",
+              type: "type_example",
+              url: "url_example",
+            },
+          ],
+          logoUrl: "logoUrl_example",
+          videos: [
+            {
+              title: "title_example",
+              type: "type_example",
+              url: "url_example",
+            },
+          ],
+        },
+        repositories: [
+          {
+            type: "type_example",
+            url: "url_example",
+          },
+        ],
+        signatureVerificationKeys: [
+          {
+            publicKey: "publicKey_example",
+            publicKeyVersion: 1,
+            status: "status_example",
+          },
+        ],
+        supportInformation: {
+          description: "description_example",
+        },
+        versions: [
+          {
+            creationDate: new Date('1970-01-01T00:00:00.00Z'),
+            deliveryOptions: [
+              {
+                amiAlias: "amiAlias_example",
+                fulfillmentUrl: "fulfillmentUrl_example",
+                id: "id_example",
+                recommendations: {},
+                shortDescription: "shortDescription_example",
+                sourceId: "sourceId_example",
+                title: "title_example",
+                type: "type_example",
+                visibility: "visibility_example",
+              },
+            ],
+            id: "id_example",
+            releaseNotes: "releaseNotes_example",
+            versionTitle: "versionTitle_example",
+          },
+        ],
+        dataFeedProductId: "dataFeedProductId_example",
+        productId: "productId_example",
+      },
       awsProfessionalServicesProduct: {
         description: {
           associatedProducts: {},
@@ -650,10 +744,13 @@ const request: ProductApiCreateOrUpdateDraftProductRequest = {
                 priceInputOption: "perMarket",
                 prices: [
                   {
+                    billingFrequency: ,
                     billingTerm: {
                       type: "day",
                       value: 3.14,
                     },
+                    contractDuration: ,
+                    flexibleSchedule: ,
                     paymentOption: {
                       type: "day",
                       value: 3.14,
@@ -1177,10 +1274,13 @@ const request: ProductApiCreateOrUpdateDraftProductRequest = {
                   priceInputOption: "perMarket",
                   prices: [
                     {
+                      billingFrequency: ,
                       billingTerm: {
                         type: "day",
                         value: 3.14,
                       },
+                      contractDuration: ,
+                      flexibleSchedule: ,
                       paymentOption: {
                         type: "day",
                         value: 3.14,
@@ -1705,110 +1805,114 @@ const request: ProductApiCreateOrUpdateDraftProductRequest = {
       refundCancellationPolicy: "refundCancellationPolicy_example",
       sellerNotes: "sellerNotes_example",
       snowflakeProduct: {
-        comment: {
-          string: "string_example",
-          valid: true,
+        additionalRegions: "additionalRegions_example",
+        applicationPackageName: "applicationPackageName_example",
+        attachedShare: "attachedShare_example",
+        autofulfillment: true,
+        comment: "comment_example",
+        createdOn: "createdOn_example",
+        customizedContactInfo: "customizedContactInfo_example",
+        defaultPricingPlan: {
+          allowEarlyAccess: true,
+          baseFee: 3.14,
+          billingDuration: 1,
+          currency: "currency_example",
+          freeUnitKind: "freeUnitKind_example",
+          freeUnits: 3.14,
+          installmentSchedule: {
+            defaultInstallmentAmount: 3.14,
+            installmentDuration: 3.14,
+            overriddenInstallments: [
+              {
+                installmentAmount: 3.14,
+                installmentNumber: 3.14,
+              },
+            ],
+          },
+          isAutoRenewable: true,
+          maxFee: 3.14,
+          paymentType: "paymentType_example",
+          trialUsageLimit: 3.14,
+          trialUsageUnit: "trialUsageUnit_example",
+          type: "type_example",
+          usageUnitKind: "usageUnitKind_example",
+          usageUnitPrice: 3.14,
         },
-        createdOn: {
-          time: "time_example",
-          valid: true,
+        detailedTargetAccounts: [
+          {
+            accountIdentifier: "accountIdentifier_example",
+            companyName: "companyName_example",
+          },
+        ],
+        distribution: "distribution_example",
+        evaluationPlan: "evaluationPlan_example",
+        firstPublishedOn: "firstPublishedOn_example",
+        flags: "flags_example",
+        fulfillmentType: "fulfillmentType_example",
+        globalName: "globalName_example",
+        isMountlessQueryable: true,
+        lastApprovedOn: "lastApprovedOn_example",
+        lastPublishedOn: "lastPublishedOn_example",
+        lastSubmittedOn: "lastSubmittedOn_example",
+        listingType: "listingType_example",
+        metadata: {
+          areTermsProvidedOffline: true,
+          businessNeeds: {},
+          description: "description_example",
+          hasFreeSampleData: true,
+          isWithStandardTerms: true,
+          paidAttributes: {},
+          share: "share_example",
+          title: "title_example",
+          usage: {},
         },
-        detailedTargetAccounts: {
-          string: "string_example",
-          valid: true,
+        name: "name_example",
+        pricingPlans: [
+          {
+            baseFee: 3.14,
+            billingDurationMonths: "0",
+            comment: "comment_example",
+            contractDurationMonths: "0",
+            contractType: "contractType_example",
+            currency: "currency_example",
+            displayName: "displayName_example",
+            metadata: {
+              "key": "key_example",
+            },
+            name: "name_example",
+            pricingModel: "pricingModel_example",
+            salesMotion: "salesMotion_example",
+            state: "state_example",
+            updatedOn: "updatedOn_example",
+            usageDetails: {
+              freeUnitKind: "freeUnitKind_example",
+              freeUnits: 3.14,
+              maxFee: 3.14,
+              usageUnitKind: "usageUnitKind_example",
+              usageUnitPrice: 3.14,
+            },
+            visibility: "visibility_example",
+          },
+        ],
+        _private: true,
+        profileName: "profileName_example",
+        publishOnApproval: true,
+        regions: "regions_example",
+        rejectedOn: "rejectedOn_example",
+        rejectedReason: "rejectedReason_example",
+        replicationSchedule: "replicationSchedule_example",
+        retiredOn: "retiredOn_example",
+        scheduledDropTime: "scheduledDropTime_example",
+        shareType: "shareType_example",
+        state: "state_example",
+        targetAccounts: "targetAccounts_example",
+        trialDetails: {
+          description: "description_example",
+          trialTimeLimit: 3.14,
+          trialType: "trialType_example",
         },
-        distribution: {
-          string: "string_example",
-          valid: true,
-        },
-        globalName: {
-          string: "string_example",
-          valid: true,
-        },
-        isApplication: {
-          bool: true,
-          valid: true,
-        },
-        isByRequest: {
-          bool: true,
-          valid: true,
-        },
-        isLimitedTrial: {
-          bool: true,
-          valid: true,
-        },
-        isMonetized: {
-          bool: true,
-          valid: true,
-        },
-        isMountlessQueryable: {
-          bool: true,
-          valid: true,
-        },
-        isTargeted: {
-          bool: true,
-          valid: true,
-        },
-        owner: {
-          string: "string_example",
-          valid: true,
-        },
-        ownerRoleType: {
-          string: "string_example",
-          valid: true,
-        },
-        profile: {
-          string: "string_example",
-          valid: true,
-        },
-        publishedOn: {
-          time: "time_example",
-          valid: true,
-        },
-        regions: {
-          string: "string_example",
-          valid: true,
-        },
-        rejectedOn: {
-          time: "time_example",
-          valid: true,
-        },
-        reviewState: {
-          string: "string_example",
-          valid: true,
-        },
-        state: {
-          string: "string_example",
-          valid: true,
-        },
-        subtitle: {
-          string: "string_example",
-          valid: true,
-        },
-        targetAccounts: {
-          string: "string_example",
-          valid: true,
-        },
-        title: {
-          string: "string_example",
-          valid: true,
-        },
-        uniformListingLocator: {
-          string: "string_example",
-          valid: true,
-        },
-        updatedOn: {
-          time: "time_example",
-          valid: true,
-        },
-        name: {
-          string: "string_example",
-          valid: true,
-        },
-        organizationProfileName: {
-          string: "string_example",
-          valid: true,
-        },
+        unpublishedByAdminReason: "unpublishedByAdminReason_example",
+        updatedOn: "updatedOn_example",
       },
       stripeProduct: {
         active: true,
@@ -1928,6 +2032,9 @@ const request: ProductApiCreateOrUpdateDraftProductRequest = {
         },
       ],
       offerAcceptDate: new Date('1970-01-01T00:00:00.00Z'),
+      prettifiedErrorMessages: [
+        "prettifiedErrorMessages_example",
+      ],
       renewalOfferType: ,
       replacedOfferEndTime: new Date('1970-01-01T00:00:00.00Z'),
       replacedOfferResourceName: "replacedOfferResourceName_example",
@@ -2298,6 +2405,100 @@ const request: ProductApiCreateProductRequest = {
         dataFeedProductId: "dataFeedProductId_example",
         productId: "productId_example",
       },
+      awsMachineLearningProduct: {
+        description: {
+          associatedProducts: {},
+          categories: [
+            "categories_example",
+          ],
+          euW8Submitted: true,
+          highlights: [
+            "highlights_example",
+          ],
+          longDescription: "longDescription_example",
+          manufacturer: "manufacturer_example",
+          productCode: "productCode_example",
+          productTitle: "productTitle_example",
+          registered: true,
+          searchKeywords: [
+            "searchKeywords_example",
+          ],
+          shortDescription: "shortDescription_example",
+          sku: "sku_example",
+          usW9Submitted: true,
+          visibility: "Limited",
+        },
+        dimensions: [
+          {
+            description: "description_example",
+            key: "key_example",
+            length: 1,
+            name: "name_example",
+            rate: 3.14,
+            timeUnit: "DAY",
+            types: [
+              "types_example",
+            ],
+            unit: "unit_example",
+          },
+        ],
+        promotionalResources: {
+          additionalResources: [
+            {
+              text: "text_example",
+              type: "type_example",
+              url: "url_example",
+            },
+          ],
+          logoUrl: "logoUrl_example",
+          videos: [
+            {
+              title: "title_example",
+              type: "type_example",
+              url: "url_example",
+            },
+          ],
+        },
+        repositories: [
+          {
+            type: "type_example",
+            url: "url_example",
+          },
+        ],
+        signatureVerificationKeys: [
+          {
+            publicKey: "publicKey_example",
+            publicKeyVersion: 1,
+            status: "status_example",
+          },
+        ],
+        supportInformation: {
+          description: "description_example",
+        },
+        versions: [
+          {
+            creationDate: new Date('1970-01-01T00:00:00.00Z'),
+            deliveryOptions: [
+              {
+                amiAlias: "amiAlias_example",
+                fulfillmentUrl: "fulfillmentUrl_example",
+                id: "id_example",
+                recommendations: {},
+                shortDescription: "shortDescription_example",
+                sourceId: "sourceId_example",
+                title: "title_example",
+                type: "type_example",
+                visibility: "visibility_example",
+              },
+            ],
+            id: "id_example",
+            releaseNotes: "releaseNotes_example",
+            versionTitle: "versionTitle_example",
+          },
+        ],
+        dataFeedProductId: "dataFeedProductId_example",
+        productId: "productId_example",
+      },
       awsProfessionalServicesProduct: {
         description: {
           associatedProducts: {},
@@ -2615,10 +2816,13 @@ const request: ProductApiCreateProductRequest = {
                 priceInputOption: "perMarket",
                 prices: [
                   {
+                    billingFrequency: ,
                     billingTerm: {
                       type: "day",
                       value: 3.14,
                     },
+                    contractDuration: ,
+                    flexibleSchedule: ,
                     paymentOption: {
                       type: "day",
                       value: 3.14,
@@ -3142,10 +3346,13 @@ const request: ProductApiCreateProductRequest = {
                   priceInputOption: "perMarket",
                   prices: [
                     {
+                      billingFrequency: ,
                       billingTerm: {
                         type: "day",
                         value: 3.14,
                       },
+                      contractDuration: ,
+                      flexibleSchedule: ,
                       paymentOption: {
                         type: "day",
                         value: 3.14,
@@ -3670,110 +3877,114 @@ const request: ProductApiCreateProductRequest = {
       refundCancellationPolicy: "refundCancellationPolicy_example",
       sellerNotes: "sellerNotes_example",
       snowflakeProduct: {
-        comment: {
-          string: "string_example",
-          valid: true,
+        additionalRegions: "additionalRegions_example",
+        applicationPackageName: "applicationPackageName_example",
+        attachedShare: "attachedShare_example",
+        autofulfillment: true,
+        comment: "comment_example",
+        createdOn: "createdOn_example",
+        customizedContactInfo: "customizedContactInfo_example",
+        defaultPricingPlan: {
+          allowEarlyAccess: true,
+          baseFee: 3.14,
+          billingDuration: 1,
+          currency: "currency_example",
+          freeUnitKind: "freeUnitKind_example",
+          freeUnits: 3.14,
+          installmentSchedule: {
+            defaultInstallmentAmount: 3.14,
+            installmentDuration: 3.14,
+            overriddenInstallments: [
+              {
+                installmentAmount: 3.14,
+                installmentNumber: 3.14,
+              },
+            ],
+          },
+          isAutoRenewable: true,
+          maxFee: 3.14,
+          paymentType: "paymentType_example",
+          trialUsageLimit: 3.14,
+          trialUsageUnit: "trialUsageUnit_example",
+          type: "type_example",
+          usageUnitKind: "usageUnitKind_example",
+          usageUnitPrice: 3.14,
         },
-        createdOn: {
-          time: "time_example",
-          valid: true,
+        detailedTargetAccounts: [
+          {
+            accountIdentifier: "accountIdentifier_example",
+            companyName: "companyName_example",
+          },
+        ],
+        distribution: "distribution_example",
+        evaluationPlan: "evaluationPlan_example",
+        firstPublishedOn: "firstPublishedOn_example",
+        flags: "flags_example",
+        fulfillmentType: "fulfillmentType_example",
+        globalName: "globalName_example",
+        isMountlessQueryable: true,
+        lastApprovedOn: "lastApprovedOn_example",
+        lastPublishedOn: "lastPublishedOn_example",
+        lastSubmittedOn: "lastSubmittedOn_example",
+        listingType: "listingType_example",
+        metadata: {
+          areTermsProvidedOffline: true,
+          businessNeeds: {},
+          description: "description_example",
+          hasFreeSampleData: true,
+          isWithStandardTerms: true,
+          paidAttributes: {},
+          share: "share_example",
+          title: "title_example",
+          usage: {},
         },
-        detailedTargetAccounts: {
-          string: "string_example",
-          valid: true,
+        name: "name_example",
+        pricingPlans: [
+          {
+            baseFee: 3.14,
+            billingDurationMonths: "0",
+            comment: "comment_example",
+            contractDurationMonths: "0",
+            contractType: "contractType_example",
+            currency: "currency_example",
+            displayName: "displayName_example",
+            metadata: {
+              "key": "key_example",
+            },
+            name: "name_example",
+            pricingModel: "pricingModel_example",
+            salesMotion: "salesMotion_example",
+            state: "state_example",
+            updatedOn: "updatedOn_example",
+            usageDetails: {
+              freeUnitKind: "freeUnitKind_example",
+              freeUnits: 3.14,
+              maxFee: 3.14,
+              usageUnitKind: "usageUnitKind_example",
+              usageUnitPrice: 3.14,
+            },
+            visibility: "visibility_example",
+          },
+        ],
+        _private: true,
+        profileName: "profileName_example",
+        publishOnApproval: true,
+        regions: "regions_example",
+        rejectedOn: "rejectedOn_example",
+        rejectedReason: "rejectedReason_example",
+        replicationSchedule: "replicationSchedule_example",
+        retiredOn: "retiredOn_example",
+        scheduledDropTime: "scheduledDropTime_example",
+        shareType: "shareType_example",
+        state: "state_example",
+        targetAccounts: "targetAccounts_example",
+        trialDetails: {
+          description: "description_example",
+          trialTimeLimit: 3.14,
+          trialType: "trialType_example",
         },
-        distribution: {
-          string: "string_example",
-          valid: true,
-        },
-        globalName: {
-          string: "string_example",
-          valid: true,
-        },
-        isApplication: {
-          bool: true,
-          valid: true,
-        },
-        isByRequest: {
-          bool: true,
-          valid: true,
-        },
-        isLimitedTrial: {
-          bool: true,
-          valid: true,
-        },
-        isMonetized: {
-          bool: true,
-          valid: true,
-        },
-        isMountlessQueryable: {
-          bool: true,
-          valid: true,
-        },
-        isTargeted: {
-          bool: true,
-          valid: true,
-        },
-        owner: {
-          string: "string_example",
-          valid: true,
-        },
-        ownerRoleType: {
-          string: "string_example",
-          valid: true,
-        },
-        profile: {
-          string: "string_example",
-          valid: true,
-        },
-        publishedOn: {
-          time: "time_example",
-          valid: true,
-        },
-        regions: {
-          string: "string_example",
-          valid: true,
-        },
-        rejectedOn: {
-          time: "time_example",
-          valid: true,
-        },
-        reviewState: {
-          string: "string_example",
-          valid: true,
-        },
-        state: {
-          string: "string_example",
-          valid: true,
-        },
-        subtitle: {
-          string: "string_example",
-          valid: true,
-        },
-        targetAccounts: {
-          string: "string_example",
-          valid: true,
-        },
-        title: {
-          string: "string_example",
-          valid: true,
-        },
-        uniformListingLocator: {
-          string: "string_example",
-          valid: true,
-        },
-        updatedOn: {
-          time: "time_example",
-          valid: true,
-        },
-        name: {
-          string: "string_example",
-          valid: true,
-        },
-        organizationProfileName: {
-          string: "string_example",
-          valid: true,
-        },
+        unpublishedByAdminReason: "unpublishedByAdminReason_example",
+        updatedOn: "updatedOn_example",
       },
       stripeProduct: {
         active: true,
@@ -3893,6 +4104,9 @@ const request: ProductApiCreateProductRequest = {
         },
       ],
       offerAcceptDate: new Date('1970-01-01T00:00:00.00Z'),
+      prettifiedErrorMessages: [
+        "prettifiedErrorMessages_example",
+      ],
       renewalOfferType: ,
       replacedOfferEndTime: new Date('1970-01-01T00:00:00.00Z'),
       replacedOfferResourceName: "replacedOfferResourceName_example",
@@ -4564,6 +4778,100 @@ const request: ProductApiPublishProductRequest = {
         dataFeedProductId: "dataFeedProductId_example",
         productId: "productId_example",
       },
+      awsMachineLearningProduct: {
+        description: {
+          associatedProducts: {},
+          categories: [
+            "categories_example",
+          ],
+          euW8Submitted: true,
+          highlights: [
+            "highlights_example",
+          ],
+          longDescription: "longDescription_example",
+          manufacturer: "manufacturer_example",
+          productCode: "productCode_example",
+          productTitle: "productTitle_example",
+          registered: true,
+          searchKeywords: [
+            "searchKeywords_example",
+          ],
+          shortDescription: "shortDescription_example",
+          sku: "sku_example",
+          usW9Submitted: true,
+          visibility: "Limited",
+        },
+        dimensions: [
+          {
+            description: "description_example",
+            key: "key_example",
+            length: 1,
+            name: "name_example",
+            rate: 3.14,
+            timeUnit: "DAY",
+            types: [
+              "types_example",
+            ],
+            unit: "unit_example",
+          },
+        ],
+        promotionalResources: {
+          additionalResources: [
+            {
+              text: "text_example",
+              type: "type_example",
+              url: "url_example",
+            },
+          ],
+          logoUrl: "logoUrl_example",
+          videos: [
+            {
+              title: "title_example",
+              type: "type_example",
+              url: "url_example",
+            },
+          ],
+        },
+        repositories: [
+          {
+            type: "type_example",
+            url: "url_example",
+          },
+        ],
+        signatureVerificationKeys: [
+          {
+            publicKey: "publicKey_example",
+            publicKeyVersion: 1,
+            status: "status_example",
+          },
+        ],
+        supportInformation: {
+          description: "description_example",
+        },
+        versions: [
+          {
+            creationDate: new Date('1970-01-01T00:00:00.00Z'),
+            deliveryOptions: [
+              {
+                amiAlias: "amiAlias_example",
+                fulfillmentUrl: "fulfillmentUrl_example",
+                id: "id_example",
+                recommendations: {},
+                shortDescription: "shortDescription_example",
+                sourceId: "sourceId_example",
+                title: "title_example",
+                type: "type_example",
+                visibility: "visibility_example",
+              },
+            ],
+            id: "id_example",
+            releaseNotes: "releaseNotes_example",
+            versionTitle: "versionTitle_example",
+          },
+        ],
+        dataFeedProductId: "dataFeedProductId_example",
+        productId: "productId_example",
+      },
       awsProfessionalServicesProduct: {
         description: {
           associatedProducts: {},
@@ -4881,10 +5189,13 @@ const request: ProductApiPublishProductRequest = {
                 priceInputOption: "perMarket",
                 prices: [
                   {
+                    billingFrequency: ,
                     billingTerm: {
                       type: "day",
                       value: 3.14,
                     },
+                    contractDuration: ,
+                    flexibleSchedule: ,
                     paymentOption: {
                       type: "day",
                       value: 3.14,
@@ -5408,10 +5719,13 @@ const request: ProductApiPublishProductRequest = {
                   priceInputOption: "perMarket",
                   prices: [
                     {
+                      billingFrequency: ,
                       billingTerm: {
                         type: "day",
                         value: 3.14,
                       },
+                      contractDuration: ,
+                      flexibleSchedule: ,
                       paymentOption: {
                         type: "day",
                         value: 3.14,
@@ -5936,110 +6250,114 @@ const request: ProductApiPublishProductRequest = {
       refundCancellationPolicy: "refundCancellationPolicy_example",
       sellerNotes: "sellerNotes_example",
       snowflakeProduct: {
-        comment: {
-          string: "string_example",
-          valid: true,
+        additionalRegions: "additionalRegions_example",
+        applicationPackageName: "applicationPackageName_example",
+        attachedShare: "attachedShare_example",
+        autofulfillment: true,
+        comment: "comment_example",
+        createdOn: "createdOn_example",
+        customizedContactInfo: "customizedContactInfo_example",
+        defaultPricingPlan: {
+          allowEarlyAccess: true,
+          baseFee: 3.14,
+          billingDuration: 1,
+          currency: "currency_example",
+          freeUnitKind: "freeUnitKind_example",
+          freeUnits: 3.14,
+          installmentSchedule: {
+            defaultInstallmentAmount: 3.14,
+            installmentDuration: 3.14,
+            overriddenInstallments: [
+              {
+                installmentAmount: 3.14,
+                installmentNumber: 3.14,
+              },
+            ],
+          },
+          isAutoRenewable: true,
+          maxFee: 3.14,
+          paymentType: "paymentType_example",
+          trialUsageLimit: 3.14,
+          trialUsageUnit: "trialUsageUnit_example",
+          type: "type_example",
+          usageUnitKind: "usageUnitKind_example",
+          usageUnitPrice: 3.14,
         },
-        createdOn: {
-          time: "time_example",
-          valid: true,
+        detailedTargetAccounts: [
+          {
+            accountIdentifier: "accountIdentifier_example",
+            companyName: "companyName_example",
+          },
+        ],
+        distribution: "distribution_example",
+        evaluationPlan: "evaluationPlan_example",
+        firstPublishedOn: "firstPublishedOn_example",
+        flags: "flags_example",
+        fulfillmentType: "fulfillmentType_example",
+        globalName: "globalName_example",
+        isMountlessQueryable: true,
+        lastApprovedOn: "lastApprovedOn_example",
+        lastPublishedOn: "lastPublishedOn_example",
+        lastSubmittedOn: "lastSubmittedOn_example",
+        listingType: "listingType_example",
+        metadata: {
+          areTermsProvidedOffline: true,
+          businessNeeds: {},
+          description: "description_example",
+          hasFreeSampleData: true,
+          isWithStandardTerms: true,
+          paidAttributes: {},
+          share: "share_example",
+          title: "title_example",
+          usage: {},
         },
-        detailedTargetAccounts: {
-          string: "string_example",
-          valid: true,
+        name: "name_example",
+        pricingPlans: [
+          {
+            baseFee: 3.14,
+            billingDurationMonths: "0",
+            comment: "comment_example",
+            contractDurationMonths: "0",
+            contractType: "contractType_example",
+            currency: "currency_example",
+            displayName: "displayName_example",
+            metadata: {
+              "key": "key_example",
+            },
+            name: "name_example",
+            pricingModel: "pricingModel_example",
+            salesMotion: "salesMotion_example",
+            state: "state_example",
+            updatedOn: "updatedOn_example",
+            usageDetails: {
+              freeUnitKind: "freeUnitKind_example",
+              freeUnits: 3.14,
+              maxFee: 3.14,
+              usageUnitKind: "usageUnitKind_example",
+              usageUnitPrice: 3.14,
+            },
+            visibility: "visibility_example",
+          },
+        ],
+        _private: true,
+        profileName: "profileName_example",
+        publishOnApproval: true,
+        regions: "regions_example",
+        rejectedOn: "rejectedOn_example",
+        rejectedReason: "rejectedReason_example",
+        replicationSchedule: "replicationSchedule_example",
+        retiredOn: "retiredOn_example",
+        scheduledDropTime: "scheduledDropTime_example",
+        shareType: "shareType_example",
+        state: "state_example",
+        targetAccounts: "targetAccounts_example",
+        trialDetails: {
+          description: "description_example",
+          trialTimeLimit: 3.14,
+          trialType: "trialType_example",
         },
-        distribution: {
-          string: "string_example",
-          valid: true,
-        },
-        globalName: {
-          string: "string_example",
-          valid: true,
-        },
-        isApplication: {
-          bool: true,
-          valid: true,
-        },
-        isByRequest: {
-          bool: true,
-          valid: true,
-        },
-        isLimitedTrial: {
-          bool: true,
-          valid: true,
-        },
-        isMonetized: {
-          bool: true,
-          valid: true,
-        },
-        isMountlessQueryable: {
-          bool: true,
-          valid: true,
-        },
-        isTargeted: {
-          bool: true,
-          valid: true,
-        },
-        owner: {
-          string: "string_example",
-          valid: true,
-        },
-        ownerRoleType: {
-          string: "string_example",
-          valid: true,
-        },
-        profile: {
-          string: "string_example",
-          valid: true,
-        },
-        publishedOn: {
-          time: "time_example",
-          valid: true,
-        },
-        regions: {
-          string: "string_example",
-          valid: true,
-        },
-        rejectedOn: {
-          time: "time_example",
-          valid: true,
-        },
-        reviewState: {
-          string: "string_example",
-          valid: true,
-        },
-        state: {
-          string: "string_example",
-          valid: true,
-        },
-        subtitle: {
-          string: "string_example",
-          valid: true,
-        },
-        targetAccounts: {
-          string: "string_example",
-          valid: true,
-        },
-        title: {
-          string: "string_example",
-          valid: true,
-        },
-        uniformListingLocator: {
-          string: "string_example",
-          valid: true,
-        },
-        updatedOn: {
-          time: "time_example",
-          valid: true,
-        },
-        name: {
-          string: "string_example",
-          valid: true,
-        },
-        organizationProfileName: {
-          string: "string_example",
-          valid: true,
-        },
+        unpublishedByAdminReason: "unpublishedByAdminReason_example",
+        updatedOn: "updatedOn_example",
       },
       stripeProduct: {
         active: true,
@@ -6159,6 +6477,9 @@ const request: ProductApiPublishProductRequest = {
         },
       ],
       offerAcceptDate: new Date('1970-01-01T00:00:00.00Z'),
+      prettifiedErrorMessages: [
+        "prettifiedErrorMessages_example",
+      ],
       renewalOfferType: ,
       replacedOfferEndTime: new Date('1970-01-01T00:00:00.00Z'),
       replacedOfferResourceName: "replacedOfferResourceName_example",
@@ -6533,6 +6854,100 @@ const request: ProductApiUpdateProductRequest = {
         dataFeedProductId: "dataFeedProductId_example",
         productId: "productId_example",
       },
+      awsMachineLearningProduct: {
+        description: {
+          associatedProducts: {},
+          categories: [
+            "categories_example",
+          ],
+          euW8Submitted: true,
+          highlights: [
+            "highlights_example",
+          ],
+          longDescription: "longDescription_example",
+          manufacturer: "manufacturer_example",
+          productCode: "productCode_example",
+          productTitle: "productTitle_example",
+          registered: true,
+          searchKeywords: [
+            "searchKeywords_example",
+          ],
+          shortDescription: "shortDescription_example",
+          sku: "sku_example",
+          usW9Submitted: true,
+          visibility: "Limited",
+        },
+        dimensions: [
+          {
+            description: "description_example",
+            key: "key_example",
+            length: 1,
+            name: "name_example",
+            rate: 3.14,
+            timeUnit: "DAY",
+            types: [
+              "types_example",
+            ],
+            unit: "unit_example",
+          },
+        ],
+        promotionalResources: {
+          additionalResources: [
+            {
+              text: "text_example",
+              type: "type_example",
+              url: "url_example",
+            },
+          ],
+          logoUrl: "logoUrl_example",
+          videos: [
+            {
+              title: "title_example",
+              type: "type_example",
+              url: "url_example",
+            },
+          ],
+        },
+        repositories: [
+          {
+            type: "type_example",
+            url: "url_example",
+          },
+        ],
+        signatureVerificationKeys: [
+          {
+            publicKey: "publicKey_example",
+            publicKeyVersion: 1,
+            status: "status_example",
+          },
+        ],
+        supportInformation: {
+          description: "description_example",
+        },
+        versions: [
+          {
+            creationDate: new Date('1970-01-01T00:00:00.00Z'),
+            deliveryOptions: [
+              {
+                amiAlias: "amiAlias_example",
+                fulfillmentUrl: "fulfillmentUrl_example",
+                id: "id_example",
+                recommendations: {},
+                shortDescription: "shortDescription_example",
+                sourceId: "sourceId_example",
+                title: "title_example",
+                type: "type_example",
+                visibility: "visibility_example",
+              },
+            ],
+            id: "id_example",
+            releaseNotes: "releaseNotes_example",
+            versionTitle: "versionTitle_example",
+          },
+        ],
+        dataFeedProductId: "dataFeedProductId_example",
+        productId: "productId_example",
+      },
       awsProfessionalServicesProduct: {
         description: {
           associatedProducts: {},
@@ -6850,10 +7265,13 @@ const request: ProductApiUpdateProductRequest = {
                 priceInputOption: "perMarket",
                 prices: [
                   {
+                    billingFrequency: ,
                     billingTerm: {
                       type: "day",
                       value: 3.14,
                     },
+                    contractDuration: ,
+                    flexibleSchedule: ,
                     paymentOption: {
                       type: "day",
                       value: 3.14,
@@ -7377,10 +7795,13 @@ const request: ProductApiUpdateProductRequest = {
                   priceInputOption: "perMarket",
                   prices: [
                     {
+                      billingFrequency: ,
                       billingTerm: {
                         type: "day",
                         value: 3.14,
                       },
+                      contractDuration: ,
+                      flexibleSchedule: ,
                       paymentOption: {
                         type: "day",
                         value: 3.14,
@@ -7905,110 +8326,114 @@ const request: ProductApiUpdateProductRequest = {
       refundCancellationPolicy: "refundCancellationPolicy_example",
       sellerNotes: "sellerNotes_example",
       snowflakeProduct: {
-        comment: {
-          string: "string_example",
-          valid: true,
+        additionalRegions: "additionalRegions_example",
+        applicationPackageName: "applicationPackageName_example",
+        attachedShare: "attachedShare_example",
+        autofulfillment: true,
+        comment: "comment_example",
+        createdOn: "createdOn_example",
+        customizedContactInfo: "customizedContactInfo_example",
+        defaultPricingPlan: {
+          allowEarlyAccess: true,
+          baseFee: 3.14,
+          billingDuration: 1,
+          currency: "currency_example",
+          freeUnitKind: "freeUnitKind_example",
+          freeUnits: 3.14,
+          installmentSchedule: {
+            defaultInstallmentAmount: 3.14,
+            installmentDuration: 3.14,
+            overriddenInstallments: [
+              {
+                installmentAmount: 3.14,
+                installmentNumber: 3.14,
+              },
+            ],
+          },
+          isAutoRenewable: true,
+          maxFee: 3.14,
+          paymentType: "paymentType_example",
+          trialUsageLimit: 3.14,
+          trialUsageUnit: "trialUsageUnit_example",
+          type: "type_example",
+          usageUnitKind: "usageUnitKind_example",
+          usageUnitPrice: 3.14,
         },
-        createdOn: {
-          time: "time_example",
-          valid: true,
+        detailedTargetAccounts: [
+          {
+            accountIdentifier: "accountIdentifier_example",
+            companyName: "companyName_example",
+          },
+        ],
+        distribution: "distribution_example",
+        evaluationPlan: "evaluationPlan_example",
+        firstPublishedOn: "firstPublishedOn_example",
+        flags: "flags_example",
+        fulfillmentType: "fulfillmentType_example",
+        globalName: "globalName_example",
+        isMountlessQueryable: true,
+        lastApprovedOn: "lastApprovedOn_example",
+        lastPublishedOn: "lastPublishedOn_example",
+        lastSubmittedOn: "lastSubmittedOn_example",
+        listingType: "listingType_example",
+        metadata: {
+          areTermsProvidedOffline: true,
+          businessNeeds: {},
+          description: "description_example",
+          hasFreeSampleData: true,
+          isWithStandardTerms: true,
+          paidAttributes: {},
+          share: "share_example",
+          title: "title_example",
+          usage: {},
         },
-        detailedTargetAccounts: {
-          string: "string_example",
-          valid: true,
+        name: "name_example",
+        pricingPlans: [
+          {
+            baseFee: 3.14,
+            billingDurationMonths: "0",
+            comment: "comment_example",
+            contractDurationMonths: "0",
+            contractType: "contractType_example",
+            currency: "currency_example",
+            displayName: "displayName_example",
+            metadata: {
+              "key": "key_example",
+            },
+            name: "name_example",
+            pricingModel: "pricingModel_example",
+            salesMotion: "salesMotion_example",
+            state: "state_example",
+            updatedOn: "updatedOn_example",
+            usageDetails: {
+              freeUnitKind: "freeUnitKind_example",
+              freeUnits: 3.14,
+              maxFee: 3.14,
+              usageUnitKind: "usageUnitKind_example",
+              usageUnitPrice: 3.14,
+            },
+            visibility: "visibility_example",
+          },
+        ],
+        _private: true,
+        profileName: "profileName_example",
+        publishOnApproval: true,
+        regions: "regions_example",
+        rejectedOn: "rejectedOn_example",
+        rejectedReason: "rejectedReason_example",
+        replicationSchedule: "replicationSchedule_example",
+        retiredOn: "retiredOn_example",
+        scheduledDropTime: "scheduledDropTime_example",
+        shareType: "shareType_example",
+        state: "state_example",
+        targetAccounts: "targetAccounts_example",
+        trialDetails: {
+          description: "description_example",
+          trialTimeLimit: 3.14,
+          trialType: "trialType_example",
         },
-        distribution: {
-          string: "string_example",
-          valid: true,
-        },
-        globalName: {
-          string: "string_example",
-          valid: true,
-        },
-        isApplication: {
-          bool: true,
-          valid: true,
-        },
-        isByRequest: {
-          bool: true,
-          valid: true,
-        },
-        isLimitedTrial: {
-          bool: true,
-          valid: true,
-        },
-        isMonetized: {
-          bool: true,
-          valid: true,
-        },
-        isMountlessQueryable: {
-          bool: true,
-          valid: true,
-        },
-        isTargeted: {
-          bool: true,
-          valid: true,
-        },
-        owner: {
-          string: "string_example",
-          valid: true,
-        },
-        ownerRoleType: {
-          string: "string_example",
-          valid: true,
-        },
-        profile: {
-          string: "string_example",
-          valid: true,
-        },
-        publishedOn: {
-          time: "time_example",
-          valid: true,
-        },
-        regions: {
-          string: "string_example",
-          valid: true,
-        },
-        rejectedOn: {
-          time: "time_example",
-          valid: true,
-        },
-        reviewState: {
-          string: "string_example",
-          valid: true,
-        },
-        state: {
-          string: "string_example",
-          valid: true,
-        },
-        subtitle: {
-          string: "string_example",
-          valid: true,
-        },
-        targetAccounts: {
-          string: "string_example",
-          valid: true,
-        },
-        title: {
-          string: "string_example",
-          valid: true,
-        },
-        uniformListingLocator: {
-          string: "string_example",
-          valid: true,
-        },
-        updatedOn: {
-          time: "time_example",
-          valid: true,
-        },
-        name: {
-          string: "string_example",
-          valid: true,
-        },
-        organizationProfileName: {
-          string: "string_example",
-          valid: true,
-        },
+        unpublishedByAdminReason: "unpublishedByAdminReason_example",
+        updatedOn: "updatedOn_example",
       },
       stripeProduct: {
         active: true,
@@ -8128,6 +8553,9 @@ const request: ProductApiUpdateProductRequest = {
         },
       ],
       offerAcceptDate: new Date('1970-01-01T00:00:00.00Z'),
+      prettifiedErrorMessages: [
+        "prettifiedErrorMessages_example",
+      ],
       renewalOfferType: ,
       replacedOfferEndTime: new Date('1970-01-01T00:00:00.00Z'),
       replacedOfferResourceName: "replacedOfferResourceName_example",
@@ -8356,6 +8784,9 @@ const request: ProductApiUpdateProductMetaInfoRequest = {
       },
     ],
     offerAcceptDate: new Date('1970-01-01T00:00:00.00Z'),
+    prettifiedErrorMessages: [
+      "prettifiedErrorMessages_example",
+    ],
     renewalOfferType: ,
     replacedOfferEndTime: new Date('1970-01-01T00:00:00.00Z'),
     replacedOfferResourceName: "replacedOfferResourceName_example",

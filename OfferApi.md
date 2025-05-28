@@ -120,6 +120,7 @@ const request: OfferApiCreateOfferRequest = {
       awsChannelPartner: ,
       awsCppoEventDetail: ,
       awsCppoOpportunity: ,
+      awsMachineLearningContractDuration: 1,
       awsMarkupPercentage: 3.14,
       awsResaleAuthorizationId: "awsResaleAuthorizationId_example",
       azureOriginalPlan: ,
@@ -217,6 +218,12 @@ const request: OfferApiCreateOfferRequest = {
         },
       ],
       discountPercentage: 3.14,
+      docusignEnvelopeIds: {
+        "key": "key_example",
+      },
+      eulaMergeOrder: [
+        1,
+      ],
       eulaType: "",
       eulaUrl: "eulaUrl_example",
       gcpCustomerInfo: ,
@@ -247,6 +254,7 @@ const request: OfferApiCreateOfferRequest = {
           valueType: ,
         },
       ],
+      gcpOfferDealType: ,
       gcpPaymentSchedule: ,
       gcpPlans: [
         {
@@ -524,6 +532,7 @@ const request: OfferApiCreateOfferRequest = {
           allowAutoRenewal: true,
           allowScheduledStartDate: true,
           maxRenewalTimes: "maxRenewalTimes_example",
+          offerDealType: "OFFER_DEAL_TYPE_UNSPECIFIED",
           proration: "PRORATION_UNSPECIFIED",
         },
         offerTermTemplate: {
@@ -586,6 +595,7 @@ const request: OfferApiCreateOfferRequest = {
         ],
         updateTime: new Date('1970-01-01T00:00:00.00Z'),
       },
+      gcpSowAgreementDocument: ,
       gcpUsagePlanPriceModel: ,
       gracePeriodInDays: 1,
       isMeteringOverageCommit: true,
@@ -601,6 +611,7 @@ const request: OfferApiCreateOfferRequest = {
         },
       ],
       paymentSchedule: ,
+      pdfURL: "pdfURL_example",
       privateOfferUrl: "privateOfferUrl_example",
       proratedBilling: true,
       refundCancellationPolicy: "refundCancellationPolicy_example",
@@ -608,6 +619,7 @@ const request: OfferApiCreateOfferRequest = {
       resellerEulaType: ,
       resellerEulaUrl: "resellerEulaUrl_example",
       sellerNotes: "sellerNotes_example",
+      snowflakeOffer: ,
       startTime: new Date('1970-01-01T00:00:00.00Z'),
       taxIds: [
         "taxIds_example",
@@ -706,6 +718,9 @@ const request: OfferApiCreateOfferRequest = {
         },
       ],
       offerAcceptDate: new Date('1970-01-01T00:00:00.00Z'),
+      prettifiedErrorMessages: [
+        "prettifiedErrorMessages_example",
+      ],
       renewalOfferType: ,
       replacedOfferEndTime: new Date('1970-01-01T00:00:00.00Z'),
       replacedOfferResourceName: "replacedOfferResourceName_example",
@@ -805,6 +820,7 @@ const request: OfferApiCreateOrUpdateDraftOfferRequest = {
       awsChannelPartner: ,
       awsCppoEventDetail: ,
       awsCppoOpportunity: ,
+      awsMachineLearningContractDuration: 1,
       awsMarkupPercentage: 3.14,
       awsResaleAuthorizationId: "awsResaleAuthorizationId_example",
       azureOriginalPlan: ,
@@ -902,6 +918,12 @@ const request: OfferApiCreateOrUpdateDraftOfferRequest = {
         },
       ],
       discountPercentage: 3.14,
+      docusignEnvelopeIds: {
+        "key": "key_example",
+      },
+      eulaMergeOrder: [
+        1,
+      ],
       eulaType: "",
       eulaUrl: "eulaUrl_example",
       gcpCustomerInfo: ,
@@ -932,6 +954,7 @@ const request: OfferApiCreateOrUpdateDraftOfferRequest = {
           valueType: ,
         },
       ],
+      gcpOfferDealType: ,
       gcpPaymentSchedule: ,
       gcpPlans: [
         {
@@ -1209,6 +1232,7 @@ const request: OfferApiCreateOrUpdateDraftOfferRequest = {
           allowAutoRenewal: true,
           allowScheduledStartDate: true,
           maxRenewalTimes: "maxRenewalTimes_example",
+          offerDealType: "OFFER_DEAL_TYPE_UNSPECIFIED",
           proration: "PRORATION_UNSPECIFIED",
         },
         offerTermTemplate: {
@@ -1271,6 +1295,7 @@ const request: OfferApiCreateOrUpdateDraftOfferRequest = {
         ],
         updateTime: new Date('1970-01-01T00:00:00.00Z'),
       },
+      gcpSowAgreementDocument: ,
       gcpUsagePlanPriceModel: ,
       gracePeriodInDays: 1,
       isMeteringOverageCommit: true,
@@ -1286,6 +1311,7 @@ const request: OfferApiCreateOrUpdateDraftOfferRequest = {
         },
       ],
       paymentSchedule: ,
+      pdfURL: "pdfURL_example",
       privateOfferUrl: "privateOfferUrl_example",
       proratedBilling: true,
       refundCancellationPolicy: "refundCancellationPolicy_example",
@@ -1293,6 +1319,7 @@ const request: OfferApiCreateOrUpdateDraftOfferRequest = {
       resellerEulaType: ,
       resellerEulaUrl: "resellerEulaUrl_example",
       sellerNotes: "sellerNotes_example",
+      snowflakeOffer: ,
       startTime: new Date('1970-01-01T00:00:00.00Z'),
       taxIds: [
         "taxIds_example",
@@ -1391,6 +1418,9 @@ const request: OfferApiCreateOrUpdateDraftOfferRequest = {
         },
       ],
       offerAcceptDate: new Date('1970-01-01T00:00:00.00Z'),
+      prettifiedErrorMessages: [
+        "prettifiedErrorMessages_example",
+      ],
       renewalOfferType: ,
       replacedOfferEndTime: new Date('1970-01-01T00:00:00.00Z'),
       replacedOfferResourceName: "replacedOfferResourceName_example",
@@ -1893,9 +1923,9 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
 # **sendOfferNotifications**
-> NotificationEvent sendOfferNotifications()
+> string sendOfferNotifications()
 
-Send offer notifications to the given contact ids. If contactIds is empty, send notifications to all contacts of the offer.
+Send offer notifications to the given contact ids. If contactIDs is empty, send notifications to all contacts of the offer.
 
 ### Example
 
@@ -1913,8 +1943,8 @@ const request: OfferApiSendOfferNotificationsRequest = {
     // Offer ID
   offerId: "offerId_example",
     // List of Contact IDs, if emoty or nil, send notifications to all contacts of the offer (optional)
-  contactIds: [
-    "contactIds_example",
+  contactIDs: [
+    "contactIDs_example",
   ],
 };
 
@@ -1927,14 +1957,14 @@ console.log('API called successfully. Returned data:', data);
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **contactIds** | **Array<string>**| List of Contact IDs, if emoty or nil, send notifications to all contacts of the offer |
+ **contactIDs** | **Array<string>**| List of Contact IDs, if emoty or nil, send notifications to all contacts of the offer |
  **orgId** | [**string**] | Organization ID | defaults to undefined
  **offerId** | [**string**] | Offer ID | defaults to undefined
 
 
 ### Return type
 
-**NotificationEvent**
+**string**
 
 ### Authorization
 
@@ -1949,7 +1979,7 @@ Name | Type | Description  | Notes
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | NotificationEvent object |  -  |
+**200** | empty string if success |  -  |
 **400** | Bad request error |  -  |
 **405** | Method not allowed |  -  |
 **500** | Internal error |  -  |
@@ -2065,6 +2095,9 @@ const request: OfferApiUpdateOfferMetaInfoRequest = {
       },
     ],
     offerAcceptDate: new Date('1970-01-01T00:00:00.00Z'),
+    prettifiedErrorMessages: [
+      "prettifiedErrorMessages_example",
+    ],
     renewalOfferType: ,
     replacedOfferEndTime: new Date('1970-01-01T00:00:00.00Z'),
     replacedOfferResourceName: "replacedOfferResourceName_example",

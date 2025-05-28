@@ -21,6 +21,8 @@ import { BillableDimension } from '../models/BillableDimension';
 import { BillingCycle } from '../models/BillingCycle';
 import { CommitDimension } from '../models/CommitDimension';
 import { EulaType } from '../models/EulaType';
+import { GcpAgreementDocument } from '../models/GcpAgreementDocument';
+import { GcpMarketplaceOfferDealType } from '../models/GcpMarketplaceOfferDealType';
 import { GcpMarketplacePrivateOffer } from '../models/GcpMarketplacePrivateOffer';
 import { GcpMarketplacePrivateOfferCustomerInfo } from '../models/GcpMarketplacePrivateOfferCustomerInfo';
 import { GcpMarketplacePrivateOfferProviderInfo } from '../models/GcpMarketplacePrivateOfferProviderInfo';
@@ -31,6 +33,7 @@ import { GcpMarketplaceUsagePlanPriceModel } from '../models/GcpMarketplaceUsage
 import { MeteringDimension } from '../models/MeteringDimension';
 import { PaymentInstallment } from '../models/PaymentInstallment';
 import { PaymentScheduleType } from '../models/PaymentScheduleType';
+import { SnowflakeMarketplaceOffer } from '../models/SnowflakeMarketplaceOffer';
 import { TrialConfig } from '../models/TrialConfig';
 import { HttpFile } from '../http/http';
 
@@ -67,6 +70,10 @@ export class OfferInfo {
     * AWS CPPO Opportunity, only applicable for AWS Marketplace CPPO_OUT or CPPO_IN offers.
     */
     'awsCppoOpportunity'?: AwsMarketplaceCppoOpportunity;
+    /**
+    * For AWS machine learning contract private offer only. The contract duration of the offer in months.
+    */
+    'awsMachineLearningContractDuration'?: number;
     /**
     * AWS private reseller offer using markup percentage. 10.0 represent 10% partner margin.
     */
@@ -131,6 +138,14 @@ export class OfferInfo {
     * The discount percentage off the original price. For example, 20 means 20% off. 0 means no discount. It can be discount off the commitment amount or discount off the usage price.
     */
     'discountPercentage'?: number;
+    /**
+    * The Docusign envelope IDs generated for the offer. The key is the contact ID, the value is the Docusign envelope ID.
+    */
+    'docusignEnvelopeIds'?: { [key: string]: string; };
+    /**
+    * The merge order of the EULA files. Only applicable when EulaType = CUSTOM. Elements are the original index of the EULA files in the index they should be transferred to, where original indexes are: AttachEulaType is index 0, EulaUrl is index 1, additionalEulaUrls is index 2 onwards.
+    */
+    'eulaMergeOrder'?: Array<number>;
     'eulaType'?: EulaType;
     'eulaUrl'?: string;
     /**
@@ -145,6 +160,10 @@ export class OfferInfo {
     * Only applicable for GCP Marketplace Offers (the default or private offer)
     */
     'gcpMetrics'?: Array<GcpMarketplaceProductMeteringMetric>;
+    /**
+    * Optional when creating GCP Marketplace private offer and replacement offer.
+    */
+    'gcpOfferDealType'?: GcpMarketplaceOfferDealType;
     /**
     * Only required when creating GCP Marketplace private offer, to specify the payment schedule for the private offer. TODO: It will be deprecated in the future and replaced by PaymentSchedule.
     */
@@ -171,6 +190,10 @@ export class OfferInfo {
     'gcpProviderPublicNote'?: string;
     'gcpResellerPrivateOfferPlan'?: GcpMarketplaceResellerPrivateOfferPlan;
     /**
+    * Optional when creating GCP Marketplace private offer for professional services.
+    */
+    'gcpSowAgreementDocument'?: GcpAgreementDocument;
+    /**
     * Only applicable for GCP Marketplace with Usage plan. Not appliable for Subscription plan.
     */
     'gcpUsagePlanPriceModel'?: GcpMarketplaceUsagePlanPriceModel;
@@ -195,6 +218,10 @@ export class OfferInfo {
     */
     'paymentSchedule'?: PaymentScheduleType;
     /**
+    * Not needed when creating stripe offer This URL points to the PDF version of the offer.
+    */
+    'pdfURL'?: string;
+    /**
     * The URL of the private offer sent to buyers to accept. Only applicable for private offer.
     */
     'privateOfferUrl'?: string;
@@ -213,6 +240,10 @@ export class OfferInfo {
     'resellerEulaType'?: EulaType;
     'resellerEulaUrl'?: string;
     'sellerNotes'?: string;
+    /**
+    * The private offer for Snowflake marketplace. Only applicable for Snowflake Marketplace offers.
+    */
+    'snowflakeOffer'?: SnowflakeMarketplaceOffer;
     /**
     * Optional when creating AWS or GCP Marketplace private offer on the contract product. The future start time of the offer if it is not started on the acceptance.
     */
@@ -285,6 +316,12 @@ export class OfferInfo {
             "name": "awsCppoOpportunity",
             "baseName": "awsCppoOpportunity",
             "type": "AwsMarketplaceCppoOpportunity",
+            "format": ""
+        },
+        {
+            "name": "awsMachineLearningContractDuration",
+            "baseName": "awsMachineLearningContractDuration",
+            "type": "number",
             "format": ""
         },
         {
@@ -384,6 +421,18 @@ export class OfferInfo {
             "format": ""
         },
         {
+            "name": "docusignEnvelopeIds",
+            "baseName": "docusignEnvelopeIds",
+            "type": "{ [key: string]: string; }",
+            "format": ""
+        },
+        {
+            "name": "eulaMergeOrder",
+            "baseName": "eulaMergeOrder",
+            "type": "Array<number>",
+            "format": ""
+        },
+        {
             "name": "eulaType",
             "baseName": "eulaType",
             "type": "EulaType",
@@ -411,6 +460,12 @@ export class OfferInfo {
             "name": "gcpMetrics",
             "baseName": "gcpMetrics",
             "type": "Array<GcpMarketplaceProductMeteringMetric>",
+            "format": ""
+        },
+        {
+            "name": "gcpOfferDealType",
+            "baseName": "gcpOfferDealType",
+            "type": "GcpMarketplaceOfferDealType",
             "format": ""
         },
         {
@@ -456,6 +511,12 @@ export class OfferInfo {
             "format": ""
         },
         {
+            "name": "gcpSowAgreementDocument",
+            "baseName": "gcpSowAgreementDocument",
+            "type": "GcpAgreementDocument",
+            "format": ""
+        },
+        {
             "name": "gcpUsagePlanPriceModel",
             "baseName": "gcpUsagePlanPriceModel",
             "type": "GcpMarketplaceUsagePlanPriceModel",
@@ -489,6 +550,12 @@ export class OfferInfo {
             "name": "paymentSchedule",
             "baseName": "paymentSchedule",
             "type": "PaymentScheduleType",
+            "format": ""
+        },
+        {
+            "name": "pdfURL",
+            "baseName": "pdfURL",
+            "type": "string",
             "format": ""
         },
         {
@@ -531,6 +598,12 @@ export class OfferInfo {
             "name": "sellerNotes",
             "baseName": "sellerNotes",
             "type": "string",
+            "format": ""
+        },
+        {
+            "name": "snowflakeOffer",
+            "baseName": "snowflakeOffer",
+            "type": "SnowflakeMarketplaceOffer",
             "format": ""
         },
         {

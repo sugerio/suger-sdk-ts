@@ -17,10 +17,12 @@ import { GcpMarketplacePrivateOfferCustomerInfo } from '../models/GcpMarketplace
 import { GcpMarketplacePrivateOfferInstallmentTimeline } from '../models/GcpMarketplacePrivateOfferInstallmentTimeline';
 import { GcpMarketplacePrivateOfferMetricInformation } from '../models/GcpMarketplacePrivateOfferMetricInformation';
 import { GcpMarketplacePrivateOfferMigrationMetadata } from '../models/GcpMarketplacePrivateOfferMigrationMetadata';
+import { GcpMarketplacePrivateOfferPolicies } from '../models/GcpMarketplacePrivateOfferPolicies';
 import { GcpMarketplacePrivateOfferPriceModel } from '../models/GcpMarketplacePrivateOfferPriceModel';
 import { GcpMarketplacePrivateOfferPriceModelType } from '../models/GcpMarketplacePrivateOfferPriceModelType';
 import { GcpMarketplacePrivateOfferProviderInfo } from '../models/GcpMarketplacePrivateOfferProviderInfo';
 import { GcpMarketplacePrivateOfferReplacementMetadata } from '../models/GcpMarketplacePrivateOfferReplacementMetadata';
+import { GcpMarketplacePrivateOfferRevenueShare } from '../models/GcpMarketplacePrivateOfferRevenueShare';
 import { GcpMarketplacePrivateOfferState } from '../models/GcpMarketplacePrivateOfferState';
 import { GcpMarketplacePrivateOfferTerm } from '../models/GcpMarketplacePrivateOfferTerm';
 import { GcpMarketplaceProductFeatureValue } from '../models/GcpMarketplaceProductFeatureValue';
@@ -72,12 +74,19 @@ export class GcpMarketplacePrivateOffer {
     * such as \"PREPAY\" or \"POSTPAY\"
     */
     'paymentSchedule'?: PaymentScheduleType;
-    'policies'?: { [key: string]: string; };
+    /**
+    * The policies of the offer.
+    */
+    'policies'?: GcpMarketplacePrivateOfferPolicies;
     /**
     * Nill if the offer has payment installments.
     */
     'priceModel'?: GcpMarketplacePrivateOfferPriceModel;
     'priceModelType'?: GcpMarketplacePrivateOfferPriceModelType;
+    /**
+    * Revenue share information for this private offer
+    */
+    'privateOfferRevenueShare'?: GcpMarketplacePrivateOfferRevenueShare;
     'providerCancellationInternalNote'?: string;
     'providerInfo'?: GcpMarketplacePrivateOfferProviderInfo;
     'providerInternalNote'?: string;
@@ -231,7 +240,7 @@ export class GcpMarketplacePrivateOffer {
         {
             "name": "policies",
             "baseName": "policies",
-            "type": "{ [key: string]: string; }",
+            "type": "GcpMarketplacePrivateOfferPolicies",
             "format": ""
         },
         {
@@ -244,6 +253,12 @@ export class GcpMarketplacePrivateOffer {
             "name": "priceModelType",
             "baseName": "priceModelType",
             "type": "GcpMarketplacePrivateOfferPriceModelType",
+            "format": ""
+        },
+        {
+            "name": "privateOfferRevenueShare",
+            "baseName": "privateOfferRevenueShare",
+            "type": "GcpMarketplacePrivateOfferRevenueShare",
             "format": ""
         },
         {

@@ -14,6 +14,10 @@ import { HttpFile } from '../http/http';
 
 export class GcpUserInfo {
     /**
+    * a list of unique order IDs for each entitlement ID that indicates the different offers on the same product. This field is available only if multiple orders of the same product is enabled
+    */
+    'orders'?: Array<string>;
+    /**
     * An array of strings representing the user\'s roles. Right now, it can be either: ** account_admin, which indicates that the user is a Billing Account Administrator of the billing account that purchased the product, or ** project_editor, which indicates that the user is a Project Editor, but not a Billing Administrator, of the project under that billing account.
     */
     'roles'?: Array<string>;
@@ -27,6 +31,12 @@ export class GcpUserInfo {
     static readonly mapping: {[index: string]: string} | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
+        {
+            "name": "orders",
+            "baseName": "orders",
+            "type": "Array<string>",
+            "format": ""
+        },
         {
             "name": "roles",
             "baseName": "roles",

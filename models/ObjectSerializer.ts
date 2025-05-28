@@ -120,6 +120,9 @@ export * from '../models/AzureMarketplacePriceAndAvailabilityRecurrentPriceItem'
 export * from '../models/AzureMarketplacePriceAndAvailabilityRecurrentPriceUserLimit';
 export * from '../models/AzureMarketplacePriceAndAvailabilitySoftwareReservation';
 export * from '../models/AzureMarketplacePriceAndAvailabilitySystemMeterPrice';
+export * from '../models/AzureMarketplacePriceBillingSchedule';
+export * from '../models/AzureMarketplacePriceFlexibleSchedule';
+export * from '../models/AzureMarketplacePriceInitialCharge';
 export * from '../models/AzureMarketplacePrivateOffer';
 export * from '../models/AzureMarketplacePrivateOfferAcceptanceLink';
 export * from '../models/AzureMarketplacePrivateOfferBeneficiary';
@@ -228,8 +231,6 @@ export * from '../models/CreateAndUpdateAddonParams';
 export * from '../models/CreateBuyerParams';
 export * from '../models/CreateEntitlementParams';
 export * from '../models/CreateUsageRecordGroupParams';
-export * from '../models/DatabaseSqlNullBool';
-export * from '../models/DatabaseSqlNullString';
 export * from '../models/DatabaseSqlNullTime';
 export * from '../models/DivideEntitlementCommitParams';
 export * from '../models/EntitlementInfo';
@@ -238,6 +239,7 @@ export * from '../models/EntitlementTermInfo';
 export * from '../models/EntitlementTermType';
 export * from '../models/EntityType';
 export * from '../models/EulaType';
+export * from '../models/GcpAgreementDocument';
 export * from '../models/GcpAmountConstraint';
 export * from '../models/GcpAmountUnit';
 export * from '../models/GcpCommitmentAmountPerPeriodTemplate';
@@ -254,6 +256,7 @@ export * from '../models/GcpMarketplaceMeteringMetricValue';
 export * from '../models/GcpMarketplaceMeteringMetricValueSet';
 export * from '../models/GcpMarketplaceMeteringMoney';
 export * from '../models/GcpMarketplaceMeteringOperation';
+export * from '../models/GcpMarketplaceOfferDealType';
 export * from '../models/GcpMarketplaceOfferProration';
 export * from '../models/GcpMarketplaceOfferStartPolicy';
 export * from '../models/GcpMarketplaceOfferTemplatePolicies';
@@ -265,6 +268,7 @@ export * from '../models/GcpMarketplacePrivateOfferInstallmentTimeline';
 export * from '../models/GcpMarketplacePrivateOfferMetricDetail';
 export * from '../models/GcpMarketplacePrivateOfferMetricInformation';
 export * from '../models/GcpMarketplacePrivateOfferMigrationMetadata';
+export * from '../models/GcpMarketplacePrivateOfferPolicies';
 export * from '../models/GcpMarketplacePrivateOfferPriceModel';
 export * from '../models/GcpMarketplacePrivateOfferPriceModelCommitment';
 export * from '../models/GcpMarketplacePrivateOfferPriceModelDiscount';
@@ -274,6 +278,7 @@ export * from '../models/GcpMarketplacePrivateOfferPriceModelPayg';
 export * from '../models/GcpMarketplacePrivateOfferPriceModelType';
 export * from '../models/GcpMarketplacePrivateOfferProviderInfo';
 export * from '../models/GcpMarketplacePrivateOfferReplacementMetadata';
+export * from '../models/GcpMarketplacePrivateOfferRevenueShare';
 export * from '../models/GcpMarketplacePrivateOfferState';
 export * from '../models/GcpMarketplacePrivateOfferTerm';
 export * from '../models/GcpMarketplacePrivateOfferTermDurationConstraint';
@@ -321,6 +326,9 @@ export * from '../models/GcpMarketplaceResellerPrivateOfferPlanReusePolicy';
 export * from '../models/GcpMarketplaceResellerPrivateOfferPlanState';
 export * from '../models/GcpMarketplaceResellerPrivateOfferPlanStateTransition';
 export * from '../models/GcpMarketplaceResellerPrivateOfferPlanStateType';
+export * from '../models/GcpMarketplaceRevenueShareChange';
+export * from '../models/GcpMarketplaceRevenueShareType';
+export * from '../models/GcpMarketplaceRevenueShareValue';
 export * from '../models/GcpMarketplaceStartPolicy';
 export * from '../models/GcpMarketplaceUnstructuredDocument';
 export * from '../models/GcpMarketplaceUsagePlanPriceModel';
@@ -347,6 +355,7 @@ export * from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMar
 export * from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventConflictResponseAdditionalInfo';
 export * from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventOkResponse';
 export * from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventStatusEnum';
+export * from '../models/GroupByInterval';
 export * from '../models/IdentityBuyer';
 export * from '../models/IdentityConctactInfo';
 export * from '../models/IdentityContact';
@@ -403,6 +412,7 @@ export * from '../models/PriceModelVolume';
 export * from '../models/PriceModelVolumeConfig';
 export * from '../models/PrivateOfferDiscountType';
 export * from '../models/ProductInfo';
+export * from '../models/RevenueChannel';
 export * from '../models/RevenueRecord';
 export * from '../models/RevenueRecordDetail';
 export * from '../models/RevenueRecordInfo';
@@ -411,7 +421,19 @@ export * from '../models/RevenueReportType';
 export * from '../models/ServicecontrolReportError';
 export * from '../models/ServicecontrolReportResponse';
 export * from '../models/ServicecontrolStatus';
+export * from '../models/SnowflakeMarketplaceBuyer';
+export * from '../models/SnowflakeMarketplaceOffer';
+export * from '../models/SnowflakeMarketplaceOfferPaymentTerms';
+export * from '../models/SnowflakeMarketplaceOfferTermsOfService';
+export * from '../models/SnowflakeMarketplacePlanInstallment';
+export * from '../models/SnowflakeMarketplacePlanInstallmentSchedule';
+export * from '../models/SnowflakeMarketplacePricingPlanUsageDetails';
 export * from '../models/SnowflakeMarketplaceProduct';
+export * from '../models/SnowflakeMarketplaceProductDefaultPricingPlan';
+export * from '../models/SnowflakeMarketplaceProductDetailedTargetAccount';
+export * from '../models/SnowflakeMarketplaceProductMetadata';
+export * from '../models/SnowflakeMarketplaceProductPricingPlan';
+export * from '../models/SnowflakeMarketplaceTrialDetails';
 export * from '../models/StripeBalanceTransaction';
 export * from '../models/StripeBalanceTransactionFeeDetail';
 export * from '../models/StripeCustomer';
@@ -455,6 +477,7 @@ export * from '../models/TypesUsageRecordResultStatus';
 export * from '../models/UniqueCountAggregationResult';
 export * from '../models/UpdateBillableMetricParams';
 export * from '../models/UpdateBuyerParams';
+export * from '../models/UpdateEntitlementPriceModelParams';
 export * from '../models/UpdateInvoiceInfoRequest';
 export * from '../models/UpdateProductParams';
 export * from '../models/UpdateSupportTicketRequest';
@@ -594,7 +617,10 @@ import { AzureMarketplacePriceAndAvailabilityRecurrentPriceItem } from '../model
 import { AzureMarketplacePriceAndAvailabilityRecurrentPriceUserLimit } from '../models/AzureMarketplacePriceAndAvailabilityRecurrentPriceUserLimit';
 import { AzureMarketplacePriceAndAvailabilitySoftwareReservation  , AzureMarketplacePriceAndAvailabilitySoftwareReservationTypeEnum   } from '../models/AzureMarketplacePriceAndAvailabilitySoftwareReservation';
 import { AzureMarketplacePriceAndAvailabilitySystemMeterPrice , AzureMarketplacePriceAndAvailabilitySystemMeterPricePriceInputOptionEnum    } from '../models/AzureMarketplacePriceAndAvailabilitySystemMeterPrice';
-import { AzureMarketplacePrivateOffer                         } from '../models/AzureMarketplacePrivateOffer';
+import { AzureMarketplacePriceBillingSchedule } from '../models/AzureMarketplacePriceBillingSchedule';
+import { AzureMarketplacePriceFlexibleSchedule } from '../models/AzureMarketplacePriceFlexibleSchedule';
+import { AzureMarketplacePriceInitialCharge } from '../models/AzureMarketplacePriceInitialCharge';
+import { AzureMarketplacePrivateOffer                          } from '../models/AzureMarketplacePrivateOffer';
 import { AzureMarketplacePrivateOfferAcceptanceLink } from '../models/AzureMarketplacePrivateOfferAcceptanceLink';
 import { AzureMarketplacePrivateOfferBeneficiary } from '../models/AzureMarketplacePrivateOfferBeneficiary';
 import { AzureMarketplacePrivateOfferBeneficiaryRecipient , AzureMarketplacePrivateOfferBeneficiaryRecipientRecipientTypeEnum   } from '../models/AzureMarketplacePrivateOfferBeneficiaryRecipient';
@@ -702,16 +728,15 @@ import { CreateAndUpdateAddonParams } from '../models/CreateAndUpdateAddonParams
 import { CreateBuyerParams            } from '../models/CreateBuyerParams';
 import { CreateEntitlementParams } from '../models/CreateEntitlementParams';
 import { CreateUsageRecordGroupParams } from '../models/CreateUsageRecordGroupParams';
-import { DatabaseSqlNullBool } from '../models/DatabaseSqlNullBool';
-import { DatabaseSqlNullString } from '../models/DatabaseSqlNullString';
 import { DatabaseSqlNullTime } from '../models/DatabaseSqlNullTime';
 import { DivideEntitlementCommitParams } from '../models/DivideEntitlementCommitParams';
-import { EntitlementInfo                                   } from '../models/EntitlementInfo';
+import { EntitlementInfo                                     } from '../models/EntitlementInfo';
 import { EntitlementStatus } from '../models/EntitlementStatus';
 import { EntitlementTermInfo      } from '../models/EntitlementTermInfo';
 import { EntitlementTermType } from '../models/EntitlementTermType';
 import { EntityType } from '../models/EntityType';
 import { EulaType } from '../models/EulaType';
+import { GcpAgreementDocument } from '../models/GcpAgreementDocument';
 import { GcpAmountConstraint } from '../models/GcpAmountConstraint';
 import { GcpAmountUnit } from '../models/GcpAmountUnit';
 import { GcpCommitmentAmountPerPeriodTemplate } from '../models/GcpCommitmentAmountPerPeriodTemplate';
@@ -728,17 +753,19 @@ import { GcpMarketplaceMeteringMetricValue } from '../models/GcpMarketplaceMeter
 import { GcpMarketplaceMeteringMetricValueSet } from '../models/GcpMarketplaceMeteringMetricValueSet';
 import { GcpMarketplaceMeteringMoney } from '../models/GcpMarketplaceMeteringMoney';
 import { GcpMarketplaceMeteringOperation } from '../models/GcpMarketplaceMeteringOperation';
+import { GcpMarketplaceOfferDealType } from '../models/GcpMarketplaceOfferDealType';
 import { GcpMarketplaceOfferProration } from '../models/GcpMarketplaceOfferProration';
 import { GcpMarketplaceOfferStartPolicy } from '../models/GcpMarketplaceOfferStartPolicy';
-import { GcpMarketplaceOfferTemplatePolicies     } from '../models/GcpMarketplaceOfferTemplatePolicies';
+import { GcpMarketplaceOfferTemplatePolicies      } from '../models/GcpMarketplaceOfferTemplatePolicies';
 import { GcpMarketplacePriceModel } from '../models/GcpMarketplacePriceModel';
-import { GcpMarketplacePrivateOffer               , GcpMarketplacePrivateOfferOfferSourceEnum                       } from '../models/GcpMarketplacePrivateOffer';
+import { GcpMarketplacePrivateOffer               , GcpMarketplacePrivateOfferOfferSourceEnum                        } from '../models/GcpMarketplacePrivateOffer';
 import { GcpMarketplacePrivateOfferCustomerInfo } from '../models/GcpMarketplacePrivateOfferCustomerInfo';
 import { GcpMarketplacePrivateOfferInstallment } from '../models/GcpMarketplacePrivateOfferInstallment';
 import { GcpMarketplacePrivateOfferInstallmentTimeline } from '../models/GcpMarketplacePrivateOfferInstallmentTimeline';
 import { GcpMarketplacePrivateOfferMetricDetail } from '../models/GcpMarketplacePrivateOfferMetricDetail';
 import { GcpMarketplacePrivateOfferMetricInformation } from '../models/GcpMarketplacePrivateOfferMetricInformation';
 import { GcpMarketplacePrivateOfferMigrationMetadata } from '../models/GcpMarketplacePrivateOfferMigrationMetadata';
+import { GcpMarketplacePrivateOfferPolicies        } from '../models/GcpMarketplacePrivateOfferPolicies';
 import { GcpMarketplacePrivateOfferPriceModel } from '../models/GcpMarketplacePrivateOfferPriceModel';
 import { GcpMarketplacePrivateOfferPriceModelCommitment } from '../models/GcpMarketplacePrivateOfferPriceModelCommitment';
 import { GcpMarketplacePrivateOfferPriceModelDiscount } from '../models/GcpMarketplacePrivateOfferPriceModelDiscount';
@@ -748,6 +775,7 @@ import { GcpMarketplacePrivateOfferPriceModelPayg } from '../models/GcpMarketpla
 import { GcpMarketplacePrivateOfferPriceModelType } from '../models/GcpMarketplacePrivateOfferPriceModelType';
 import { GcpMarketplacePrivateOfferProviderInfo } from '../models/GcpMarketplacePrivateOfferProviderInfo';
 import { GcpMarketplacePrivateOfferReplacementMetadata } from '../models/GcpMarketplacePrivateOfferReplacementMetadata';
+import { GcpMarketplacePrivateOfferRevenueShare } from '../models/GcpMarketplacePrivateOfferRevenueShare';
 import { GcpMarketplacePrivateOfferState } from '../models/GcpMarketplacePrivateOfferState';
 import { GcpMarketplacePrivateOfferTerm      } from '../models/GcpMarketplacePrivateOfferTerm';
 import { GcpMarketplacePrivateOfferTermDurationConstraint } from '../models/GcpMarketplacePrivateOfferTermDurationConstraint';
@@ -795,10 +823,13 @@ import { GcpMarketplaceResellerPrivateOfferPlanReusePolicy } from '../models/Gcp
 import { GcpMarketplaceResellerPrivateOfferPlanState     } from '../models/GcpMarketplaceResellerPrivateOfferPlanState';
 import { GcpMarketplaceResellerPrivateOfferPlanStateTransition } from '../models/GcpMarketplaceResellerPrivateOfferPlanStateTransition';
 import { GcpMarketplaceResellerPrivateOfferPlanStateType } from '../models/GcpMarketplaceResellerPrivateOfferPlanStateType';
+import { GcpMarketplaceRevenueShareChange    } from '../models/GcpMarketplaceRevenueShareChange';
+import { GcpMarketplaceRevenueShareType } from '../models/GcpMarketplaceRevenueShareType';
+import { GcpMarketplaceRevenueShareValue } from '../models/GcpMarketplaceRevenueShareValue';
 import { GcpMarketplaceStartPolicy } from '../models/GcpMarketplaceStartPolicy';
 import { GcpMarketplaceUnstructuredDocument } from '../models/GcpMarketplaceUnstructuredDocument';
 import { GcpMarketplaceUsagePlanPriceModel } from '../models/GcpMarketplaceUsagePlanPriceModel';
-import { GcpMarketplaceUserAccount           } from '../models/GcpMarketplaceUserAccount';
+import { GcpMarketplaceUserAccount            } from '../models/GcpMarketplaceUserAccount';
 import { GcpMarketplaceUserAccountApproval     } from '../models/GcpMarketplaceUserAccountApproval';
 import { GcpMarketplaceUserAccountApprovalState } from '../models/GcpMarketplaceUserAccountApprovalState';
 import { GcpMarketplaceUserAccountState } from '../models/GcpMarketplaceUserAccountState';
@@ -808,7 +839,7 @@ import { GcpPriceModelDiscountTemplate } from '../models/GcpPriceModelDiscountTe
 import { GcpPriceTier } from '../models/GcpPriceTier';
 import { GcpPriceValue } from '../models/GcpPriceValue';
 import { GcpUserInfo } from '../models/GcpUserInfo';
-import { GetRevenueReportParams   , GetRevenueReportParamsPartnerEnum    , GetRevenueReportParamsServiceEnum   } from '../models/GetRevenueReportParams';
+import { GetRevenueReportParams    , GetRevenueReportParamsPartnerEnum    , GetRevenueReportParamsServiceEnum   } from '../models/GetRevenueReportParams';
 import { GithubComAwsAwsSdkGoV2ServiceMarketplacemeteringTypesTag } from '../models/GithubComAwsAwsSdkGoV2ServiceMarketplacemeteringTypesTag';
 import { GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAwsBillingEvent } from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAwsBillingEvent';
 import { GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAzureCmaRevenue } from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAzureCmaRevenue';
@@ -821,6 +852,7 @@ import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemetering
 import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventConflictResponseAdditionalInfo } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventConflictResponseAdditionalInfo';
 import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventOkResponse          } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventOkResponse';
 import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventStatusEnum } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventStatusEnum';
+import { GroupByInterval } from '../models/GroupByInterval';
 import { IdentityBuyer           } from '../models/IdentityBuyer';
 import { IdentityConctactInfo } from '../models/IdentityConctactInfo';
 import { IdentityContact } from '../models/IdentityContact';
@@ -853,7 +885,7 @@ import { NotificationEventAction } from '../models/NotificationEventAction';
 import { NotificationEventStatus } from '../models/NotificationEventStatus';
 import { NotificationMessage       } from '../models/NotificationMessage';
 import { NotificationMessageInfo         } from '../models/NotificationMessageInfo';
-import { OfferInfo                                                     , OfferInfoVisibilityEnum   } from '../models/OfferInfo';
+import { OfferInfo                                                            , OfferInfoVisibilityEnum   } from '../models/OfferInfo';
 import { OfferStatus } from '../models/OfferStatus';
 import { OfferType } from '../models/OfferType';
 import { Partner } from '../models/Partner';
@@ -876,16 +908,29 @@ import { PriceModelTieredPercentageConfig } from '../models/PriceModelTieredPerc
 import { PriceModelVolume } from '../models/PriceModelVolume';
 import { PriceModelVolumeConfig } from '../models/PriceModelVolumeConfig';
 import { PrivateOfferDiscountType } from '../models/PrivateOfferDiscountType';
-import { ProductInfo                    } from '../models/ProductInfo';
+import { ProductInfo                     } from '../models/ProductInfo';
+import { RevenueChannel } from '../models/RevenueChannel';
 import { RevenueRecord } from '../models/RevenueRecord';
 import { RevenueRecordDetail } from '../models/RevenueRecordDetail';
-import { RevenueRecordInfo } from '../models/RevenueRecordInfo';
-import { RevenueReport          } from '../models/RevenueReport';
+import { RevenueRecordInfo   , RevenueRecordInfoBillingModelEnum              } from '../models/RevenueRecordInfo';
+import { RevenueReport           } from '../models/RevenueReport';
 import { RevenueReportType } from '../models/RevenueReportType';
 import { ServicecontrolReportError } from '../models/ServicecontrolReportError';
 import { ServicecontrolReportResponse } from '../models/ServicecontrolReportResponse';
 import { ServicecontrolStatus } from '../models/ServicecontrolStatus';
+import { SnowflakeMarketplaceBuyer } from '../models/SnowflakeMarketplaceBuyer';
+import { SnowflakeMarketplaceOffer } from '../models/SnowflakeMarketplaceOffer';
+import { SnowflakeMarketplaceOfferPaymentTerms , SnowflakeMarketplaceOfferPaymentTermsPaymentTypeEnum   } from '../models/SnowflakeMarketplaceOfferPaymentTerms';
+import { SnowflakeMarketplaceOfferTermsOfService } from '../models/SnowflakeMarketplaceOfferTermsOfService';
+import { SnowflakeMarketplacePlanInstallment } from '../models/SnowflakeMarketplacePlanInstallment';
+import { SnowflakeMarketplacePlanInstallmentSchedule } from '../models/SnowflakeMarketplacePlanInstallmentSchedule';
+import { SnowflakeMarketplacePricingPlanUsageDetails } from '../models/SnowflakeMarketplacePricingPlanUsageDetails';
 import { SnowflakeMarketplaceProduct } from '../models/SnowflakeMarketplaceProduct';
+import { SnowflakeMarketplaceProductDefaultPricingPlan } from '../models/SnowflakeMarketplaceProductDefaultPricingPlan';
+import { SnowflakeMarketplaceProductDetailedTargetAccount } from '../models/SnowflakeMarketplaceProductDetailedTargetAccount';
+import { SnowflakeMarketplaceProductMetadata } from '../models/SnowflakeMarketplaceProductMetadata';
+import { SnowflakeMarketplaceProductPricingPlan } from '../models/SnowflakeMarketplaceProductPricingPlan';
+import { SnowflakeMarketplaceTrialDetails } from '../models/SnowflakeMarketplaceTrialDetails';
 import { StripeBalanceTransaction } from '../models/StripeBalanceTransaction';
 import { StripeBalanceTransactionFeeDetail } from '../models/StripeBalanceTransactionFeeDetail';
 import { StripeCustomer } from '../models/StripeCustomer';
@@ -896,16 +941,16 @@ import { StripePaymentIntent     } from '../models/StripePaymentIntent';
 import { StripePaymentIntentStatus } from '../models/StripePaymentIntentStatus';
 import { StripePaymentMethod } from '../models/StripePaymentMethod';
 import { StripePaymentMethodBACSDebit } from '../models/StripePaymentMethodBACSDebit';
-import { StripePaymentMethodCard } from '../models/StripePaymentMethodCard';
+import { StripePaymentMethodCard, StripePaymentMethodCardBrandEnum       , StripePaymentMethodCardFundingEnum    } from '../models/StripePaymentMethodCard';
 import { StripePaymentMethodSEPADebit } from '../models/StripePaymentMethodSEPADebit';
-import { StripePaymentMethodUSBankAccount } from '../models/StripePaymentMethodUSBankAccount';
+import { StripePaymentMethodUSBankAccount, StripePaymentMethodUSBankAccountAccountHolderTypeEnum  , StripePaymentMethodUSBankAccountAccountTypeEnum       } from '../models/StripePaymentMethodUSBankAccount';
 import { StripeProduct } from '../models/StripeProduct';
 import { StripeProductMarketingFeature } from '../models/StripeProductMarketingFeature';
 import { StripeProductPackageDimensions } from '../models/StripeProductPackageDimensions';
 import { StripeRefund        } from '../models/StripeRefund';
 import { StripeRefundDestinationDetails } from '../models/StripeRefundDestinationDetails';
-import { StripeRefundDestinationDetailsCard } from '../models/StripeRefundDestinationDetailsCard';
-import { StripeRefundDestinationDetailsUSBankTransfer } from '../models/StripeRefundDestinationDetailsUSBankTransfer';
+import { StripeRefundDestinationDetailsCard , StripeRefundDestinationDetailsCardReferenceStatusEnum   , StripeRefundDestinationDetailsCardTypeEnum   } from '../models/StripeRefundDestinationDetailsCard';
+import { StripeRefundDestinationDetailsUSBankTransfer , StripeRefundDestinationDetailsUSBankTransferReferenceStatusEnum   } from '../models/StripeRefundDestinationDetailsUSBankTransfer';
 import { StripeRefundStatus } from '../models/StripeRefundStatus';
 import { SupportTicket              } from '../models/SupportTicket';
 import { SupportTicketAttachment } from '../models/SupportTicketAttachment';
@@ -929,6 +974,7 @@ import { TypesUsageRecordResultStatus } from '../models/TypesUsageRecordResultSt
 import { UniqueCountAggregationResult } from '../models/UniqueCountAggregationResult';
 import { UpdateBillableMetricParams    } from '../models/UpdateBillableMetricParams';
 import { UpdateBuyerParams } from '../models/UpdateBuyerParams';
+import { UpdateEntitlementPriceModelParams } from '../models/UpdateEntitlementPriceModelParams';
 import { UpdateInvoiceInfoRequest     } from '../models/UpdateInvoiceInfoRequest';
 import { UpdateProductParams } from '../models/UpdateProductParams';
 import { UpdateSupportTicketRequest   } from '../models/UpdateSupportTicketRequest';
@@ -941,8 +987,8 @@ import { UsageRecordGroupSource } from '../models/UsageRecordGroupSource';
 import { UsageRecordReportStatus } from '../models/UsageRecordReportStatus';
 import { ValueType } from '../models/ValueType';
 import { WorkloadEntitlement                      } from '../models/WorkloadEntitlement';
-import { WorkloadEntitlementTerm                   } from '../models/WorkloadEntitlementTerm';
-import { WorkloadMetaInfo                             } from '../models/WorkloadMetaInfo';
+import { WorkloadEntitlementTerm                     } from '../models/WorkloadEntitlementTerm';
+import { WorkloadMetaInfo                              } from '../models/WorkloadMetaInfo';
 import { WorkloadOffer                     } from '../models/WorkloadOffer';
 import { WorkloadProduct             , WorkloadProductProductTypeEnum     } from '../models/WorkloadProduct';
 
@@ -1054,6 +1100,7 @@ let enumsMap: Set<string> = new Set<string>([
     "EntityType",
     "EulaType",
     "GcpMarketplaceEntitlementState",
+    "GcpMarketplaceOfferDealType",
     "GcpMarketplaceOfferProration",
     "GcpMarketplaceOfferStartPolicy",
     "GcpMarketplacePriceModel",
@@ -1069,6 +1116,7 @@ let enumsMap: Set<string> = new Set<string>([
     "GcpMarketplaceResellerPrivateOfferPlanPriceModelTemplateSubscriptionEnum",
     "GcpMarketplaceResellerPrivateOfferPlanReusePolicy",
     "GcpMarketplaceResellerPrivateOfferPlanStateType",
+    "GcpMarketplaceRevenueShareType",
     "GcpMarketplaceStartPolicy",
     "GcpMarketplaceUsagePlanPriceModel",
     "GcpMarketplaceUserAccountApprovalState",
@@ -1077,6 +1125,7 @@ let enumsMap: Set<string> = new Set<string>([
     "GetRevenueReportParamsPartnerEnum",
     "GetRevenueReportParamsServiceEnum",
     "GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventStatusEnum",
+    "GroupByInterval",
     "MeteringUsageRecordGroupPartnerEnum",
     "NotificationChannel",
     "NotificationEventAction",
@@ -1089,8 +1138,18 @@ let enumsMap: Set<string> = new Set<string>([
     "PaymentScheduleType",
     "PriceModelCategory",
     "PrivateOfferDiscountType",
+    "RevenueChannel",
+    "RevenueRecordInfoBillingModelEnum",
     "RevenueReportType",
+    "SnowflakeMarketplaceOfferPaymentTermsPaymentTypeEnum",
     "StripePaymentIntentStatus",
+    "StripePaymentMethodCardBrandEnum",
+    "StripePaymentMethodCardFundingEnum",
+    "StripePaymentMethodUSBankAccountAccountHolderTypeEnum",
+    "StripePaymentMethodUSBankAccountAccountTypeEnum",
+    "StripeRefundDestinationDetailsCardReferenceStatusEnum",
+    "StripeRefundDestinationDetailsCardTypeEnum",
+    "StripeRefundDestinationDetailsUSBankTransferReferenceStatusEnum",
     "StripeRefundStatus",
     "SupportTicketPriority",
     "SupportTicketStatus",
@@ -1214,6 +1273,9 @@ let typeMap: {[index: string]: any} = {
     "AzureMarketplacePriceAndAvailabilityRecurrentPriceUserLimit": AzureMarketplacePriceAndAvailabilityRecurrentPriceUserLimit,
     "AzureMarketplacePriceAndAvailabilitySoftwareReservation": AzureMarketplacePriceAndAvailabilitySoftwareReservation,
     "AzureMarketplacePriceAndAvailabilitySystemMeterPrice": AzureMarketplacePriceAndAvailabilitySystemMeterPrice,
+    "AzureMarketplacePriceBillingSchedule": AzureMarketplacePriceBillingSchedule,
+    "AzureMarketplacePriceFlexibleSchedule": AzureMarketplacePriceFlexibleSchedule,
+    "AzureMarketplacePriceInitialCharge": AzureMarketplacePriceInitialCharge,
     "AzureMarketplacePrivateOffer": AzureMarketplacePrivateOffer,
     "AzureMarketplacePrivateOfferAcceptanceLink": AzureMarketplacePrivateOfferAcceptanceLink,
     "AzureMarketplacePrivateOfferBeneficiary": AzureMarketplacePrivateOfferBeneficiary,
@@ -1300,12 +1362,11 @@ let typeMap: {[index: string]: any} = {
     "CreateBuyerParams": CreateBuyerParams,
     "CreateEntitlementParams": CreateEntitlementParams,
     "CreateUsageRecordGroupParams": CreateUsageRecordGroupParams,
-    "DatabaseSqlNullBool": DatabaseSqlNullBool,
-    "DatabaseSqlNullString": DatabaseSqlNullString,
     "DatabaseSqlNullTime": DatabaseSqlNullTime,
     "DivideEntitlementCommitParams": DivideEntitlementCommitParams,
     "EntitlementInfo": EntitlementInfo,
     "EntitlementTermInfo": EntitlementTermInfo,
+    "GcpAgreementDocument": GcpAgreementDocument,
     "GcpAmountConstraint": GcpAmountConstraint,
     "GcpAmountUnit": GcpAmountUnit,
     "GcpCommitmentAmountPerPeriodTemplate": GcpCommitmentAmountPerPeriodTemplate,
@@ -1329,6 +1390,7 @@ let typeMap: {[index: string]: any} = {
     "GcpMarketplacePrivateOfferMetricDetail": GcpMarketplacePrivateOfferMetricDetail,
     "GcpMarketplacePrivateOfferMetricInformation": GcpMarketplacePrivateOfferMetricInformation,
     "GcpMarketplacePrivateOfferMigrationMetadata": GcpMarketplacePrivateOfferMigrationMetadata,
+    "GcpMarketplacePrivateOfferPolicies": GcpMarketplacePrivateOfferPolicies,
     "GcpMarketplacePrivateOfferPriceModel": GcpMarketplacePrivateOfferPriceModel,
     "GcpMarketplacePrivateOfferPriceModelCommitment": GcpMarketplacePrivateOfferPriceModelCommitment,
     "GcpMarketplacePrivateOfferPriceModelDiscount": GcpMarketplacePrivateOfferPriceModelDiscount,
@@ -1337,6 +1399,7 @@ let typeMap: {[index: string]: any} = {
     "GcpMarketplacePrivateOfferPriceModelPayg": GcpMarketplacePrivateOfferPriceModelPayg,
     "GcpMarketplacePrivateOfferProviderInfo": GcpMarketplacePrivateOfferProviderInfo,
     "GcpMarketplacePrivateOfferReplacementMetadata": GcpMarketplacePrivateOfferReplacementMetadata,
+    "GcpMarketplacePrivateOfferRevenueShare": GcpMarketplacePrivateOfferRevenueShare,
     "GcpMarketplacePrivateOfferTerm": GcpMarketplacePrivateOfferTerm,
     "GcpMarketplacePrivateOfferTermDurationConstraint": GcpMarketplacePrivateOfferTermDurationConstraint,
     "GcpMarketplacePrivateOfferTermTemplate": GcpMarketplacePrivateOfferTermTemplate,
@@ -1380,6 +1443,8 @@ let typeMap: {[index: string]: any} = {
     "GcpMarketplaceResellerPrivateOfferPlanPriceModelTemplatePayg": GcpMarketplaceResellerPrivateOfferPlanPriceModelTemplatePayg,
     "GcpMarketplaceResellerPrivateOfferPlanState": GcpMarketplaceResellerPrivateOfferPlanState,
     "GcpMarketplaceResellerPrivateOfferPlanStateTransition": GcpMarketplaceResellerPrivateOfferPlanStateTransition,
+    "GcpMarketplaceRevenueShareChange": GcpMarketplaceRevenueShareChange,
+    "GcpMarketplaceRevenueShareValue": GcpMarketplaceRevenueShareValue,
     "GcpMarketplaceUnstructuredDocument": GcpMarketplaceUnstructuredDocument,
     "GcpMarketplaceUserAccount": GcpMarketplaceUserAccount,
     "GcpMarketplaceUserAccountApproval": GcpMarketplaceUserAccountApproval,
@@ -1453,7 +1518,19 @@ let typeMap: {[index: string]: any} = {
     "ServicecontrolReportError": ServicecontrolReportError,
     "ServicecontrolReportResponse": ServicecontrolReportResponse,
     "ServicecontrolStatus": ServicecontrolStatus,
+    "SnowflakeMarketplaceBuyer": SnowflakeMarketplaceBuyer,
+    "SnowflakeMarketplaceOffer": SnowflakeMarketplaceOffer,
+    "SnowflakeMarketplaceOfferPaymentTerms": SnowflakeMarketplaceOfferPaymentTerms,
+    "SnowflakeMarketplaceOfferTermsOfService": SnowflakeMarketplaceOfferTermsOfService,
+    "SnowflakeMarketplacePlanInstallment": SnowflakeMarketplacePlanInstallment,
+    "SnowflakeMarketplacePlanInstallmentSchedule": SnowflakeMarketplacePlanInstallmentSchedule,
+    "SnowflakeMarketplacePricingPlanUsageDetails": SnowflakeMarketplacePricingPlanUsageDetails,
     "SnowflakeMarketplaceProduct": SnowflakeMarketplaceProduct,
+    "SnowflakeMarketplaceProductDefaultPricingPlan": SnowflakeMarketplaceProductDefaultPricingPlan,
+    "SnowflakeMarketplaceProductDetailedTargetAccount": SnowflakeMarketplaceProductDetailedTargetAccount,
+    "SnowflakeMarketplaceProductMetadata": SnowflakeMarketplaceProductMetadata,
+    "SnowflakeMarketplaceProductPricingPlan": SnowflakeMarketplaceProductPricingPlan,
+    "SnowflakeMarketplaceTrialDetails": SnowflakeMarketplaceTrialDetails,
     "StripeBalanceTransaction": StripeBalanceTransaction,
     "StripeBalanceTransactionFeeDetail": StripeBalanceTransactionFeeDetail,
     "StripeCustomer": StripeCustomer,
@@ -1490,6 +1567,7 @@ let typeMap: {[index: string]: any} = {
     "UniqueCountAggregationResult": UniqueCountAggregationResult,
     "UpdateBillableMetricParams": UpdateBillableMetricParams,
     "UpdateBuyerParams": UpdateBuyerParams,
+    "UpdateEntitlementPriceModelParams": UpdateEntitlementPriceModelParams,
     "UpdateInvoiceInfoRequest": UpdateInvoiceInfoRequest,
     "UpdateProductParams": UpdateProductParams,
     "UpdateSupportTicketRequest": UpdateSupportTicketRequest,
@@ -1742,7 +1820,7 @@ export class ObjectSerializer {
             return "application/json";
         }
 
-        const normalMediaTypes = mediaTypes.map(this.normalizeMediaType);
+        const normalMediaTypes = mediaTypes.map(ObjectSerializer.normalizeMediaType);
 
         for (const predicate of supportedMimeTypePredicatesWithPriority) {
             for (const mediaType of normalMediaTypes) {

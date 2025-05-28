@@ -94,7 +94,7 @@ const request: NotificationApiListNotificationEventsRequest = {
   limit: 1,
     // List pagination offset, default 0 (optional)
   offset: 1,
-    // Filter by priorities, empty means all priorities. Valid values are: LOW, MEDIUM, HIGH, CRITICAL. Multiple values are supported, separated by comma. (optional)
+    // Filter by priorities, empty means HIGH and CRITICAL only. Valid values are: LOW, MEDIUM, HIGH, CRITICAL. Multiple values are supported, separated by comma. (optional)
   priorities: "priorities_example",
 };
 
@@ -112,7 +112,7 @@ Name | Type | Description  | Notes
  **endDate** | [**string**] | end date (UTC) in YYYY-MM-DD format, default is today | (optional) defaults to undefined
  **limit** | [**number**] | List pagination size, default 1000, max value is 1000 | (optional) defaults to undefined
  **offset** | [**number**] | List pagination offset, default 0 | (optional) defaults to undefined
- **priorities** | [**string**] | Filter by priorities, empty means all priorities. Valid values are: LOW, MEDIUM, HIGH, CRITICAL. Multiple values are supported, separated by comma. | (optional) defaults to undefined
+ **priorities** | [**string**] | Filter by priorities, empty means HIGH and CRITICAL only. Valid values are: LOW, MEDIUM, HIGH, CRITICAL. Multiple values are supported, separated by comma. | (optional) defaults to undefined
 
 
 ### Return type

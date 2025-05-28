@@ -19,7 +19,7 @@ test("test get offer by productId", async () => {
     }
 
     const server = new ServerConfiguration<{}>("https://api.dev.suger.cloud", {})
-    const apiKey = "Key b277c95e5e92ff7a8e96e74baf6ee2fb080db3e6507977c0067791abc1f52da4220e866e2081117a1721788aa2e9dc6fe009f2a699f17a7bba23973af6954db4"
+    const apiKey = "Key 95d2983ca68bd6f9655b9d026b05e9afbdb6a601a700c18007f9eb3accec7a067b306e8233278dd36f88d028c6007053cfe3fc7a585ed2aef4f3cf14b99482ca"
     const authConfig: api.AuthMethodsConfiguration = {
         APIKeyAuth: apiKey,
     }

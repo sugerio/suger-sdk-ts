@@ -11,11 +11,24 @@
  */
 
 import { AzureMarketplacePrice } from '../models/AzureMarketplacePrice';
+import { AzureMarketplacePriceFlexibleSchedule } from '../models/AzureMarketplacePriceFlexibleSchedule';
 import { AzureMarketplaceTerm } from '../models/AzureMarketplaceTerm';
 import { HttpFile } from '../http/http';
 
 export class AzureMarketplacePriceAndAvailabilityRecurrentPriceItem {
+    /**
+    * billingFrequency defines the frequency of the billing for recurring price.
+    */
+    'billingFrequency'?: AzureMarketplaceTerm;
     'billingTerm'?: AzureMarketplaceTerm;
+    /**
+    * contractDuration defines the duration of the contract, should always be “year” with value 1 or 2 or 3
+    */
+    'contractDuration'?: AzureMarketplaceTerm;
+    /**
+    * flexibleSchedule defines the payment installments for flexible billing.
+    */
+    'flexibleSchedule'?: AzureMarketplacePriceFlexibleSchedule;
     'paymentOption'?: AzureMarketplaceTerm;
     'pricePerPaymentInUsd'?: number;
     'prices'?: Array<AzureMarketplacePrice>;
@@ -26,9 +39,27 @@ export class AzureMarketplacePriceAndAvailabilityRecurrentPriceItem {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
+            "name": "billingFrequency",
+            "baseName": "billingFrequency",
+            "type": "AzureMarketplaceTerm",
+            "format": ""
+        },
+        {
             "name": "billingTerm",
             "baseName": "billingTerm",
             "type": "AzureMarketplaceTerm",
+            "format": ""
+        },
+        {
+            "name": "contractDuration",
+            "baseName": "contractDuration",
+            "type": "AzureMarketplaceTerm",
+            "format": ""
+        },
+        {
+            "name": "flexibleSchedule",
+            "baseName": "flexibleSchedule",
+            "type": "AzureMarketplacePriceFlexibleSchedule",
             "format": ""
         },
         {

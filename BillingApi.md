@@ -8,17 +8,17 @@ Method | HTTP request | Description
 [**createRefund**](BillingApi.md#createRefund) | **POST** /org/{orgId}/buyer/{buyerId}/paymentTransaction/{paymentTransactionId}/refund | create refund.
 [**deleteAddon**](BillingApi.md#deleteAddon) | **DELETE** /org/{orgId}/addon/{addonId} | delete addon
 [**getAddon**](BillingApi.md#getAddon) | **GET** /org/{orgId}/addon/{addonId} | get addon
-[**getInvoiceV2**](BillingApi.md#getInvoiceV2) | **GET** /org/{orgId}/invoice/{invoiceId} | get invoice
-[**issueInvoiceV2**](BillingApi.md#issueInvoiceV2) | **PATCH** /org/{orgId}/invoice/{invoiceId}/issue | issue invoice
+[**getInvoice**](BillingApi.md#getInvoice) | **GET** /org/{orgId}/invoice/{invoiceId} | get invoice
+[**issueInvoice**](BillingApi.md#issueInvoice) | **PATCH** /org/{orgId}/invoice/{invoiceId}/issue | issue invoice
 [**listAddons**](BillingApi.md#listAddons) | **GET** /org/{orgId}/addon | list addons
 [**listInvoices**](BillingApi.md#listInvoices) | **GET** /org/{orgId}/invoice | list invoices
 [**listPaymentTransactions**](BillingApi.md#listPaymentTransactions) | **GET** /org/{orgId}/paymentTransaction | list payment transactions
 [**listRefundOfPaymentTransaction**](BillingApi.md#listRefundOfPaymentTransaction) | **GET** /org/{orgId}/buyer/{buyerId}/paymentTransaction/{paymentTransactionId}/refund | list refunds.
-[**payInvoiceV2**](BillingApi.md#payInvoiceV2) | **PATCH** /org/{orgId}/invoice/{invoiceId}/pay | pay invoice
+[**payInvoice**](BillingApi.md#payInvoice) | **PATCH** /org/{orgId}/invoice/{invoiceId}/pay | pay invoice
 [**previewInvoiceEmail**](BillingApi.md#previewInvoiceEmail) | **GET** /org/{orgId}/invoice/{invoiceId}/preview | preview invoice email
 [**updateAddon**](BillingApi.md#updateAddon) | **PATCH** /org/{orgId}/addon/{addonId} | update addon
-[**updateInvoiceInfoV2**](BillingApi.md#updateInvoiceInfoV2) | **PATCH** /org/{orgId}/invoice/{invoiceId}/info | update invoice info
-[**voidInvoiceV2**](BillingApi.md#voidInvoiceV2) | **PATCH** /org/{orgId}/invoice/{invoiceId}/void | void invoice
+[**updateInvoiceInfo**](BillingApi.md#updateInvoiceInfo) | **PATCH** /org/{orgId}/invoice/{invoiceId}/info | update invoice info
+[**voidInvoice**](BillingApi.md#voidInvoice) | **PATCH** /org/{orgId}/invoice/{invoiceId}/void | void invoice
 
 
 # **createAddon**
@@ -263,8 +263,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **getInvoiceV2**
-> BillingInvoice getInvoiceV2()
+# **getInvoice**
+> BillingInvoice getInvoice()
 
 Get the invoice by ID
 
@@ -273,19 +273,19 @@ Get the invoice by ID
 
 ```typescript
 import { createConfiguration, BillingApi } from '';
-import type { BillingApiGetInvoiceV2Request } from '';
+import type { BillingApiGetInvoiceRequest } from '';
 
 const configuration = createConfiguration();
 const apiInstance = new BillingApi(configuration);
 
-const request: BillingApiGetInvoiceV2Request = {
+const request: BillingApiGetInvoiceRequest = {
     // Organization ID
   orgId: "orgId_example",
     // Invoice ID
   invoiceId: "invoiceId_example",
 };
 
-const data = await apiInstance.getInvoiceV2(request);
+const data = await apiInstance.getInvoice(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -321,8 +321,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **issueInvoiceV2**
-> BillingInvoice issueInvoiceV2()
+# **issueInvoice**
+> BillingInvoice issueInvoice()
 
 Issue the invoice immediately. It can be used for manual issue or reissue invoice.
 
@@ -331,12 +331,12 @@ Issue the invoice immediately. It can be used for manual issue or reissue invoic
 
 ```typescript
 import { createConfiguration, BillingApi } from '';
-import type { BillingApiIssueInvoiceV2Request } from '';
+import type { BillingApiIssueInvoiceRequest } from '';
 
 const configuration = createConfiguration();
 const apiInstance = new BillingApi(configuration);
 
-const request: BillingApiIssueInvoiceV2Request = {
+const request: BillingApiIssueInvoiceRequest = {
     // Organization ID
   orgId: "orgId_example",
     // Invoice ID
@@ -347,7 +347,7 @@ const request: BillingApiIssueInvoiceV2Request = {
   ],
 };
 
-const data = await apiInstance.issueInvoiceV2(request);
+const data = await apiInstance.issueInvoice(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -652,8 +652,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **payInvoiceV2**
-> BillingInvoice payInvoiceV2()
+# **payInvoice**
+> BillingInvoice payInvoice()
 
 Initiate the payment for the invoice immediately. It can be used for manual payment or retry payment.
 
@@ -662,19 +662,19 @@ Initiate the payment for the invoice immediately. It can be used for manual paym
 
 ```typescript
 import { createConfiguration, BillingApi } from '';
-import type { BillingApiPayInvoiceV2Request } from '';
+import type { BillingApiPayInvoiceRequest } from '';
 
 const configuration = createConfiguration();
 const apiInstance = new BillingApi(configuration);
 
-const request: BillingApiPayInvoiceV2Request = {
+const request: BillingApiPayInvoiceRequest = {
     // Organization ID
   orgId: "orgId_example",
     // Invoice ID
   invoiceId: "invoiceId_example",
 };
 
-const data = await apiInstance.payInvoiceV2(request);
+const data = await apiInstance.payInvoice(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -833,8 +833,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **updateInvoiceInfoV2**
-> BillingInvoiceInfo updateInvoiceInfoV2(data)
+# **updateInvoiceInfo**
+> BillingInvoiceInfo updateInvoiceInfo(data)
 
 Update a draft invoice. Only DueDate, OverallDiscount, and Memo can be updated.
 
@@ -843,12 +843,12 @@ Update a draft invoice. Only DueDate, OverallDiscount, and Memo can be updated.
 
 ```typescript
 import { createConfiguration, BillingApi } from '';
-import type { BillingApiUpdateInvoiceInfoV2Request } from '';
+import type { BillingApiUpdateInvoiceInfoRequest } from '';
 
 const configuration = createConfiguration();
 const apiInstance = new BillingApi(configuration);
 
-const request: BillingApiUpdateInvoiceInfoV2Request = {
+const request: BillingApiUpdateInvoiceInfoRequest = {
     // Organization ID
   orgId: "orgId_example",
     // Invoice ID
@@ -862,7 +862,7 @@ const request: BillingApiUpdateInvoiceInfoV2Request = {
   },
 };
 
-const data = await apiInstance.updateInvoiceInfoV2(request);
+const data = await apiInstance.updateInvoiceInfo(request);
 console.log('API called successfully. Returned data:', data);
 ```
 
@@ -899,8 +899,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 
-# **voidInvoiceV2**
-> BillingInvoice voidInvoiceV2()
+# **voidInvoice**
+> BillingInvoice voidInvoice()
 
 Void the invoice. It can be used for manual void or cancel the invoice.
 
@@ -909,19 +909,19 @@ Void the invoice. It can be used for manual void or cancel the invoice.
 
 ```typescript
 import { createConfiguration, BillingApi } from '';
-import type { BillingApiVoidInvoiceV2Request } from '';
+import type { BillingApiVoidInvoiceRequest } from '';
 
 const configuration = createConfiguration();
 const apiInstance = new BillingApi(configuration);
 
-const request: BillingApiVoidInvoiceV2Request = {
+const request: BillingApiVoidInvoiceRequest = {
     // Organization ID
   orgId: "orgId_example",
     // Invoice ID
   invoiceId: "invoiceId_example",
 };
 
-const data = await apiInstance.voidInvoiceV2(request);
+const data = await apiInstance.voidInvoice(request);
 console.log('API called successfully. Returned data:', data);
 ```
 

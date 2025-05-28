@@ -1,5 +1,6 @@
 import { ResponseContext, RequestContext, HttpFile, HttpInfo } from '../http/http';
-import { Configuration} from '../configuration'
+import { Configuration, ConfigurationOptions } from '../configuration'
+import type { Middleware } from '../middleware';
 
 import { AddEntitlementCreditParams } from '../models/AddEntitlementCreditParams';
 import { AddEntitlementCreditResponse } from '../models/AddEntitlementCreditResponse';
@@ -123,6 +124,9 @@ import { AzureMarketplacePriceAndAvailabilityRecurrentPriceItem } from '../model
 import { AzureMarketplacePriceAndAvailabilityRecurrentPriceUserLimit } from '../models/AzureMarketplacePriceAndAvailabilityRecurrentPriceUserLimit';
 import { AzureMarketplacePriceAndAvailabilitySoftwareReservation } from '../models/AzureMarketplacePriceAndAvailabilitySoftwareReservation';
 import { AzureMarketplacePriceAndAvailabilitySystemMeterPrice } from '../models/AzureMarketplacePriceAndAvailabilitySystemMeterPrice';
+import { AzureMarketplacePriceBillingSchedule } from '../models/AzureMarketplacePriceBillingSchedule';
+import { AzureMarketplacePriceFlexibleSchedule } from '../models/AzureMarketplacePriceFlexibleSchedule';
+import { AzureMarketplacePriceInitialCharge } from '../models/AzureMarketplacePriceInitialCharge';
 import { AzureMarketplacePrivateOffer } from '../models/AzureMarketplacePrivateOffer';
 import { AzureMarketplacePrivateOfferAcceptanceLink } from '../models/AzureMarketplacePrivateOfferAcceptanceLink';
 import { AzureMarketplacePrivateOfferBeneficiary } from '../models/AzureMarketplacePrivateOfferBeneficiary';
@@ -231,8 +235,6 @@ import { CreateAndUpdateAddonParams } from '../models/CreateAndUpdateAddonParams
 import { CreateBuyerParams } from '../models/CreateBuyerParams';
 import { CreateEntitlementParams } from '../models/CreateEntitlementParams';
 import { CreateUsageRecordGroupParams } from '../models/CreateUsageRecordGroupParams';
-import { DatabaseSqlNullBool } from '../models/DatabaseSqlNullBool';
-import { DatabaseSqlNullString } from '../models/DatabaseSqlNullString';
 import { DatabaseSqlNullTime } from '../models/DatabaseSqlNullTime';
 import { DivideEntitlementCommitParams } from '../models/DivideEntitlementCommitParams';
 import { EntitlementInfo } from '../models/EntitlementInfo';
@@ -241,6 +243,7 @@ import { EntitlementTermInfo } from '../models/EntitlementTermInfo';
 import { EntitlementTermType } from '../models/EntitlementTermType';
 import { EntityType } from '../models/EntityType';
 import { EulaType } from '../models/EulaType';
+import { GcpAgreementDocument } from '../models/GcpAgreementDocument';
 import { GcpAmountConstraint } from '../models/GcpAmountConstraint';
 import { GcpAmountUnit } from '../models/GcpAmountUnit';
 import { GcpCommitmentAmountPerPeriodTemplate } from '../models/GcpCommitmentAmountPerPeriodTemplate';
@@ -257,6 +260,7 @@ import { GcpMarketplaceMeteringMetricValue } from '../models/GcpMarketplaceMeter
 import { GcpMarketplaceMeteringMetricValueSet } from '../models/GcpMarketplaceMeteringMetricValueSet';
 import { GcpMarketplaceMeteringMoney } from '../models/GcpMarketplaceMeteringMoney';
 import { GcpMarketplaceMeteringOperation } from '../models/GcpMarketplaceMeteringOperation';
+import { GcpMarketplaceOfferDealType } from '../models/GcpMarketplaceOfferDealType';
 import { GcpMarketplaceOfferProration } from '../models/GcpMarketplaceOfferProration';
 import { GcpMarketplaceOfferStartPolicy } from '../models/GcpMarketplaceOfferStartPolicy';
 import { GcpMarketplaceOfferTemplatePolicies } from '../models/GcpMarketplaceOfferTemplatePolicies';
@@ -268,6 +272,7 @@ import { GcpMarketplacePrivateOfferInstallmentTimeline } from '../models/GcpMark
 import { GcpMarketplacePrivateOfferMetricDetail } from '../models/GcpMarketplacePrivateOfferMetricDetail';
 import { GcpMarketplacePrivateOfferMetricInformation } from '../models/GcpMarketplacePrivateOfferMetricInformation';
 import { GcpMarketplacePrivateOfferMigrationMetadata } from '../models/GcpMarketplacePrivateOfferMigrationMetadata';
+import { GcpMarketplacePrivateOfferPolicies } from '../models/GcpMarketplacePrivateOfferPolicies';
 import { GcpMarketplacePrivateOfferPriceModel } from '../models/GcpMarketplacePrivateOfferPriceModel';
 import { GcpMarketplacePrivateOfferPriceModelCommitment } from '../models/GcpMarketplacePrivateOfferPriceModelCommitment';
 import { GcpMarketplacePrivateOfferPriceModelDiscount } from '../models/GcpMarketplacePrivateOfferPriceModelDiscount';
@@ -277,6 +282,7 @@ import { GcpMarketplacePrivateOfferPriceModelPayg } from '../models/GcpMarketpla
 import { GcpMarketplacePrivateOfferPriceModelType } from '../models/GcpMarketplacePrivateOfferPriceModelType';
 import { GcpMarketplacePrivateOfferProviderInfo } from '../models/GcpMarketplacePrivateOfferProviderInfo';
 import { GcpMarketplacePrivateOfferReplacementMetadata } from '../models/GcpMarketplacePrivateOfferReplacementMetadata';
+import { GcpMarketplacePrivateOfferRevenueShare } from '../models/GcpMarketplacePrivateOfferRevenueShare';
 import { GcpMarketplacePrivateOfferState } from '../models/GcpMarketplacePrivateOfferState';
 import { GcpMarketplacePrivateOfferTerm } from '../models/GcpMarketplacePrivateOfferTerm';
 import { GcpMarketplacePrivateOfferTermDurationConstraint } from '../models/GcpMarketplacePrivateOfferTermDurationConstraint';
@@ -324,6 +330,9 @@ import { GcpMarketplaceResellerPrivateOfferPlanReusePolicy } from '../models/Gcp
 import { GcpMarketplaceResellerPrivateOfferPlanState } from '../models/GcpMarketplaceResellerPrivateOfferPlanState';
 import { GcpMarketplaceResellerPrivateOfferPlanStateTransition } from '../models/GcpMarketplaceResellerPrivateOfferPlanStateTransition';
 import { GcpMarketplaceResellerPrivateOfferPlanStateType } from '../models/GcpMarketplaceResellerPrivateOfferPlanStateType';
+import { GcpMarketplaceRevenueShareChange } from '../models/GcpMarketplaceRevenueShareChange';
+import { GcpMarketplaceRevenueShareType } from '../models/GcpMarketplaceRevenueShareType';
+import { GcpMarketplaceRevenueShareValue } from '../models/GcpMarketplaceRevenueShareValue';
 import { GcpMarketplaceStartPolicy } from '../models/GcpMarketplaceStartPolicy';
 import { GcpMarketplaceUnstructuredDocument } from '../models/GcpMarketplaceUnstructuredDocument';
 import { GcpMarketplaceUsagePlanPriceModel } from '../models/GcpMarketplaceUsagePlanPriceModel';
@@ -350,6 +359,7 @@ import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemetering
 import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventConflictResponseAdditionalInfo } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventConflictResponseAdditionalInfo';
 import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventOkResponse } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventOkResponse';
 import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventStatusEnum } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventStatusEnum';
+import { GroupByInterval } from '../models/GroupByInterval';
 import { IdentityBuyer } from '../models/IdentityBuyer';
 import { IdentityConctactInfo } from '../models/IdentityConctactInfo';
 import { IdentityContact } from '../models/IdentityContact';
@@ -406,6 +416,7 @@ import { PriceModelVolume } from '../models/PriceModelVolume';
 import { PriceModelVolumeConfig } from '../models/PriceModelVolumeConfig';
 import { PrivateOfferDiscountType } from '../models/PrivateOfferDiscountType';
 import { ProductInfo } from '../models/ProductInfo';
+import { RevenueChannel } from '../models/RevenueChannel';
 import { RevenueRecord } from '../models/RevenueRecord';
 import { RevenueRecordDetail } from '../models/RevenueRecordDetail';
 import { RevenueRecordInfo } from '../models/RevenueRecordInfo';
@@ -414,7 +425,19 @@ import { RevenueReportType } from '../models/RevenueReportType';
 import { ServicecontrolReportError } from '../models/ServicecontrolReportError';
 import { ServicecontrolReportResponse } from '../models/ServicecontrolReportResponse';
 import { ServicecontrolStatus } from '../models/ServicecontrolStatus';
+import { SnowflakeMarketplaceBuyer } from '../models/SnowflakeMarketplaceBuyer';
+import { SnowflakeMarketplaceOffer } from '../models/SnowflakeMarketplaceOffer';
+import { SnowflakeMarketplaceOfferPaymentTerms } from '../models/SnowflakeMarketplaceOfferPaymentTerms';
+import { SnowflakeMarketplaceOfferTermsOfService } from '../models/SnowflakeMarketplaceOfferTermsOfService';
+import { SnowflakeMarketplacePlanInstallment } from '../models/SnowflakeMarketplacePlanInstallment';
+import { SnowflakeMarketplacePlanInstallmentSchedule } from '../models/SnowflakeMarketplacePlanInstallmentSchedule';
+import { SnowflakeMarketplacePricingPlanUsageDetails } from '../models/SnowflakeMarketplacePricingPlanUsageDetails';
 import { SnowflakeMarketplaceProduct } from '../models/SnowflakeMarketplaceProduct';
+import { SnowflakeMarketplaceProductDefaultPricingPlan } from '../models/SnowflakeMarketplaceProductDefaultPricingPlan';
+import { SnowflakeMarketplaceProductDetailedTargetAccount } from '../models/SnowflakeMarketplaceProductDetailedTargetAccount';
+import { SnowflakeMarketplaceProductMetadata } from '../models/SnowflakeMarketplaceProductMetadata';
+import { SnowflakeMarketplaceProductPricingPlan } from '../models/SnowflakeMarketplaceProductPricingPlan';
+import { SnowflakeMarketplaceTrialDetails } from '../models/SnowflakeMarketplaceTrialDetails';
 import { StripeBalanceTransaction } from '../models/StripeBalanceTransaction';
 import { StripeBalanceTransactionFeeDetail } from '../models/StripeBalanceTransactionFeeDetail';
 import { StripeCustomer } from '../models/StripeCustomer';
@@ -458,6 +481,7 @@ import { TypesUsageRecordResultStatus } from '../models/TypesUsageRecordResultSt
 import { UniqueCountAggregationResult } from '../models/UniqueCountAggregationResult';
 import { UpdateBillableMetricParams } from '../models/UpdateBillableMetricParams';
 import { UpdateBuyerParams } from '../models/UpdateBuyerParams';
+import { UpdateEntitlementPriceModelParams } from '../models/UpdateEntitlementPriceModelParams';
 import { UpdateInvoiceInfoRequest } from '../models/UpdateInvoiceInfoRequest';
 import { UpdateProductParams } from '../models/UpdateProductParams';
 import { UpdateSupportTicketRequest } from '../models/UpdateSupportTicketRequest';
@@ -517,7 +541,7 @@ export class ObjectAPIApi {
      * get api client
      * @param param the request object
      */
-    public getApiClientWithHttpInfo(param: APIApiGetApiClientRequest, options?: Configuration): Promise<HttpInfo<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient>> {
+    public getApiClientWithHttpInfo(param: APIApiGetApiClientRequest, options?: ConfigurationOptions): Promise<HttpInfo<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient>> {
         return this.api.getApiClientWithHttpInfo(param.orgId, param.apiClientId,  options).toPromise();
     }
 
@@ -526,7 +550,7 @@ export class ObjectAPIApi {
      * get api client
      * @param param the request object
      */
-    public getApiClient(param: APIApiGetApiClientRequest, options?: Configuration): Promise<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient> {
+    public getApiClient(param: APIApiGetApiClientRequest, options?: ConfigurationOptions): Promise<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient> {
         return this.api.getApiClient(param.orgId, param.apiClientId,  options).toPromise();
     }
 
@@ -535,7 +559,7 @@ export class ObjectAPIApi {
      * list api clients
      * @param param the request object
      */
-    public listApiClientsWithHttpInfo(param: APIApiListApiClientsRequest, options?: Configuration): Promise<HttpInfo<Array<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient>>> {
+    public listApiClientsWithHttpInfo(param: APIApiListApiClientsRequest, options?: ConfigurationOptions): Promise<HttpInfo<Array<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient>>> {
         return this.api.listApiClientsWithHttpInfo(param.orgId,  options).toPromise();
     }
 
@@ -544,7 +568,7 @@ export class ObjectAPIApi {
      * list api clients
      * @param param the request object
      */
-    public listApiClients(param: APIApiListApiClientsRequest, options?: Configuration): Promise<Array<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient>> {
+    public listApiClients(param: APIApiListApiClientsRequest, options?: ConfigurationOptions): Promise<Array<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient>> {
         return this.api.listApiClients(param.orgId,  options).toPromise();
     }
 
@@ -634,42 +658,42 @@ export interface BillingApiGetAddonRequest {
     addonId: string
 }
 
-export interface BillingApiGetInvoiceV2Request {
+export interface BillingApiGetInvoiceRequest {
     /**
      * Organization ID
      * Defaults to: undefined
      * @type string
-     * @memberof BillingApigetInvoiceV2
+     * @memberof BillingApigetInvoice
      */
     orgId: string
     /**
      * Invoice ID
      * Defaults to: undefined
      * @type string
-     * @memberof BillingApigetInvoiceV2
+     * @memberof BillingApigetInvoice
      */
     invoiceId: string
 }
 
-export interface BillingApiIssueInvoiceV2Request {
+export interface BillingApiIssueInvoiceRequest {
     /**
      * Organization ID
      * Defaults to: undefined
      * @type string
-     * @memberof BillingApiissueInvoiceV2
+     * @memberof BillingApiissueInvoice
      */
     orgId: string
     /**
      * Invoice ID
      * Defaults to: undefined
      * @type string
-     * @memberof BillingApiissueInvoiceV2
+     * @memberof BillingApiissueInvoice
      */
     invoiceId: string
     /**
      * List of Contact IDs
      * @type Array&lt;string&gt;
-     * @memberof BillingApiissueInvoiceV2
+     * @memberof BillingApiissueInvoice
      */
     contactIds?: Array<string>
 }
@@ -826,19 +850,19 @@ export interface BillingApiListRefundOfPaymentTransactionRequest {
     paymentTransactionId: string
 }
 
-export interface BillingApiPayInvoiceV2Request {
+export interface BillingApiPayInvoiceRequest {
     /**
      * Organization ID
      * Defaults to: undefined
      * @type string
-     * @memberof BillingApipayInvoiceV2
+     * @memberof BillingApipayInvoice
      */
     orgId: string
     /**
      * Invoice ID
      * Defaults to: undefined
      * @type string
-     * @memberof BillingApipayInvoiceV2
+     * @memberof BillingApipayInvoice
      */
     invoiceId: string
 }
@@ -883,42 +907,42 @@ export interface BillingApiUpdateAddonRequest {
     data: CreateAndUpdateAddonParams
 }
 
-export interface BillingApiUpdateInvoiceInfoV2Request {
+export interface BillingApiUpdateInvoiceInfoRequest {
     /**
      * Organization ID
      * Defaults to: undefined
      * @type string
-     * @memberof BillingApiupdateInvoiceInfoV2
+     * @memberof BillingApiupdateInvoiceInfo
      */
     orgId: string
     /**
      * Invoice ID
      * Defaults to: undefined
      * @type string
-     * @memberof BillingApiupdateInvoiceInfoV2
+     * @memberof BillingApiupdateInvoiceInfo
      */
     invoiceId: string
     /**
      * Update Invoice Info Request Params
      * @type UpdateInvoiceInfoRequest
-     * @memberof BillingApiupdateInvoiceInfoV2
+     * @memberof BillingApiupdateInvoiceInfo
      */
     data: UpdateInvoiceInfoRequest
 }
 
-export interface BillingApiVoidInvoiceV2Request {
+export interface BillingApiVoidInvoiceRequest {
     /**
      * Organization ID
      * Defaults to: undefined
      * @type string
-     * @memberof BillingApivoidInvoiceV2
+     * @memberof BillingApivoidInvoice
      */
     orgId: string
     /**
      * Invoice ID
      * Defaults to: undefined
      * @type string
-     * @memberof BillingApivoidInvoiceV2
+     * @memberof BillingApivoidInvoice
      */
     invoiceId: string
 }
@@ -935,7 +959,7 @@ export class ObjectBillingApi {
      * create addon
      * @param param the request object
      */
-    public createAddonWithHttpInfo(param: BillingApiCreateAddonRequest, options?: Configuration): Promise<HttpInfo<BillingAddon>> {
+    public createAddonWithHttpInfo(param: BillingApiCreateAddonRequest, options?: ConfigurationOptions): Promise<HttpInfo<BillingAddon>> {
         return this.api.createAddonWithHttpInfo(param.orgId, param.data,  options).toPromise();
     }
 
@@ -944,7 +968,7 @@ export class ObjectBillingApi {
      * create addon
      * @param param the request object
      */
-    public createAddon(param: BillingApiCreateAddonRequest, options?: Configuration): Promise<BillingAddon> {
+    public createAddon(param: BillingApiCreateAddonRequest, options?: ConfigurationOptions): Promise<BillingAddon> {
         return this.api.createAddon(param.orgId, param.data,  options).toPromise();
     }
 
@@ -953,7 +977,7 @@ export class ObjectBillingApi {
      * create refund.
      * @param param the request object
      */
-    public createRefundWithHttpInfo(param: BillingApiCreateRefundRequest, options?: Configuration): Promise<HttpInfo<BillingPaymentTransaction>> {
+    public createRefundWithHttpInfo(param: BillingApiCreateRefundRequest, options?: ConfigurationOptions): Promise<HttpInfo<BillingPaymentTransaction>> {
         return this.api.createRefundWithHttpInfo(param.orgId, param.buyerId, param.paymentTransactionId, param.amount,  options).toPromise();
     }
 
@@ -962,7 +986,7 @@ export class ObjectBillingApi {
      * create refund.
      * @param param the request object
      */
-    public createRefund(param: BillingApiCreateRefundRequest, options?: Configuration): Promise<BillingPaymentTransaction> {
+    public createRefund(param: BillingApiCreateRefundRequest, options?: ConfigurationOptions): Promise<BillingPaymentTransaction> {
         return this.api.createRefund(param.orgId, param.buyerId, param.paymentTransactionId, param.amount,  options).toPromise();
     }
 
@@ -971,7 +995,7 @@ export class ObjectBillingApi {
      * delete addon
      * @param param the request object
      */
-    public deleteAddonWithHttpInfo(param: BillingApiDeleteAddonRequest, options?: Configuration): Promise<HttpInfo<string>> {
+    public deleteAddonWithHttpInfo(param: BillingApiDeleteAddonRequest, options?: ConfigurationOptions): Promise<HttpInfo<string>> {
         return this.api.deleteAddonWithHttpInfo(param.orgId, param.addonId,  options).toPromise();
     }
 
@@ -980,7 +1004,7 @@ export class ObjectBillingApi {
      * delete addon
      * @param param the request object
      */
-    public deleteAddon(param: BillingApiDeleteAddonRequest, options?: Configuration): Promise<string> {
+    public deleteAddon(param: BillingApiDeleteAddonRequest, options?: ConfigurationOptions): Promise<string> {
         return this.api.deleteAddon(param.orgId, param.addonId,  options).toPromise();
     }
 
@@ -989,7 +1013,7 @@ export class ObjectBillingApi {
      * get addon
      * @param param the request object
      */
-    public getAddonWithHttpInfo(param: BillingApiGetAddonRequest, options?: Configuration): Promise<HttpInfo<BillingAddon>> {
+    public getAddonWithHttpInfo(param: BillingApiGetAddonRequest, options?: ConfigurationOptions): Promise<HttpInfo<BillingAddon>> {
         return this.api.getAddonWithHttpInfo(param.orgId, param.addonId,  options).toPromise();
     }
 
@@ -998,7 +1022,7 @@ export class ObjectBillingApi {
      * get addon
      * @param param the request object
      */
-    public getAddon(param: BillingApiGetAddonRequest, options?: Configuration): Promise<BillingAddon> {
+    public getAddon(param: BillingApiGetAddonRequest, options?: ConfigurationOptions): Promise<BillingAddon> {
         return this.api.getAddon(param.orgId, param.addonId,  options).toPromise();
     }
 
@@ -1007,8 +1031,8 @@ export class ObjectBillingApi {
      * get invoice
      * @param param the request object
      */
-    public getInvoiceV2WithHttpInfo(param: BillingApiGetInvoiceV2Request, options?: Configuration): Promise<HttpInfo<BillingInvoice>> {
-        return this.api.getInvoiceV2WithHttpInfo(param.orgId, param.invoiceId,  options).toPromise();
+    public getInvoiceWithHttpInfo(param: BillingApiGetInvoiceRequest, options?: ConfigurationOptions): Promise<HttpInfo<BillingInvoice>> {
+        return this.api.getInvoiceWithHttpInfo(param.orgId, param.invoiceId,  options).toPromise();
     }
 
     /**
@@ -1016,8 +1040,8 @@ export class ObjectBillingApi {
      * get invoice
      * @param param the request object
      */
-    public getInvoiceV2(param: BillingApiGetInvoiceV2Request, options?: Configuration): Promise<BillingInvoice> {
-        return this.api.getInvoiceV2(param.orgId, param.invoiceId,  options).toPromise();
+    public getInvoice(param: BillingApiGetInvoiceRequest, options?: ConfigurationOptions): Promise<BillingInvoice> {
+        return this.api.getInvoice(param.orgId, param.invoiceId,  options).toPromise();
     }
 
     /**
@@ -1025,8 +1049,8 @@ export class ObjectBillingApi {
      * issue invoice
      * @param param the request object
      */
-    public issueInvoiceV2WithHttpInfo(param: BillingApiIssueInvoiceV2Request, options?: Configuration): Promise<HttpInfo<BillingInvoice>> {
-        return this.api.issueInvoiceV2WithHttpInfo(param.orgId, param.invoiceId, param.contactIds,  options).toPromise();
+    public issueInvoiceWithHttpInfo(param: BillingApiIssueInvoiceRequest, options?: ConfigurationOptions): Promise<HttpInfo<BillingInvoice>> {
+        return this.api.issueInvoiceWithHttpInfo(param.orgId, param.invoiceId, param.contactIds,  options).toPromise();
     }
 
     /**
@@ -1034,8 +1058,8 @@ export class ObjectBillingApi {
      * issue invoice
      * @param param the request object
      */
-    public issueInvoiceV2(param: BillingApiIssueInvoiceV2Request, options?: Configuration): Promise<BillingInvoice> {
-        return this.api.issueInvoiceV2(param.orgId, param.invoiceId, param.contactIds,  options).toPromise();
+    public issueInvoice(param: BillingApiIssueInvoiceRequest, options?: ConfigurationOptions): Promise<BillingInvoice> {
+        return this.api.issueInvoice(param.orgId, param.invoiceId, param.contactIds,  options).toPromise();
     }
 
     /**
@@ -1043,7 +1067,7 @@ export class ObjectBillingApi {
      * list addons
      * @param param the request object
      */
-    public listAddonsWithHttpInfo(param: BillingApiListAddonsRequest, options?: Configuration): Promise<HttpInfo<Array<BillingAddon>>> {
+    public listAddonsWithHttpInfo(param: BillingApiListAddonsRequest, options?: ConfigurationOptions): Promise<HttpInfo<Array<BillingAddon>>> {
         return this.api.listAddonsWithHttpInfo(param.orgId, param.limit, param.offset,  options).toPromise();
     }
 
@@ -1052,7 +1076,7 @@ export class ObjectBillingApi {
      * list addons
      * @param param the request object
      */
-    public listAddons(param: BillingApiListAddonsRequest, options?: Configuration): Promise<Array<BillingAddon>> {
+    public listAddons(param: BillingApiListAddonsRequest, options?: ConfigurationOptions): Promise<Array<BillingAddon>> {
         return this.api.listAddons(param.orgId, param.limit, param.offset,  options).toPromise();
     }
 
@@ -1061,7 +1085,7 @@ export class ObjectBillingApi {
      * list invoices
      * @param param the request object
      */
-    public listInvoicesWithHttpInfo(param: BillingApiListInvoicesRequest, options?: Configuration): Promise<HttpInfo<Array<BillingInvoice>>> {
+    public listInvoicesWithHttpInfo(param: BillingApiListInvoicesRequest, options?: ConfigurationOptions): Promise<HttpInfo<Array<BillingInvoice>>> {
         return this.api.listInvoicesWithHttpInfo(param.orgId, param.entitlementId, param.buyerId, param.status, param.limit, param.offset,  options).toPromise();
     }
 
@@ -1070,7 +1094,7 @@ export class ObjectBillingApi {
      * list invoices
      * @param param the request object
      */
-    public listInvoices(param: BillingApiListInvoicesRequest, options?: Configuration): Promise<Array<BillingInvoice>> {
+    public listInvoices(param: BillingApiListInvoicesRequest, options?: ConfigurationOptions): Promise<Array<BillingInvoice>> {
         return this.api.listInvoices(param.orgId, param.entitlementId, param.buyerId, param.status, param.limit, param.offset,  options).toPromise();
     }
 
@@ -1079,7 +1103,7 @@ export class ObjectBillingApi {
      * list payment transactions
      * @param param the request object
      */
-    public listPaymentTransactionsWithHttpInfo(param: BillingApiListPaymentTransactionsRequest, options?: Configuration): Promise<HttpInfo<Array<BillingPaymentTransaction>>> {
+    public listPaymentTransactionsWithHttpInfo(param: BillingApiListPaymentTransactionsRequest, options?: ConfigurationOptions): Promise<HttpInfo<Array<BillingPaymentTransaction>>> {
         return this.api.listPaymentTransactionsWithHttpInfo(param.orgId, param.buyerId, param.entitlementId, param.invoiceId, param.status, param.type, param.limit, param.offset,  options).toPromise();
     }
 
@@ -1088,7 +1112,7 @@ export class ObjectBillingApi {
      * list payment transactions
      * @param param the request object
      */
-    public listPaymentTransactions(param: BillingApiListPaymentTransactionsRequest, options?: Configuration): Promise<Array<BillingPaymentTransaction>> {
+    public listPaymentTransactions(param: BillingApiListPaymentTransactionsRequest, options?: ConfigurationOptions): Promise<Array<BillingPaymentTransaction>> {
         return this.api.listPaymentTransactions(param.orgId, param.buyerId, param.entitlementId, param.invoiceId, param.status, param.type, param.limit, param.offset,  options).toPromise();
     }
 
@@ -1097,7 +1121,7 @@ export class ObjectBillingApi {
      * list refunds.
      * @param param the request object
      */
-    public listRefundOfPaymentTransactionWithHttpInfo(param: BillingApiListRefundOfPaymentTransactionRequest, options?: Configuration): Promise<HttpInfo<Array<BillingPaymentTransaction>>> {
+    public listRefundOfPaymentTransactionWithHttpInfo(param: BillingApiListRefundOfPaymentTransactionRequest, options?: ConfigurationOptions): Promise<HttpInfo<Array<BillingPaymentTransaction>>> {
         return this.api.listRefundOfPaymentTransactionWithHttpInfo(param.orgId, param.buyerId, param.paymentTransactionId,  options).toPromise();
     }
 
@@ -1106,7 +1130,7 @@ export class ObjectBillingApi {
      * list refunds.
      * @param param the request object
      */
-    public listRefundOfPaymentTransaction(param: BillingApiListRefundOfPaymentTransactionRequest, options?: Configuration): Promise<Array<BillingPaymentTransaction>> {
+    public listRefundOfPaymentTransaction(param: BillingApiListRefundOfPaymentTransactionRequest, options?: ConfigurationOptions): Promise<Array<BillingPaymentTransaction>> {
         return this.api.listRefundOfPaymentTransaction(param.orgId, param.buyerId, param.paymentTransactionId,  options).toPromise();
     }
 
@@ -1115,8 +1139,8 @@ export class ObjectBillingApi {
      * pay invoice
      * @param param the request object
      */
-    public payInvoiceV2WithHttpInfo(param: BillingApiPayInvoiceV2Request, options?: Configuration): Promise<HttpInfo<BillingInvoice>> {
-        return this.api.payInvoiceV2WithHttpInfo(param.orgId, param.invoiceId,  options).toPromise();
+    public payInvoiceWithHttpInfo(param: BillingApiPayInvoiceRequest, options?: ConfigurationOptions): Promise<HttpInfo<BillingInvoice>> {
+        return this.api.payInvoiceWithHttpInfo(param.orgId, param.invoiceId,  options).toPromise();
     }
 
     /**
@@ -1124,8 +1148,8 @@ export class ObjectBillingApi {
      * pay invoice
      * @param param the request object
      */
-    public payInvoiceV2(param: BillingApiPayInvoiceV2Request, options?: Configuration): Promise<BillingInvoice> {
-        return this.api.payInvoiceV2(param.orgId, param.invoiceId,  options).toPromise();
+    public payInvoice(param: BillingApiPayInvoiceRequest, options?: ConfigurationOptions): Promise<BillingInvoice> {
+        return this.api.payInvoice(param.orgId, param.invoiceId,  options).toPromise();
     }
 
     /**
@@ -1133,7 +1157,7 @@ export class ObjectBillingApi {
      * preview invoice email
      * @param param the request object
      */
-    public previewInvoiceEmailWithHttpInfo(param: BillingApiPreviewInvoiceEmailRequest, options?: Configuration): Promise<HttpInfo<string>> {
+    public previewInvoiceEmailWithHttpInfo(param: BillingApiPreviewInvoiceEmailRequest, options?: ConfigurationOptions): Promise<HttpInfo<string>> {
         return this.api.previewInvoiceEmailWithHttpInfo(param.orgId, param.invoiceId,  options).toPromise();
     }
 
@@ -1142,7 +1166,7 @@ export class ObjectBillingApi {
      * preview invoice email
      * @param param the request object
      */
-    public previewInvoiceEmail(param: BillingApiPreviewInvoiceEmailRequest, options?: Configuration): Promise<string> {
+    public previewInvoiceEmail(param: BillingApiPreviewInvoiceEmailRequest, options?: ConfigurationOptions): Promise<string> {
         return this.api.previewInvoiceEmail(param.orgId, param.invoiceId,  options).toPromise();
     }
 
@@ -1151,7 +1175,7 @@ export class ObjectBillingApi {
      * update addon
      * @param param the request object
      */
-    public updateAddonWithHttpInfo(param: BillingApiUpdateAddonRequest, options?: Configuration): Promise<HttpInfo<BillingAddon>> {
+    public updateAddonWithHttpInfo(param: BillingApiUpdateAddonRequest, options?: ConfigurationOptions): Promise<HttpInfo<BillingAddon>> {
         return this.api.updateAddonWithHttpInfo(param.orgId, param.addonId, param.data,  options).toPromise();
     }
 
@@ -1160,7 +1184,7 @@ export class ObjectBillingApi {
      * update addon
      * @param param the request object
      */
-    public updateAddon(param: BillingApiUpdateAddonRequest, options?: Configuration): Promise<BillingAddon> {
+    public updateAddon(param: BillingApiUpdateAddonRequest, options?: ConfigurationOptions): Promise<BillingAddon> {
         return this.api.updateAddon(param.orgId, param.addonId, param.data,  options).toPromise();
     }
 
@@ -1169,8 +1193,8 @@ export class ObjectBillingApi {
      * update invoice info
      * @param param the request object
      */
-    public updateInvoiceInfoV2WithHttpInfo(param: BillingApiUpdateInvoiceInfoV2Request, options?: Configuration): Promise<HttpInfo<BillingInvoiceInfo>> {
-        return this.api.updateInvoiceInfoV2WithHttpInfo(param.orgId, param.invoiceId, param.data,  options).toPromise();
+    public updateInvoiceInfoWithHttpInfo(param: BillingApiUpdateInvoiceInfoRequest, options?: ConfigurationOptions): Promise<HttpInfo<BillingInvoiceInfo>> {
+        return this.api.updateInvoiceInfoWithHttpInfo(param.orgId, param.invoiceId, param.data,  options).toPromise();
     }
 
     /**
@@ -1178,8 +1202,8 @@ export class ObjectBillingApi {
      * update invoice info
      * @param param the request object
      */
-    public updateInvoiceInfoV2(param: BillingApiUpdateInvoiceInfoV2Request, options?: Configuration): Promise<BillingInvoiceInfo> {
-        return this.api.updateInvoiceInfoV2(param.orgId, param.invoiceId, param.data,  options).toPromise();
+    public updateInvoiceInfo(param: BillingApiUpdateInvoiceInfoRequest, options?: ConfigurationOptions): Promise<BillingInvoiceInfo> {
+        return this.api.updateInvoiceInfo(param.orgId, param.invoiceId, param.data,  options).toPromise();
     }
 
     /**
@@ -1187,8 +1211,8 @@ export class ObjectBillingApi {
      * void invoice
      * @param param the request object
      */
-    public voidInvoiceV2WithHttpInfo(param: BillingApiVoidInvoiceV2Request, options?: Configuration): Promise<HttpInfo<BillingInvoice>> {
-        return this.api.voidInvoiceV2WithHttpInfo(param.orgId, param.invoiceId,  options).toPromise();
+    public voidInvoiceWithHttpInfo(param: BillingApiVoidInvoiceRequest, options?: ConfigurationOptions): Promise<HttpInfo<BillingInvoice>> {
+        return this.api.voidInvoiceWithHttpInfo(param.orgId, param.invoiceId,  options).toPromise();
     }
 
     /**
@@ -1196,8 +1220,8 @@ export class ObjectBillingApi {
      * void invoice
      * @param param the request object
      */
-    public voidInvoiceV2(param: BillingApiVoidInvoiceV2Request, options?: Configuration): Promise<BillingInvoice> {
-        return this.api.voidInvoiceV2(param.orgId, param.invoiceId,  options).toPromise();
+    public voidInvoice(param: BillingApiVoidInvoiceRequest, options?: ConfigurationOptions): Promise<BillingInvoice> {
+        return this.api.voidInvoice(param.orgId, param.invoiceId,  options).toPromise();
     }
 
 }
@@ -1448,7 +1472,7 @@ export class ObjectBuyerApi {
      * close credit wallet
      * @param param the request object
      */
-    public closeCreditWalletWithHttpInfo(param: BuyerApiCloseCreditWalletRequest, options?: Configuration): Promise<HttpInfo<BillingWallet>> {
+    public closeCreditWalletWithHttpInfo(param: BuyerApiCloseCreditWalletRequest, options?: ConfigurationOptions): Promise<HttpInfo<BillingWallet>> {
         return this.api.closeCreditWalletWithHttpInfo(param.orgId, param.buyerId, param.walletId,  options).toPromise();
     }
 
@@ -1457,7 +1481,7 @@ export class ObjectBuyerApi {
      * close credit wallet
      * @param param the request object
      */
-    public closeCreditWallet(param: BuyerApiCloseCreditWalletRequest, options?: Configuration): Promise<BillingWallet> {
+    public closeCreditWallet(param: BuyerApiCloseCreditWalletRequest, options?: ConfigurationOptions): Promise<BillingWallet> {
         return this.api.closeCreditWallet(param.orgId, param.buyerId, param.walletId,  options).toPromise();
     }
 
@@ -1466,7 +1490,7 @@ export class ObjectBuyerApi {
      * create buyer
      * @param param the request object
      */
-    public createBuyerWithHttpInfo(param: BuyerApiCreateBuyerRequest, options?: Configuration): Promise<HttpInfo<IdentityBuyer>> {
+    public createBuyerWithHttpInfo(param: BuyerApiCreateBuyerRequest, options?: ConfigurationOptions): Promise<HttpInfo<IdentityBuyer>> {
         return this.api.createBuyerWithHttpInfo(param.orgId, param.data,  options).toPromise();
     }
 
@@ -1475,7 +1499,7 @@ export class ObjectBuyerApi {
      * create buyer
      * @param param the request object
      */
-    public createBuyer(param: BuyerApiCreateBuyerRequest, options?: Configuration): Promise<IdentityBuyer> {
+    public createBuyer(param: BuyerApiCreateBuyerRequest, options?: ConfigurationOptions): Promise<IdentityBuyer> {
         return this.api.createBuyer(param.orgId, param.data,  options).toPromise();
     }
 
@@ -1484,7 +1508,7 @@ export class ObjectBuyerApi {
      * create credit wallet
      * @param param the request object
      */
-    public createCreditWalletWithHttpInfo(param: BuyerApiCreateCreditWalletRequest, options?: Configuration): Promise<HttpInfo<BillingWallet>> {
+    public createCreditWalletWithHttpInfo(param: BuyerApiCreateCreditWalletRequest, options?: ConfigurationOptions): Promise<HttpInfo<BillingWallet>> {
         return this.api.createCreditWalletWithHttpInfo(param.orgId, param.buyerId,  options).toPromise();
     }
 
@@ -1493,7 +1517,7 @@ export class ObjectBuyerApi {
      * create credit wallet
      * @param param the request object
      */
-    public createCreditWallet(param: BuyerApiCreateCreditWalletRequest, options?: Configuration): Promise<BillingWallet> {
+    public createCreditWallet(param: BuyerApiCreateCreditWalletRequest, options?: ConfigurationOptions): Promise<BillingWallet> {
         return this.api.createCreditWallet(param.orgId, param.buyerId,  options).toPromise();
     }
 
@@ -1502,7 +1526,7 @@ export class ObjectBuyerApi {
      * delete buyer wallet
      * @param param the request object
      */
-    public deleteBuyerWalletWithHttpInfo(param: BuyerApiDeleteBuyerWalletRequest, options?: Configuration): Promise<HttpInfo<string>> {
+    public deleteBuyerWalletWithHttpInfo(param: BuyerApiDeleteBuyerWalletRequest, options?: ConfigurationOptions): Promise<HttpInfo<string>> {
         return this.api.deleteBuyerWalletWithHttpInfo(param.orgId, param.buyerId, param.walletId,  options).toPromise();
     }
 
@@ -1511,7 +1535,7 @@ export class ObjectBuyerApi {
      * delete buyer wallet
      * @param param the request object
      */
-    public deleteBuyerWallet(param: BuyerApiDeleteBuyerWalletRequest, options?: Configuration): Promise<string> {
+    public deleteBuyerWallet(param: BuyerApiDeleteBuyerWalletRequest, options?: ConfigurationOptions): Promise<string> {
         return this.api.deleteBuyerWallet(param.orgId, param.buyerId, param.walletId,  options).toPromise();
     }
 
@@ -1520,7 +1544,7 @@ export class ObjectBuyerApi {
      * get buyer
      * @param param the request object
      */
-    public getBuyerWithHttpInfo(param: BuyerApiGetBuyerRequest, options?: Configuration): Promise<HttpInfo<IdentityBuyer>> {
+    public getBuyerWithHttpInfo(param: BuyerApiGetBuyerRequest, options?: ConfigurationOptions): Promise<HttpInfo<IdentityBuyer>> {
         return this.api.getBuyerWithHttpInfo(param.orgId, param.buyerId,  options).toPromise();
     }
 
@@ -1529,7 +1553,7 @@ export class ObjectBuyerApi {
      * get buyer
      * @param param the request object
      */
-    public getBuyer(param: BuyerApiGetBuyerRequest, options?: Configuration): Promise<IdentityBuyer> {
+    public getBuyer(param: BuyerApiGetBuyerRequest, options?: ConfigurationOptions): Promise<IdentityBuyer> {
         return this.api.getBuyer(param.orgId, param.buyerId,  options).toPromise();
     }
 
@@ -1538,7 +1562,7 @@ export class ObjectBuyerApi {
      * list buyer\'s wallets
      * @param param the request object
      */
-    public listBuyerWalletsWithHttpInfo(param: BuyerApiListBuyerWalletsRequest, options?: Configuration): Promise<HttpInfo<Array<BillingWallet>>> {
+    public listBuyerWalletsWithHttpInfo(param: BuyerApiListBuyerWalletsRequest, options?: ConfigurationOptions): Promise<HttpInfo<Array<BillingWallet>>> {
         return this.api.listBuyerWalletsWithHttpInfo(param.orgId, param.buyerId,  options).toPromise();
     }
 
@@ -1547,7 +1571,7 @@ export class ObjectBuyerApi {
      * list buyer\'s wallets
      * @param param the request object
      */
-    public listBuyerWallets(param: BuyerApiListBuyerWalletsRequest, options?: Configuration): Promise<Array<BillingWallet>> {
+    public listBuyerWallets(param: BuyerApiListBuyerWalletsRequest, options?: ConfigurationOptions): Promise<Array<BillingWallet>> {
         return this.api.listBuyerWallets(param.orgId, param.buyerId,  options).toPromise();
     }
 
@@ -1556,7 +1580,7 @@ export class ObjectBuyerApi {
      * list buyers
      * @param param the request object
      */
-    public listBuyersWithHttpInfo(param: BuyerApiListBuyersRequest, options?: Configuration): Promise<HttpInfo<Array<IdentityBuyer>>> {
+    public listBuyersWithHttpInfo(param: BuyerApiListBuyersRequest, options?: ConfigurationOptions): Promise<HttpInfo<Array<IdentityBuyer>>> {
         return this.api.listBuyersWithHttpInfo(param.orgId, param.partner, param.contactId, param.awsAccountId, param.limit, param.offset,  options).toPromise();
     }
 
@@ -1565,7 +1589,7 @@ export class ObjectBuyerApi {
      * list buyers
      * @param param the request object
      */
-    public listBuyers(param: BuyerApiListBuyersRequest, options?: Configuration): Promise<Array<IdentityBuyer>> {
+    public listBuyers(param: BuyerApiListBuyersRequest, options?: ConfigurationOptions): Promise<Array<IdentityBuyer>> {
         return this.api.listBuyers(param.orgId, param.partner, param.contactId, param.awsAccountId, param.limit, param.offset,  options).toPromise();
     }
 
@@ -1574,7 +1598,7 @@ export class ObjectBuyerApi {
      * set buyer default wallet
      * @param param the request object
      */
-    public setBuyerDefaultWalletWithHttpInfo(param: BuyerApiSetBuyerDefaultWalletRequest, options?: Configuration): Promise<HttpInfo<IdentityBuyer>> {
+    public setBuyerDefaultWalletWithHttpInfo(param: BuyerApiSetBuyerDefaultWalletRequest, options?: ConfigurationOptions): Promise<HttpInfo<IdentityBuyer>> {
         return this.api.setBuyerDefaultWalletWithHttpInfo(param.orgId, param.buyerId, param.walletId,  options).toPromise();
     }
 
@@ -1583,7 +1607,7 @@ export class ObjectBuyerApi {
      * set buyer default wallet
      * @param param the request object
      */
-    public setBuyerDefaultWallet(param: BuyerApiSetBuyerDefaultWalletRequest, options?: Configuration): Promise<IdentityBuyer> {
+    public setBuyerDefaultWallet(param: BuyerApiSetBuyerDefaultWalletRequest, options?: ConfigurationOptions): Promise<IdentityBuyer> {
         return this.api.setBuyerDefaultWallet(param.orgId, param.buyerId, param.walletId,  options).toPromise();
     }
 
@@ -1592,7 +1616,7 @@ export class ObjectBuyerApi {
      * update buyer
      * @param param the request object
      */
-    public updateBuyerWithHttpInfo(param: BuyerApiUpdateBuyerRequest, options?: Configuration): Promise<HttpInfo<IdentityBuyer>> {
+    public updateBuyerWithHttpInfo(param: BuyerApiUpdateBuyerRequest, options?: ConfigurationOptions): Promise<HttpInfo<IdentityBuyer>> {
         return this.api.updateBuyerWithHttpInfo(param.orgId, param.buyerId, param.data,  options).toPromise();
     }
 
@@ -1601,7 +1625,7 @@ export class ObjectBuyerApi {
      * update buyer
      * @param param the request object
      */
-    public updateBuyer(param: BuyerApiUpdateBuyerRequest, options?: Configuration): Promise<IdentityBuyer> {
+    public updateBuyer(param: BuyerApiUpdateBuyerRequest, options?: ConfigurationOptions): Promise<IdentityBuyer> {
         return this.api.updateBuyer(param.orgId, param.buyerId, param.data,  options).toPromise();
     }
 
@@ -1610,7 +1634,7 @@ export class ObjectBuyerApi {
      * update credit wallet
      * @param param the request object
      */
-    public updateCreditWalletWithHttpInfo(param: BuyerApiUpdateCreditWalletRequest, options?: Configuration): Promise<HttpInfo<BillingWallet>> {
+    public updateCreditWalletWithHttpInfo(param: BuyerApiUpdateCreditWalletRequest, options?: ConfigurationOptions): Promise<HttpInfo<BillingWallet>> {
         return this.api.updateCreditWalletWithHttpInfo(param.orgId, param.buyerId, param.walletId,  options).toPromise();
     }
 
@@ -1619,7 +1643,7 @@ export class ObjectBuyerApi {
      * update credit wallet
      * @param param the request object
      */
-    public updateCreditWallet(param: BuyerApiUpdateCreditWalletRequest, options?: Configuration): Promise<BillingWallet> {
+    public updateCreditWallet(param: BuyerApiUpdateCreditWalletRequest, options?: ConfigurationOptions): Promise<BillingWallet> {
         return this.api.updateCreditWallet(param.orgId, param.buyerId, param.walletId,  options).toPromise();
     }
 
@@ -1832,7 +1856,7 @@ export class ObjectContactApi {
      * add contact to buyer
      * @param param the request object
      */
-    public addContactToBuyerWithHttpInfo(param: ContactApiAddContactToBuyerRequest, options?: Configuration): Promise<HttpInfo<IdentityBuyer>> {
+    public addContactToBuyerWithHttpInfo(param: ContactApiAddContactToBuyerRequest, options?: ConfigurationOptions): Promise<HttpInfo<IdentityBuyer>> {
         return this.api.addContactToBuyerWithHttpInfo(param.orgId, param.buyerId, param.contactId,  options).toPromise();
     }
 
@@ -1841,7 +1865,7 @@ export class ObjectContactApi {
      * add contact to buyer
      * @param param the request object
      */
-    public addContactToBuyer(param: ContactApiAddContactToBuyerRequest, options?: Configuration): Promise<IdentityBuyer> {
+    public addContactToBuyer(param: ContactApiAddContactToBuyerRequest, options?: ConfigurationOptions): Promise<IdentityBuyer> {
         return this.api.addContactToBuyer(param.orgId, param.buyerId, param.contactId,  options).toPromise();
     }
 
@@ -1850,7 +1874,7 @@ export class ObjectContactApi {
      * add contact to offer
      * @param param the request object
      */
-    public addContactToOfferWithHttpInfo(param: ContactApiAddContactToOfferRequest, options?: Configuration): Promise<HttpInfo<string>> {
+    public addContactToOfferWithHttpInfo(param: ContactApiAddContactToOfferRequest, options?: ConfigurationOptions): Promise<HttpInfo<string>> {
         return this.api.addContactToOfferWithHttpInfo(param.orgId, param.contactId, param.offerId,  options).toPromise();
     }
 
@@ -1859,7 +1883,7 @@ export class ObjectContactApi {
      * add contact to offer
      * @param param the request object
      */
-    public addContactToOffer(param: ContactApiAddContactToOfferRequest, options?: Configuration): Promise<string> {
+    public addContactToOffer(param: ContactApiAddContactToOfferRequest, options?: ConfigurationOptions): Promise<string> {
         return this.api.addContactToOffer(param.orgId, param.contactId, param.offerId,  options).toPromise();
     }
 
@@ -1868,7 +1892,7 @@ export class ObjectContactApi {
      * batch create contacts
      * @param param the request object
      */
-    public batchCreateContactsWithHttpInfo(param: ContactApiBatchCreateContactsRequest, options?: Configuration): Promise<HttpInfo<Array<Array<IdentityContact>>>> {
+    public batchCreateContactsWithHttpInfo(param: ContactApiBatchCreateContactsRequest, options?: ConfigurationOptions): Promise<HttpInfo<Array<Array<IdentityContact>>>> {
         return this.api.batchCreateContactsWithHttpInfo(param.orgId, param.data,  options).toPromise();
     }
 
@@ -1877,7 +1901,7 @@ export class ObjectContactApi {
      * batch create contacts
      * @param param the request object
      */
-    public batchCreateContacts(param: ContactApiBatchCreateContactsRequest, options?: Configuration): Promise<Array<Array<IdentityContact>>> {
+    public batchCreateContacts(param: ContactApiBatchCreateContactsRequest, options?: ConfigurationOptions): Promise<Array<Array<IdentityContact>>> {
         return this.api.batchCreateContacts(param.orgId, param.data,  options).toPromise();
     }
 
@@ -1886,7 +1910,7 @@ export class ObjectContactApi {
      * create contact
      * @param param the request object
      */
-    public createContactWithHttpInfo(param: ContactApiCreateContactRequest, options?: Configuration): Promise<HttpInfo<IdentityContact>> {
+    public createContactWithHttpInfo(param: ContactApiCreateContactRequest, options?: ConfigurationOptions): Promise<HttpInfo<IdentityContact>> {
         return this.api.createContactWithHttpInfo(param.orgId, param.data,  options).toPromise();
     }
 
@@ -1895,7 +1919,7 @@ export class ObjectContactApi {
      * create contact
      * @param param the request object
      */
-    public createContact(param: ContactApiCreateContactRequest, options?: Configuration): Promise<IdentityContact> {
+    public createContact(param: ContactApiCreateContactRequest, options?: ConfigurationOptions): Promise<IdentityContact> {
         return this.api.createContact(param.orgId, param.data,  options).toPromise();
     }
 
@@ -1904,7 +1928,7 @@ export class ObjectContactApi {
      * get contact
      * @param param the request object
      */
-    public getContactWithHttpInfo(param: ContactApiGetContactRequest, options?: Configuration): Promise<HttpInfo<IdentityContact>> {
+    public getContactWithHttpInfo(param: ContactApiGetContactRequest, options?: ConfigurationOptions): Promise<HttpInfo<IdentityContact>> {
         return this.api.getContactWithHttpInfo(param.orgId, param.contactId,  options).toPromise();
     }
 
@@ -1913,7 +1937,7 @@ export class ObjectContactApi {
      * get contact
      * @param param the request object
      */
-    public getContact(param: ContactApiGetContactRequest, options?: Configuration): Promise<IdentityContact> {
+    public getContact(param: ContactApiGetContactRequest, options?: ConfigurationOptions): Promise<IdentityContact> {
         return this.api.getContact(param.orgId, param.contactId,  options).toPromise();
     }
 
@@ -1922,7 +1946,7 @@ export class ObjectContactApi {
      * list contacts by organization
      * @param param the request object
      */
-    public listContactsByOrganizationWithHttpInfo(param: ContactApiListContactsByOrganizationRequest, options?: Configuration): Promise<HttpInfo<Array<IdentityContact>>> {
+    public listContactsByOrganizationWithHttpInfo(param: ContactApiListContactsByOrganizationRequest, options?: ConfigurationOptions): Promise<HttpInfo<Array<IdentityContact>>> {
         return this.api.listContactsByOrganizationWithHttpInfo(param.orgId, param.limit, param.offset,  options).toPromise();
     }
 
@@ -1931,7 +1955,7 @@ export class ObjectContactApi {
      * list contacts by organization
      * @param param the request object
      */
-    public listContactsByOrganization(param: ContactApiListContactsByOrganizationRequest, options?: Configuration): Promise<Array<IdentityContact>> {
+    public listContactsByOrganization(param: ContactApiListContactsByOrganizationRequest, options?: ConfigurationOptions): Promise<Array<IdentityContact>> {
         return this.api.listContactsByOrganization(param.orgId, param.limit, param.offset,  options).toPromise();
     }
 
@@ -1940,7 +1964,7 @@ export class ObjectContactApi {
      * remove contact from buyer
      * @param param the request object
      */
-    public removeContactFromBuyerWithHttpInfo(param: ContactApiRemoveContactFromBuyerRequest, options?: Configuration): Promise<HttpInfo<string>> {
+    public removeContactFromBuyerWithHttpInfo(param: ContactApiRemoveContactFromBuyerRequest, options?: ConfigurationOptions): Promise<HttpInfo<string>> {
         return this.api.removeContactFromBuyerWithHttpInfo(param.orgId, param.buyerId, param.contactId,  options).toPromise();
     }
 
@@ -1949,7 +1973,7 @@ export class ObjectContactApi {
      * remove contact from buyer
      * @param param the request object
      */
-    public removeContactFromBuyer(param: ContactApiRemoveContactFromBuyerRequest, options?: Configuration): Promise<string> {
+    public removeContactFromBuyer(param: ContactApiRemoveContactFromBuyerRequest, options?: ConfigurationOptions): Promise<string> {
         return this.api.removeContactFromBuyer(param.orgId, param.buyerId, param.contactId,  options).toPromise();
     }
 
@@ -1958,7 +1982,7 @@ export class ObjectContactApi {
      * remove contact from offer
      * @param param the request object
      */
-    public removeContactFromOfferWithHttpInfo(param: ContactApiRemoveContactFromOfferRequest, options?: Configuration): Promise<HttpInfo<string>> {
+    public removeContactFromOfferWithHttpInfo(param: ContactApiRemoveContactFromOfferRequest, options?: ConfigurationOptions): Promise<HttpInfo<string>> {
         return this.api.removeContactFromOfferWithHttpInfo(param.orgId, param.contactId, param.offerId,  options).toPromise();
     }
 
@@ -1967,7 +1991,7 @@ export class ObjectContactApi {
      * remove contact from offer
      * @param param the request object
      */
-    public removeContactFromOffer(param: ContactApiRemoveContactFromOfferRequest, options?: Configuration): Promise<string> {
+    public removeContactFromOffer(param: ContactApiRemoveContactFromOfferRequest, options?: ConfigurationOptions): Promise<string> {
         return this.api.removeContactFromOffer(param.orgId, param.contactId, param.offerId,  options).toPromise();
     }
 
@@ -1976,7 +2000,7 @@ export class ObjectContactApi {
      * update contact
      * @param param the request object
      */
-    public updateContactWithHttpInfo(param: ContactApiUpdateContactRequest, options?: Configuration): Promise<HttpInfo<IdentityContact>> {
+    public updateContactWithHttpInfo(param: ContactApiUpdateContactRequest, options?: ConfigurationOptions): Promise<HttpInfo<IdentityContact>> {
         return this.api.updateContactWithHttpInfo(param.orgId, param.contactId, param.data,  options).toPromise();
     }
 
@@ -1985,7 +2009,7 @@ export class ObjectContactApi {
      * update contact
      * @param param the request object
      */
-    public updateContact(param: ContactApiUpdateContactRequest, options?: Configuration): Promise<IdentityContact> {
+    public updateContact(param: ContactApiUpdateContactRequest, options?: ConfigurationOptions): Promise<IdentityContact> {
         return this.api.updateContact(param.orgId, param.contactId, param.data,  options).toPromise();
     }
 
@@ -2347,6 +2371,29 @@ export interface EntitlementApiUpdateEntitlementNameRequest {
     data: GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibUpdateEntitlementNameParams
 }
 
+export interface EntitlementApiUpdateEntitlementPriceModelRequest {
+    /**
+     * Organization ID
+     * Defaults to: undefined
+     * @type string
+     * @memberof EntitlementApiupdateEntitlementPriceModel
+     */
+    orgId: string
+    /**
+     * Entitlement ID
+     * Defaults to: undefined
+     * @type string
+     * @memberof EntitlementApiupdateEntitlementPriceModel
+     */
+    entitlementId: string
+    /**
+     * Entitlement price model update params
+     * @type UpdateEntitlementPriceModelParams
+     * @memberof EntitlementApiupdateEntitlementPriceModel
+     */
+    data: UpdateEntitlementPriceModelParams
+}
+
 export interface EntitlementApiUpdateEntitlementSeatRequest {
     /**
      * Organization ID
@@ -2383,7 +2430,7 @@ export class ObjectEntitlementApi {
      * add entitlement credit
      * @param param the request object
      */
-    public addEntitlementCreditWithHttpInfo(param: EntitlementApiAddEntitlementCreditRequest, options?: Configuration): Promise<HttpInfo<AddEntitlementCreditResponse>> {
+    public addEntitlementCreditWithHttpInfo(param: EntitlementApiAddEntitlementCreditRequest, options?: ConfigurationOptions): Promise<HttpInfo<AddEntitlementCreditResponse>> {
         return this.api.addEntitlementCreditWithHttpInfo(param.orgId, param.entitlementId, param.data,  options).toPromise();
     }
 
@@ -2392,7 +2439,7 @@ export class ObjectEntitlementApi {
      * add entitlement credit
      * @param param the request object
      */
-    public addEntitlementCredit(param: EntitlementApiAddEntitlementCreditRequest, options?: Configuration): Promise<AddEntitlementCreditResponse> {
+    public addEntitlementCredit(param: EntitlementApiAddEntitlementCreditRequest, options?: ConfigurationOptions): Promise<AddEntitlementCreditResponse> {
         return this.api.addEntitlementCredit(param.orgId, param.entitlementId, param.data,  options).toPromise();
     }
 
@@ -2401,7 +2448,7 @@ export class ObjectEntitlementApi {
      * apply addon to entitlement
      * @param param the request object
      */
-    public applyAddonToEntitlementWithHttpInfo(param: EntitlementApiApplyAddonToEntitlementRequest, options?: Configuration): Promise<HttpInfo<WorkloadEntitlement>> {
+    public applyAddonToEntitlementWithHttpInfo(param: EntitlementApiApplyAddonToEntitlementRequest, options?: ConfigurationOptions): Promise<HttpInfo<WorkloadEntitlement>> {
         return this.api.applyAddonToEntitlementWithHttpInfo(param.orgId, param.entitlementId, param.data,  options).toPromise();
     }
 
@@ -2410,7 +2457,7 @@ export class ObjectEntitlementApi {
      * apply addon to entitlement
      * @param param the request object
      */
-    public applyAddonToEntitlement(param: EntitlementApiApplyAddonToEntitlementRequest, options?: Configuration): Promise<WorkloadEntitlement> {
+    public applyAddonToEntitlement(param: EntitlementApiApplyAddonToEntitlementRequest, options?: ConfigurationOptions): Promise<WorkloadEntitlement> {
         return this.api.applyAddonToEntitlement(param.orgId, param.entitlementId, param.data,  options).toPromise();
     }
 
@@ -2419,7 +2466,7 @@ export class ObjectEntitlementApi {
      * approve entitlement
      * @param param the request object
      */
-    public approveEntitlementWithHttpInfo(param: EntitlementApiApproveEntitlementRequest, options?: Configuration): Promise<HttpInfo<WorkloadEntitlement>> {
+    public approveEntitlementWithHttpInfo(param: EntitlementApiApproveEntitlementRequest, options?: ConfigurationOptions): Promise<HttpInfo<WorkloadEntitlement>> {
         return this.api.approveEntitlementWithHttpInfo(param.orgId, param.entitlementId,  options).toPromise();
     }
 
@@ -2428,7 +2475,7 @@ export class ObjectEntitlementApi {
      * approve entitlement
      * @param param the request object
      */
-    public approveEntitlement(param: EntitlementApiApproveEntitlementRequest, options?: Configuration): Promise<WorkloadEntitlement> {
+    public approveEntitlement(param: EntitlementApiApproveEntitlementRequest, options?: ConfigurationOptions): Promise<WorkloadEntitlement> {
         return this.api.approveEntitlement(param.orgId, param.entitlementId,  options).toPromise();
     }
 
@@ -2437,7 +2484,7 @@ export class ObjectEntitlementApi {
      * cancel entitlement
      * @param param the request object
      */
-    public cancelEntitlementWithHttpInfo(param: EntitlementApiCancelEntitlementRequest, options?: Configuration): Promise<HttpInfo<WorkloadEntitlement>> {
+    public cancelEntitlementWithHttpInfo(param: EntitlementApiCancelEntitlementRequest, options?: ConfigurationOptions): Promise<HttpInfo<WorkloadEntitlement>> {
         return this.api.cancelEntitlementWithHttpInfo(param.orgId, param.entitlementId,  options).toPromise();
     }
 
@@ -2446,7 +2493,7 @@ export class ObjectEntitlementApi {
      * cancel entitlement
      * @param param the request object
      */
-    public cancelEntitlement(param: EntitlementApiCancelEntitlementRequest, options?: Configuration): Promise<WorkloadEntitlement> {
+    public cancelEntitlement(param: EntitlementApiCancelEntitlementRequest, options?: ConfigurationOptions): Promise<WorkloadEntitlement> {
         return this.api.cancelEntitlement(param.orgId, param.entitlementId,  options).toPromise();
     }
 
@@ -2455,7 +2502,7 @@ export class ObjectEntitlementApi {
      * create entitlement
      * @param param the request object
      */
-    public createEntitlementWithHttpInfo(param: EntitlementApiCreateEntitlementRequest, options?: Configuration): Promise<HttpInfo<WorkloadEntitlement>> {
+    public createEntitlementWithHttpInfo(param: EntitlementApiCreateEntitlementRequest, options?: ConfigurationOptions): Promise<HttpInfo<WorkloadEntitlement>> {
         return this.api.createEntitlementWithHttpInfo(param.orgId, param.data,  options).toPromise();
     }
 
@@ -2464,7 +2511,7 @@ export class ObjectEntitlementApi {
      * create entitlement
      * @param param the request object
      */
-    public createEntitlement(param: EntitlementApiCreateEntitlementRequest, options?: Configuration): Promise<WorkloadEntitlement> {
+    public createEntitlement(param: EntitlementApiCreateEntitlementRequest, options?: ConfigurationOptions): Promise<WorkloadEntitlement> {
         return this.api.createEntitlement(param.orgId, param.data,  options).toPromise();
     }
 
@@ -2473,7 +2520,7 @@ export class ObjectEntitlementApi {
      * delete entitlement term
      * @param param the request object
      */
-    public deleteEntitlementTermWithHttpInfo(param: EntitlementApiDeleteEntitlementTermRequest, options?: Configuration): Promise<HttpInfo<string>> {
+    public deleteEntitlementTermWithHttpInfo(param: EntitlementApiDeleteEntitlementTermRequest, options?: ConfigurationOptions): Promise<HttpInfo<string>> {
         return this.api.deleteEntitlementTermWithHttpInfo(param.orgId, param.entitlementId, param.entitlementTermId,  options).toPromise();
     }
 
@@ -2482,7 +2529,7 @@ export class ObjectEntitlementApi {
      * delete entitlement term
      * @param param the request object
      */
-    public deleteEntitlementTerm(param: EntitlementApiDeleteEntitlementTermRequest, options?: Configuration): Promise<string> {
+    public deleteEntitlementTerm(param: EntitlementApiDeleteEntitlementTermRequest, options?: ConfigurationOptions): Promise<string> {
         return this.api.deleteEntitlementTerm(param.orgId, param.entitlementId, param.entitlementTermId,  options).toPromise();
     }
 
@@ -2491,7 +2538,7 @@ export class ObjectEntitlementApi {
      * divide entitlement commit
      * @param param the request object
      */
-    public divideEntitlementCommitWithHttpInfo(param: EntitlementApiDivideEntitlementCommitRequest, options?: Configuration): Promise<HttpInfo<string>> {
+    public divideEntitlementCommitWithHttpInfo(param: EntitlementApiDivideEntitlementCommitRequest, options?: ConfigurationOptions): Promise<HttpInfo<string>> {
         return this.api.divideEntitlementCommitWithHttpInfo(param.orgId, param.entitlementId, param.data,  options).toPromise();
     }
 
@@ -2500,7 +2547,7 @@ export class ObjectEntitlementApi {
      * divide entitlement commit
      * @param param the request object
      */
-    public divideEntitlementCommit(param: EntitlementApiDivideEntitlementCommitRequest, options?: Configuration): Promise<string> {
+    public divideEntitlementCommit(param: EntitlementApiDivideEntitlementCommitRequest, options?: ConfigurationOptions): Promise<string> {
         return this.api.divideEntitlementCommit(param.orgId, param.entitlementId, param.data,  options).toPromise();
     }
 
@@ -2509,7 +2556,7 @@ export class ObjectEntitlementApi {
      * get entitlement
      * @param param the request object
      */
-    public getEntitlementWithHttpInfo(param: EntitlementApiGetEntitlementRequest, options?: Configuration): Promise<HttpInfo<WorkloadEntitlement>> {
+    public getEntitlementWithHttpInfo(param: EntitlementApiGetEntitlementRequest, options?: ConfigurationOptions): Promise<HttpInfo<WorkloadEntitlement>> {
         return this.api.getEntitlementWithHttpInfo(param.orgId, param.entitlementId,  options).toPromise();
     }
 
@@ -2518,7 +2565,7 @@ export class ObjectEntitlementApi {
      * get entitlement
      * @param param the request object
      */
-    public getEntitlement(param: EntitlementApiGetEntitlementRequest, options?: Configuration): Promise<WorkloadEntitlement> {
+    public getEntitlement(param: EntitlementApiGetEntitlementRequest, options?: ConfigurationOptions): Promise<WorkloadEntitlement> {
         return this.api.getEntitlement(param.orgId, param.entitlementId,  options).toPromise();
     }
 
@@ -2527,7 +2574,7 @@ export class ObjectEntitlementApi {
      * get entitlement term
      * @param param the request object
      */
-    public getEntitlementTermWithHttpInfo(param: EntitlementApiGetEntitlementTermRequest, options?: Configuration): Promise<HttpInfo<WorkloadEntitlementTerm>> {
+    public getEntitlementTermWithHttpInfo(param: EntitlementApiGetEntitlementTermRequest, options?: ConfigurationOptions): Promise<HttpInfo<WorkloadEntitlementTerm>> {
         return this.api.getEntitlementTermWithHttpInfo(param.orgId, param.entitlementId, param.entitlementTermId,  options).toPromise();
     }
 
@@ -2536,7 +2583,7 @@ export class ObjectEntitlementApi {
      * get entitlement term
      * @param param the request object
      */
-    public getEntitlementTerm(param: EntitlementApiGetEntitlementTermRequest, options?: Configuration): Promise<WorkloadEntitlementTerm> {
+    public getEntitlementTerm(param: EntitlementApiGetEntitlementTermRequest, options?: ConfigurationOptions): Promise<WorkloadEntitlementTerm> {
         return this.api.getEntitlementTerm(param.orgId, param.entitlementId, param.entitlementTermId,  options).toPromise();
     }
 
@@ -2545,7 +2592,7 @@ export class ObjectEntitlementApi {
      * list entitlement terms
      * @param param the request object
      */
-    public listEntitlementTermsWithHttpInfo(param: EntitlementApiListEntitlementTermsRequest, options?: Configuration): Promise<HttpInfo<Array<WorkloadEntitlementTerm>>> {
+    public listEntitlementTermsWithHttpInfo(param: EntitlementApiListEntitlementTermsRequest, options?: ConfigurationOptions): Promise<HttpInfo<Array<WorkloadEntitlementTerm>>> {
         return this.api.listEntitlementTermsWithHttpInfo(param.orgId, param.entitlementId,  options).toPromise();
     }
 
@@ -2554,7 +2601,7 @@ export class ObjectEntitlementApi {
      * list entitlement terms
      * @param param the request object
      */
-    public listEntitlementTerms(param: EntitlementApiListEntitlementTermsRequest, options?: Configuration): Promise<Array<WorkloadEntitlementTerm>> {
+    public listEntitlementTerms(param: EntitlementApiListEntitlementTermsRequest, options?: ConfigurationOptions): Promise<Array<WorkloadEntitlementTerm>> {
         return this.api.listEntitlementTerms(param.orgId, param.entitlementId,  options).toPromise();
     }
 
@@ -2563,7 +2610,7 @@ export class ObjectEntitlementApi {
      * list entitlements
      * @param param the request object
      */
-    public listEntitlementsWithHttpInfo(param: EntitlementApiListEntitlementsRequest, options?: Configuration): Promise<HttpInfo<Array<WorkloadEntitlement>>> {
+    public listEntitlementsWithHttpInfo(param: EntitlementApiListEntitlementsRequest, options?: ConfigurationOptions): Promise<HttpInfo<Array<WorkloadEntitlement>>> {
         return this.api.listEntitlementsWithHttpInfo(param.orgId, param.partner, param.productId, param.offerId, param.buyerId, param.externalId, param.buyerAccountId, param.limit, param.offset,  options).toPromise();
     }
 
@@ -2572,7 +2619,7 @@ export class ObjectEntitlementApi {
      * list entitlements
      * @param param the request object
      */
-    public listEntitlements(param: EntitlementApiListEntitlementsRequest, options?: Configuration): Promise<Array<WorkloadEntitlement>> {
+    public listEntitlements(param: EntitlementApiListEntitlementsRequest, options?: ConfigurationOptions): Promise<Array<WorkloadEntitlement>> {
         return this.api.listEntitlements(param.orgId, param.partner, param.productId, param.offerId, param.buyerId, param.externalId, param.buyerAccountId, param.limit, param.offset,  options).toPromise();
     }
 
@@ -2581,7 +2628,7 @@ export class ObjectEntitlementApi {
      * schedule entitlement cancellation
      * @param param the request object
      */
-    public scheduleEntitlementCancellationWithHttpInfo(param: EntitlementApiScheduleEntitlementCancellationRequest, options?: Configuration): Promise<HttpInfo<WorkloadEntitlement>> {
+    public scheduleEntitlementCancellationWithHttpInfo(param: EntitlementApiScheduleEntitlementCancellationRequest, options?: ConfigurationOptions): Promise<HttpInfo<WorkloadEntitlement>> {
         return this.api.scheduleEntitlementCancellationWithHttpInfo(param.orgId, param.entitlementId, param.data,  options).toPromise();
     }
 
@@ -2590,7 +2637,7 @@ export class ObjectEntitlementApi {
      * schedule entitlement cancellation
      * @param param the request object
      */
-    public scheduleEntitlementCancellation(param: EntitlementApiScheduleEntitlementCancellationRequest, options?: Configuration): Promise<WorkloadEntitlement> {
+    public scheduleEntitlementCancellation(param: EntitlementApiScheduleEntitlementCancellationRequest, options?: ConfigurationOptions): Promise<WorkloadEntitlement> {
         return this.api.scheduleEntitlementCancellation(param.orgId, param.entitlementId, param.data,  options).toPromise();
     }
 
@@ -2599,7 +2646,7 @@ export class ObjectEntitlementApi {
      * unschedule entitlement cancellation
      * @param param the request object
      */
-    public unscheduleEntitlementCancellationWithHttpInfo(param: EntitlementApiUnscheduleEntitlementCancellationRequest, options?: Configuration): Promise<HttpInfo<WorkloadEntitlement>> {
+    public unscheduleEntitlementCancellationWithHttpInfo(param: EntitlementApiUnscheduleEntitlementCancellationRequest, options?: ConfigurationOptions): Promise<HttpInfo<WorkloadEntitlement>> {
         return this.api.unscheduleEntitlementCancellationWithHttpInfo(param.orgId, param.entitlementId,  options).toPromise();
     }
 
@@ -2608,7 +2655,7 @@ export class ObjectEntitlementApi {
      * unschedule entitlement cancellation
      * @param param the request object
      */
-    public unscheduleEntitlementCancellation(param: EntitlementApiUnscheduleEntitlementCancellationRequest, options?: Configuration): Promise<WorkloadEntitlement> {
+    public unscheduleEntitlementCancellation(param: EntitlementApiUnscheduleEntitlementCancellationRequest, options?: ConfigurationOptions): Promise<WorkloadEntitlement> {
         return this.api.unscheduleEntitlementCancellation(param.orgId, param.entitlementId,  options).toPromise();
     }
 
@@ -2617,7 +2664,7 @@ export class ObjectEntitlementApi {
      * update entitlement meta info
      * @param param the request object
      */
-    public updateEntitlementMetaInfoWithHttpInfo(param: EntitlementApiUpdateEntitlementMetaInfoRequest, options?: Configuration): Promise<HttpInfo<WorkloadMetaInfo>> {
+    public updateEntitlementMetaInfoWithHttpInfo(param: EntitlementApiUpdateEntitlementMetaInfoRequest, options?: ConfigurationOptions): Promise<HttpInfo<WorkloadMetaInfo>> {
         return this.api.updateEntitlementMetaInfoWithHttpInfo(param.orgId, param.entitlementId, param.data,  options).toPromise();
     }
 
@@ -2626,7 +2673,7 @@ export class ObjectEntitlementApi {
      * update entitlement meta info
      * @param param the request object
      */
-    public updateEntitlementMetaInfo(param: EntitlementApiUpdateEntitlementMetaInfoRequest, options?: Configuration): Promise<WorkloadMetaInfo> {
+    public updateEntitlementMetaInfo(param: EntitlementApiUpdateEntitlementMetaInfoRequest, options?: ConfigurationOptions): Promise<WorkloadMetaInfo> {
         return this.api.updateEntitlementMetaInfo(param.orgId, param.entitlementId, param.data,  options).toPromise();
     }
 
@@ -2635,7 +2682,7 @@ export class ObjectEntitlementApi {
      * update entitlement name
      * @param param the request object
      */
-    public updateEntitlementNameWithHttpInfo(param: EntitlementApiUpdateEntitlementNameRequest, options?: Configuration): Promise<HttpInfo<WorkloadEntitlement>> {
+    public updateEntitlementNameWithHttpInfo(param: EntitlementApiUpdateEntitlementNameRequest, options?: ConfigurationOptions): Promise<HttpInfo<WorkloadEntitlement>> {
         return this.api.updateEntitlementNameWithHttpInfo(param.orgId, param.entitlementId, param.data,  options).toPromise();
     }
 
@@ -2644,8 +2691,26 @@ export class ObjectEntitlementApi {
      * update entitlement name
      * @param param the request object
      */
-    public updateEntitlementName(param: EntitlementApiUpdateEntitlementNameRequest, options?: Configuration): Promise<WorkloadEntitlement> {
+    public updateEntitlementName(param: EntitlementApiUpdateEntitlementNameRequest, options?: ConfigurationOptions): Promise<WorkloadEntitlement> {
         return this.api.updateEntitlementName(param.orgId, param.entitlementId, param.data,  options).toPromise();
+    }
+
+    /**
+     * Update the price model of the given entitlement, such as recurring commits, billable dimensions. Only applicable to non cloud billing partners.
+     * update entitlement price model
+     * @param param the request object
+     */
+    public updateEntitlementPriceModelWithHttpInfo(param: EntitlementApiUpdateEntitlementPriceModelRequest, options?: ConfigurationOptions): Promise<HttpInfo<WorkloadEntitlement>> {
+        return this.api.updateEntitlementPriceModelWithHttpInfo(param.orgId, param.entitlementId, param.data,  options).toPromise();
+    }
+
+    /**
+     * Update the price model of the given entitlement, such as recurring commits, billable dimensions. Only applicable to non cloud billing partners.
+     * update entitlement price model
+     * @param param the request object
+     */
+    public updateEntitlementPriceModel(param: EntitlementApiUpdateEntitlementPriceModelRequest, options?: ConfigurationOptions): Promise<WorkloadEntitlement> {
+        return this.api.updateEntitlementPriceModel(param.orgId, param.entitlementId, param.data,  options).toPromise();
     }
 
     /**
@@ -2653,7 +2718,7 @@ export class ObjectEntitlementApi {
      * update seat for the active AZURE subscription
      * @param param the request object
      */
-    public updateEntitlementSeatWithHttpInfo(param: EntitlementApiUpdateEntitlementSeatRequest, options?: Configuration): Promise<HttpInfo<WorkloadEntitlement>> {
+    public updateEntitlementSeatWithHttpInfo(param: EntitlementApiUpdateEntitlementSeatRequest, options?: ConfigurationOptions): Promise<HttpInfo<WorkloadEntitlement>> {
         return this.api.updateEntitlementSeatWithHttpInfo(param.orgId, param.entitlementId, param.newSeat,  options).toPromise();
     }
 
@@ -2662,7 +2727,7 @@ export class ObjectEntitlementApi {
      * update seat for the active AZURE subscription
      * @param param the request object
      */
-    public updateEntitlementSeat(param: EntitlementApiUpdateEntitlementSeatRequest, options?: Configuration): Promise<WorkloadEntitlement> {
+    public updateEntitlementSeat(param: EntitlementApiUpdateEntitlementSeatRequest, options?: ConfigurationOptions): Promise<WorkloadEntitlement> {
         return this.api.updateEntitlementSeat(param.orgId, param.entitlementId, param.newSeat,  options).toPromise();
     }
 
@@ -3024,7 +3089,7 @@ export class ObjectMeteringApi {
      * batch report usageRecordGroups
      * @param param the request object
      */
-    public batchReportUsageRecordGroupsWithHttpInfo(param: MeteringApiBatchReportUsageRecordGroupsRequest, options?: Configuration): Promise<HttpInfo<Array<MeteringUsageRecordGroup>>> {
+    public batchReportUsageRecordGroupsWithHttpInfo(param: MeteringApiBatchReportUsageRecordGroupsRequest, options?: ConfigurationOptions): Promise<HttpInfo<Array<MeteringUsageRecordGroup>>> {
         return this.api.batchReportUsageRecordGroupsWithHttpInfo(param.orgId, param.usageRecordGroups,  options).toPromise();
     }
 
@@ -3033,7 +3098,7 @@ export class ObjectMeteringApi {
      * batch report usageRecordGroups
      * @param param the request object
      */
-    public batchReportUsageRecordGroups(param: MeteringApiBatchReportUsageRecordGroupsRequest, options?: Configuration): Promise<Array<MeteringUsageRecordGroup>> {
+    public batchReportUsageRecordGroups(param: MeteringApiBatchReportUsageRecordGroupsRequest, options?: ConfigurationOptions): Promise<Array<MeteringUsageRecordGroup>> {
         return this.api.batchReportUsageRecordGroups(param.orgId, param.usageRecordGroups,  options).toPromise();
     }
 
@@ -3042,7 +3107,7 @@ export class ObjectMeteringApi {
      * batch validate usageRecordGroups
      * @param param the request object
      */
-    public batchValidateUsageRecordGroupsWithHttpInfo(param: MeteringApiBatchValidateUsageRecordGroupsRequest, options?: Configuration): Promise<HttpInfo<string>> {
+    public batchValidateUsageRecordGroupsWithHttpInfo(param: MeteringApiBatchValidateUsageRecordGroupsRequest, options?: ConfigurationOptions): Promise<HttpInfo<string>> {
         return this.api.batchValidateUsageRecordGroupsWithHttpInfo(param.orgId, param.data,  options).toPromise();
     }
 
@@ -3051,7 +3116,7 @@ export class ObjectMeteringApi {
      * batch validate usageRecordGroups
      * @param param the request object
      */
-    public batchValidateUsageRecordGroups(param: MeteringApiBatchValidateUsageRecordGroupsRequest, options?: Configuration): Promise<string> {
+    public batchValidateUsageRecordGroups(param: MeteringApiBatchValidateUsageRecordGroupsRequest, options?: ConfigurationOptions): Promise<string> {
         return this.api.batchValidateUsageRecordGroups(param.orgId, param.data,  options).toPromise();
     }
 
@@ -3060,7 +3125,7 @@ export class ObjectMeteringApi {
      * create billable metric
      * @param param the request object
      */
-    public createBillableMetricWithHttpInfo(param: MeteringApiCreateBillableMetricRequest, options?: Configuration): Promise<HttpInfo<BillableMetric>> {
+    public createBillableMetricWithHttpInfo(param: MeteringApiCreateBillableMetricRequest, options?: ConfigurationOptions): Promise<HttpInfo<BillableMetric>> {
         return this.api.createBillableMetricWithHttpInfo(param.orgId, param.data,  options).toPromise();
     }
 
@@ -3069,7 +3134,7 @@ export class ObjectMeteringApi {
      * create billable metric
      * @param param the request object
      */
-    public createBillableMetric(param: MeteringApiCreateBillableMetricRequest, options?: Configuration): Promise<BillableMetric> {
+    public createBillableMetric(param: MeteringApiCreateBillableMetricRequest, options?: ConfigurationOptions): Promise<BillableMetric> {
         return this.api.createBillableMetric(param.orgId, param.data,  options).toPromise();
     }
 
@@ -3078,7 +3143,7 @@ export class ObjectMeteringApi {
      * delete usageRecordGroup
      * @param param the request object
      */
-    public deleteUsageRecordGroupWithHttpInfo(param: MeteringApiDeleteUsageRecordGroupRequest, options?: Configuration): Promise<HttpInfo<MeteringUsageRecordGroup>> {
+    public deleteUsageRecordGroupWithHttpInfo(param: MeteringApiDeleteUsageRecordGroupRequest, options?: ConfigurationOptions): Promise<HttpInfo<MeteringUsageRecordGroup>> {
         return this.api.deleteUsageRecordGroupWithHttpInfo(param.orgId, param.usageRecordGroupId, param.creationDate,  options).toPromise();
     }
 
@@ -3087,7 +3152,7 @@ export class ObjectMeteringApi {
      * delete usageRecordGroup
      * @param param the request object
      */
-    public deleteUsageRecordGroup(param: MeteringApiDeleteUsageRecordGroupRequest, options?: Configuration): Promise<MeteringUsageRecordGroup> {
+    public deleteUsageRecordGroup(param: MeteringApiDeleteUsageRecordGroupRequest, options?: ConfigurationOptions): Promise<MeteringUsageRecordGroup> {
         return this.api.deleteUsageRecordGroup(param.orgId, param.usageRecordGroupId, param.creationDate,  options).toPromise();
     }
 
@@ -3096,7 +3161,7 @@ export class ObjectMeteringApi {
      * get billable metric
      * @param param the request object
      */
-    public getBillableMetricWithHttpInfo(param: MeteringApiGetBillableMetricRequest, options?: Configuration): Promise<HttpInfo<BillableMetric>> {
+    public getBillableMetricWithHttpInfo(param: MeteringApiGetBillableMetricRequest, options?: ConfigurationOptions): Promise<HttpInfo<BillableMetric>> {
         return this.api.getBillableMetricWithHttpInfo(param.orgId, param.billableMetricId,  options).toPromise();
     }
 
@@ -3105,7 +3170,7 @@ export class ObjectMeteringApi {
      * get billable metric
      * @param param the request object
      */
-    public getBillableMetric(param: MeteringApiGetBillableMetricRequest, options?: Configuration): Promise<BillableMetric> {
+    public getBillableMetric(param: MeteringApiGetBillableMetricRequest, options?: ConfigurationOptions): Promise<BillableMetric> {
         return this.api.getBillableMetric(param.orgId, param.billableMetricId,  options).toPromise();
     }
 
@@ -3114,7 +3179,7 @@ export class ObjectMeteringApi {
      * get usage metering config info
      * @param param the request object
      */
-    public getUsageMeteringConfigInfoWithHttpInfo(param: MeteringApiGetUsageMeteringConfigInfoRequest, options?: Configuration): Promise<HttpInfo<UsageMeteringConfigInfo>> {
+    public getUsageMeteringConfigInfoWithHttpInfo(param: MeteringApiGetUsageMeteringConfigInfoRequest, options?: ConfigurationOptions): Promise<HttpInfo<UsageMeteringConfigInfo>> {
         return this.api.getUsageMeteringConfigInfoWithHttpInfo(param.orgId,  options).toPromise();
     }
 
@@ -3123,7 +3188,7 @@ export class ObjectMeteringApi {
      * get usage metering config info
      * @param param the request object
      */
-    public getUsageMeteringConfigInfo(param: MeteringApiGetUsageMeteringConfigInfoRequest, options?: Configuration): Promise<UsageMeteringConfigInfo> {
+    public getUsageMeteringConfigInfo(param: MeteringApiGetUsageMeteringConfigInfoRequest, options?: ConfigurationOptions): Promise<UsageMeteringConfigInfo> {
         return this.api.getUsageMeteringConfigInfo(param.orgId,  options).toPromise();
     }
 
@@ -3132,7 +3197,7 @@ export class ObjectMeteringApi {
      * list billable metrics
      * @param param the request object
      */
-    public listBillableMetricsWithHttpInfo(param: MeteringApiListBillableMetricsRequest, options?: Configuration): Promise<HttpInfo<Array<BillableMetric>>> {
+    public listBillableMetricsWithHttpInfo(param: MeteringApiListBillableMetricsRequest, options?: ConfigurationOptions): Promise<HttpInfo<Array<BillableMetric>>> {
         return this.api.listBillableMetricsWithHttpInfo(param.orgId, param.status,  options).toPromise();
     }
 
@@ -3141,7 +3206,7 @@ export class ObjectMeteringApi {
      * list billable metrics
      * @param param the request object
      */
-    public listBillableMetrics(param: MeteringApiListBillableMetricsRequest, options?: Configuration): Promise<Array<BillableMetric>> {
+    public listBillableMetrics(param: MeteringApiListBillableMetricsRequest, options?: ConfigurationOptions): Promise<Array<BillableMetric>> {
         return this.api.listBillableMetrics(param.orgId, param.status,  options).toPromise();
     }
 
@@ -3150,7 +3215,7 @@ export class ObjectMeteringApi {
      * list usageRecordGroups
      * @param param the request object
      */
-    public listUsageRecordGroupsWithHttpInfo(param: MeteringApiListUsageRecordGroupsRequest, options?: Configuration): Promise<HttpInfo<ListUsageRecordGroupsResponse>> {
+    public listUsageRecordGroupsWithHttpInfo(param: MeteringApiListUsageRecordGroupsRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListUsageRecordGroupsResponse>> {
         return this.api.listUsageRecordGroupsWithHttpInfo(param.orgId, param.partner, param.buyerId, param.entitlementId, param.status, param.source, param.metaInfo, param.startDate, param.endDate, param.limit, param.offset,  options).toPromise();
     }
 
@@ -3159,7 +3224,7 @@ export class ObjectMeteringApi {
      * list usageRecordGroups
      * @param param the request object
      */
-    public listUsageRecordGroups(param: MeteringApiListUsageRecordGroupsRequest, options?: Configuration): Promise<ListUsageRecordGroupsResponse> {
+    public listUsageRecordGroups(param: MeteringApiListUsageRecordGroupsRequest, options?: ConfigurationOptions): Promise<ListUsageRecordGroupsResponse> {
         return this.api.listUsageRecordGroups(param.orgId, param.partner, param.buyerId, param.entitlementId, param.status, param.source, param.metaInfo, param.startDate, param.endDate, param.limit, param.offset,  options).toPromise();
     }
 
@@ -3168,7 +3233,7 @@ export class ObjectMeteringApi {
      * list usageRecordReports
      * @param param the request object
      */
-    public listUsageRecordReportsWithHttpInfo(param: MeteringApiListUsageRecordReportsRequest, options?: Configuration): Promise<HttpInfo<ListUsageRecordReportsResponse>> {
+    public listUsageRecordReportsWithHttpInfo(param: MeteringApiListUsageRecordReportsRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListUsageRecordReportsResponse>> {
         return this.api.listUsageRecordReportsWithHttpInfo(param.orgId, param.partner, param.buyerId, param.entitlementId, param.startDate, param.endDate, param.limit, param.offset,  options).toPromise();
     }
 
@@ -3177,7 +3242,7 @@ export class ObjectMeteringApi {
      * list usageRecordReports
      * @param param the request object
      */
-    public listUsageRecordReports(param: MeteringApiListUsageRecordReportsRequest, options?: Configuration): Promise<ListUsageRecordReportsResponse> {
+    public listUsageRecordReports(param: MeteringApiListUsageRecordReportsRequest, options?: ConfigurationOptions): Promise<ListUsageRecordReportsResponse> {
         return this.api.listUsageRecordReports(param.orgId, param.partner, param.buyerId, param.entitlementId, param.startDate, param.endDate, param.limit, param.offset,  options).toPromise();
     }
 
@@ -3186,7 +3251,7 @@ export class ObjectMeteringApi {
      * report usageRecordGroup
      * @param param the request object
      */
-    public reportUsageRecordGroupWithHttpInfo(param: MeteringApiReportUsageRecordGroupRequest, options?: Configuration): Promise<HttpInfo<MeteringUsageRecordGroup>> {
+    public reportUsageRecordGroupWithHttpInfo(param: MeteringApiReportUsageRecordGroupRequest, options?: ConfigurationOptions): Promise<HttpInfo<MeteringUsageRecordGroup>> {
         return this.api.reportUsageRecordGroupWithHttpInfo(param.orgId, param.entitlementId, param.data,  options).toPromise();
     }
 
@@ -3195,7 +3260,7 @@ export class ObjectMeteringApi {
      * report usageRecordGroup
      * @param param the request object
      */
-    public reportUsageRecordGroup(param: MeteringApiReportUsageRecordGroupRequest, options?: Configuration): Promise<MeteringUsageRecordGroup> {
+    public reportUsageRecordGroup(param: MeteringApiReportUsageRecordGroupRequest, options?: ConfigurationOptions): Promise<MeteringUsageRecordGroup> {
         return this.api.reportUsageRecordGroup(param.orgId, param.entitlementId, param.data,  options).toPromise();
     }
 
@@ -3204,7 +3269,7 @@ export class ObjectMeteringApi {
      * retry usageRecordGroup
      * @param param the request object
      */
-    public retryUsageRecordGroupWithHttpInfo(param: MeteringApiRetryUsageRecordGroupRequest, options?: Configuration): Promise<HttpInfo<MeteringUsageRecordGroup>> {
+    public retryUsageRecordGroupWithHttpInfo(param: MeteringApiRetryUsageRecordGroupRequest, options?: ConfigurationOptions): Promise<HttpInfo<MeteringUsageRecordGroup>> {
         return this.api.retryUsageRecordGroupWithHttpInfo(param.orgId, param.usageRecordGroupId, param.creationDate,  options).toPromise();
     }
 
@@ -3213,7 +3278,7 @@ export class ObjectMeteringApi {
      * retry usageRecordGroup
      * @param param the request object
      */
-    public retryUsageRecordGroup(param: MeteringApiRetryUsageRecordGroupRequest, options?: Configuration): Promise<MeteringUsageRecordGroup> {
+    public retryUsageRecordGroup(param: MeteringApiRetryUsageRecordGroupRequest, options?: ConfigurationOptions): Promise<MeteringUsageRecordGroup> {
         return this.api.retryUsageRecordGroup(param.orgId, param.usageRecordGroupId, param.creationDate,  options).toPromise();
     }
 
@@ -3222,7 +3287,7 @@ export class ObjectMeteringApi {
      * update billable metric
      * @param param the request object
      */
-    public updateBillableMetricWithHttpInfo(param: MeteringApiUpdateBillableMetricRequest, options?: Configuration): Promise<HttpInfo<BillableMetric>> {
+    public updateBillableMetricWithHttpInfo(param: MeteringApiUpdateBillableMetricRequest, options?: ConfigurationOptions): Promise<HttpInfo<BillableMetric>> {
         return this.api.updateBillableMetricWithHttpInfo(param.orgId, param.billableMetricId, param.data,  options).toPromise();
     }
 
@@ -3231,7 +3296,7 @@ export class ObjectMeteringApi {
      * update billable metric
      * @param param the request object
      */
-    public updateBillableMetric(param: MeteringApiUpdateBillableMetricRequest, options?: Configuration): Promise<BillableMetric> {
+    public updateBillableMetric(param: MeteringApiUpdateBillableMetricRequest, options?: ConfigurationOptions): Promise<BillableMetric> {
         return this.api.updateBillableMetric(param.orgId, param.billableMetricId, param.data,  options).toPromise();
     }
 
@@ -3240,7 +3305,7 @@ export class ObjectMeteringApi {
      * update usage metering config info
      * @param param the request object
      */
-    public updateUsageMeteringConfigInfoWithHttpInfo(param: MeteringApiUpdateUsageMeteringConfigInfoRequest, options?: Configuration): Promise<HttpInfo<UsageMeteringConfigInfo>> {
+    public updateUsageMeteringConfigInfoWithHttpInfo(param: MeteringApiUpdateUsageMeteringConfigInfoRequest, options?: ConfigurationOptions): Promise<HttpInfo<UsageMeteringConfigInfo>> {
         return this.api.updateUsageMeteringConfigInfoWithHttpInfo(param.orgId, param.data,  options).toPromise();
     }
 
@@ -3249,7 +3314,7 @@ export class ObjectMeteringApi {
      * update usage metering config info
      * @param param the request object
      */
-    public updateUsageMeteringConfigInfo(param: MeteringApiUpdateUsageMeteringConfigInfoRequest, options?: Configuration): Promise<UsageMeteringConfigInfo> {
+    public updateUsageMeteringConfigInfo(param: MeteringApiUpdateUsageMeteringConfigInfoRequest, options?: ConfigurationOptions): Promise<UsageMeteringConfigInfo> {
         return this.api.updateUsageMeteringConfigInfo(param.orgId, param.data,  options).toPromise();
     }
 
@@ -3312,7 +3377,7 @@ export interface NotificationApiListNotificationEventsRequest {
      */
     offset?: number
     /**
-     * Filter by priorities, empty means all priorities. Valid values are: LOW, MEDIUM, HIGH, CRITICAL. Multiple values are supported, separated by comma.
+     * Filter by priorities, empty means HIGH and CRITICAL only. Valid values are: LOW, MEDIUM, HIGH, CRITICAL. Multiple values are supported, separated by comma.
      * Defaults to: undefined
      * @type string
      * @memberof NotificationApilistNotificationEvents
@@ -3394,7 +3459,7 @@ export class ObjectNotificationApi {
      * get notification message
      * @param param the request object
      */
-    public getNotificationMessageWithHttpInfo(param: NotificationApiGetNotificationMessageRequest, options?: Configuration): Promise<HttpInfo<NotificationMessage>> {
+    public getNotificationMessageWithHttpInfo(param: NotificationApiGetNotificationMessageRequest, options?: ConfigurationOptions): Promise<HttpInfo<NotificationMessage>> {
         return this.api.getNotificationMessageWithHttpInfo(param.orgId, param.notificationMessageId,  options).toPromise();
     }
 
@@ -3403,7 +3468,7 @@ export class ObjectNotificationApi {
      * get notification message
      * @param param the request object
      */
-    public getNotificationMessage(param: NotificationApiGetNotificationMessageRequest, options?: Configuration): Promise<NotificationMessage> {
+    public getNotificationMessage(param: NotificationApiGetNotificationMessageRequest, options?: ConfigurationOptions): Promise<NotificationMessage> {
         return this.api.getNotificationMessage(param.orgId, param.notificationMessageId,  options).toPromise();
     }
 
@@ -3412,7 +3477,7 @@ export class ObjectNotificationApi {
      * list notification events
      * @param param the request object
      */
-    public listNotificationEventsWithHttpInfo(param: NotificationApiListNotificationEventsRequest, options?: Configuration): Promise<HttpInfo<ListNotificationEventsResponse>> {
+    public listNotificationEventsWithHttpInfo(param: NotificationApiListNotificationEventsRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListNotificationEventsResponse>> {
         return this.api.listNotificationEventsWithHttpInfo(param.orgId, param.startDate, param.endDate, param.limit, param.offset, param.priorities,  options).toPromise();
     }
 
@@ -3421,7 +3486,7 @@ export class ObjectNotificationApi {
      * list notification events
      * @param param the request object
      */
-    public listNotificationEvents(param: NotificationApiListNotificationEventsRequest, options?: Configuration): Promise<ListNotificationEventsResponse> {
+    public listNotificationEvents(param: NotificationApiListNotificationEventsRequest, options?: ConfigurationOptions): Promise<ListNotificationEventsResponse> {
         return this.api.listNotificationEvents(param.orgId, param.startDate, param.endDate, param.limit, param.offset, param.priorities,  options).toPromise();
     }
 
@@ -3430,7 +3495,7 @@ export class ObjectNotificationApi {
      * list notification events by entity
      * @param param the request object
      */
-    public listNotificationEventsByEntityWithHttpInfo(param: NotificationApiListNotificationEventsByEntityRequest, options?: Configuration): Promise<HttpInfo<ListNotificationEventsResponse>> {
+    public listNotificationEventsByEntityWithHttpInfo(param: NotificationApiListNotificationEventsByEntityRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListNotificationEventsResponse>> {
         return this.api.listNotificationEventsByEntityWithHttpInfo(param.orgId, param.entityType, param.entityId, param.limit, param.offset,  options).toPromise();
     }
 
@@ -3439,7 +3504,7 @@ export class ObjectNotificationApi {
      * list notification events by entity
      * @param param the request object
      */
-    public listNotificationEventsByEntity(param: NotificationApiListNotificationEventsByEntityRequest, options?: Configuration): Promise<ListNotificationEventsResponse> {
+    public listNotificationEventsByEntity(param: NotificationApiListNotificationEventsByEntityRequest, options?: ConfigurationOptions): Promise<ListNotificationEventsResponse> {
         return this.api.listNotificationEventsByEntity(param.orgId, param.entityType, param.entityId, param.limit, param.offset,  options).toPromise();
     }
 
@@ -3448,7 +3513,7 @@ export class ObjectNotificationApi {
      * list notification messages
      * @param param the request object
      */
-    public listNotificationMessagesWithHttpInfo(param: NotificationApiListNotificationMessagesRequest, options?: Configuration): Promise<HttpInfo<ListNotificationMessagesResponse>> {
+    public listNotificationMessagesWithHttpInfo(param: NotificationApiListNotificationMessagesRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListNotificationMessagesResponse>> {
         return this.api.listNotificationMessagesWithHttpInfo(param.orgId, param.limit, param.offset,  options).toPromise();
     }
 
@@ -3457,7 +3522,7 @@ export class ObjectNotificationApi {
      * list notification messages
      * @param param the request object
      */
-    public listNotificationMessages(param: NotificationApiListNotificationMessagesRequest, options?: Configuration): Promise<ListNotificationMessagesResponse> {
+    public listNotificationMessages(param: NotificationApiListNotificationMessagesRequest, options?: ConfigurationOptions): Promise<ListNotificationMessagesResponse> {
         return this.api.listNotificationMessages(param.orgId, param.limit, param.offset,  options).toPromise();
     }
 
@@ -3724,7 +3789,7 @@ export interface OfferApiSendOfferNotificationsRequest {
      * @type Array&lt;string&gt;
      * @memberof OfferApisendOfferNotifications
      */
-    contactIds?: Array<string>
+    contactIDs?: Array<string>
 }
 
 export interface OfferApiUpdateOfferMetaInfoRequest {
@@ -3762,7 +3827,7 @@ export class ObjectOfferApi {
      * cancel offer
      * @param param the request object
      */
-    public cancelOfferWithHttpInfo(param: OfferApiCancelOfferRequest, options?: Configuration): Promise<HttpInfo<WorkloadOffer>> {
+    public cancelOfferWithHttpInfo(param: OfferApiCancelOfferRequest, options?: ConfigurationOptions): Promise<HttpInfo<WorkloadOffer>> {
         return this.api.cancelOfferWithHttpInfo(param.orgId, param.offerId,  options).toPromise();
     }
 
@@ -3771,7 +3836,7 @@ export class ObjectOfferApi {
      * cancel offer
      * @param param the request object
      */
-    public cancelOffer(param: OfferApiCancelOfferRequest, options?: Configuration): Promise<WorkloadOffer> {
+    public cancelOffer(param: OfferApiCancelOfferRequest, options?: ConfigurationOptions): Promise<WorkloadOffer> {
         return this.api.cancelOffer(param.orgId, param.offerId,  options).toPromise();
     }
 
@@ -3780,7 +3845,7 @@ export class ObjectOfferApi {
      * create offer
      * @param param the request object
      */
-    public createOfferWithHttpInfo(param: OfferApiCreateOfferRequest, options?: Configuration): Promise<HttpInfo<WorkloadOffer>> {
+    public createOfferWithHttpInfo(param: OfferApiCreateOfferRequest, options?: ConfigurationOptions): Promise<HttpInfo<WorkloadOffer>> {
         return this.api.createOfferWithHttpInfo(param.orgId, param.data,  options).toPromise();
     }
 
@@ -3789,7 +3854,7 @@ export class ObjectOfferApi {
      * create offer
      * @param param the request object
      */
-    public createOffer(param: OfferApiCreateOfferRequest, options?: Configuration): Promise<WorkloadOffer> {
+    public createOffer(param: OfferApiCreateOfferRequest, options?: ConfigurationOptions): Promise<WorkloadOffer> {
         return this.api.createOffer(param.orgId, param.data,  options).toPromise();
     }
 
@@ -3798,7 +3863,7 @@ export class ObjectOfferApi {
      * create or update draft offer
      * @param param the request object
      */
-    public createOrUpdateDraftOfferWithHttpInfo(param: OfferApiCreateOrUpdateDraftOfferRequest, options?: Configuration): Promise<HttpInfo<WorkloadOffer>> {
+    public createOrUpdateDraftOfferWithHttpInfo(param: OfferApiCreateOrUpdateDraftOfferRequest, options?: ConfigurationOptions): Promise<HttpInfo<WorkloadOffer>> {
         return this.api.createOrUpdateDraftOfferWithHttpInfo(param.orgId, param.data,  options).toPromise();
     }
 
@@ -3807,7 +3872,7 @@ export class ObjectOfferApi {
      * create or update draft offer
      * @param param the request object
      */
-    public createOrUpdateDraftOffer(param: OfferApiCreateOrUpdateDraftOfferRequest, options?: Configuration): Promise<WorkloadOffer> {
+    public createOrUpdateDraftOffer(param: OfferApiCreateOrUpdateDraftOfferRequest, options?: ConfigurationOptions): Promise<WorkloadOffer> {
         return this.api.createOrUpdateDraftOffer(param.orgId, param.data,  options).toPromise();
     }
 
@@ -3816,7 +3881,7 @@ export class ObjectOfferApi {
      * delete offer
      * @param param the request object
      */
-    public deleteOfferWithHttpInfo(param: OfferApiDeleteOfferRequest, options?: Configuration): Promise<HttpInfo<string>> {
+    public deleteOfferWithHttpInfo(param: OfferApiDeleteOfferRequest, options?: ConfigurationOptions): Promise<HttpInfo<string>> {
         return this.api.deleteOfferWithHttpInfo(param.orgId, param.offerId,  options).toPromise();
     }
 
@@ -3825,7 +3890,7 @@ export class ObjectOfferApi {
      * delete offer
      * @param param the request object
      */
-    public deleteOffer(param: OfferApiDeleteOfferRequest, options?: Configuration): Promise<string> {
+    public deleteOffer(param: OfferApiDeleteOfferRequest, options?: ConfigurationOptions): Promise<string> {
         return this.api.deleteOffer(param.orgId, param.offerId,  options).toPromise();
     }
 
@@ -3834,7 +3899,7 @@ export class ObjectOfferApi {
      * extend offer expiry date
      * @param param the request object
      */
-    public extendPrivateOfferExpiryDateWithHttpInfo(param: OfferApiExtendPrivateOfferExpiryDateRequest, options?: Configuration): Promise<HttpInfo<WorkloadOffer>> {
+    public extendPrivateOfferExpiryDateWithHttpInfo(param: OfferApiExtendPrivateOfferExpiryDateRequest, options?: ConfigurationOptions): Promise<HttpInfo<WorkloadOffer>> {
         return this.api.extendPrivateOfferExpiryDateWithHttpInfo(param.orgId, param.offerId, param.newExpiryDate,  options).toPromise();
     }
 
@@ -3843,7 +3908,7 @@ export class ObjectOfferApi {
      * extend offer expiry date
      * @param param the request object
      */
-    public extendPrivateOfferExpiryDate(param: OfferApiExtendPrivateOfferExpiryDateRequest, options?: Configuration): Promise<WorkloadOffer> {
+    public extendPrivateOfferExpiryDate(param: OfferApiExtendPrivateOfferExpiryDateRequest, options?: ConfigurationOptions): Promise<WorkloadOffer> {
         return this.api.extendPrivateOfferExpiryDate(param.orgId, param.offerId, param.newExpiryDate,  options).toPromise();
     }
 
@@ -3852,7 +3917,7 @@ export class ObjectOfferApi {
      * get offer
      * @param param the request object
      */
-    public getOfferWithHttpInfo(param: OfferApiGetOfferRequest, options?: Configuration): Promise<HttpInfo<WorkloadOffer>> {
+    public getOfferWithHttpInfo(param: OfferApiGetOfferRequest, options?: ConfigurationOptions): Promise<HttpInfo<WorkloadOffer>> {
         return this.api.getOfferWithHttpInfo(param.orgId, param.offerId,  options).toPromise();
     }
 
@@ -3861,7 +3926,7 @@ export class ObjectOfferApi {
      * get offer
      * @param param the request object
      */
-    public getOffer(param: OfferApiGetOfferRequest, options?: Configuration): Promise<WorkloadOffer> {
+    public getOffer(param: OfferApiGetOfferRequest, options?: ConfigurationOptions): Promise<WorkloadOffer> {
         return this.api.getOffer(param.orgId, param.offerId,  options).toPromise();
     }
 
@@ -3870,7 +3935,7 @@ export class ObjectOfferApi {
      * get offer by external ID
      * @param param the request object
      */
-    public getOfferByExternalIdWithHttpInfo(param: OfferApiGetOfferByExternalIdRequest, options?: Configuration): Promise<HttpInfo<WorkloadOffer>> {
+    public getOfferByExternalIdWithHttpInfo(param: OfferApiGetOfferByExternalIdRequest, options?: ConfigurationOptions): Promise<HttpInfo<WorkloadOffer>> {
         return this.api.getOfferByExternalIdWithHttpInfo(param.orgId, param.offerExternalId,  options).toPromise();
     }
 
@@ -3879,7 +3944,7 @@ export class ObjectOfferApi {
      * get offer by external ID
      * @param param the request object
      */
-    public getOfferByExternalId(param: OfferApiGetOfferByExternalIdRequest, options?: Configuration): Promise<WorkloadOffer> {
+    public getOfferByExternalId(param: OfferApiGetOfferByExternalIdRequest, options?: ConfigurationOptions): Promise<WorkloadOffer> {
         return this.api.getOfferByExternalId(param.orgId, param.offerExternalId,  options).toPromise();
     }
 
@@ -3888,7 +3953,7 @@ export class ObjectOfferApi {
      * get offer EULA
      * @param param the request object
      */
-    public getOfferEulaWithHttpInfo(param: OfferApiGetOfferEulaRequest, options?: Configuration): Promise<HttpInfo<string>> {
+    public getOfferEulaWithHttpInfo(param: OfferApiGetOfferEulaRequest, options?: ConfigurationOptions): Promise<HttpInfo<string>> {
         return this.api.getOfferEulaWithHttpInfo(param.orgId, param.offerId, param.format,  options).toPromise();
     }
 
@@ -3897,7 +3962,7 @@ export class ObjectOfferApi {
      * get offer EULA
      * @param param the request object
      */
-    public getOfferEula(param: OfferApiGetOfferEulaRequest, options?: Configuration): Promise<string> {
+    public getOfferEula(param: OfferApiGetOfferEulaRequest, options?: ConfigurationOptions): Promise<string> {
         return this.api.getOfferEula(param.orgId, param.offerId, param.format,  options).toPromise();
     }
 
@@ -3906,7 +3971,7 @@ export class ObjectOfferApi {
      * get offer reseller EULA
      * @param param the request object
      */
-    public getOfferResellerEulaWithHttpInfo(param: OfferApiGetOfferResellerEulaRequest, options?: Configuration): Promise<HttpInfo<string>> {
+    public getOfferResellerEulaWithHttpInfo(param: OfferApiGetOfferResellerEulaRequest, options?: ConfigurationOptions): Promise<HttpInfo<string>> {
         return this.api.getOfferResellerEulaWithHttpInfo(param.orgId, param.offerId,  options).toPromise();
     }
 
@@ -3915,7 +3980,7 @@ export class ObjectOfferApi {
      * get offer reseller EULA
      * @param param the request object
      */
-    public getOfferResellerEula(param: OfferApiGetOfferResellerEulaRequest, options?: Configuration): Promise<string> {
+    public getOfferResellerEula(param: OfferApiGetOfferResellerEulaRequest, options?: ConfigurationOptions): Promise<string> {
         return this.api.getOfferResellerEula(param.orgId, param.offerId,  options).toPromise();
     }
 
@@ -3924,7 +3989,7 @@ export class ObjectOfferApi {
      * list offers
      * @param param the request object
      */
-    public listOffersWithHttpInfo(param: OfferApiListOffersRequest, options?: Configuration): Promise<HttpInfo<Array<WorkloadOffer>>> {
+    public listOffersWithHttpInfo(param: OfferApiListOffersRequest, options?: ConfigurationOptions): Promise<HttpInfo<Array<WorkloadOffer>>> {
         return this.api.listOffersWithHttpInfo(param.orgId, param.status, param.partner, param.offerType, param.productId, param.buyerId, param.hubspotDealId, param.contactId, param.limit, param.offset,  options).toPromise();
     }
 
@@ -3933,26 +3998,26 @@ export class ObjectOfferApi {
      * list offers
      * @param param the request object
      */
-    public listOffers(param: OfferApiListOffersRequest, options?: Configuration): Promise<Array<WorkloadOffer>> {
+    public listOffers(param: OfferApiListOffersRequest, options?: ConfigurationOptions): Promise<Array<WorkloadOffer>> {
         return this.api.listOffers(param.orgId, param.status, param.partner, param.offerType, param.productId, param.buyerId, param.hubspotDealId, param.contactId, param.limit, param.offset,  options).toPromise();
     }
 
     /**
-     * Send offer notifications to the given contact ids. If contactIds is empty, send notifications to all contacts of the offer.
+     * Send offer notifications to the given contact ids. If contactIDs is empty, send notifications to all contacts of the offer.
      * notify offer contacts
      * @param param the request object
      */
-    public sendOfferNotificationsWithHttpInfo(param: OfferApiSendOfferNotificationsRequest, options?: Configuration): Promise<HttpInfo<NotificationEvent>> {
-        return this.api.sendOfferNotificationsWithHttpInfo(param.orgId, param.offerId, param.contactIds,  options).toPromise();
+    public sendOfferNotificationsWithHttpInfo(param: OfferApiSendOfferNotificationsRequest, options?: ConfigurationOptions): Promise<HttpInfo<string>> {
+        return this.api.sendOfferNotificationsWithHttpInfo(param.orgId, param.offerId, param.contactIDs,  options).toPromise();
     }
 
     /**
-     * Send offer notifications to the given contact ids. If contactIds is empty, send notifications to all contacts of the offer.
+     * Send offer notifications to the given contact ids. If contactIDs is empty, send notifications to all contacts of the offer.
      * notify offer contacts
      * @param param the request object
      */
-    public sendOfferNotifications(param: OfferApiSendOfferNotificationsRequest, options?: Configuration): Promise<NotificationEvent> {
-        return this.api.sendOfferNotifications(param.orgId, param.offerId, param.contactIds,  options).toPromise();
+    public sendOfferNotifications(param: OfferApiSendOfferNotificationsRequest, options?: ConfigurationOptions): Promise<string> {
+        return this.api.sendOfferNotifications(param.orgId, param.offerId, param.contactIDs,  options).toPromise();
     }
 
     /**
@@ -3960,7 +4025,7 @@ export class ObjectOfferApi {
      * update offer meta info
      * @param param the request object
      */
-    public updateOfferMetaInfoWithHttpInfo(param: OfferApiUpdateOfferMetaInfoRequest, options?: Configuration): Promise<HttpInfo<WorkloadMetaInfo>> {
+    public updateOfferMetaInfoWithHttpInfo(param: OfferApiUpdateOfferMetaInfoRequest, options?: ConfigurationOptions): Promise<HttpInfo<WorkloadMetaInfo>> {
         return this.api.updateOfferMetaInfoWithHttpInfo(param.orgId, param.offerId, param.data,  options).toPromise();
     }
 
@@ -3969,7 +4034,7 @@ export class ObjectOfferApi {
      * update offer meta info
      * @param param the request object
      */
-    public updateOfferMetaInfo(param: OfferApiUpdateOfferMetaInfoRequest, options?: Configuration): Promise<WorkloadMetaInfo> {
+    public updateOfferMetaInfo(param: OfferApiUpdateOfferMetaInfoRequest, options?: ConfigurationOptions): Promise<WorkloadMetaInfo> {
         return this.api.updateOfferMetaInfo(param.orgId, param.offerId, param.data,  options).toPromise();
     }
 
@@ -4213,7 +4278,7 @@ export class ObjectProductApi {
      * create or update draft product
      * @param param the request object
      */
-    public createOrUpdateDraftProductWithHttpInfo(param: ProductApiCreateOrUpdateDraftProductRequest, options?: Configuration): Promise<HttpInfo<WorkloadProduct>> {
+    public createOrUpdateDraftProductWithHttpInfo(param: ProductApiCreateOrUpdateDraftProductRequest, options?: ConfigurationOptions): Promise<HttpInfo<WorkloadProduct>> {
         return this.api.createOrUpdateDraftProductWithHttpInfo(param.orgId, param.data,  options).toPromise();
     }
 
@@ -4222,7 +4287,7 @@ export class ObjectProductApi {
      * create or update draft product
      * @param param the request object
      */
-    public createOrUpdateDraftProduct(param: ProductApiCreateOrUpdateDraftProductRequest, options?: Configuration): Promise<WorkloadProduct> {
+    public createOrUpdateDraftProduct(param: ProductApiCreateOrUpdateDraftProductRequest, options?: ConfigurationOptions): Promise<WorkloadProduct> {
         return this.api.createOrUpdateDraftProduct(param.orgId, param.data,  options).toPromise();
     }
 
@@ -4231,7 +4296,7 @@ export class ObjectProductApi {
      * create product
      * @param param the request object
      */
-    public createProductWithHttpInfo(param: ProductApiCreateProductRequest, options?: Configuration): Promise<HttpInfo<WorkloadProduct>> {
+    public createProductWithHttpInfo(param: ProductApiCreateProductRequest, options?: ConfigurationOptions): Promise<HttpInfo<WorkloadProduct>> {
         return this.api.createProductWithHttpInfo(param.orgId, param.data,  options).toPromise();
     }
 
@@ -4240,7 +4305,7 @@ export class ObjectProductApi {
      * create product
      * @param param the request object
      */
-    public createProduct(param: ProductApiCreateProductRequest, options?: Configuration): Promise<WorkloadProduct> {
+    public createProduct(param: ProductApiCreateProductRequest, options?: ConfigurationOptions): Promise<WorkloadProduct> {
         return this.api.createProduct(param.orgId, param.data,  options).toPromise();
     }
 
@@ -4249,7 +4314,7 @@ export class ObjectProductApi {
      * delete product
      * @param param the request object
      */
-    public deleteProductWithHttpInfo(param: ProductApiDeleteProductRequest, options?: Configuration): Promise<HttpInfo<string>> {
+    public deleteProductWithHttpInfo(param: ProductApiDeleteProductRequest, options?: ConfigurationOptions): Promise<HttpInfo<string>> {
         return this.api.deleteProductWithHttpInfo(param.orgId, param.productId,  options).toPromise();
     }
 
@@ -4258,7 +4323,7 @@ export class ObjectProductApi {
      * delete product
      * @param param the request object
      */
-    public deleteProduct(param: ProductApiDeleteProductRequest, options?: Configuration): Promise<string> {
+    public deleteProduct(param: ProductApiDeleteProductRequest, options?: ConfigurationOptions): Promise<string> {
         return this.api.deleteProduct(param.orgId, param.productId,  options).toPromise();
     }
 
@@ -4267,7 +4332,7 @@ export class ObjectProductApi {
      * get product
      * @param param the request object
      */
-    public getProductWithHttpInfo(param: ProductApiGetProductRequest, options?: Configuration): Promise<HttpInfo<WorkloadProduct>> {
+    public getProductWithHttpInfo(param: ProductApiGetProductRequest, options?: ConfigurationOptions): Promise<HttpInfo<WorkloadProduct>> {
         return this.api.getProductWithHttpInfo(param.orgId, param.productId,  options).toPromise();
     }
 
@@ -4276,7 +4341,7 @@ export class ObjectProductApi {
      * get product
      * @param param the request object
      */
-    public getProduct(param: ProductApiGetProductRequest, options?: Configuration): Promise<WorkloadProduct> {
+    public getProduct(param: ProductApiGetProductRequest, options?: ConfigurationOptions): Promise<WorkloadProduct> {
         return this.api.getProduct(param.orgId, param.productId,  options).toPromise();
     }
 
@@ -4285,7 +4350,7 @@ export class ObjectProductApi {
      * list metering dimensions of product
      * @param param the request object
      */
-    public listProductMeteringDimensionsWithHttpInfo(param: ProductApiListProductMeteringDimensionsRequest, options?: Configuration): Promise<HttpInfo<Array<MeteringDimension>>> {
+    public listProductMeteringDimensionsWithHttpInfo(param: ProductApiListProductMeteringDimensionsRequest, options?: ConfigurationOptions): Promise<HttpInfo<Array<MeteringDimension>>> {
         return this.api.listProductMeteringDimensionsWithHttpInfo(param.orgId, param.productId,  options).toPromise();
     }
 
@@ -4294,7 +4359,7 @@ export class ObjectProductApi {
      * list metering dimensions of product
      * @param param the request object
      */
-    public listProductMeteringDimensions(param: ProductApiListProductMeteringDimensionsRequest, options?: Configuration): Promise<Array<MeteringDimension>> {
+    public listProductMeteringDimensions(param: ProductApiListProductMeteringDimensionsRequest, options?: ConfigurationOptions): Promise<Array<MeteringDimension>> {
         return this.api.listProductMeteringDimensions(param.orgId, param.productId,  options).toPromise();
     }
 
@@ -4303,7 +4368,7 @@ export class ObjectProductApi {
      * list products
      * @param param the request object
      */
-    public listProductsWithHttpInfo(param: ProductApiListProductsRequest, options?: Configuration): Promise<HttpInfo<Array<WorkloadProduct>>> {
+    public listProductsWithHttpInfo(param: ProductApiListProductsRequest, options?: ConfigurationOptions): Promise<HttpInfo<Array<WorkloadProduct>>> {
         return this.api.listProductsWithHttpInfo(param.orgId, param.partner, param.limit, param.offset,  options).toPromise();
     }
 
@@ -4312,7 +4377,7 @@ export class ObjectProductApi {
      * list products
      * @param param the request object
      */
-    public listProducts(param: ProductApiListProductsRequest, options?: Configuration): Promise<Array<WorkloadProduct>> {
+    public listProducts(param: ProductApiListProductsRequest, options?: ConfigurationOptions): Promise<Array<WorkloadProduct>> {
         return this.api.listProducts(param.orgId, param.partner, param.limit, param.offset,  options).toPromise();
     }
 
@@ -4321,7 +4386,7 @@ export class ObjectProductApi {
      * list products by partner
      * @param param the request object
      */
-    public listProductsByPartnerWithHttpInfo(param: ProductApiListProductsByPartnerRequest, options?: Configuration): Promise<HttpInfo<Array<WorkloadProduct>>> {
+    public listProductsByPartnerWithHttpInfo(param: ProductApiListProductsByPartnerRequest, options?: ConfigurationOptions): Promise<HttpInfo<Array<WorkloadProduct>>> {
         return this.api.listProductsByPartnerWithHttpInfo(param.orgId, param.partner,  options).toPromise();
     }
 
@@ -4330,7 +4395,7 @@ export class ObjectProductApi {
      * list products by partner
      * @param param the request object
      */
-    public listProductsByPartner(param: ProductApiListProductsByPartnerRequest, options?: Configuration): Promise<Array<WorkloadProduct>> {
+    public listProductsByPartner(param: ProductApiListProductsByPartnerRequest, options?: ConfigurationOptions): Promise<Array<WorkloadProduct>> {
         return this.api.listProductsByPartner(param.orgId, param.partner,  options).toPromise();
     }
 
@@ -4339,7 +4404,7 @@ export class ObjectProductApi {
      * publish product
      * @param param the request object
      */
-    public publishProductWithHttpInfo(param: ProductApiPublishProductRequest, options?: Configuration): Promise<HttpInfo<WorkloadProduct>> {
+    public publishProductWithHttpInfo(param: ProductApiPublishProductRequest, options?: ConfigurationOptions): Promise<HttpInfo<WorkloadProduct>> {
         return this.api.publishProductWithHttpInfo(param.orgId, param.productId, param.data,  options).toPromise();
     }
 
@@ -4348,7 +4413,7 @@ export class ObjectProductApi {
      * publish product
      * @param param the request object
      */
-    public publishProduct(param: ProductApiPublishProductRequest, options?: Configuration): Promise<WorkloadProduct> {
+    public publishProduct(param: ProductApiPublishProductRequest, options?: ConfigurationOptions): Promise<WorkloadProduct> {
         return this.api.publishProduct(param.orgId, param.productId, param.data,  options).toPromise();
     }
 
@@ -4357,7 +4422,7 @@ export class ObjectProductApi {
      * update product
      * @param param the request object
      */
-    public updateProductWithHttpInfo(param: ProductApiUpdateProductRequest, options?: Configuration): Promise<HttpInfo<WorkloadProduct>> {
+    public updateProductWithHttpInfo(param: ProductApiUpdateProductRequest, options?: ConfigurationOptions): Promise<HttpInfo<WorkloadProduct>> {
         return this.api.updateProductWithHttpInfo(param.orgId, param.productId, param.data,  options).toPromise();
     }
 
@@ -4366,7 +4431,7 @@ export class ObjectProductApi {
      * update product
      * @param param the request object
      */
-    public updateProduct(param: ProductApiUpdateProductRequest, options?: Configuration): Promise<WorkloadProduct> {
+    public updateProduct(param: ProductApiUpdateProductRequest, options?: ConfigurationOptions): Promise<WorkloadProduct> {
         return this.api.updateProduct(param.orgId, param.productId, param.data,  options).toPromise();
     }
 
@@ -4375,7 +4440,7 @@ export class ObjectProductApi {
      * update product fulfillment url
      * @param param the request object
      */
-    public updateProductFulfillmentUrlWithHttpInfo(param: ProductApiUpdateProductFulfillmentUrlRequest, options?: Configuration): Promise<HttpInfo<WorkloadProduct>> {
+    public updateProductFulfillmentUrlWithHttpInfo(param: ProductApiUpdateProductFulfillmentUrlRequest, options?: ConfigurationOptions): Promise<HttpInfo<WorkloadProduct>> {
         return this.api.updateProductFulfillmentUrlWithHttpInfo(param.orgId, param.productId, param.data,  options).toPromise();
     }
 
@@ -4384,7 +4449,7 @@ export class ObjectProductApi {
      * update product fulfillment url
      * @param param the request object
      */
-    public updateProductFulfillmentUrl(param: ProductApiUpdateProductFulfillmentUrlRequest, options?: Configuration): Promise<WorkloadProduct> {
+    public updateProductFulfillmentUrl(param: ProductApiUpdateProductFulfillmentUrlRequest, options?: ConfigurationOptions): Promise<WorkloadProduct> {
         return this.api.updateProductFulfillmentUrl(param.orgId, param.productId, param.data,  options).toPromise();
     }
 
@@ -4393,7 +4458,7 @@ export class ObjectProductApi {
      * update product meta info
      * @param param the request object
      */
-    public updateProductMetaInfoWithHttpInfo(param: ProductApiUpdateProductMetaInfoRequest, options?: Configuration): Promise<HttpInfo<WorkloadMetaInfo>> {
+    public updateProductMetaInfoWithHttpInfo(param: ProductApiUpdateProductMetaInfoRequest, options?: ConfigurationOptions): Promise<HttpInfo<WorkloadMetaInfo>> {
         return this.api.updateProductMetaInfoWithHttpInfo(param.orgId, param.productId, param.data,  options).toPromise();
     }
 
@@ -4402,7 +4467,7 @@ export class ObjectProductApi {
      * update product meta info
      * @param param the request object
      */
-    public updateProductMetaInfo(param: ProductApiUpdateProductMetaInfoRequest, options?: Configuration): Promise<WorkloadMetaInfo> {
+    public updateProductMetaInfo(param: ProductApiUpdateProductMetaInfoRequest, options?: ConfigurationOptions): Promise<WorkloadMetaInfo> {
         return this.api.updateProductMetaInfo(param.orgId, param.productId, param.data,  options).toPromise();
     }
 
@@ -4682,7 +4747,7 @@ export class ObjectReportApi {
      * get revenue report
      * @param param the request object
      */
-    public getRevenueReportWithHttpInfo(param: ReportApiGetRevenueReportRequest, options?: Configuration): Promise<HttpInfo<RevenueReport>> {
+    public getRevenueReportWithHttpInfo(param: ReportApiGetRevenueReportRequest, options?: ConfigurationOptions): Promise<HttpInfo<RevenueReport>> {
         return this.api.getRevenueReportWithHttpInfo(param.orgId, param.data,  options).toPromise();
     }
 
@@ -4691,7 +4756,7 @@ export class ObjectReportApi {
      * get revenue report
      * @param param the request object
      */
-    public getRevenueReport(param: ReportApiGetRevenueReportRequest, options?: Configuration): Promise<RevenueReport> {
+    public getRevenueReport(param: ReportApiGetRevenueReportRequest, options?: ConfigurationOptions): Promise<RevenueReport> {
         return this.api.getRevenueReport(param.orgId, param.data,  options).toPromise();
     }
 
@@ -4700,7 +4765,7 @@ export class ObjectReportApi {
      * list daily revenue records
      * @param param the request object
      */
-    public listDailyRevenueRecordsWithHttpInfo(param: ReportApiListDailyRevenueRecordsRequest, options?: Configuration): Promise<HttpInfo<Array<RevenueRecord>>> {
+    public listDailyRevenueRecordsWithHttpInfo(param: ReportApiListDailyRevenueRecordsRequest, options?: ConfigurationOptions): Promise<HttpInfo<Array<RevenueRecord>>> {
         return this.api.listDailyRevenueRecordsWithHttpInfo(param.orgId, param.partner, param.productId, param.buyerId, param.entitlementId, param.startDate, param.endDate,  options).toPromise();
     }
 
@@ -4709,7 +4774,7 @@ export class ObjectReportApi {
      * list daily revenue records
      * @param param the request object
      */
-    public listDailyRevenueRecords(param: ReportApiListDailyRevenueRecordsRequest, options?: Configuration): Promise<Array<RevenueRecord>> {
+    public listDailyRevenueRecords(param: ReportApiListDailyRevenueRecordsRequest, options?: ConfigurationOptions): Promise<Array<RevenueRecord>> {
         return this.api.listDailyRevenueRecords(param.orgId, param.partner, param.productId, param.buyerId, param.entitlementId, param.startDate, param.endDate,  options).toPromise();
     }
 
@@ -4718,7 +4783,7 @@ export class ObjectReportApi {
      * list revenue record details
      * @param param the request object
      */
-    public listRevenueRecordDetailsWithHttpInfo(param: ReportApiListRevenueRecordDetailsRequest, options?: Configuration): Promise<HttpInfo<ListRevenueRecordDetailsResponse>> {
+    public listRevenueRecordDetailsWithHttpInfo(param: ReportApiListRevenueRecordDetailsRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListRevenueRecordDetailsResponse>> {
         return this.api.listRevenueRecordDetailsWithHttpInfo(param.orgId, param.partner, param.productId, param.buyerId, param.entitlementId, param.startDate, param.endDate, param.limit, param.offset,  options).toPromise();
     }
 
@@ -4727,7 +4792,7 @@ export class ObjectReportApi {
      * list revenue record details
      * @param param the request object
      */
-    public listRevenueRecordDetails(param: ReportApiListRevenueRecordDetailsRequest, options?: Configuration): Promise<ListRevenueRecordDetailsResponse> {
+    public listRevenueRecordDetails(param: ReportApiListRevenueRecordDetailsRequest, options?: ConfigurationOptions): Promise<ListRevenueRecordDetailsResponse> {
         return this.api.listRevenueRecordDetails(param.orgId, param.partner, param.productId, param.buyerId, param.entitlementId, param.startDate, param.endDate, param.limit, param.offset,  options).toPromise();
     }
 
@@ -4736,7 +4801,7 @@ export class ObjectReportApi {
      * list revenue records
      * @param param the request object
      */
-    public listRevenueRecordsWithHttpInfo(param: ReportApiListRevenueRecordsRequest, options?: Configuration): Promise<HttpInfo<ListRevenueRecordsResponse>> {
+    public listRevenueRecordsWithHttpInfo(param: ReportApiListRevenueRecordsRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListRevenueRecordsResponse>> {
         return this.api.listRevenueRecordsWithHttpInfo(param.orgId, param.partner, param.productId, param.entitlementId, param.buyerId, param.startDate, param.endDate, param.limit, param.offset,  options).toPromise();
     }
 
@@ -4745,7 +4810,7 @@ export class ObjectReportApi {
      * list revenue records
      * @param param the request object
      */
-    public listRevenueRecords(param: ReportApiListRevenueRecordsRequest, options?: Configuration): Promise<ListRevenueRecordsResponse> {
+    public listRevenueRecords(param: ReportApiListRevenueRecordsRequest, options?: ConfigurationOptions): Promise<ListRevenueRecordsResponse> {
         return this.api.listRevenueRecords(param.orgId, param.partner, param.productId, param.entitlementId, param.buyerId, param.startDate, param.endDate, param.limit, param.offset,  options).toPromise();
     }
 
@@ -4754,7 +4819,7 @@ export class ObjectReportApi {
      * list usage metering daily records
      * @param param the request object
      */
-    public listUsageMeteringDailyRecordsWithHttpInfo(param: ReportApiListUsageMeteringDailyRecordsRequest, options?: Configuration): Promise<HttpInfo<ListUsageMeteringDailyRecordsResponse>> {
+    public listUsageMeteringDailyRecordsWithHttpInfo(param: ReportApiListUsageMeteringDailyRecordsRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListUsageMeteringDailyRecordsResponse>> {
         return this.api.listUsageMeteringDailyRecordsWithHttpInfo(param.orgId, param.partner, param.buyerId, param.entitlementId, param.startDate, param.endDate, param.limit, param.offset,  options).toPromise();
     }
 
@@ -4763,7 +4828,7 @@ export class ObjectReportApi {
      * list usage metering daily records
      * @param param the request object
      */
-    public listUsageMeteringDailyRecords(param: ReportApiListUsageMeteringDailyRecordsRequest, options?: Configuration): Promise<ListUsageMeteringDailyRecordsResponse> {
+    public listUsageMeteringDailyRecords(param: ReportApiListUsageMeteringDailyRecordsRequest, options?: ConfigurationOptions): Promise<ListUsageMeteringDailyRecordsResponse> {
         return this.api.listUsageMeteringDailyRecords(param.orgId, param.partner, param.buyerId, param.entitlementId, param.startDate, param.endDate, param.limit, param.offset,  options).toPromise();
     }
 
@@ -4945,7 +5010,7 @@ export class ObjectSupportApi {
      * close support ticket
      * @param param the request object
      */
-    public closeSupportTicketWithHttpInfo(param: SupportApiCloseSupportTicketRequest, options?: Configuration): Promise<HttpInfo<SupportTicket>> {
+    public closeSupportTicketWithHttpInfo(param: SupportApiCloseSupportTicketRequest, options?: ConfigurationOptions): Promise<HttpInfo<SupportTicket>> {
         return this.api.closeSupportTicketWithHttpInfo(param.orgId, param.ticketId,  options).toPromise();
     }
 
@@ -4954,7 +5019,7 @@ export class ObjectSupportApi {
      * close support ticket
      * @param param the request object
      */
-    public closeSupportTicket(param: SupportApiCloseSupportTicketRequest, options?: Configuration): Promise<SupportTicket> {
+    public closeSupportTicket(param: SupportApiCloseSupportTicketRequest, options?: ConfigurationOptions): Promise<SupportTicket> {
         return this.api.closeSupportTicket(param.orgId, param.ticketId,  options).toPromise();
     }
 
@@ -4963,7 +5028,7 @@ export class ObjectSupportApi {
      * create support ticket
      * @param param the request object
      */
-    public createSupportTicketWithHttpInfo(param: SupportApiCreateSupportTicketRequest, options?: Configuration): Promise<HttpInfo<SupportTicket>> {
+    public createSupportTicketWithHttpInfo(param: SupportApiCreateSupportTicketRequest, options?: ConfigurationOptions): Promise<HttpInfo<SupportTicket>> {
         return this.api.createSupportTicketWithHttpInfo(param.orgId, param.body,  options).toPromise();
     }
 
@@ -4972,7 +5037,7 @@ export class ObjectSupportApi {
      * create support ticket
      * @param param the request object
      */
-    public createSupportTicket(param: SupportApiCreateSupportTicketRequest, options?: Configuration): Promise<SupportTicket> {
+    public createSupportTicket(param: SupportApiCreateSupportTicketRequest, options?: ConfigurationOptions): Promise<SupportTicket> {
         return this.api.createSupportTicket(param.orgId, param.body,  options).toPromise();
     }
 
@@ -4981,7 +5046,7 @@ export class ObjectSupportApi {
      * create support ticket attachment
      * @param param the request object
      */
-    public createSupportTicketAttachmentWithHttpInfo(param: SupportApiCreateSupportTicketAttachmentRequest, options?: Configuration): Promise<HttpInfo<Array<SupportTicketAttachment>>> {
+    public createSupportTicketAttachmentWithHttpInfo(param: SupportApiCreateSupportTicketAttachmentRequest, options?: ConfigurationOptions): Promise<HttpInfo<Array<SupportTicketAttachment>>> {
         return this.api.createSupportTicketAttachmentWithHttpInfo(param.orgId, param.ticketId, param.file,  options).toPromise();
     }
 
@@ -4990,7 +5055,7 @@ export class ObjectSupportApi {
      * create support ticket attachment
      * @param param the request object
      */
-    public createSupportTicketAttachment(param: SupportApiCreateSupportTicketAttachmentRequest, options?: Configuration): Promise<Array<SupportTicketAttachment>> {
+    public createSupportTicketAttachment(param: SupportApiCreateSupportTicketAttachmentRequest, options?: ConfigurationOptions): Promise<Array<SupportTicketAttachment>> {
         return this.api.createSupportTicketAttachment(param.orgId, param.ticketId, param.file,  options).toPromise();
     }
 
@@ -4999,7 +5064,7 @@ export class ObjectSupportApi {
      * create support ticket comment
      * @param param the request object
      */
-    public createSupportTicketCommentWithHttpInfo(param: SupportApiCreateSupportTicketCommentRequest, options?: Configuration): Promise<HttpInfo<SupportTicketComment>> {
+    public createSupportTicketCommentWithHttpInfo(param: SupportApiCreateSupportTicketCommentRequest, options?: ConfigurationOptions): Promise<HttpInfo<SupportTicketComment>> {
         return this.api.createSupportTicketCommentWithHttpInfo(param.orgId, param.ticketId, param.body,  options).toPromise();
     }
 
@@ -5008,7 +5073,7 @@ export class ObjectSupportApi {
      * create support ticket comment
      * @param param the request object
      */
-    public createSupportTicketComment(param: SupportApiCreateSupportTicketCommentRequest, options?: Configuration): Promise<SupportTicketComment> {
+    public createSupportTicketComment(param: SupportApiCreateSupportTicketCommentRequest, options?: ConfigurationOptions): Promise<SupportTicketComment> {
         return this.api.createSupportTicketComment(param.orgId, param.ticketId, param.body,  options).toPromise();
     }
 
@@ -5017,7 +5082,7 @@ export class ObjectSupportApi {
      * get support ticket
      * @param param the request object
      */
-    public getSupportTicketWithHttpInfo(param: SupportApiGetSupportTicketRequest, options?: Configuration): Promise<HttpInfo<SupportTicket>> {
+    public getSupportTicketWithHttpInfo(param: SupportApiGetSupportTicketRequest, options?: ConfigurationOptions): Promise<HttpInfo<SupportTicket>> {
         return this.api.getSupportTicketWithHttpInfo(param.orgId, param.ticketId,  options).toPromise();
     }
 
@@ -5026,7 +5091,7 @@ export class ObjectSupportApi {
      * get support ticket
      * @param param the request object
      */
-    public getSupportTicket(param: SupportApiGetSupportTicketRequest, options?: Configuration): Promise<SupportTicket> {
+    public getSupportTicket(param: SupportApiGetSupportTicketRequest, options?: ConfigurationOptions): Promise<SupportTicket> {
         return this.api.getSupportTicket(param.orgId, param.ticketId,  options).toPromise();
     }
 
@@ -5035,7 +5100,7 @@ export class ObjectSupportApi {
      * list support tickets
      * @param param the request object
      */
-    public listSupportTicketsWithHttpInfo(param: SupportApiListSupportTicketsRequest, options?: Configuration): Promise<HttpInfo<ListSupportTicketsResponse>> {
+    public listSupportTicketsWithHttpInfo(param: SupportApiListSupportTicketsRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListSupportTicketsResponse>> {
         return this.api.listSupportTicketsWithHttpInfo(param.orgId, param.limit, param.offset,  options).toPromise();
     }
 
@@ -5044,7 +5109,7 @@ export class ObjectSupportApi {
      * list support tickets
      * @param param the request object
      */
-    public listSupportTickets(param: SupportApiListSupportTicketsRequest, options?: Configuration): Promise<ListSupportTicketsResponse> {
+    public listSupportTickets(param: SupportApiListSupportTicketsRequest, options?: ConfigurationOptions): Promise<ListSupportTicketsResponse> {
         return this.api.listSupportTickets(param.orgId, param.limit, param.offset,  options).toPromise();
     }
 
@@ -5053,7 +5118,7 @@ export class ObjectSupportApi {
      * reopen support ticket
      * @param param the request object
      */
-    public reopenSupportTicketWithHttpInfo(param: SupportApiReopenSupportTicketRequest, options?: Configuration): Promise<HttpInfo<SupportTicket>> {
+    public reopenSupportTicketWithHttpInfo(param: SupportApiReopenSupportTicketRequest, options?: ConfigurationOptions): Promise<HttpInfo<SupportTicket>> {
         return this.api.reopenSupportTicketWithHttpInfo(param.orgId, param.ticketId,  options).toPromise();
     }
 
@@ -5062,7 +5127,7 @@ export class ObjectSupportApi {
      * reopen support ticket
      * @param param the request object
      */
-    public reopenSupportTicket(param: SupportApiReopenSupportTicketRequest, options?: Configuration): Promise<SupportTicket> {
+    public reopenSupportTicket(param: SupportApiReopenSupportTicketRequest, options?: ConfigurationOptions): Promise<SupportTicket> {
         return this.api.reopenSupportTicket(param.orgId, param.ticketId,  options).toPromise();
     }
 
@@ -5071,7 +5136,7 @@ export class ObjectSupportApi {
      * update support ticket
      * @param param the request object
      */
-    public updateSupportTicketWithHttpInfo(param: SupportApiUpdateSupportTicketRequest, options?: Configuration): Promise<HttpInfo<SupportTicket>> {
+    public updateSupportTicketWithHttpInfo(param: SupportApiUpdateSupportTicketRequest, options?: ConfigurationOptions): Promise<HttpInfo<SupportTicket>> {
         return this.api.updateSupportTicketWithHttpInfo(param.orgId, param.ticketId, param.body,  options).toPromise();
     }
 
@@ -5080,7 +5145,7 @@ export class ObjectSupportApi {
      * update support ticket
      * @param param the request object
      */
-    public updateSupportTicket(param: SupportApiUpdateSupportTicketRequest, options?: Configuration): Promise<SupportTicket> {
+    public updateSupportTicket(param: SupportApiUpdateSupportTicketRequest, options?: ConfigurationOptions): Promise<SupportTicket> {
         return this.api.updateSupportTicket(param.orgId, param.ticketId, param.body,  options).toPromise();
     }
 

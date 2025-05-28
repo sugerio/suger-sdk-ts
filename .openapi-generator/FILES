@@ -154,6 +154,9 @@ models/AzureMarketplacePriceAndAvailabilityRecurrentPriceItem.ts
 models/AzureMarketplacePriceAndAvailabilityRecurrentPriceUserLimit.ts
 models/AzureMarketplacePriceAndAvailabilitySoftwareReservation.ts
 models/AzureMarketplacePriceAndAvailabilitySystemMeterPrice.ts
+models/AzureMarketplacePriceBillingSchedule.ts
+models/AzureMarketplacePriceFlexibleSchedule.ts
+models/AzureMarketplacePriceInitialCharge.ts
 models/AzureMarketplacePrivateOffer.ts
 models/AzureMarketplacePrivateOfferAcceptanceLink.ts
 models/AzureMarketplacePrivateOfferBeneficiary.ts
@@ -262,8 +265,6 @@ models/CreateAndUpdateAddonParams.ts
 models/CreateBuyerParams.ts
 models/CreateEntitlementParams.ts
 models/CreateUsageRecordGroupParams.ts
-models/DatabaseSqlNullBool.ts
-models/DatabaseSqlNullString.ts
 models/DatabaseSqlNullTime.ts
 models/DivideEntitlementCommitParams.ts
 models/EntitlementInfo.ts
@@ -272,6 +273,7 @@ models/EntitlementTermInfo.ts
 models/EntitlementTermType.ts
 models/EntityType.ts
 models/EulaType.ts
+models/GcpAgreementDocument.ts
 models/GcpAmountConstraint.ts
 models/GcpAmountUnit.ts
 models/GcpCommitmentAmountPerPeriodTemplate.ts
@@ -288,6 +290,7 @@ models/GcpMarketplaceMeteringMetricValue.ts
 models/GcpMarketplaceMeteringMetricValueSet.ts
 models/GcpMarketplaceMeteringMoney.ts
 models/GcpMarketplaceMeteringOperation.ts
+models/GcpMarketplaceOfferDealType.ts
 models/GcpMarketplaceOfferProration.ts
 models/GcpMarketplaceOfferStartPolicy.ts
 models/GcpMarketplaceOfferTemplatePolicies.ts
@@ -299,6 +302,7 @@ models/GcpMarketplacePrivateOfferInstallmentTimeline.ts
 models/GcpMarketplacePrivateOfferMetricDetail.ts
 models/GcpMarketplacePrivateOfferMetricInformation.ts
 models/GcpMarketplacePrivateOfferMigrationMetadata.ts
+models/GcpMarketplacePrivateOfferPolicies.ts
 models/GcpMarketplacePrivateOfferPriceModel.ts
 models/GcpMarketplacePrivateOfferPriceModelCommitment.ts
 models/GcpMarketplacePrivateOfferPriceModelDiscount.ts
@@ -308,6 +312,7 @@ models/GcpMarketplacePrivateOfferPriceModelPayg.ts
 models/GcpMarketplacePrivateOfferPriceModelType.ts
 models/GcpMarketplacePrivateOfferProviderInfo.ts
 models/GcpMarketplacePrivateOfferReplacementMetadata.ts
+models/GcpMarketplacePrivateOfferRevenueShare.ts
 models/GcpMarketplacePrivateOfferState.ts
 models/GcpMarketplacePrivateOfferTerm.ts
 models/GcpMarketplacePrivateOfferTermDurationConstraint.ts
@@ -355,6 +360,9 @@ models/GcpMarketplaceResellerPrivateOfferPlanReusePolicy.ts
 models/GcpMarketplaceResellerPrivateOfferPlanState.ts
 models/GcpMarketplaceResellerPrivateOfferPlanStateTransition.ts
 models/GcpMarketplaceResellerPrivateOfferPlanStateType.ts
+models/GcpMarketplaceRevenueShareChange.ts
+models/GcpMarketplaceRevenueShareType.ts
+models/GcpMarketplaceRevenueShareValue.ts
 models/GcpMarketplaceStartPolicy.ts
 models/GcpMarketplaceUnstructuredDocument.ts
 models/GcpMarketplaceUsagePlanPriceModel.ts
@@ -381,6 +389,7 @@ models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1
 models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventConflictResponseAdditionalInfo.ts
 models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventOkResponse.ts
 models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventStatusEnum.ts
+models/GroupByInterval.ts
 models/IdentityBuyer.ts
 models/IdentityConctactInfo.ts
 models/IdentityContact.ts
@@ -438,6 +447,7 @@ models/PriceModelVolume.ts
 models/PriceModelVolumeConfig.ts
 models/PrivateOfferDiscountType.ts
 models/ProductInfo.ts
+models/RevenueChannel.ts
 models/RevenueRecord.ts
 models/RevenueRecordDetail.ts
 models/RevenueRecordInfo.ts
@@ -446,7 +456,19 @@ models/RevenueReportType.ts
 models/ServicecontrolReportError.ts
 models/ServicecontrolReportResponse.ts
 models/ServicecontrolStatus.ts
+models/SnowflakeMarketplaceBuyer.ts
+models/SnowflakeMarketplaceOffer.ts
+models/SnowflakeMarketplaceOfferPaymentTerms.ts
+models/SnowflakeMarketplaceOfferTermsOfService.ts
+models/SnowflakeMarketplacePlanInstallment.ts
+models/SnowflakeMarketplacePlanInstallmentSchedule.ts
+models/SnowflakeMarketplacePricingPlanUsageDetails.ts
 models/SnowflakeMarketplaceProduct.ts
+models/SnowflakeMarketplaceProductDefaultPricingPlan.ts
+models/SnowflakeMarketplaceProductDetailedTargetAccount.ts
+models/SnowflakeMarketplaceProductMetadata.ts
+models/SnowflakeMarketplaceProductPricingPlan.ts
+models/SnowflakeMarketplaceTrialDetails.ts
 models/StripeBalanceTransaction.ts
 models/StripeBalanceTransactionFeeDetail.ts
 models/StripeCustomer.ts
@@ -490,6 +512,7 @@ models/TypesUsageRecordResultStatus.ts
 models/UniqueCountAggregationResult.ts
 models/UpdateBillableMetricParams.ts
 models/UpdateBuyerParams.ts
+models/UpdateEntitlementPriceModelParams.ts
 models/UpdateInvoiceInfoRequest.ts
 models/UpdateProductParams.ts
 models/UpdateSupportTicketRequest.ts

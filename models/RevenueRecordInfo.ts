@@ -13,6 +13,7 @@
 import { GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAwsBillingEvent } from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAwsBillingEvent';
 import { GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAzureCmaRevenue } from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAzureCmaRevenue';
 import { GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingGcpChargeUsage } from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingGcpChargeUsage';
+import { RevenueChannel } from '../models/RevenueChannel';
 import { HttpFile } from '../http/http';
 
 export class RevenueRecordInfo {
@@ -25,13 +26,33 @@ export class RevenueRecordInfo {
     */
     'azureRevenueRecords'?: Array<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAzureCmaRevenue>;
     /**
+    * The bank trace ID of the revenue record if applicable
+    */
+    'bankTraceId'?: string;
+    /**
+    * The billing model of the revenue record if applicable The value is one of the following: - SubscriptionBased: The revenue record is from a subscription or recurring commitment. - UsageBased: The revenue record is from a usage-based metering.
+    */
+    'billingModel'?: RevenueRecordInfoBillingModelEnum;
+    /**
+    * The channel of revenue record.
+    */
+    'channel'?: RevenueChannel;
+    /**
     * The credit amount used in the revenue record.
     */
     'creditAmount'?: number;
     /**
+    * The disbursement ID of the revenue record if applicable
+    */
+    'disbursementBillingEventId'?: string;
+    /**
     * Whether the disbursement notification has been sent to the seller/ISV.
     */
     'disbursementNotificationSent'?: boolean;
+    /**
+    * The earning ID of the revenue record if applicable
+    */
+    'earningId'?: string;
     /**
     * For raw revenue records in GCP Marketplace
     */
@@ -40,6 +61,18 @@ export class RevenueRecordInfo {
     * Source of the revenue record ID.
     */
     'idSource'?: string;
+    /**
+    * The payment  ID of the revenue record if applicable
+    */
+    'paymentId'?: string;
+    /**
+    * The reseller ID of the revenue record if applicable
+    */
+    'resellerId'?: string;
+    /**
+    * The reseller name of the revenue record if application
+    */
+    'resellerName'?: string;
     /**
     * Resource name for the revenue record. Applicable only to GCP Marketplace.
     */
@@ -63,15 +96,45 @@ export class RevenueRecordInfo {
             "format": ""
         },
         {
+            "name": "bankTraceId",
+            "baseName": "bankTraceId",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "billingModel",
+            "baseName": "billingModel",
+            "type": "RevenueRecordInfoBillingModelEnum",
+            "format": ""
+        },
+        {
+            "name": "channel",
+            "baseName": "channel",
+            "type": "RevenueChannel",
+            "format": ""
+        },
+        {
             "name": "creditAmount",
             "baseName": "creditAmount",
             "type": "number",
             "format": ""
         },
         {
+            "name": "disbursementBillingEventId",
+            "baseName": "disbursementBillingEventId",
+            "type": "string",
+            "format": ""
+        },
+        {
             "name": "disbursementNotificationSent",
             "baseName": "disbursementNotificationSent",
             "type": "boolean",
+            "format": ""
+        },
+        {
+            "name": "earningId",
+            "baseName": "earningId",
+            "type": "string",
             "format": ""
         },
         {
@@ -83,6 +146,24 @@ export class RevenueRecordInfo {
         {
             "name": "idSource",
             "baseName": "idSource",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "paymentId",
+            "baseName": "paymentId",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "resellerId",
+            "baseName": "resellerId",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "resellerName",
+            "baseName": "resellerName",
             "type": "string",
             "format": ""
         },
@@ -100,3 +181,9 @@ export class RevenueRecordInfo {
     public constructor() {
     }
 }
+
+export enum RevenueRecordInfoBillingModelEnum {
+    SubscriptionBased = 'SubscriptionBased',
+    UsageBased = 'UsageBased'
+}
+

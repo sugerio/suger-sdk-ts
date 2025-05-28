@@ -15,6 +15,7 @@ import { HttpFile } from '../http/http';
 
 export class GcpMarketplaceAgreementDocument {
     'eulaAgreementDocument'?: GcpMarketplaceDocument;
+    'sowAgreementDocument'?: GcpMarketplaceDocument;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -24,6 +25,12 @@ export class GcpMarketplaceAgreementDocument {
         {
             "name": "eulaAgreementDocument",
             "baseName": "eulaAgreementDocument",
+            "type": "GcpMarketplaceDocument",
+            "format": ""
+        },
+        {
+            "name": "sowAgreementDocument",
+            "baseName": "sowAgreementDocument",
             "type": "GcpMarketplaceDocument",
             "format": ""
         }    ];

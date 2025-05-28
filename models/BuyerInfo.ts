@@ -16,6 +16,7 @@ import { AzureADIdentifier } from '../models/AzureADIdentifier';
 import { CompanyInfo } from '../models/CompanyInfo';
 import { GcpMarketplaceUserAccount } from '../models/GcpMarketplaceUserAccount';
 import { PaymentConfig } from '../models/PaymentConfig';
+import { SnowflakeMarketplaceBuyer } from '../models/SnowflakeMarketplaceBuyer';
 import { StripeCustomer } from '../models/StripeCustomer';
 import { HttpFile } from '../http/http';
 
@@ -85,6 +86,10 @@ export class BuyerInfo {
     * Payment Config for billing.
     */
     'paymentConfig'?: PaymentConfig;
+    /**
+    * Buyer on Snowflake
+    */
+    'snowflakeBuyer'?: SnowflakeMarketplaceBuyer;
     /**
     * Buyer SPA url, public page visited with jwt.
     */
@@ -203,6 +208,12 @@ export class BuyerInfo {
             "name": "paymentConfig",
             "baseName": "paymentConfig",
             "type": "PaymentConfig",
+            "format": ""
+        },
+        {
+            "name": "snowflakeBuyer",
+            "baseName": "snowflakeBuyer",
+            "type": "SnowflakeMarketplaceBuyer",
             "format": ""
         },
         {

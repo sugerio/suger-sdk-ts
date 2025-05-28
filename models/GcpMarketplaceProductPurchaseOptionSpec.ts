@@ -72,7 +72,7 @@ export class GcpMarketplaceProductPurchaseOptionSpec {
 }
 
 export enum GcpMarketplaceProductPurchaseOptionSpecPurchaseModeEnum {
-    Private = 'PURCHASE_MODE_PRIVATE',
-    Public = 'PURCHASE_MODE_PUBLIC'
+    PurchaseModePrivate = 'PURCHASE_MODE_PRIVATE',
+    PurchaseModePublic = 'PURCHASE_MODE_PUBLIC'
 }
 

@@ -21,18 +21,32 @@ export class GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAzureCmaR
     'azurePlanID'?: string;
     'billingModel'?: string;
     'buyerID'?: string;
+    'earningID'?: string;
     'earningUsd'?: number;
     'entitlementID'?: string;
     'estimatedPayoutMonth'?: DatabaseSqlNullTime;
+    'invoiceDate'?: DatabaseSqlNullTime;
+    'invoiceDueDate'?: DatabaseSqlNullTime;
+    'invoiceID'?: string;
     'offerID'?: string;
     'organizationID'?: string;
+    'paymentID'?: string;
     'paymentSentDate'?: DatabaseSqlNullTime;
+    'paymentStatus'?: string;
     'payoutStatus'?: string;
     'productID'?: string;
+    'programName'?: string;
     'purchaseRecordID'?: string;
+    'resellerCity'?: string;
+    'resellerCompany'?: string;
+    'resellerCountry'?: string;
+    'resellerEmail'?: string;
+    'resellerID'?: string;
+    'resellerState'?: string;
     'revenueUsd'?: number;
     'termEndDate'?: string;
     'termStartDate'?: string;
+    'transactionDate'?: DatabaseSqlNullTime;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -82,6 +96,12 @@ export class GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAzureCmaR
             "format": ""
         },
         {
+            "name": "earningID",
+            "baseName": "earningID",
+            "type": "string",
+            "format": ""
+        },
+        {
             "name": "earningUsd",
             "baseName": "earningUsd",
             "type": "number",
@@ -100,6 +120,24 @@ export class GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAzureCmaR
             "format": ""
         },
         {
+            "name": "invoiceDate",
+            "baseName": "invoiceDate",
+            "type": "DatabaseSqlNullTime",
+            "format": ""
+        },
+        {
+            "name": "invoiceDueDate",
+            "baseName": "invoiceDueDate",
+            "type": "DatabaseSqlNullTime",
+            "format": ""
+        },
+        {
+            "name": "invoiceID",
+            "baseName": "invoiceID",
+            "type": "string",
+            "format": ""
+        },
+        {
             "name": "offerID",
             "baseName": "offerID",
             "type": "string",
@@ -112,9 +150,21 @@ export class GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAzureCmaR
             "format": ""
         },
         {
+            "name": "paymentID",
+            "baseName": "paymentID",
+            "type": "string",
+            "format": ""
+        },
+        {
             "name": "paymentSentDate",
             "baseName": "paymentSentDate",
             "type": "DatabaseSqlNullTime",
+            "format": ""
+        },
+        {
+            "name": "paymentStatus",
+            "baseName": "paymentStatus",
+            "type": "string",
             "format": ""
         },
         {
@@ -130,8 +180,50 @@ export class GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAzureCmaR
             "format": ""
         },
         {
+            "name": "programName",
+            "baseName": "programName",
+            "type": "string",
+            "format": ""
+        },
+        {
             "name": "purchaseRecordID",
             "baseName": "purchaseRecordID",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "resellerCity",
+            "baseName": "resellerCity",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "resellerCompany",
+            "baseName": "resellerCompany",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "resellerCountry",
+            "baseName": "resellerCountry",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "resellerEmail",
+            "baseName": "resellerEmail",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "resellerID",
+            "baseName": "resellerID",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "resellerState",
+            "baseName": "resellerState",
             "type": "string",
             "format": ""
         },
@@ -151,6 +243,12 @@ export class GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAzureCmaR
             "name": "termStartDate",
             "baseName": "termStartDate",
             "type": "string",
+            "format": ""
+        },
+        {
+            "name": "transactionDate",
+            "baseName": "transactionDate",
+            "type": "DatabaseSqlNullTime",
             "format": ""
         }    ];
 

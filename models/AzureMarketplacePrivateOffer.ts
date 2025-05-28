@@ -31,6 +31,10 @@ export class AzureMarketplacePrivateOffer {
     'acceptBy'?: Date;
     'acceptanceLinks'?: Array<AzureMarketplacePrivateOfferAcceptanceLink>;
     'beneficiaries'?: Array<AzureMarketplacePrivateOfferBeneficiary>;
+    /**
+    * If true, it is a renewal offer for an existing customer.
+    */
+    'customerContractRenewal'?: boolean;
     'eTag'?: string;
     /**
     * in format YYYY-MM-DD
@@ -103,6 +107,12 @@ export class AzureMarketplacePrivateOffer {
             "name": "beneficiaries",
             "baseName": "beneficiaries",
             "type": "Array<AzureMarketplacePrivateOfferBeneficiary>",
+            "format": ""
+        },
+        {
+            "name": "customerContractRenewal",
+            "baseName": "customerContractRenewal",
+            "type": "boolean",
             "format": ""
         },
         {

@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 
+import { GroupByInterval } from '../models/GroupByInterval';
 import { RevenueReportType } from '../models/RevenueReportType';
 import { HttpFile } from '../http/http';
 
@@ -22,6 +23,10 @@ export class GetRevenueReportParams {
     * Optional, if available, return the report for the Entitlement.
     */
     'entitlementID'?: string;
+    /**
+    * default:\"day\"
+    */
+    'groupBy'?: GroupByInterval;
     /**
     * Required. If the productID & entitlementID are emtpy, return the report for the entire Organization.
     */
@@ -49,6 +54,12 @@ export class GetRevenueReportParams {
             "name": "entitlementID",
             "baseName": "entitlementID",
             "type": "string",
+            "format": ""
+        },
+        {
+            "name": "groupBy",
+            "baseName": "groupBy",
+            "type": "GroupByInterval",
             "format": ""
         },
         {
