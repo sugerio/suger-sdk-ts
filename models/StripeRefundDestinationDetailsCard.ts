@@ -20,7 +20,7 @@ export class StripeRefundDestinationDetailsCard {
     /**
     * Status of the reference number on the refund. This can be `pending`, `available` or `unavailable`.
     */
-    'referenceStatus'?: string;
+    'referenceStatus'?: StripeRefundDestinationDetailsCardReferenceStatusEnum;
     /**
     * Type of the reference number assigned to the refund.
     */
@@ -28,7 +28,7 @@ export class StripeRefundDestinationDetailsCard {
     /**
     * The type of refund. This can be `refund`, `reversal`, or `pending`.
     */
-    'type'?: string;
+    'type'?: StripeRefundDestinationDetailsCardTypeEnum;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -44,7 +44,7 @@ export class StripeRefundDestinationDetailsCard {
         {
             "name": "referenceStatus",
             "baseName": "reference_status",
-            "type": "string",
+            "type": "StripeRefundDestinationDetailsCardReferenceStatusEnum",
             "format": ""
         },
         {
@@ -56,7 +56,7 @@ export class StripeRefundDestinationDetailsCard {
         {
             "name": "type",
             "baseName": "type",
-            "type": "string",
+            "type": "StripeRefundDestinationDetailsCardTypeEnum",
             "format": ""
         }    ];
 
@@ -67,3 +67,15 @@ export class StripeRefundDestinationDetailsCard {
     public constructor() {
     }
 }
+
+export enum StripeRefundDestinationDetailsCardReferenceStatusEnum {
+    Pending = 'pending',
+    Available = 'available',
+    Unavailable = 'unavailable'
+}
+export enum StripeRefundDestinationDetailsCardTypeEnum {
+    Refund = 'refund',
+    Reversal = 'reversal',
+    Pending = 'pending'
+}
+

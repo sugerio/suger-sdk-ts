@@ -1,5 +1,6 @@
 import { ResponseContext, RequestContext, HttpFile, HttpInfo } from '../http/http';
-import { Configuration} from '../configuration'
+import { Configuration, PromiseConfigurationOptions, wrapOptions } from '../configuration'
+import { PromiseMiddleware, Middleware, PromiseMiddlewareWrapper } from '../middleware';
 
 import { AddEntitlementCreditParams } from '../models/AddEntitlementCreditParams';
 import { AddEntitlementCreditResponse } from '../models/AddEntitlementCreditResponse';
@@ -123,6 +124,9 @@ import { AzureMarketplacePriceAndAvailabilityRecurrentPriceItem } from '../model
 import { AzureMarketplacePriceAndAvailabilityRecurrentPriceUserLimit } from '../models/AzureMarketplacePriceAndAvailabilityRecurrentPriceUserLimit';
 import { AzureMarketplacePriceAndAvailabilitySoftwareReservation } from '../models/AzureMarketplacePriceAndAvailabilitySoftwareReservation';
 import { AzureMarketplacePriceAndAvailabilitySystemMeterPrice } from '../models/AzureMarketplacePriceAndAvailabilitySystemMeterPrice';
+import { AzureMarketplacePriceBillingSchedule } from '../models/AzureMarketplacePriceBillingSchedule';
+import { AzureMarketplacePriceFlexibleSchedule } from '../models/AzureMarketplacePriceFlexibleSchedule';
+import { AzureMarketplacePriceInitialCharge } from '../models/AzureMarketplacePriceInitialCharge';
 import { AzureMarketplacePrivateOffer } from '../models/AzureMarketplacePrivateOffer';
 import { AzureMarketplacePrivateOfferAcceptanceLink } from '../models/AzureMarketplacePrivateOfferAcceptanceLink';
 import { AzureMarketplacePrivateOfferBeneficiary } from '../models/AzureMarketplacePrivateOfferBeneficiary';
@@ -231,8 +235,6 @@ import { CreateAndUpdateAddonParams } from '../models/CreateAndUpdateAddonParams
 import { CreateBuyerParams } from '../models/CreateBuyerParams';
 import { CreateEntitlementParams } from '../models/CreateEntitlementParams';
 import { CreateUsageRecordGroupParams } from '../models/CreateUsageRecordGroupParams';
-import { DatabaseSqlNullBool } from '../models/DatabaseSqlNullBool';
-import { DatabaseSqlNullString } from '../models/DatabaseSqlNullString';
 import { DatabaseSqlNullTime } from '../models/DatabaseSqlNullTime';
 import { DivideEntitlementCommitParams } from '../models/DivideEntitlementCommitParams';
 import { EntitlementInfo } from '../models/EntitlementInfo';
@@ -241,6 +243,7 @@ import { EntitlementTermInfo } from '../models/EntitlementTermInfo';
 import { EntitlementTermType } from '../models/EntitlementTermType';
 import { EntityType } from '../models/EntityType';
 import { EulaType } from '../models/EulaType';
+import { GcpAgreementDocument } from '../models/GcpAgreementDocument';
 import { GcpAmountConstraint } from '../models/GcpAmountConstraint';
 import { GcpAmountUnit } from '../models/GcpAmountUnit';
 import { GcpCommitmentAmountPerPeriodTemplate } from '../models/GcpCommitmentAmountPerPeriodTemplate';
@@ -257,6 +260,7 @@ import { GcpMarketplaceMeteringMetricValue } from '../models/GcpMarketplaceMeter
 import { GcpMarketplaceMeteringMetricValueSet } from '../models/GcpMarketplaceMeteringMetricValueSet';
 import { GcpMarketplaceMeteringMoney } from '../models/GcpMarketplaceMeteringMoney';
 import { GcpMarketplaceMeteringOperation } from '../models/GcpMarketplaceMeteringOperation';
+import { GcpMarketplaceOfferDealType } from '../models/GcpMarketplaceOfferDealType';
 import { GcpMarketplaceOfferProration } from '../models/GcpMarketplaceOfferProration';
 import { GcpMarketplaceOfferStartPolicy } from '../models/GcpMarketplaceOfferStartPolicy';
 import { GcpMarketplaceOfferTemplatePolicies } from '../models/GcpMarketplaceOfferTemplatePolicies';
@@ -268,6 +272,7 @@ import { GcpMarketplacePrivateOfferInstallmentTimeline } from '../models/GcpMark
 import { GcpMarketplacePrivateOfferMetricDetail } from '../models/GcpMarketplacePrivateOfferMetricDetail';
 import { GcpMarketplacePrivateOfferMetricInformation } from '../models/GcpMarketplacePrivateOfferMetricInformation';
 import { GcpMarketplacePrivateOfferMigrationMetadata } from '../models/GcpMarketplacePrivateOfferMigrationMetadata';
+import { GcpMarketplacePrivateOfferPolicies } from '../models/GcpMarketplacePrivateOfferPolicies';
 import { GcpMarketplacePrivateOfferPriceModel } from '../models/GcpMarketplacePrivateOfferPriceModel';
 import { GcpMarketplacePrivateOfferPriceModelCommitment } from '../models/GcpMarketplacePrivateOfferPriceModelCommitment';
 import { GcpMarketplacePrivateOfferPriceModelDiscount } from '../models/GcpMarketplacePrivateOfferPriceModelDiscount';
@@ -277,6 +282,7 @@ import { GcpMarketplacePrivateOfferPriceModelPayg } from '../models/GcpMarketpla
 import { GcpMarketplacePrivateOfferPriceModelType } from '../models/GcpMarketplacePrivateOfferPriceModelType';
 import { GcpMarketplacePrivateOfferProviderInfo } from '../models/GcpMarketplacePrivateOfferProviderInfo';
 import { GcpMarketplacePrivateOfferReplacementMetadata } from '../models/GcpMarketplacePrivateOfferReplacementMetadata';
+import { GcpMarketplacePrivateOfferRevenueShare } from '../models/GcpMarketplacePrivateOfferRevenueShare';
 import { GcpMarketplacePrivateOfferState } from '../models/GcpMarketplacePrivateOfferState';
 import { GcpMarketplacePrivateOfferTerm } from '../models/GcpMarketplacePrivateOfferTerm';
 import { GcpMarketplacePrivateOfferTermDurationConstraint } from '../models/GcpMarketplacePrivateOfferTermDurationConstraint';
@@ -324,6 +330,9 @@ import { GcpMarketplaceResellerPrivateOfferPlanReusePolicy } from '../models/Gcp
 import { GcpMarketplaceResellerPrivateOfferPlanState } from '../models/GcpMarketplaceResellerPrivateOfferPlanState';
 import { GcpMarketplaceResellerPrivateOfferPlanStateTransition } from '../models/GcpMarketplaceResellerPrivateOfferPlanStateTransition';
 import { GcpMarketplaceResellerPrivateOfferPlanStateType } from '../models/GcpMarketplaceResellerPrivateOfferPlanStateType';
+import { GcpMarketplaceRevenueShareChange } from '../models/GcpMarketplaceRevenueShareChange';
+import { GcpMarketplaceRevenueShareType } from '../models/GcpMarketplaceRevenueShareType';
+import { GcpMarketplaceRevenueShareValue } from '../models/GcpMarketplaceRevenueShareValue';
 import { GcpMarketplaceStartPolicy } from '../models/GcpMarketplaceStartPolicy';
 import { GcpMarketplaceUnstructuredDocument } from '../models/GcpMarketplaceUnstructuredDocument';
 import { GcpMarketplaceUsagePlanPriceModel } from '../models/GcpMarketplaceUsagePlanPriceModel';
@@ -350,6 +359,7 @@ import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemetering
 import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventConflictResponseAdditionalInfo } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventConflictResponseAdditionalInfo';
 import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventOkResponse } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventOkResponse';
 import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventStatusEnum } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventStatusEnum';
+import { GroupByInterval } from '../models/GroupByInterval';
 import { IdentityBuyer } from '../models/IdentityBuyer';
 import { IdentityConctactInfo } from '../models/IdentityConctactInfo';
 import { IdentityContact } from '../models/IdentityContact';
@@ -406,6 +416,7 @@ import { PriceModelVolume } from '../models/PriceModelVolume';
 import { PriceModelVolumeConfig } from '../models/PriceModelVolumeConfig';
 import { PrivateOfferDiscountType } from '../models/PrivateOfferDiscountType';
 import { ProductInfo } from '../models/ProductInfo';
+import { RevenueChannel } from '../models/RevenueChannel';
 import { RevenueRecord } from '../models/RevenueRecord';
 import { RevenueRecordDetail } from '../models/RevenueRecordDetail';
 import { RevenueRecordInfo } from '../models/RevenueRecordInfo';
@@ -414,7 +425,19 @@ import { RevenueReportType } from '../models/RevenueReportType';
 import { ServicecontrolReportError } from '../models/ServicecontrolReportError';
 import { ServicecontrolReportResponse } from '../models/ServicecontrolReportResponse';
 import { ServicecontrolStatus } from '../models/ServicecontrolStatus';
+import { SnowflakeMarketplaceBuyer } from '../models/SnowflakeMarketplaceBuyer';
+import { SnowflakeMarketplaceOffer } from '../models/SnowflakeMarketplaceOffer';
+import { SnowflakeMarketplaceOfferPaymentTerms } from '../models/SnowflakeMarketplaceOfferPaymentTerms';
+import { SnowflakeMarketplaceOfferTermsOfService } from '../models/SnowflakeMarketplaceOfferTermsOfService';
+import { SnowflakeMarketplacePlanInstallment } from '../models/SnowflakeMarketplacePlanInstallment';
+import { SnowflakeMarketplacePlanInstallmentSchedule } from '../models/SnowflakeMarketplacePlanInstallmentSchedule';
+import { SnowflakeMarketplacePricingPlanUsageDetails } from '../models/SnowflakeMarketplacePricingPlanUsageDetails';
 import { SnowflakeMarketplaceProduct } from '../models/SnowflakeMarketplaceProduct';
+import { SnowflakeMarketplaceProductDefaultPricingPlan } from '../models/SnowflakeMarketplaceProductDefaultPricingPlan';
+import { SnowflakeMarketplaceProductDetailedTargetAccount } from '../models/SnowflakeMarketplaceProductDetailedTargetAccount';
+import { SnowflakeMarketplaceProductMetadata } from '../models/SnowflakeMarketplaceProductMetadata';
+import { SnowflakeMarketplaceProductPricingPlan } from '../models/SnowflakeMarketplaceProductPricingPlan';
+import { SnowflakeMarketplaceTrialDetails } from '../models/SnowflakeMarketplaceTrialDetails';
 import { StripeBalanceTransaction } from '../models/StripeBalanceTransaction';
 import { StripeBalanceTransactionFeeDetail } from '../models/StripeBalanceTransactionFeeDetail';
 import { StripeCustomer } from '../models/StripeCustomer';
@@ -458,6 +481,7 @@ import { TypesUsageRecordResultStatus } from '../models/TypesUsageRecordResultSt
 import { UniqueCountAggregationResult } from '../models/UniqueCountAggregationResult';
 import { UpdateBillableMetricParams } from '../models/UpdateBillableMetricParams';
 import { UpdateBuyerParams } from '../models/UpdateBuyerParams';
+import { UpdateEntitlementPriceModelParams } from '../models/UpdateEntitlementPriceModelParams';
 import { UpdateInvoiceInfoRequest } from '../models/UpdateInvoiceInfoRequest';
 import { UpdateProductParams } from '../models/UpdateProductParams';
 import { UpdateSupportTicketRequest } from '../models/UpdateSupportTicketRequest';
@@ -494,8 +518,9 @@ export class PromiseAPIApi {
      * @param orgId Organization ID
      * @param apiClientId API client ID
      */
-    public getApiClientWithHttpInfo(orgId: string, apiClientId: string, _options?: Configuration): Promise<HttpInfo<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient>> {
-        const result = this.api.getApiClientWithHttpInfo(orgId, apiClientId, _options);
+    public getApiClientWithHttpInfo(orgId: string, apiClientId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.getApiClientWithHttpInfo(orgId, apiClientId, observableOptions);
         return result.toPromise();
     }
 
@@ -505,8 +530,9 @@ export class PromiseAPIApi {
      * @param orgId Organization ID
      * @param apiClientId API client ID
      */
-    public getApiClient(orgId: string, apiClientId: string, _options?: Configuration): Promise<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient> {
-        const result = this.api.getApiClient(orgId, apiClientId, _options);
+    public getApiClient(orgId: string, apiClientId: string, _options?: PromiseConfigurationOptions): Promise<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.getApiClient(orgId, apiClientId, observableOptions);
         return result.toPromise();
     }
 
@@ -515,8 +541,9 @@ export class PromiseAPIApi {
      * list api clients
      * @param orgId Organization ID
      */
-    public listApiClientsWithHttpInfo(orgId: string, _options?: Configuration): Promise<HttpInfo<Array<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient>>> {
-        const result = this.api.listApiClientsWithHttpInfo(orgId, _options);
+    public listApiClientsWithHttpInfo(orgId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<Array<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient>>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listApiClientsWithHttpInfo(orgId, observableOptions);
         return result.toPromise();
     }
 
@@ -525,8 +552,9 @@ export class PromiseAPIApi {
      * list api clients
      * @param orgId Organization ID
      */
-    public listApiClients(orgId: string, _options?: Configuration): Promise<Array<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient>> {
-        const result = this.api.listApiClients(orgId, _options);
+    public listApiClients(orgId: string, _options?: PromiseConfigurationOptions): Promise<Array<GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibIdentityApiClient>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listApiClients(orgId, observableOptions);
         return result.toPromise();
     }
 
@@ -555,8 +583,9 @@ export class PromiseBillingApi {
      * @param orgId Organization ID
      * @param data CreateAndUpdateAddonParams
      */
-    public createAddonWithHttpInfo(orgId: string, data: CreateAndUpdateAddonParams, _options?: Configuration): Promise<HttpInfo<BillingAddon>> {
-        const result = this.api.createAddonWithHttpInfo(orgId, data, _options);
+    public createAddonWithHttpInfo(orgId: string, data: CreateAndUpdateAddonParams, _options?: PromiseConfigurationOptions): Promise<HttpInfo<BillingAddon>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.createAddonWithHttpInfo(orgId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -566,8 +595,9 @@ export class PromiseBillingApi {
      * @param orgId Organization ID
      * @param data CreateAndUpdateAddonParams
      */
-    public createAddon(orgId: string, data: CreateAndUpdateAddonParams, _options?: Configuration): Promise<BillingAddon> {
-        const result = this.api.createAddon(orgId, data, _options);
+    public createAddon(orgId: string, data: CreateAndUpdateAddonParams, _options?: PromiseConfigurationOptions): Promise<BillingAddon> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.createAddon(orgId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -579,8 +609,9 @@ export class PromiseBillingApi {
      * @param paymentTransactionId Payment transaction ID
      * @param amount Refund amount
      */
-    public createRefundWithHttpInfo(orgId: string, buyerId: string, paymentTransactionId: string, amount: number, _options?: Configuration): Promise<HttpInfo<BillingPaymentTransaction>> {
-        const result = this.api.createRefundWithHttpInfo(orgId, buyerId, paymentTransactionId, amount, _options);
+    public createRefundWithHttpInfo(orgId: string, buyerId: string, paymentTransactionId: string, amount: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<BillingPaymentTransaction>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.createRefundWithHttpInfo(orgId, buyerId, paymentTransactionId, amount, observableOptions);
         return result.toPromise();
     }
 
@@ -592,8 +623,9 @@ export class PromiseBillingApi {
      * @param paymentTransactionId Payment transaction ID
      * @param amount Refund amount
      */
-    public createRefund(orgId: string, buyerId: string, paymentTransactionId: string, amount: number, _options?: Configuration): Promise<BillingPaymentTransaction> {
-        const result = this.api.createRefund(orgId, buyerId, paymentTransactionId, amount, _options);
+    public createRefund(orgId: string, buyerId: string, paymentTransactionId: string, amount: number, _options?: PromiseConfigurationOptions): Promise<BillingPaymentTransaction> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.createRefund(orgId, buyerId, paymentTransactionId, amount, observableOptions);
         return result.toPromise();
     }
 
@@ -603,8 +635,9 @@ export class PromiseBillingApi {
      * @param orgId Organization ID
      * @param addonId Addon ID
      */
-    public deleteAddonWithHttpInfo(orgId: string, addonId: string, _options?: Configuration): Promise<HttpInfo<string>> {
-        const result = this.api.deleteAddonWithHttpInfo(orgId, addonId, _options);
+    public deleteAddonWithHttpInfo(orgId: string, addonId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<string>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.deleteAddonWithHttpInfo(orgId, addonId, observableOptions);
         return result.toPromise();
     }
 
@@ -614,8 +647,9 @@ export class PromiseBillingApi {
      * @param orgId Organization ID
      * @param addonId Addon ID
      */
-    public deleteAddon(orgId: string, addonId: string, _options?: Configuration): Promise<string> {
-        const result = this.api.deleteAddon(orgId, addonId, _options);
+    public deleteAddon(orgId: string, addonId: string, _options?: PromiseConfigurationOptions): Promise<string> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.deleteAddon(orgId, addonId, observableOptions);
         return result.toPromise();
     }
 
@@ -625,8 +659,9 @@ export class PromiseBillingApi {
      * @param orgId Organization ID
      * @param addonId Addon ID
      */
-    public getAddonWithHttpInfo(orgId: string, addonId: string, _options?: Configuration): Promise<HttpInfo<BillingAddon>> {
-        const result = this.api.getAddonWithHttpInfo(orgId, addonId, _options);
+    public getAddonWithHttpInfo(orgId: string, addonId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<BillingAddon>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.getAddonWithHttpInfo(orgId, addonId, observableOptions);
         return result.toPromise();
     }
 
@@ -636,8 +671,9 @@ export class PromiseBillingApi {
      * @param orgId Organization ID
      * @param addonId Addon ID
      */
-    public getAddon(orgId: string, addonId: string, _options?: Configuration): Promise<BillingAddon> {
-        const result = this.api.getAddon(orgId, addonId, _options);
+    public getAddon(orgId: string, addonId: string, _options?: PromiseConfigurationOptions): Promise<BillingAddon> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.getAddon(orgId, addonId, observableOptions);
         return result.toPromise();
     }
 
@@ -647,8 +683,9 @@ export class PromiseBillingApi {
      * @param orgId Organization ID
      * @param invoiceId Invoice ID
      */
-    public getInvoiceV2WithHttpInfo(orgId: string, invoiceId: string, _options?: Configuration): Promise<HttpInfo<BillingInvoice>> {
-        const result = this.api.getInvoiceV2WithHttpInfo(orgId, invoiceId, _options);
+    public getInvoiceWithHttpInfo(orgId: string, invoiceId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<BillingInvoice>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.getInvoiceWithHttpInfo(orgId, invoiceId, observableOptions);
         return result.toPromise();
     }
 
@@ -658,8 +695,9 @@ export class PromiseBillingApi {
      * @param orgId Organization ID
      * @param invoiceId Invoice ID
      */
-    public getInvoiceV2(orgId: string, invoiceId: string, _options?: Configuration): Promise<BillingInvoice> {
-        const result = this.api.getInvoiceV2(orgId, invoiceId, _options);
+    public getInvoice(orgId: string, invoiceId: string, _options?: PromiseConfigurationOptions): Promise<BillingInvoice> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.getInvoice(orgId, invoiceId, observableOptions);
         return result.toPromise();
     }
 
@@ -670,8 +708,9 @@ export class PromiseBillingApi {
      * @param invoiceId Invoice ID
      * @param [contactIds] List of Contact IDs
      */
-    public issueInvoiceV2WithHttpInfo(orgId: string, invoiceId: string, contactIds?: Array<string>, _options?: Configuration): Promise<HttpInfo<BillingInvoice>> {
-        const result = this.api.issueInvoiceV2WithHttpInfo(orgId, invoiceId, contactIds, _options);
+    public issueInvoiceWithHttpInfo(orgId: string, invoiceId: string, contactIds?: Array<string>, _options?: PromiseConfigurationOptions): Promise<HttpInfo<BillingInvoice>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.issueInvoiceWithHttpInfo(orgId, invoiceId, contactIds, observableOptions);
         return result.toPromise();
     }
 
@@ -682,8 +721,9 @@ export class PromiseBillingApi {
      * @param invoiceId Invoice ID
      * @param [contactIds] List of Contact IDs
      */
-    public issueInvoiceV2(orgId: string, invoiceId: string, contactIds?: Array<string>, _options?: Configuration): Promise<BillingInvoice> {
-        const result = this.api.issueInvoiceV2(orgId, invoiceId, contactIds, _options);
+    public issueInvoice(orgId: string, invoiceId: string, contactIds?: Array<string>, _options?: PromiseConfigurationOptions): Promise<BillingInvoice> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.issueInvoice(orgId, invoiceId, contactIds, observableOptions);
         return result.toPromise();
     }
 
@@ -694,8 +734,9 @@ export class PromiseBillingApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listAddonsWithHttpInfo(orgId: string, limit?: number, offset?: number, _options?: Configuration): Promise<HttpInfo<Array<BillingAddon>>> {
-        const result = this.api.listAddonsWithHttpInfo(orgId, limit, offset, _options);
+    public listAddonsWithHttpInfo(orgId: string, limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<Array<BillingAddon>>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listAddonsWithHttpInfo(orgId, limit, offset, observableOptions);
         return result.toPromise();
     }
 
@@ -706,8 +747,9 @@ export class PromiseBillingApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listAddons(orgId: string, limit?: number, offset?: number, _options?: Configuration): Promise<Array<BillingAddon>> {
-        const result = this.api.listAddons(orgId, limit, offset, _options);
+    public listAddons(orgId: string, limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<Array<BillingAddon>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listAddons(orgId, limit, offset, observableOptions);
         return result.toPromise();
     }
 
@@ -721,8 +763,9 @@ export class PromiseBillingApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listInvoicesWithHttpInfo(orgId: string, entitlementId?: string, buyerId?: string, status?: 'DRAFT' | 'FINALIZED' | 'CANCELED' | 'DELETED' | '', limit?: number, offset?: number, _options?: Configuration): Promise<HttpInfo<Array<BillingInvoice>>> {
-        const result = this.api.listInvoicesWithHttpInfo(orgId, entitlementId, buyerId, status, limit, offset, _options);
+    public listInvoicesWithHttpInfo(orgId: string, entitlementId?: string, buyerId?: string, status?: 'DRAFT' | 'FINALIZED' | 'CANCELED' | 'DELETED' | '', limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<Array<BillingInvoice>>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listInvoicesWithHttpInfo(orgId, entitlementId, buyerId, status, limit, offset, observableOptions);
         return result.toPromise();
     }
 
@@ -736,8 +779,9 @@ export class PromiseBillingApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listInvoices(orgId: string, entitlementId?: string, buyerId?: string, status?: 'DRAFT' | 'FINALIZED' | 'CANCELED' | 'DELETED' | '', limit?: number, offset?: number, _options?: Configuration): Promise<Array<BillingInvoice>> {
-        const result = this.api.listInvoices(orgId, entitlementId, buyerId, status, limit, offset, _options);
+    public listInvoices(orgId: string, entitlementId?: string, buyerId?: string, status?: 'DRAFT' | 'FINALIZED' | 'CANCELED' | 'DELETED' | '', limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<Array<BillingInvoice>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listInvoices(orgId, entitlementId, buyerId, status, limit, offset, observableOptions);
         return result.toPromise();
     }
 
@@ -753,8 +797,9 @@ export class PromiseBillingApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listPaymentTransactionsWithHttpInfo(orgId: string, buyerId?: string, entitlementId?: string, invoiceId?: string, status?: 'PENDING' | 'PROCESSING' | 'SUCCESS' | 'FAILED', type?: 'CHARGE' | 'REFUND', limit?: number, offset?: number, _options?: Configuration): Promise<HttpInfo<Array<BillingPaymentTransaction>>> {
-        const result = this.api.listPaymentTransactionsWithHttpInfo(orgId, buyerId, entitlementId, invoiceId, status, type, limit, offset, _options);
+    public listPaymentTransactionsWithHttpInfo(orgId: string, buyerId?: string, entitlementId?: string, invoiceId?: string, status?: 'PENDING' | 'PROCESSING' | 'SUCCESS' | 'FAILED', type?: 'CHARGE' | 'REFUND', limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<Array<BillingPaymentTransaction>>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listPaymentTransactionsWithHttpInfo(orgId, buyerId, entitlementId, invoiceId, status, type, limit, offset, observableOptions);
         return result.toPromise();
     }
 
@@ -770,8 +815,9 @@ export class PromiseBillingApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listPaymentTransactions(orgId: string, buyerId?: string, entitlementId?: string, invoiceId?: string, status?: 'PENDING' | 'PROCESSING' | 'SUCCESS' | 'FAILED', type?: 'CHARGE' | 'REFUND', limit?: number, offset?: number, _options?: Configuration): Promise<Array<BillingPaymentTransaction>> {
-        const result = this.api.listPaymentTransactions(orgId, buyerId, entitlementId, invoiceId, status, type, limit, offset, _options);
+    public listPaymentTransactions(orgId: string, buyerId?: string, entitlementId?: string, invoiceId?: string, status?: 'PENDING' | 'PROCESSING' | 'SUCCESS' | 'FAILED', type?: 'CHARGE' | 'REFUND', limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<Array<BillingPaymentTransaction>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listPaymentTransactions(orgId, buyerId, entitlementId, invoiceId, status, type, limit, offset, observableOptions);
         return result.toPromise();
     }
 
@@ -782,8 +828,9 @@ export class PromiseBillingApi {
      * @param buyerId Buyer ID
      * @param paymentTransactionId Payment transaction ID
      */
-    public listRefundOfPaymentTransactionWithHttpInfo(orgId: string, buyerId: string, paymentTransactionId: string, _options?: Configuration): Promise<HttpInfo<Array<BillingPaymentTransaction>>> {
-        const result = this.api.listRefundOfPaymentTransactionWithHttpInfo(orgId, buyerId, paymentTransactionId, _options);
+    public listRefundOfPaymentTransactionWithHttpInfo(orgId: string, buyerId: string, paymentTransactionId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<Array<BillingPaymentTransaction>>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listRefundOfPaymentTransactionWithHttpInfo(orgId, buyerId, paymentTransactionId, observableOptions);
         return result.toPromise();
     }
 
@@ -794,8 +841,9 @@ export class PromiseBillingApi {
      * @param buyerId Buyer ID
      * @param paymentTransactionId Payment transaction ID
      */
-    public listRefundOfPaymentTransaction(orgId: string, buyerId: string, paymentTransactionId: string, _options?: Configuration): Promise<Array<BillingPaymentTransaction>> {
-        const result = this.api.listRefundOfPaymentTransaction(orgId, buyerId, paymentTransactionId, _options);
+    public listRefundOfPaymentTransaction(orgId: string, buyerId: string, paymentTransactionId: string, _options?: PromiseConfigurationOptions): Promise<Array<BillingPaymentTransaction>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listRefundOfPaymentTransaction(orgId, buyerId, paymentTransactionId, observableOptions);
         return result.toPromise();
     }
 
@@ -805,8 +853,9 @@ export class PromiseBillingApi {
      * @param orgId Organization ID
      * @param invoiceId Invoice ID
      */
-    public payInvoiceV2WithHttpInfo(orgId: string, invoiceId: string, _options?: Configuration): Promise<HttpInfo<BillingInvoice>> {
-        const result = this.api.payInvoiceV2WithHttpInfo(orgId, invoiceId, _options);
+    public payInvoiceWithHttpInfo(orgId: string, invoiceId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<BillingInvoice>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.payInvoiceWithHttpInfo(orgId, invoiceId, observableOptions);
         return result.toPromise();
     }
 
@@ -816,8 +865,9 @@ export class PromiseBillingApi {
      * @param orgId Organization ID
      * @param invoiceId Invoice ID
      */
-    public payInvoiceV2(orgId: string, invoiceId: string, _options?: Configuration): Promise<BillingInvoice> {
-        const result = this.api.payInvoiceV2(orgId, invoiceId, _options);
+    public payInvoice(orgId: string, invoiceId: string, _options?: PromiseConfigurationOptions): Promise<BillingInvoice> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.payInvoice(orgId, invoiceId, observableOptions);
         return result.toPromise();
     }
 
@@ -827,8 +877,9 @@ export class PromiseBillingApi {
      * @param orgId Organization ID
      * @param invoiceId Invoice ID
      */
-    public previewInvoiceEmailWithHttpInfo(orgId: string, invoiceId: string, _options?: Configuration): Promise<HttpInfo<string>> {
-        const result = this.api.previewInvoiceEmailWithHttpInfo(orgId, invoiceId, _options);
+    public previewInvoiceEmailWithHttpInfo(orgId: string, invoiceId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<string>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.previewInvoiceEmailWithHttpInfo(orgId, invoiceId, observableOptions);
         return result.toPromise();
     }
 
@@ -838,8 +889,9 @@ export class PromiseBillingApi {
      * @param orgId Organization ID
      * @param invoiceId Invoice ID
      */
-    public previewInvoiceEmail(orgId: string, invoiceId: string, _options?: Configuration): Promise<string> {
-        const result = this.api.previewInvoiceEmail(orgId, invoiceId, _options);
+    public previewInvoiceEmail(orgId: string, invoiceId: string, _options?: PromiseConfigurationOptions): Promise<string> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.previewInvoiceEmail(orgId, invoiceId, observableOptions);
         return result.toPromise();
     }
 
@@ -850,8 +902,9 @@ export class PromiseBillingApi {
      * @param addonId Addon ID
      * @param data CreateAndUpdateAddonParams
      */
-    public updateAddonWithHttpInfo(orgId: string, addonId: string, data: CreateAndUpdateAddonParams, _options?: Configuration): Promise<HttpInfo<BillingAddon>> {
-        const result = this.api.updateAddonWithHttpInfo(orgId, addonId, data, _options);
+    public updateAddonWithHttpInfo(orgId: string, addonId: string, data: CreateAndUpdateAddonParams, _options?: PromiseConfigurationOptions): Promise<HttpInfo<BillingAddon>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.updateAddonWithHttpInfo(orgId, addonId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -862,8 +915,9 @@ export class PromiseBillingApi {
      * @param addonId Addon ID
      * @param data CreateAndUpdateAddonParams
      */
-    public updateAddon(orgId: string, addonId: string, data: CreateAndUpdateAddonParams, _options?: Configuration): Promise<BillingAddon> {
-        const result = this.api.updateAddon(orgId, addonId, data, _options);
+    public updateAddon(orgId: string, addonId: string, data: CreateAndUpdateAddonParams, _options?: PromiseConfigurationOptions): Promise<BillingAddon> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.updateAddon(orgId, addonId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -874,8 +928,9 @@ export class PromiseBillingApi {
      * @param invoiceId Invoice ID
      * @param data Update Invoice Info Request Params
      */
-    public updateInvoiceInfoV2WithHttpInfo(orgId: string, invoiceId: string, data: UpdateInvoiceInfoRequest, _options?: Configuration): Promise<HttpInfo<BillingInvoiceInfo>> {
-        const result = this.api.updateInvoiceInfoV2WithHttpInfo(orgId, invoiceId, data, _options);
+    public updateInvoiceInfoWithHttpInfo(orgId: string, invoiceId: string, data: UpdateInvoiceInfoRequest, _options?: PromiseConfigurationOptions): Promise<HttpInfo<BillingInvoiceInfo>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.updateInvoiceInfoWithHttpInfo(orgId, invoiceId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -886,8 +941,9 @@ export class PromiseBillingApi {
      * @param invoiceId Invoice ID
      * @param data Update Invoice Info Request Params
      */
-    public updateInvoiceInfoV2(orgId: string, invoiceId: string, data: UpdateInvoiceInfoRequest, _options?: Configuration): Promise<BillingInvoiceInfo> {
-        const result = this.api.updateInvoiceInfoV2(orgId, invoiceId, data, _options);
+    public updateInvoiceInfo(orgId: string, invoiceId: string, data: UpdateInvoiceInfoRequest, _options?: PromiseConfigurationOptions): Promise<BillingInvoiceInfo> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.updateInvoiceInfo(orgId, invoiceId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -897,8 +953,9 @@ export class PromiseBillingApi {
      * @param orgId Organization ID
      * @param invoiceId Invoice ID
      */
-    public voidInvoiceV2WithHttpInfo(orgId: string, invoiceId: string, _options?: Configuration): Promise<HttpInfo<BillingInvoice>> {
-        const result = this.api.voidInvoiceV2WithHttpInfo(orgId, invoiceId, _options);
+    public voidInvoiceWithHttpInfo(orgId: string, invoiceId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<BillingInvoice>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.voidInvoiceWithHttpInfo(orgId, invoiceId, observableOptions);
         return result.toPromise();
     }
 
@@ -908,8 +965,9 @@ export class PromiseBillingApi {
      * @param orgId Organization ID
      * @param invoiceId Invoice ID
      */
-    public voidInvoiceV2(orgId: string, invoiceId: string, _options?: Configuration): Promise<BillingInvoice> {
-        const result = this.api.voidInvoiceV2(orgId, invoiceId, _options);
+    public voidInvoice(orgId: string, invoiceId: string, _options?: PromiseConfigurationOptions): Promise<BillingInvoice> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.voidInvoice(orgId, invoiceId, observableOptions);
         return result.toPromise();
     }
 
@@ -939,8 +997,9 @@ export class PromiseBuyerApi {
      * @param buyerId Buyer ID
      * @param walletId Wallet ID
      */
-    public closeCreditWalletWithHttpInfo(orgId: string, buyerId: string, walletId: string, _options?: Configuration): Promise<HttpInfo<BillingWallet>> {
-        const result = this.api.closeCreditWalletWithHttpInfo(orgId, buyerId, walletId, _options);
+    public closeCreditWalletWithHttpInfo(orgId: string, buyerId: string, walletId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<BillingWallet>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.closeCreditWalletWithHttpInfo(orgId, buyerId, walletId, observableOptions);
         return result.toPromise();
     }
 
@@ -951,8 +1010,9 @@ export class PromiseBuyerApi {
      * @param buyerId Buyer ID
      * @param walletId Wallet ID
      */
-    public closeCreditWallet(orgId: string, buyerId: string, walletId: string, _options?: Configuration): Promise<BillingWallet> {
-        const result = this.api.closeCreditWallet(orgId, buyerId, walletId, _options);
+    public closeCreditWallet(orgId: string, buyerId: string, walletId: string, _options?: PromiseConfigurationOptions): Promise<BillingWallet> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.closeCreditWallet(orgId, buyerId, walletId, observableOptions);
         return result.toPromise();
     }
 
@@ -962,8 +1022,9 @@ export class PromiseBuyerApi {
      * @param orgId Organization ID
      * @param data CreateBuyerParams
      */
-    public createBuyerWithHttpInfo(orgId: string, data: CreateBuyerParams, _options?: Configuration): Promise<HttpInfo<IdentityBuyer>> {
-        const result = this.api.createBuyerWithHttpInfo(orgId, data, _options);
+    public createBuyerWithHttpInfo(orgId: string, data: CreateBuyerParams, _options?: PromiseConfigurationOptions): Promise<HttpInfo<IdentityBuyer>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.createBuyerWithHttpInfo(orgId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -973,8 +1034,9 @@ export class PromiseBuyerApi {
      * @param orgId Organization ID
      * @param data CreateBuyerParams
      */
-    public createBuyer(orgId: string, data: CreateBuyerParams, _options?: Configuration): Promise<IdentityBuyer> {
-        const result = this.api.createBuyer(orgId, data, _options);
+    public createBuyer(orgId: string, data: CreateBuyerParams, _options?: PromiseConfigurationOptions): Promise<IdentityBuyer> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.createBuyer(orgId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -984,8 +1046,9 @@ export class PromiseBuyerApi {
      * @param orgId Organization ID
      * @param buyerId Buyer ID
      */
-    public createCreditWalletWithHttpInfo(orgId: string, buyerId: string, _options?: Configuration): Promise<HttpInfo<BillingWallet>> {
-        const result = this.api.createCreditWalletWithHttpInfo(orgId, buyerId, _options);
+    public createCreditWalletWithHttpInfo(orgId: string, buyerId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<BillingWallet>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.createCreditWalletWithHttpInfo(orgId, buyerId, observableOptions);
         return result.toPromise();
     }
 
@@ -995,8 +1058,9 @@ export class PromiseBuyerApi {
      * @param orgId Organization ID
      * @param buyerId Buyer ID
      */
-    public createCreditWallet(orgId: string, buyerId: string, _options?: Configuration): Promise<BillingWallet> {
-        const result = this.api.createCreditWallet(orgId, buyerId, _options);
+    public createCreditWallet(orgId: string, buyerId: string, _options?: PromiseConfigurationOptions): Promise<BillingWallet> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.createCreditWallet(orgId, buyerId, observableOptions);
         return result.toPromise();
     }
 
@@ -1007,8 +1071,9 @@ export class PromiseBuyerApi {
      * @param buyerId Buyer ID
      * @param walletId Wallet ID
      */
-    public deleteBuyerWalletWithHttpInfo(orgId: string, buyerId: string, walletId: string, _options?: Configuration): Promise<HttpInfo<string>> {
-        const result = this.api.deleteBuyerWalletWithHttpInfo(orgId, buyerId, walletId, _options);
+    public deleteBuyerWalletWithHttpInfo(orgId: string, buyerId: string, walletId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<string>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.deleteBuyerWalletWithHttpInfo(orgId, buyerId, walletId, observableOptions);
         return result.toPromise();
     }
 
@@ -1019,8 +1084,9 @@ export class PromiseBuyerApi {
      * @param buyerId Buyer ID
      * @param walletId Wallet ID
      */
-    public deleteBuyerWallet(orgId: string, buyerId: string, walletId: string, _options?: Configuration): Promise<string> {
-        const result = this.api.deleteBuyerWallet(orgId, buyerId, walletId, _options);
+    public deleteBuyerWallet(orgId: string, buyerId: string, walletId: string, _options?: PromiseConfigurationOptions): Promise<string> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.deleteBuyerWallet(orgId, buyerId, walletId, observableOptions);
         return result.toPromise();
     }
 
@@ -1030,8 +1096,9 @@ export class PromiseBuyerApi {
      * @param orgId Organization ID
      * @param buyerId Buyer ID
      */
-    public getBuyerWithHttpInfo(orgId: string, buyerId: string, _options?: Configuration): Promise<HttpInfo<IdentityBuyer>> {
-        const result = this.api.getBuyerWithHttpInfo(orgId, buyerId, _options);
+    public getBuyerWithHttpInfo(orgId: string, buyerId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<IdentityBuyer>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.getBuyerWithHttpInfo(orgId, buyerId, observableOptions);
         return result.toPromise();
     }
 
@@ -1041,8 +1108,9 @@ export class PromiseBuyerApi {
      * @param orgId Organization ID
      * @param buyerId Buyer ID
      */
-    public getBuyer(orgId: string, buyerId: string, _options?: Configuration): Promise<IdentityBuyer> {
-        const result = this.api.getBuyer(orgId, buyerId, _options);
+    public getBuyer(orgId: string, buyerId: string, _options?: PromiseConfigurationOptions): Promise<IdentityBuyer> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.getBuyer(orgId, buyerId, observableOptions);
         return result.toPromise();
     }
 
@@ -1052,8 +1120,9 @@ export class PromiseBuyerApi {
      * @param orgId Organization ID
      * @param buyerId Buyer ID
      */
-    public listBuyerWalletsWithHttpInfo(orgId: string, buyerId: string, _options?: Configuration): Promise<HttpInfo<Array<BillingWallet>>> {
-        const result = this.api.listBuyerWalletsWithHttpInfo(orgId, buyerId, _options);
+    public listBuyerWalletsWithHttpInfo(orgId: string, buyerId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<Array<BillingWallet>>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listBuyerWalletsWithHttpInfo(orgId, buyerId, observableOptions);
         return result.toPromise();
     }
 
@@ -1063,8 +1132,9 @@ export class PromiseBuyerApi {
      * @param orgId Organization ID
      * @param buyerId Buyer ID
      */
-    public listBuyerWallets(orgId: string, buyerId: string, _options?: Configuration): Promise<Array<BillingWallet>> {
-        const result = this.api.listBuyerWallets(orgId, buyerId, _options);
+    public listBuyerWallets(orgId: string, buyerId: string, _options?: PromiseConfigurationOptions): Promise<Array<BillingWallet>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listBuyerWallets(orgId, buyerId, observableOptions);
         return result.toPromise();
     }
 
@@ -1078,8 +1148,9 @@ export class PromiseBuyerApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listBuyersWithHttpInfo(orgId: string, partner?: string, contactId?: string, awsAccountId?: string, limit?: number, offset?: number, _options?: Configuration): Promise<HttpInfo<Array<IdentityBuyer>>> {
-        const result = this.api.listBuyersWithHttpInfo(orgId, partner, contactId, awsAccountId, limit, offset, _options);
+    public listBuyersWithHttpInfo(orgId: string, partner?: string, contactId?: string, awsAccountId?: string, limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<Array<IdentityBuyer>>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listBuyersWithHttpInfo(orgId, partner, contactId, awsAccountId, limit, offset, observableOptions);
         return result.toPromise();
     }
 
@@ -1093,8 +1164,9 @@ export class PromiseBuyerApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listBuyers(orgId: string, partner?: string, contactId?: string, awsAccountId?: string, limit?: number, offset?: number, _options?: Configuration): Promise<Array<IdentityBuyer>> {
-        const result = this.api.listBuyers(orgId, partner, contactId, awsAccountId, limit, offset, _options);
+    public listBuyers(orgId: string, partner?: string, contactId?: string, awsAccountId?: string, limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<Array<IdentityBuyer>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listBuyers(orgId, partner, contactId, awsAccountId, limit, offset, observableOptions);
         return result.toPromise();
     }
 
@@ -1105,8 +1177,9 @@ export class PromiseBuyerApi {
      * @param buyerId Buyer ID
      * @param walletId Wallet ID
      */
-    public setBuyerDefaultWalletWithHttpInfo(orgId: string, buyerId: string, walletId: string, _options?: Configuration): Promise<HttpInfo<IdentityBuyer>> {
-        const result = this.api.setBuyerDefaultWalletWithHttpInfo(orgId, buyerId, walletId, _options);
+    public setBuyerDefaultWalletWithHttpInfo(orgId: string, buyerId: string, walletId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<IdentityBuyer>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.setBuyerDefaultWalletWithHttpInfo(orgId, buyerId, walletId, observableOptions);
         return result.toPromise();
     }
 
@@ -1117,8 +1190,9 @@ export class PromiseBuyerApi {
      * @param buyerId Buyer ID
      * @param walletId Wallet ID
      */
-    public setBuyerDefaultWallet(orgId: string, buyerId: string, walletId: string, _options?: Configuration): Promise<IdentityBuyer> {
-        const result = this.api.setBuyerDefaultWallet(orgId, buyerId, walletId, _options);
+    public setBuyerDefaultWallet(orgId: string, buyerId: string, walletId: string, _options?: PromiseConfigurationOptions): Promise<IdentityBuyer> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.setBuyerDefaultWallet(orgId, buyerId, walletId, observableOptions);
         return result.toPromise();
     }
 
@@ -1129,8 +1203,9 @@ export class PromiseBuyerApi {
      * @param buyerId Buyer ID
      * @param data UpdateBuyerParams
      */
-    public updateBuyerWithHttpInfo(orgId: string, buyerId: string, data: UpdateBuyerParams, _options?: Configuration): Promise<HttpInfo<IdentityBuyer>> {
-        const result = this.api.updateBuyerWithHttpInfo(orgId, buyerId, data, _options);
+    public updateBuyerWithHttpInfo(orgId: string, buyerId: string, data: UpdateBuyerParams, _options?: PromiseConfigurationOptions): Promise<HttpInfo<IdentityBuyer>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.updateBuyerWithHttpInfo(orgId, buyerId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -1141,8 +1216,9 @@ export class PromiseBuyerApi {
      * @param buyerId Buyer ID
      * @param data UpdateBuyerParams
      */
-    public updateBuyer(orgId: string, buyerId: string, data: UpdateBuyerParams, _options?: Configuration): Promise<IdentityBuyer> {
-        const result = this.api.updateBuyer(orgId, buyerId, data, _options);
+    public updateBuyer(orgId: string, buyerId: string, data: UpdateBuyerParams, _options?: PromiseConfigurationOptions): Promise<IdentityBuyer> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.updateBuyer(orgId, buyerId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -1153,8 +1229,9 @@ export class PromiseBuyerApi {
      * @param buyerId Buyer ID
      * @param walletId Wallet ID
      */
-    public updateCreditWalletWithHttpInfo(orgId: string, buyerId: string, walletId: string, _options?: Configuration): Promise<HttpInfo<BillingWallet>> {
-        const result = this.api.updateCreditWalletWithHttpInfo(orgId, buyerId, walletId, _options);
+    public updateCreditWalletWithHttpInfo(orgId: string, buyerId: string, walletId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<BillingWallet>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.updateCreditWalletWithHttpInfo(orgId, buyerId, walletId, observableOptions);
         return result.toPromise();
     }
 
@@ -1165,8 +1242,9 @@ export class PromiseBuyerApi {
      * @param buyerId Buyer ID
      * @param walletId Wallet ID
      */
-    public updateCreditWallet(orgId: string, buyerId: string, walletId: string, _options?: Configuration): Promise<BillingWallet> {
-        const result = this.api.updateCreditWallet(orgId, buyerId, walletId, _options);
+    public updateCreditWallet(orgId: string, buyerId: string, walletId: string, _options?: PromiseConfigurationOptions): Promise<BillingWallet> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.updateCreditWallet(orgId, buyerId, walletId, observableOptions);
         return result.toPromise();
     }
 
@@ -1196,8 +1274,9 @@ export class PromiseContactApi {
      * @param buyerId Buyer ID
      * @param contactId Contact ID
      */
-    public addContactToBuyerWithHttpInfo(orgId: string, buyerId: string, contactId: string, _options?: Configuration): Promise<HttpInfo<IdentityBuyer>> {
-        const result = this.api.addContactToBuyerWithHttpInfo(orgId, buyerId, contactId, _options);
+    public addContactToBuyerWithHttpInfo(orgId: string, buyerId: string, contactId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<IdentityBuyer>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.addContactToBuyerWithHttpInfo(orgId, buyerId, contactId, observableOptions);
         return result.toPromise();
     }
 
@@ -1208,8 +1287,9 @@ export class PromiseContactApi {
      * @param buyerId Buyer ID
      * @param contactId Contact ID
      */
-    public addContactToBuyer(orgId: string, buyerId: string, contactId: string, _options?: Configuration): Promise<IdentityBuyer> {
-        const result = this.api.addContactToBuyer(orgId, buyerId, contactId, _options);
+    public addContactToBuyer(orgId: string, buyerId: string, contactId: string, _options?: PromiseConfigurationOptions): Promise<IdentityBuyer> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.addContactToBuyer(orgId, buyerId, contactId, observableOptions);
         return result.toPromise();
     }
 
@@ -1220,8 +1300,9 @@ export class PromiseContactApi {
      * @param contactId Contact ID
      * @param offerId Offer ID
      */
-    public addContactToOfferWithHttpInfo(orgId: string, contactId: string, offerId: string, _options?: Configuration): Promise<HttpInfo<string>> {
-        const result = this.api.addContactToOfferWithHttpInfo(orgId, contactId, offerId, _options);
+    public addContactToOfferWithHttpInfo(orgId: string, contactId: string, offerId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<string>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.addContactToOfferWithHttpInfo(orgId, contactId, offerId, observableOptions);
         return result.toPromise();
     }
 
@@ -1232,8 +1313,9 @@ export class PromiseContactApi {
      * @param contactId Contact ID
      * @param offerId Offer ID
      */
-    public addContactToOffer(orgId: string, contactId: string, offerId: string, _options?: Configuration): Promise<string> {
-        const result = this.api.addContactToOffer(orgId, contactId, offerId, _options);
+    public addContactToOffer(orgId: string, contactId: string, offerId: string, _options?: PromiseConfigurationOptions): Promise<string> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.addContactToOffer(orgId, contactId, offerId, observableOptions);
         return result.toPromise();
     }
 
@@ -1243,8 +1325,9 @@ export class PromiseContactApi {
      * @param orgId Organization ID
      * @param data RequestBody
      */
-    public batchCreateContactsWithHttpInfo(orgId: string, data: Array<IdentityContact>, _options?: Configuration): Promise<HttpInfo<Array<Array<IdentityContact>>>> {
-        const result = this.api.batchCreateContactsWithHttpInfo(orgId, data, _options);
+    public batchCreateContactsWithHttpInfo(orgId: string, data: Array<IdentityContact>, _options?: PromiseConfigurationOptions): Promise<HttpInfo<Array<Array<IdentityContact>>>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.batchCreateContactsWithHttpInfo(orgId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -1254,8 +1337,9 @@ export class PromiseContactApi {
      * @param orgId Organization ID
      * @param data RequestBody
      */
-    public batchCreateContacts(orgId: string, data: Array<IdentityContact>, _options?: Configuration): Promise<Array<Array<IdentityContact>>> {
-        const result = this.api.batchCreateContacts(orgId, data, _options);
+    public batchCreateContacts(orgId: string, data: Array<IdentityContact>, _options?: PromiseConfigurationOptions): Promise<Array<Array<IdentityContact>>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.batchCreateContacts(orgId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -1265,8 +1349,9 @@ export class PromiseContactApi {
      * @param orgId Organization ID
      * @param data RequestBody
      */
-    public createContactWithHttpInfo(orgId: string, data: IdentityContact, _options?: Configuration): Promise<HttpInfo<IdentityContact>> {
-        const result = this.api.createContactWithHttpInfo(orgId, data, _options);
+    public createContactWithHttpInfo(orgId: string, data: IdentityContact, _options?: PromiseConfigurationOptions): Promise<HttpInfo<IdentityContact>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.createContactWithHttpInfo(orgId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -1276,8 +1361,9 @@ export class PromiseContactApi {
      * @param orgId Organization ID
      * @param data RequestBody
      */
-    public createContact(orgId: string, data: IdentityContact, _options?: Configuration): Promise<IdentityContact> {
-        const result = this.api.createContact(orgId, data, _options);
+    public createContact(orgId: string, data: IdentityContact, _options?: PromiseConfigurationOptions): Promise<IdentityContact> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.createContact(orgId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -1287,8 +1373,9 @@ export class PromiseContactApi {
      * @param orgId Organization ID
      * @param contactId Contact ID
      */
-    public getContactWithHttpInfo(orgId: string, contactId: string, _options?: Configuration): Promise<HttpInfo<IdentityContact>> {
-        const result = this.api.getContactWithHttpInfo(orgId, contactId, _options);
+    public getContactWithHttpInfo(orgId: string, contactId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<IdentityContact>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.getContactWithHttpInfo(orgId, contactId, observableOptions);
         return result.toPromise();
     }
 
@@ -1298,8 +1385,9 @@ export class PromiseContactApi {
      * @param orgId Organization ID
      * @param contactId Contact ID
      */
-    public getContact(orgId: string, contactId: string, _options?: Configuration): Promise<IdentityContact> {
-        const result = this.api.getContact(orgId, contactId, _options);
+    public getContact(orgId: string, contactId: string, _options?: PromiseConfigurationOptions): Promise<IdentityContact> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.getContact(orgId, contactId, observableOptions);
         return result.toPromise();
     }
 
@@ -1310,8 +1398,9 @@ export class PromiseContactApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listContactsByOrganizationWithHttpInfo(orgId: string, limit?: number, offset?: number, _options?: Configuration): Promise<HttpInfo<Array<IdentityContact>>> {
-        const result = this.api.listContactsByOrganizationWithHttpInfo(orgId, limit, offset, _options);
+    public listContactsByOrganizationWithHttpInfo(orgId: string, limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<Array<IdentityContact>>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listContactsByOrganizationWithHttpInfo(orgId, limit, offset, observableOptions);
         return result.toPromise();
     }
 
@@ -1322,8 +1411,9 @@ export class PromiseContactApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listContactsByOrganization(orgId: string, limit?: number, offset?: number, _options?: Configuration): Promise<Array<IdentityContact>> {
-        const result = this.api.listContactsByOrganization(orgId, limit, offset, _options);
+    public listContactsByOrganization(orgId: string, limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<Array<IdentityContact>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listContactsByOrganization(orgId, limit, offset, observableOptions);
         return result.toPromise();
     }
 
@@ -1334,8 +1424,9 @@ export class PromiseContactApi {
      * @param buyerId Buyer ID
      * @param contactId Contact ID
      */
-    public removeContactFromBuyerWithHttpInfo(orgId: string, buyerId: string, contactId: string, _options?: Configuration): Promise<HttpInfo<string>> {
-        const result = this.api.removeContactFromBuyerWithHttpInfo(orgId, buyerId, contactId, _options);
+    public removeContactFromBuyerWithHttpInfo(orgId: string, buyerId: string, contactId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<string>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.removeContactFromBuyerWithHttpInfo(orgId, buyerId, contactId, observableOptions);
         return result.toPromise();
     }
 
@@ -1346,8 +1437,9 @@ export class PromiseContactApi {
      * @param buyerId Buyer ID
      * @param contactId Contact ID
      */
-    public removeContactFromBuyer(orgId: string, buyerId: string, contactId: string, _options?: Configuration): Promise<string> {
-        const result = this.api.removeContactFromBuyer(orgId, buyerId, contactId, _options);
+    public removeContactFromBuyer(orgId: string, buyerId: string, contactId: string, _options?: PromiseConfigurationOptions): Promise<string> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.removeContactFromBuyer(orgId, buyerId, contactId, observableOptions);
         return result.toPromise();
     }
 
@@ -1358,8 +1450,9 @@ export class PromiseContactApi {
      * @param contactId Contact ID
      * @param offerId Offer ID
      */
-    public removeContactFromOfferWithHttpInfo(orgId: string, contactId: string, offerId: string, _options?: Configuration): Promise<HttpInfo<string>> {
-        const result = this.api.removeContactFromOfferWithHttpInfo(orgId, contactId, offerId, _options);
+    public removeContactFromOfferWithHttpInfo(orgId: string, contactId: string, offerId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<string>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.removeContactFromOfferWithHttpInfo(orgId, contactId, offerId, observableOptions);
         return result.toPromise();
     }
 
@@ -1370,8 +1463,9 @@ export class PromiseContactApi {
      * @param contactId Contact ID
      * @param offerId Offer ID
      */
-    public removeContactFromOffer(orgId: string, contactId: string, offerId: string, _options?: Configuration): Promise<string> {
-        const result = this.api.removeContactFromOffer(orgId, contactId, offerId, _options);
+    public removeContactFromOffer(orgId: string, contactId: string, offerId: string, _options?: PromiseConfigurationOptions): Promise<string> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.removeContactFromOffer(orgId, contactId, offerId, observableOptions);
         return result.toPromise();
     }
 
@@ -1382,8 +1476,9 @@ export class PromiseContactApi {
      * @param contactId Contact ID
      * @param data Request Body
      */
-    public updateContactWithHttpInfo(orgId: string, contactId: string, data: IdentityContact, _options?: Configuration): Promise<HttpInfo<IdentityContact>> {
-        const result = this.api.updateContactWithHttpInfo(orgId, contactId, data, _options);
+    public updateContactWithHttpInfo(orgId: string, contactId: string, data: IdentityContact, _options?: PromiseConfigurationOptions): Promise<HttpInfo<IdentityContact>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.updateContactWithHttpInfo(orgId, contactId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -1394,8 +1489,9 @@ export class PromiseContactApi {
      * @param contactId Contact ID
      * @param data Request Body
      */
-    public updateContact(orgId: string, contactId: string, data: IdentityContact, _options?: Configuration): Promise<IdentityContact> {
-        const result = this.api.updateContact(orgId, contactId, data, _options);
+    public updateContact(orgId: string, contactId: string, data: IdentityContact, _options?: PromiseConfigurationOptions): Promise<IdentityContact> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.updateContact(orgId, contactId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -1425,8 +1521,9 @@ export class PromiseEntitlementApi {
      * @param entitlementId Entitlement ID
      * @param data RequestBody
      */
-    public addEntitlementCreditWithHttpInfo(orgId: string, entitlementId: string, data: AddEntitlementCreditParams, _options?: Configuration): Promise<HttpInfo<AddEntitlementCreditResponse>> {
-        const result = this.api.addEntitlementCreditWithHttpInfo(orgId, entitlementId, data, _options);
+    public addEntitlementCreditWithHttpInfo(orgId: string, entitlementId: string, data: AddEntitlementCreditParams, _options?: PromiseConfigurationOptions): Promise<HttpInfo<AddEntitlementCreditResponse>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.addEntitlementCreditWithHttpInfo(orgId, entitlementId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -1437,8 +1534,9 @@ export class PromiseEntitlementApi {
      * @param entitlementId Entitlement ID
      * @param data RequestBody
      */
-    public addEntitlementCredit(orgId: string, entitlementId: string, data: AddEntitlementCreditParams, _options?: Configuration): Promise<AddEntitlementCreditResponse> {
-        const result = this.api.addEntitlementCredit(orgId, entitlementId, data, _options);
+    public addEntitlementCredit(orgId: string, entitlementId: string, data: AddEntitlementCreditParams, _options?: PromiseConfigurationOptions): Promise<AddEntitlementCreditResponse> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.addEntitlementCredit(orgId, entitlementId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -1449,8 +1547,9 @@ export class PromiseEntitlementApi {
      * @param entitlementId Entitlement ID
      * @param data RequestBody
      */
-    public applyAddonToEntitlementWithHttpInfo(orgId: string, entitlementId: string, data: BillingAddonRecord, _options?: Configuration): Promise<HttpInfo<WorkloadEntitlement>> {
-        const result = this.api.applyAddonToEntitlementWithHttpInfo(orgId, entitlementId, data, _options);
+    public applyAddonToEntitlementWithHttpInfo(orgId: string, entitlementId: string, data: BillingAddonRecord, _options?: PromiseConfigurationOptions): Promise<HttpInfo<WorkloadEntitlement>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.applyAddonToEntitlementWithHttpInfo(orgId, entitlementId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -1461,8 +1560,9 @@ export class PromiseEntitlementApi {
      * @param entitlementId Entitlement ID
      * @param data RequestBody
      */
-    public applyAddonToEntitlement(orgId: string, entitlementId: string, data: BillingAddonRecord, _options?: Configuration): Promise<WorkloadEntitlement> {
-        const result = this.api.applyAddonToEntitlement(orgId, entitlementId, data, _options);
+    public applyAddonToEntitlement(orgId: string, entitlementId: string, data: BillingAddonRecord, _options?: PromiseConfigurationOptions): Promise<WorkloadEntitlement> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.applyAddonToEntitlement(orgId, entitlementId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -1472,8 +1572,9 @@ export class PromiseEntitlementApi {
      * @param orgId Organization ID
      * @param entitlementId Entitlement ID
      */
-    public approveEntitlementWithHttpInfo(orgId: string, entitlementId: string, _options?: Configuration): Promise<HttpInfo<WorkloadEntitlement>> {
-        const result = this.api.approveEntitlementWithHttpInfo(orgId, entitlementId, _options);
+    public approveEntitlementWithHttpInfo(orgId: string, entitlementId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<WorkloadEntitlement>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.approveEntitlementWithHttpInfo(orgId, entitlementId, observableOptions);
         return result.toPromise();
     }
 
@@ -1483,8 +1584,9 @@ export class PromiseEntitlementApi {
      * @param orgId Organization ID
      * @param entitlementId Entitlement ID
      */
-    public approveEntitlement(orgId: string, entitlementId: string, _options?: Configuration): Promise<WorkloadEntitlement> {
-        const result = this.api.approveEntitlement(orgId, entitlementId, _options);
+    public approveEntitlement(orgId: string, entitlementId: string, _options?: PromiseConfigurationOptions): Promise<WorkloadEntitlement> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.approveEntitlement(orgId, entitlementId, observableOptions);
         return result.toPromise();
     }
 
@@ -1494,8 +1596,9 @@ export class PromiseEntitlementApi {
      * @param orgId Organization ID
      * @param entitlementId Entitlement ID
      */
-    public cancelEntitlementWithHttpInfo(orgId: string, entitlementId: string, _options?: Configuration): Promise<HttpInfo<WorkloadEntitlement>> {
-        const result = this.api.cancelEntitlementWithHttpInfo(orgId, entitlementId, _options);
+    public cancelEntitlementWithHttpInfo(orgId: string, entitlementId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<WorkloadEntitlement>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.cancelEntitlementWithHttpInfo(orgId, entitlementId, observableOptions);
         return result.toPromise();
     }
 
@@ -1505,8 +1608,9 @@ export class PromiseEntitlementApi {
      * @param orgId Organization ID
      * @param entitlementId Entitlement ID
      */
-    public cancelEntitlement(orgId: string, entitlementId: string, _options?: Configuration): Promise<WorkloadEntitlement> {
-        const result = this.api.cancelEntitlement(orgId, entitlementId, _options);
+    public cancelEntitlement(orgId: string, entitlementId: string, _options?: PromiseConfigurationOptions): Promise<WorkloadEntitlement> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.cancelEntitlement(orgId, entitlementId, observableOptions);
         return result.toPromise();
     }
 
@@ -1516,8 +1620,9 @@ export class PromiseEntitlementApi {
      * @param orgId Organization ID
      * @param data RequestBody
      */
-    public createEntitlementWithHttpInfo(orgId: string, data: CreateEntitlementParams, _options?: Configuration): Promise<HttpInfo<WorkloadEntitlement>> {
-        const result = this.api.createEntitlementWithHttpInfo(orgId, data, _options);
+    public createEntitlementWithHttpInfo(orgId: string, data: CreateEntitlementParams, _options?: PromiseConfigurationOptions): Promise<HttpInfo<WorkloadEntitlement>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.createEntitlementWithHttpInfo(orgId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -1527,8 +1632,9 @@ export class PromiseEntitlementApi {
      * @param orgId Organization ID
      * @param data RequestBody
      */
-    public createEntitlement(orgId: string, data: CreateEntitlementParams, _options?: Configuration): Promise<WorkloadEntitlement> {
-        const result = this.api.createEntitlement(orgId, data, _options);
+    public createEntitlement(orgId: string, data: CreateEntitlementParams, _options?: PromiseConfigurationOptions): Promise<WorkloadEntitlement> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.createEntitlement(orgId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -1539,8 +1645,9 @@ export class PromiseEntitlementApi {
      * @param entitlementId Entitlement ID
      * @param entitlementTermId Entitlement Term ID
      */
-    public deleteEntitlementTermWithHttpInfo(orgId: string, entitlementId: string, entitlementTermId: string, _options?: Configuration): Promise<HttpInfo<string>> {
-        const result = this.api.deleteEntitlementTermWithHttpInfo(orgId, entitlementId, entitlementTermId, _options);
+    public deleteEntitlementTermWithHttpInfo(orgId: string, entitlementId: string, entitlementTermId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<string>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.deleteEntitlementTermWithHttpInfo(orgId, entitlementId, entitlementTermId, observableOptions);
         return result.toPromise();
     }
 
@@ -1551,8 +1658,9 @@ export class PromiseEntitlementApi {
      * @param entitlementId Entitlement ID
      * @param entitlementTermId Entitlement Term ID
      */
-    public deleteEntitlementTerm(orgId: string, entitlementId: string, entitlementTermId: string, _options?: Configuration): Promise<string> {
-        const result = this.api.deleteEntitlementTerm(orgId, entitlementId, entitlementTermId, _options);
+    public deleteEntitlementTerm(orgId: string, entitlementId: string, entitlementTermId: string, _options?: PromiseConfigurationOptions): Promise<string> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.deleteEntitlementTerm(orgId, entitlementId, entitlementTermId, observableOptions);
         return result.toPromise();
     }
 
@@ -1563,8 +1671,9 @@ export class PromiseEntitlementApi {
      * @param entitlementId Entitlement ID
      * @param data RequestBody
      */
-    public divideEntitlementCommitWithHttpInfo(orgId: string, entitlementId: string, data: DivideEntitlementCommitParams, _options?: Configuration): Promise<HttpInfo<string>> {
-        const result = this.api.divideEntitlementCommitWithHttpInfo(orgId, entitlementId, data, _options);
+    public divideEntitlementCommitWithHttpInfo(orgId: string, entitlementId: string, data: DivideEntitlementCommitParams, _options?: PromiseConfigurationOptions): Promise<HttpInfo<string>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.divideEntitlementCommitWithHttpInfo(orgId, entitlementId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -1575,8 +1684,9 @@ export class PromiseEntitlementApi {
      * @param entitlementId Entitlement ID
      * @param data RequestBody
      */
-    public divideEntitlementCommit(orgId: string, entitlementId: string, data: DivideEntitlementCommitParams, _options?: Configuration): Promise<string> {
-        const result = this.api.divideEntitlementCommit(orgId, entitlementId, data, _options);
+    public divideEntitlementCommit(orgId: string, entitlementId: string, data: DivideEntitlementCommitParams, _options?: PromiseConfigurationOptions): Promise<string> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.divideEntitlementCommit(orgId, entitlementId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -1586,8 +1696,9 @@ export class PromiseEntitlementApi {
      * @param orgId Organization ID
      * @param entitlementId Entitlement ID
      */
-    public getEntitlementWithHttpInfo(orgId: string, entitlementId: string, _options?: Configuration): Promise<HttpInfo<WorkloadEntitlement>> {
-        const result = this.api.getEntitlementWithHttpInfo(orgId, entitlementId, _options);
+    public getEntitlementWithHttpInfo(orgId: string, entitlementId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<WorkloadEntitlement>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.getEntitlementWithHttpInfo(orgId, entitlementId, observableOptions);
         return result.toPromise();
     }
 
@@ -1597,8 +1708,9 @@ export class PromiseEntitlementApi {
      * @param orgId Organization ID
      * @param entitlementId Entitlement ID
      */
-    public getEntitlement(orgId: string, entitlementId: string, _options?: Configuration): Promise<WorkloadEntitlement> {
-        const result = this.api.getEntitlement(orgId, entitlementId, _options);
+    public getEntitlement(orgId: string, entitlementId: string, _options?: PromiseConfigurationOptions): Promise<WorkloadEntitlement> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.getEntitlement(orgId, entitlementId, observableOptions);
         return result.toPromise();
     }
 
@@ -1609,8 +1721,9 @@ export class PromiseEntitlementApi {
      * @param entitlementId Entitlement ID
      * @param entitlementTermId Entitlement Term ID
      */
-    public getEntitlementTermWithHttpInfo(orgId: string, entitlementId: string, entitlementTermId: string, _options?: Configuration): Promise<HttpInfo<WorkloadEntitlementTerm>> {
-        const result = this.api.getEntitlementTermWithHttpInfo(orgId, entitlementId, entitlementTermId, _options);
+    public getEntitlementTermWithHttpInfo(orgId: string, entitlementId: string, entitlementTermId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<WorkloadEntitlementTerm>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.getEntitlementTermWithHttpInfo(orgId, entitlementId, entitlementTermId, observableOptions);
         return result.toPromise();
     }
 
@@ -1621,8 +1734,9 @@ export class PromiseEntitlementApi {
      * @param entitlementId Entitlement ID
      * @param entitlementTermId Entitlement Term ID
      */
-    public getEntitlementTerm(orgId: string, entitlementId: string, entitlementTermId: string, _options?: Configuration): Promise<WorkloadEntitlementTerm> {
-        const result = this.api.getEntitlementTerm(orgId, entitlementId, entitlementTermId, _options);
+    public getEntitlementTerm(orgId: string, entitlementId: string, entitlementTermId: string, _options?: PromiseConfigurationOptions): Promise<WorkloadEntitlementTerm> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.getEntitlementTerm(orgId, entitlementId, entitlementTermId, observableOptions);
         return result.toPromise();
     }
 
@@ -1632,8 +1746,9 @@ export class PromiseEntitlementApi {
      * @param orgId Organization ID
      * @param entitlementId Entitlement ID
      */
-    public listEntitlementTermsWithHttpInfo(orgId: string, entitlementId: string, _options?: Configuration): Promise<HttpInfo<Array<WorkloadEntitlementTerm>>> {
-        const result = this.api.listEntitlementTermsWithHttpInfo(orgId, entitlementId, _options);
+    public listEntitlementTermsWithHttpInfo(orgId: string, entitlementId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<Array<WorkloadEntitlementTerm>>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listEntitlementTermsWithHttpInfo(orgId, entitlementId, observableOptions);
         return result.toPromise();
     }
 
@@ -1643,8 +1758,9 @@ export class PromiseEntitlementApi {
      * @param orgId Organization ID
      * @param entitlementId Entitlement ID
      */
-    public listEntitlementTerms(orgId: string, entitlementId: string, _options?: Configuration): Promise<Array<WorkloadEntitlementTerm>> {
-        const result = this.api.listEntitlementTerms(orgId, entitlementId, _options);
+    public listEntitlementTerms(orgId: string, entitlementId: string, _options?: PromiseConfigurationOptions): Promise<Array<WorkloadEntitlementTerm>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listEntitlementTerms(orgId, entitlementId, observableOptions);
         return result.toPromise();
     }
 
@@ -1661,8 +1777,9 @@ export class PromiseEntitlementApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listEntitlementsWithHttpInfo(orgId: string, partner?: string, productId?: string, offerId?: string, buyerId?: string, externalId?: string, buyerAccountId?: string, limit?: number, offset?: number, _options?: Configuration): Promise<HttpInfo<Array<WorkloadEntitlement>>> {
-        const result = this.api.listEntitlementsWithHttpInfo(orgId, partner, productId, offerId, buyerId, externalId, buyerAccountId, limit, offset, _options);
+    public listEntitlementsWithHttpInfo(orgId: string, partner?: string, productId?: string, offerId?: string, buyerId?: string, externalId?: string, buyerAccountId?: string, limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<Array<WorkloadEntitlement>>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listEntitlementsWithHttpInfo(orgId, partner, productId, offerId, buyerId, externalId, buyerAccountId, limit, offset, observableOptions);
         return result.toPromise();
     }
 
@@ -1679,8 +1796,9 @@ export class PromiseEntitlementApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listEntitlements(orgId: string, partner?: string, productId?: string, offerId?: string, buyerId?: string, externalId?: string, buyerAccountId?: string, limit?: number, offset?: number, _options?: Configuration): Promise<Array<WorkloadEntitlement>> {
-        const result = this.api.listEntitlements(orgId, partner, productId, offerId, buyerId, externalId, buyerAccountId, limit, offset, _options);
+    public listEntitlements(orgId: string, partner?: string, productId?: string, offerId?: string, buyerId?: string, externalId?: string, buyerAccountId?: string, limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<Array<WorkloadEntitlement>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listEntitlements(orgId, partner, productId, offerId, buyerId, externalId, buyerAccountId, limit, offset, observableOptions);
         return result.toPromise();
     }
 
@@ -1691,8 +1809,9 @@ export class PromiseEntitlementApi {
      * @param entitlementId Entitlement ID
      * @param data RequestBody
      */
-    public scheduleEntitlementCancellationWithHttpInfo(orgId: string, entitlementId: string, data: CancellationSchedule, _options?: Configuration): Promise<HttpInfo<WorkloadEntitlement>> {
-        const result = this.api.scheduleEntitlementCancellationWithHttpInfo(orgId, entitlementId, data, _options);
+    public scheduleEntitlementCancellationWithHttpInfo(orgId: string, entitlementId: string, data: CancellationSchedule, _options?: PromiseConfigurationOptions): Promise<HttpInfo<WorkloadEntitlement>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.scheduleEntitlementCancellationWithHttpInfo(orgId, entitlementId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -1703,8 +1822,9 @@ export class PromiseEntitlementApi {
      * @param entitlementId Entitlement ID
      * @param data RequestBody
      */
-    public scheduleEntitlementCancellation(orgId: string, entitlementId: string, data: CancellationSchedule, _options?: Configuration): Promise<WorkloadEntitlement> {
-        const result = this.api.scheduleEntitlementCancellation(orgId, entitlementId, data, _options);
+    public scheduleEntitlementCancellation(orgId: string, entitlementId: string, data: CancellationSchedule, _options?: PromiseConfigurationOptions): Promise<WorkloadEntitlement> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.scheduleEntitlementCancellation(orgId, entitlementId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -1714,8 +1834,9 @@ export class PromiseEntitlementApi {
      * @param orgId Organization ID
      * @param entitlementId Entitlement ID
      */
-    public unscheduleEntitlementCancellationWithHttpInfo(orgId: string, entitlementId: string, _options?: Configuration): Promise<HttpInfo<WorkloadEntitlement>> {
-        const result = this.api.unscheduleEntitlementCancellationWithHttpInfo(orgId, entitlementId, _options);
+    public unscheduleEntitlementCancellationWithHttpInfo(orgId: string, entitlementId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<WorkloadEntitlement>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.unscheduleEntitlementCancellationWithHttpInfo(orgId, entitlementId, observableOptions);
         return result.toPromise();
     }
 
@@ -1725,8 +1846,9 @@ export class PromiseEntitlementApi {
      * @param orgId Organization ID
      * @param entitlementId Entitlement ID
      */
-    public unscheduleEntitlementCancellation(orgId: string, entitlementId: string, _options?: Configuration): Promise<WorkloadEntitlement> {
-        const result = this.api.unscheduleEntitlementCancellation(orgId, entitlementId, _options);
+    public unscheduleEntitlementCancellation(orgId: string, entitlementId: string, _options?: PromiseConfigurationOptions): Promise<WorkloadEntitlement> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.unscheduleEntitlementCancellation(orgId, entitlementId, observableOptions);
         return result.toPromise();
     }
 
@@ -1737,8 +1859,9 @@ export class PromiseEntitlementApi {
      * @param entitlementId Entitlement ID
      * @param data Entitlement meta info to update
      */
-    public updateEntitlementMetaInfoWithHttpInfo(orgId: string, entitlementId: string, data: WorkloadMetaInfo, _options?: Configuration): Promise<HttpInfo<WorkloadMetaInfo>> {
-        const result = this.api.updateEntitlementMetaInfoWithHttpInfo(orgId, entitlementId, data, _options);
+    public updateEntitlementMetaInfoWithHttpInfo(orgId: string, entitlementId: string, data: WorkloadMetaInfo, _options?: PromiseConfigurationOptions): Promise<HttpInfo<WorkloadMetaInfo>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.updateEntitlementMetaInfoWithHttpInfo(orgId, entitlementId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -1749,8 +1872,9 @@ export class PromiseEntitlementApi {
      * @param entitlementId Entitlement ID
      * @param data Entitlement meta info to update
      */
-    public updateEntitlementMetaInfo(orgId: string, entitlementId: string, data: WorkloadMetaInfo, _options?: Configuration): Promise<WorkloadMetaInfo> {
-        const result = this.api.updateEntitlementMetaInfo(orgId, entitlementId, data, _options);
+    public updateEntitlementMetaInfo(orgId: string, entitlementId: string, data: WorkloadMetaInfo, _options?: PromiseConfigurationOptions): Promise<WorkloadMetaInfo> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.updateEntitlementMetaInfo(orgId, entitlementId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -1761,8 +1885,9 @@ export class PromiseEntitlementApi {
      * @param entitlementId Entitlement ID
      * @param data UpdateEntitlementNameParams
      */
-    public updateEntitlementNameWithHttpInfo(orgId: string, entitlementId: string, data: GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibUpdateEntitlementNameParams, _options?: Configuration): Promise<HttpInfo<WorkloadEntitlement>> {
-        const result = this.api.updateEntitlementNameWithHttpInfo(orgId, entitlementId, data, _options);
+    public updateEntitlementNameWithHttpInfo(orgId: string, entitlementId: string, data: GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibUpdateEntitlementNameParams, _options?: PromiseConfigurationOptions): Promise<HttpInfo<WorkloadEntitlement>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.updateEntitlementNameWithHttpInfo(orgId, entitlementId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -1773,8 +1898,35 @@ export class PromiseEntitlementApi {
      * @param entitlementId Entitlement ID
      * @param data UpdateEntitlementNameParams
      */
-    public updateEntitlementName(orgId: string, entitlementId: string, data: GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibUpdateEntitlementNameParams, _options?: Configuration): Promise<WorkloadEntitlement> {
-        const result = this.api.updateEntitlementName(orgId, entitlementId, data, _options);
+    public updateEntitlementName(orgId: string, entitlementId: string, data: GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibUpdateEntitlementNameParams, _options?: PromiseConfigurationOptions): Promise<WorkloadEntitlement> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.updateEntitlementName(orgId, entitlementId, data, observableOptions);
+        return result.toPromise();
+    }
+
+    /**
+     * Update the price model of the given entitlement, such as recurring commits, billable dimensions. Only applicable to non cloud billing partners.
+     * update entitlement price model
+     * @param orgId Organization ID
+     * @param entitlementId Entitlement ID
+     * @param data Entitlement price model update params
+     */
+    public updateEntitlementPriceModelWithHttpInfo(orgId: string, entitlementId: string, data: UpdateEntitlementPriceModelParams, _options?: PromiseConfigurationOptions): Promise<HttpInfo<WorkloadEntitlement>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.updateEntitlementPriceModelWithHttpInfo(orgId, entitlementId, data, observableOptions);
+        return result.toPromise();
+    }
+
+    /**
+     * Update the price model of the given entitlement, such as recurring commits, billable dimensions. Only applicable to non cloud billing partners.
+     * update entitlement price model
+     * @param orgId Organization ID
+     * @param entitlementId Entitlement ID
+     * @param data Entitlement price model update params
+     */
+    public updateEntitlementPriceModel(orgId: string, entitlementId: string, data: UpdateEntitlementPriceModelParams, _options?: PromiseConfigurationOptions): Promise<WorkloadEntitlement> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.updateEntitlementPriceModel(orgId, entitlementId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -1785,8 +1937,9 @@ export class PromiseEntitlementApi {
      * @param entitlementId Entitlement ID
      * @param newSeat New seat number
      */
-    public updateEntitlementSeatWithHttpInfo(orgId: string, entitlementId: string, newSeat: number, _options?: Configuration): Promise<HttpInfo<WorkloadEntitlement>> {
-        const result = this.api.updateEntitlementSeatWithHttpInfo(orgId, entitlementId, newSeat, _options);
+    public updateEntitlementSeatWithHttpInfo(orgId: string, entitlementId: string, newSeat: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<WorkloadEntitlement>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.updateEntitlementSeatWithHttpInfo(orgId, entitlementId, newSeat, observableOptions);
         return result.toPromise();
     }
 
@@ -1797,8 +1950,9 @@ export class PromiseEntitlementApi {
      * @param entitlementId Entitlement ID
      * @param newSeat New seat number
      */
-    public updateEntitlementSeat(orgId: string, entitlementId: string, newSeat: number, _options?: Configuration): Promise<WorkloadEntitlement> {
-        const result = this.api.updateEntitlementSeat(orgId, entitlementId, newSeat, _options);
+    public updateEntitlementSeat(orgId: string, entitlementId: string, newSeat: number, _options?: PromiseConfigurationOptions): Promise<WorkloadEntitlement> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.updateEntitlementSeat(orgId, entitlementId, newSeat, observableOptions);
         return result.toPromise();
     }
 
@@ -1827,8 +1981,9 @@ export class PromiseMeteringApi {
      * @param orgId Organization ID
      * @param usageRecordGroups Array of new usage record groups to report
      */
-    public batchReportUsageRecordGroupsWithHttpInfo(orgId: string, usageRecordGroups: Array<NewUsageRecordGroup>, _options?: Configuration): Promise<HttpInfo<Array<MeteringUsageRecordGroup>>> {
-        const result = this.api.batchReportUsageRecordGroupsWithHttpInfo(orgId, usageRecordGroups, _options);
+    public batchReportUsageRecordGroupsWithHttpInfo(orgId: string, usageRecordGroups: Array<NewUsageRecordGroup>, _options?: PromiseConfigurationOptions): Promise<HttpInfo<Array<MeteringUsageRecordGroup>>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.batchReportUsageRecordGroupsWithHttpInfo(orgId, usageRecordGroups, observableOptions);
         return result.toPromise();
     }
 
@@ -1838,8 +1993,9 @@ export class PromiseMeteringApi {
      * @param orgId Organization ID
      * @param usageRecordGroups Array of new usage record groups to report
      */
-    public batchReportUsageRecordGroups(orgId: string, usageRecordGroups: Array<NewUsageRecordGroup>, _options?: Configuration): Promise<Array<MeteringUsageRecordGroup>> {
-        const result = this.api.batchReportUsageRecordGroups(orgId, usageRecordGroups, _options);
+    public batchReportUsageRecordGroups(orgId: string, usageRecordGroups: Array<NewUsageRecordGroup>, _options?: PromiseConfigurationOptions): Promise<Array<MeteringUsageRecordGroup>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.batchReportUsageRecordGroups(orgId, usageRecordGroups, observableOptions);
         return result.toPromise();
     }
 
@@ -1849,8 +2005,9 @@ export class PromiseMeteringApi {
      * @param orgId Organization ID
      * @param data Array of usage record groups to be validated
      */
-    public batchValidateUsageRecordGroupsWithHttpInfo(orgId: string, data: Array<NewUsageRecordGroup>, _options?: Configuration): Promise<HttpInfo<string>> {
-        const result = this.api.batchValidateUsageRecordGroupsWithHttpInfo(orgId, data, _options);
+    public batchValidateUsageRecordGroupsWithHttpInfo(orgId: string, data: Array<NewUsageRecordGroup>, _options?: PromiseConfigurationOptions): Promise<HttpInfo<string>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.batchValidateUsageRecordGroupsWithHttpInfo(orgId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -1860,8 +2017,9 @@ export class PromiseMeteringApi {
      * @param orgId Organization ID
      * @param data Array of usage record groups to be validated
      */
-    public batchValidateUsageRecordGroups(orgId: string, data: Array<NewUsageRecordGroup>, _options?: Configuration): Promise<string> {
-        const result = this.api.batchValidateUsageRecordGroups(orgId, data, _options);
+    public batchValidateUsageRecordGroups(orgId: string, data: Array<NewUsageRecordGroup>, _options?: PromiseConfigurationOptions): Promise<string> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.batchValidateUsageRecordGroups(orgId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -1871,8 +2029,9 @@ export class PromiseMeteringApi {
      * @param orgId Organization ID
      * @param data RequestBody
      */
-    public createBillableMetricWithHttpInfo(orgId: string, data: BillableMetric, _options?: Configuration): Promise<HttpInfo<BillableMetric>> {
-        const result = this.api.createBillableMetricWithHttpInfo(orgId, data, _options);
+    public createBillableMetricWithHttpInfo(orgId: string, data: BillableMetric, _options?: PromiseConfigurationOptions): Promise<HttpInfo<BillableMetric>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.createBillableMetricWithHttpInfo(orgId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -1882,8 +2041,9 @@ export class PromiseMeteringApi {
      * @param orgId Organization ID
      * @param data RequestBody
      */
-    public createBillableMetric(orgId: string, data: BillableMetric, _options?: Configuration): Promise<BillableMetric> {
-        const result = this.api.createBillableMetric(orgId, data, _options);
+    public createBillableMetric(orgId: string, data: BillableMetric, _options?: PromiseConfigurationOptions): Promise<BillableMetric> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.createBillableMetric(orgId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -1894,8 +2054,9 @@ export class PromiseMeteringApi {
      * @param usageRecordGroupId UsageRecordGroup ID
      * @param [creationDate] UsageRecordGroup\&#39;s creation date (UTC) in YYYY-MM-DD format
      */
-    public deleteUsageRecordGroupWithHttpInfo(orgId: string, usageRecordGroupId: string, creationDate?: string, _options?: Configuration): Promise<HttpInfo<MeteringUsageRecordGroup>> {
-        const result = this.api.deleteUsageRecordGroupWithHttpInfo(orgId, usageRecordGroupId, creationDate, _options);
+    public deleteUsageRecordGroupWithHttpInfo(orgId: string, usageRecordGroupId: string, creationDate?: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<MeteringUsageRecordGroup>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.deleteUsageRecordGroupWithHttpInfo(orgId, usageRecordGroupId, creationDate, observableOptions);
         return result.toPromise();
     }
 
@@ -1906,8 +2067,9 @@ export class PromiseMeteringApi {
      * @param usageRecordGroupId UsageRecordGroup ID
      * @param [creationDate] UsageRecordGroup\&#39;s creation date (UTC) in YYYY-MM-DD format
      */
-    public deleteUsageRecordGroup(orgId: string, usageRecordGroupId: string, creationDate?: string, _options?: Configuration): Promise<MeteringUsageRecordGroup> {
-        const result = this.api.deleteUsageRecordGroup(orgId, usageRecordGroupId, creationDate, _options);
+    public deleteUsageRecordGroup(orgId: string, usageRecordGroupId: string, creationDate?: string, _options?: PromiseConfigurationOptions): Promise<MeteringUsageRecordGroup> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.deleteUsageRecordGroup(orgId, usageRecordGroupId, creationDate, observableOptions);
         return result.toPromise();
     }
 
@@ -1917,8 +2079,9 @@ export class PromiseMeteringApi {
      * @param orgId Organization ID
      * @param billableMetricId Billable Metric ID
      */
-    public getBillableMetricWithHttpInfo(orgId: string, billableMetricId: string, _options?: Configuration): Promise<HttpInfo<BillableMetric>> {
-        const result = this.api.getBillableMetricWithHttpInfo(orgId, billableMetricId, _options);
+    public getBillableMetricWithHttpInfo(orgId: string, billableMetricId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<BillableMetric>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.getBillableMetricWithHttpInfo(orgId, billableMetricId, observableOptions);
         return result.toPromise();
     }
 
@@ -1928,8 +2091,9 @@ export class PromiseMeteringApi {
      * @param orgId Organization ID
      * @param billableMetricId Billable Metric ID
      */
-    public getBillableMetric(orgId: string, billableMetricId: string, _options?: Configuration): Promise<BillableMetric> {
-        const result = this.api.getBillableMetric(orgId, billableMetricId, _options);
+    public getBillableMetric(orgId: string, billableMetricId: string, _options?: PromiseConfigurationOptions): Promise<BillableMetric> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.getBillableMetric(orgId, billableMetricId, observableOptions);
         return result.toPromise();
     }
 
@@ -1938,8 +2102,9 @@ export class PromiseMeteringApi {
      * get usage metering config info
      * @param orgId Organization ID
      */
-    public getUsageMeteringConfigInfoWithHttpInfo(orgId: string, _options?: Configuration): Promise<HttpInfo<UsageMeteringConfigInfo>> {
-        const result = this.api.getUsageMeteringConfigInfoWithHttpInfo(orgId, _options);
+    public getUsageMeteringConfigInfoWithHttpInfo(orgId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<UsageMeteringConfigInfo>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.getUsageMeteringConfigInfoWithHttpInfo(orgId, observableOptions);
         return result.toPromise();
     }
 
@@ -1948,8 +2113,9 @@ export class PromiseMeteringApi {
      * get usage metering config info
      * @param orgId Organization ID
      */
-    public getUsageMeteringConfigInfo(orgId: string, _options?: Configuration): Promise<UsageMeteringConfigInfo> {
-        const result = this.api.getUsageMeteringConfigInfo(orgId, _options);
+    public getUsageMeteringConfigInfo(orgId: string, _options?: PromiseConfigurationOptions): Promise<UsageMeteringConfigInfo> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.getUsageMeteringConfigInfo(orgId, observableOptions);
         return result.toPromise();
     }
 
@@ -1959,8 +2125,9 @@ export class PromiseMeteringApi {
      * @param orgId Organization ID
      * @param [status] Status of the billable metric
      */
-    public listBillableMetricsWithHttpInfo(orgId: string, status?: string, _options?: Configuration): Promise<HttpInfo<Array<BillableMetric>>> {
-        const result = this.api.listBillableMetricsWithHttpInfo(orgId, status, _options);
+    public listBillableMetricsWithHttpInfo(orgId: string, status?: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<Array<BillableMetric>>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listBillableMetricsWithHttpInfo(orgId, status, observableOptions);
         return result.toPromise();
     }
 
@@ -1970,8 +2137,9 @@ export class PromiseMeteringApi {
      * @param orgId Organization ID
      * @param [status] Status of the billable metric
      */
-    public listBillableMetrics(orgId: string, status?: string, _options?: Configuration): Promise<Array<BillableMetric>> {
-        const result = this.api.listBillableMetrics(orgId, status, _options);
+    public listBillableMetrics(orgId: string, status?: string, _options?: PromiseConfigurationOptions): Promise<Array<BillableMetric>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listBillableMetrics(orgId, status, observableOptions);
         return result.toPromise();
     }
 
@@ -1990,8 +2158,9 @@ export class PromiseMeteringApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listUsageRecordGroupsWithHttpInfo(orgId: string, partner?: 'AWS' | 'AZURE' | 'GCP', buyerId?: string, entitlementId?: string, status?: 'CREATED' | 'DELETED' | 'INVALID' | 'REPORTED' | 'REPORT_PENDING' | 'REPORT_FAILED', source?: '' | 'API' | 'INTERNAL' | 'LAGO' | 'METRONOME' | 'ORB' | 'STRIPE', metaInfo?: string, startDate?: string, endDate?: string, limit?: number, offset?: number, _options?: Configuration): Promise<HttpInfo<ListUsageRecordGroupsResponse>> {
-        const result = this.api.listUsageRecordGroupsWithHttpInfo(orgId, partner, buyerId, entitlementId, status, source, metaInfo, startDate, endDate, limit, offset, _options);
+    public listUsageRecordGroupsWithHttpInfo(orgId: string, partner?: 'AWS' | 'AZURE' | 'GCP', buyerId?: string, entitlementId?: string, status?: 'CREATED' | 'DELETED' | 'INVALID' | 'REPORTED' | 'REPORT_PENDING' | 'REPORT_FAILED', source?: '' | 'API' | 'INTERNAL' | 'LAGO' | 'METRONOME' | 'ORB' | 'STRIPE', metaInfo?: string, startDate?: string, endDate?: string, limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<ListUsageRecordGroupsResponse>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listUsageRecordGroupsWithHttpInfo(orgId, partner, buyerId, entitlementId, status, source, metaInfo, startDate, endDate, limit, offset, observableOptions);
         return result.toPromise();
     }
 
@@ -2010,8 +2179,9 @@ export class PromiseMeteringApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listUsageRecordGroups(orgId: string, partner?: 'AWS' | 'AZURE' | 'GCP', buyerId?: string, entitlementId?: string, status?: 'CREATED' | 'DELETED' | 'INVALID' | 'REPORTED' | 'REPORT_PENDING' | 'REPORT_FAILED', source?: '' | 'API' | 'INTERNAL' | 'LAGO' | 'METRONOME' | 'ORB' | 'STRIPE', metaInfo?: string, startDate?: string, endDate?: string, limit?: number, offset?: number, _options?: Configuration): Promise<ListUsageRecordGroupsResponse> {
-        const result = this.api.listUsageRecordGroups(orgId, partner, buyerId, entitlementId, status, source, metaInfo, startDate, endDate, limit, offset, _options);
+    public listUsageRecordGroups(orgId: string, partner?: 'AWS' | 'AZURE' | 'GCP', buyerId?: string, entitlementId?: string, status?: 'CREATED' | 'DELETED' | 'INVALID' | 'REPORTED' | 'REPORT_PENDING' | 'REPORT_FAILED', source?: '' | 'API' | 'INTERNAL' | 'LAGO' | 'METRONOME' | 'ORB' | 'STRIPE', metaInfo?: string, startDate?: string, endDate?: string, limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<ListUsageRecordGroupsResponse> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listUsageRecordGroups(orgId, partner, buyerId, entitlementId, status, source, metaInfo, startDate, endDate, limit, offset, observableOptions);
         return result.toPromise();
     }
 
@@ -2027,8 +2197,9 @@ export class PromiseMeteringApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listUsageRecordReportsWithHttpInfo(orgId: string, partner?: 'AWS' | 'AZURE' | 'GCP', buyerId?: string, entitlementId?: string, startDate?: string, endDate?: string, limit?: number, offset?: number, _options?: Configuration): Promise<HttpInfo<ListUsageRecordReportsResponse>> {
-        const result = this.api.listUsageRecordReportsWithHttpInfo(orgId, partner, buyerId, entitlementId, startDate, endDate, limit, offset, _options);
+    public listUsageRecordReportsWithHttpInfo(orgId: string, partner?: 'AWS' | 'AZURE' | 'GCP', buyerId?: string, entitlementId?: string, startDate?: string, endDate?: string, limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<ListUsageRecordReportsResponse>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listUsageRecordReportsWithHttpInfo(orgId, partner, buyerId, entitlementId, startDate, endDate, limit, offset, observableOptions);
         return result.toPromise();
     }
 
@@ -2044,8 +2215,9 @@ export class PromiseMeteringApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listUsageRecordReports(orgId: string, partner?: 'AWS' | 'AZURE' | 'GCP', buyerId?: string, entitlementId?: string, startDate?: string, endDate?: string, limit?: number, offset?: number, _options?: Configuration): Promise<ListUsageRecordReportsResponse> {
-        const result = this.api.listUsageRecordReports(orgId, partner, buyerId, entitlementId, startDate, endDate, limit, offset, _options);
+    public listUsageRecordReports(orgId: string, partner?: 'AWS' | 'AZURE' | 'GCP', buyerId?: string, entitlementId?: string, startDate?: string, endDate?: string, limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<ListUsageRecordReportsResponse> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listUsageRecordReports(orgId, partner, buyerId, entitlementId, startDate, endDate, limit, offset, observableOptions);
         return result.toPromise();
     }
 
@@ -2056,8 +2228,9 @@ export class PromiseMeteringApi {
      * @param entitlementId Entitlement ID
      * @param data RequestBody
      */
-    public reportUsageRecordGroupWithHttpInfo(orgId: string, entitlementId: string, data: CreateUsageRecordGroupParams, _options?: Configuration): Promise<HttpInfo<MeteringUsageRecordGroup>> {
-        const result = this.api.reportUsageRecordGroupWithHttpInfo(orgId, entitlementId, data, _options);
+    public reportUsageRecordGroupWithHttpInfo(orgId: string, entitlementId: string, data: CreateUsageRecordGroupParams, _options?: PromiseConfigurationOptions): Promise<HttpInfo<MeteringUsageRecordGroup>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.reportUsageRecordGroupWithHttpInfo(orgId, entitlementId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -2068,8 +2241,9 @@ export class PromiseMeteringApi {
      * @param entitlementId Entitlement ID
      * @param data RequestBody
      */
-    public reportUsageRecordGroup(orgId: string, entitlementId: string, data: CreateUsageRecordGroupParams, _options?: Configuration): Promise<MeteringUsageRecordGroup> {
-        const result = this.api.reportUsageRecordGroup(orgId, entitlementId, data, _options);
+    public reportUsageRecordGroup(orgId: string, entitlementId: string, data: CreateUsageRecordGroupParams, _options?: PromiseConfigurationOptions): Promise<MeteringUsageRecordGroup> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.reportUsageRecordGroup(orgId, entitlementId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -2080,8 +2254,9 @@ export class PromiseMeteringApi {
      * @param usageRecordGroupId UsageRecordGroup ID
      * @param [creationDate] UsageRecordGroup\&#39;s creation date (UTC) in YYYY-MM-DD format
      */
-    public retryUsageRecordGroupWithHttpInfo(orgId: string, usageRecordGroupId: string, creationDate?: string, _options?: Configuration): Promise<HttpInfo<MeteringUsageRecordGroup>> {
-        const result = this.api.retryUsageRecordGroupWithHttpInfo(orgId, usageRecordGroupId, creationDate, _options);
+    public retryUsageRecordGroupWithHttpInfo(orgId: string, usageRecordGroupId: string, creationDate?: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<MeteringUsageRecordGroup>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.retryUsageRecordGroupWithHttpInfo(orgId, usageRecordGroupId, creationDate, observableOptions);
         return result.toPromise();
     }
 
@@ -2092,8 +2267,9 @@ export class PromiseMeteringApi {
      * @param usageRecordGroupId UsageRecordGroup ID
      * @param [creationDate] UsageRecordGroup\&#39;s creation date (UTC) in YYYY-MM-DD format
      */
-    public retryUsageRecordGroup(orgId: string, usageRecordGroupId: string, creationDate?: string, _options?: Configuration): Promise<MeteringUsageRecordGroup> {
-        const result = this.api.retryUsageRecordGroup(orgId, usageRecordGroupId, creationDate, _options);
+    public retryUsageRecordGroup(orgId: string, usageRecordGroupId: string, creationDate?: string, _options?: PromiseConfigurationOptions): Promise<MeteringUsageRecordGroup> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.retryUsageRecordGroup(orgId, usageRecordGroupId, creationDate, observableOptions);
         return result.toPromise();
     }
 
@@ -2104,8 +2280,9 @@ export class PromiseMeteringApi {
      * @param billableMetricId Billable Metric ID
      * @param data RequestBody
      */
-    public updateBillableMetricWithHttpInfo(orgId: string, billableMetricId: string, data: UpdateBillableMetricParams, _options?: Configuration): Promise<HttpInfo<BillableMetric>> {
-        const result = this.api.updateBillableMetricWithHttpInfo(orgId, billableMetricId, data, _options);
+    public updateBillableMetricWithHttpInfo(orgId: string, billableMetricId: string, data: UpdateBillableMetricParams, _options?: PromiseConfigurationOptions): Promise<HttpInfo<BillableMetric>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.updateBillableMetricWithHttpInfo(orgId, billableMetricId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -2116,8 +2293,9 @@ export class PromiseMeteringApi {
      * @param billableMetricId Billable Metric ID
      * @param data RequestBody
      */
-    public updateBillableMetric(orgId: string, billableMetricId: string, data: UpdateBillableMetricParams, _options?: Configuration): Promise<BillableMetric> {
-        const result = this.api.updateBillableMetric(orgId, billableMetricId, data, _options);
+    public updateBillableMetric(orgId: string, billableMetricId: string, data: UpdateBillableMetricParams, _options?: PromiseConfigurationOptions): Promise<BillableMetric> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.updateBillableMetric(orgId, billableMetricId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -2127,8 +2305,9 @@ export class PromiseMeteringApi {
      * @param orgId Organization ID
      * @param data The usage metering config info to be updated
      */
-    public updateUsageMeteringConfigInfoWithHttpInfo(orgId: string, data: UsageMeteringConfigInfo, _options?: Configuration): Promise<HttpInfo<UsageMeteringConfigInfo>> {
-        const result = this.api.updateUsageMeteringConfigInfoWithHttpInfo(orgId, data, _options);
+    public updateUsageMeteringConfigInfoWithHttpInfo(orgId: string, data: UsageMeteringConfigInfo, _options?: PromiseConfigurationOptions): Promise<HttpInfo<UsageMeteringConfigInfo>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.updateUsageMeteringConfigInfoWithHttpInfo(orgId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -2138,8 +2317,9 @@ export class PromiseMeteringApi {
      * @param orgId Organization ID
      * @param data The usage metering config info to be updated
      */
-    public updateUsageMeteringConfigInfo(orgId: string, data: UsageMeteringConfigInfo, _options?: Configuration): Promise<UsageMeteringConfigInfo> {
-        const result = this.api.updateUsageMeteringConfigInfo(orgId, data, _options);
+    public updateUsageMeteringConfigInfo(orgId: string, data: UsageMeteringConfigInfo, _options?: PromiseConfigurationOptions): Promise<UsageMeteringConfigInfo> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.updateUsageMeteringConfigInfo(orgId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -2168,8 +2348,9 @@ export class PromiseNotificationApi {
      * @param orgId Organization ID
      * @param notificationMessageId Notification Message ID
      */
-    public getNotificationMessageWithHttpInfo(orgId: string, notificationMessageId: string, _options?: Configuration): Promise<HttpInfo<NotificationMessage>> {
-        const result = this.api.getNotificationMessageWithHttpInfo(orgId, notificationMessageId, _options);
+    public getNotificationMessageWithHttpInfo(orgId: string, notificationMessageId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<NotificationMessage>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.getNotificationMessageWithHttpInfo(orgId, notificationMessageId, observableOptions);
         return result.toPromise();
     }
 
@@ -2179,8 +2360,9 @@ export class PromiseNotificationApi {
      * @param orgId Organization ID
      * @param notificationMessageId Notification Message ID
      */
-    public getNotificationMessage(orgId: string, notificationMessageId: string, _options?: Configuration): Promise<NotificationMessage> {
-        const result = this.api.getNotificationMessage(orgId, notificationMessageId, _options);
+    public getNotificationMessage(orgId: string, notificationMessageId: string, _options?: PromiseConfigurationOptions): Promise<NotificationMessage> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.getNotificationMessage(orgId, notificationMessageId, observableOptions);
         return result.toPromise();
     }
 
@@ -2192,10 +2374,11 @@ export class PromiseNotificationApi {
      * @param [endDate] end date (UTC) in YYYY-MM-DD format, default is today
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
-     * @param [priorities] Filter by priorities, empty means all priorities. Valid values are: LOW, MEDIUM, HIGH, CRITICAL. Multiple values are supported, separated by comma.
+     * @param [priorities] Filter by priorities, empty means HIGH and CRITICAL only. Valid values are: LOW, MEDIUM, HIGH, CRITICAL. Multiple values are supported, separated by comma.
      */
-    public listNotificationEventsWithHttpInfo(orgId: string, startDate?: string, endDate?: string, limit?: number, offset?: number, priorities?: string, _options?: Configuration): Promise<HttpInfo<ListNotificationEventsResponse>> {
-        const result = this.api.listNotificationEventsWithHttpInfo(orgId, startDate, endDate, limit, offset, priorities, _options);
+    public listNotificationEventsWithHttpInfo(orgId: string, startDate?: string, endDate?: string, limit?: number, offset?: number, priorities?: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<ListNotificationEventsResponse>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listNotificationEventsWithHttpInfo(orgId, startDate, endDate, limit, offset, priorities, observableOptions);
         return result.toPromise();
     }
 
@@ -2207,10 +2390,11 @@ export class PromiseNotificationApi {
      * @param [endDate] end date (UTC) in YYYY-MM-DD format, default is today
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
-     * @param [priorities] Filter by priorities, empty means all priorities. Valid values are: LOW, MEDIUM, HIGH, CRITICAL. Multiple values are supported, separated by comma.
+     * @param [priorities] Filter by priorities, empty means HIGH and CRITICAL only. Valid values are: LOW, MEDIUM, HIGH, CRITICAL. Multiple values are supported, separated by comma.
      */
-    public listNotificationEvents(orgId: string, startDate?: string, endDate?: string, limit?: number, offset?: number, priorities?: string, _options?: Configuration): Promise<ListNotificationEventsResponse> {
-        const result = this.api.listNotificationEvents(orgId, startDate, endDate, limit, offset, priorities, _options);
+    public listNotificationEvents(orgId: string, startDate?: string, endDate?: string, limit?: number, offset?: number, priorities?: string, _options?: PromiseConfigurationOptions): Promise<ListNotificationEventsResponse> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listNotificationEvents(orgId, startDate, endDate, limit, offset, priorities, observableOptions);
         return result.toPromise();
     }
 
@@ -2223,8 +2407,9 @@ export class PromiseNotificationApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listNotificationEventsByEntityWithHttpInfo(orgId: string, entityType: string, entityId: string, limit?: number, offset?: number, _options?: Configuration): Promise<HttpInfo<ListNotificationEventsResponse>> {
-        const result = this.api.listNotificationEventsByEntityWithHttpInfo(orgId, entityType, entityId, limit, offset, _options);
+    public listNotificationEventsByEntityWithHttpInfo(orgId: string, entityType: string, entityId: string, limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<ListNotificationEventsResponse>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listNotificationEventsByEntityWithHttpInfo(orgId, entityType, entityId, limit, offset, observableOptions);
         return result.toPromise();
     }
 
@@ -2237,8 +2422,9 @@ export class PromiseNotificationApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listNotificationEventsByEntity(orgId: string, entityType: string, entityId: string, limit?: number, offset?: number, _options?: Configuration): Promise<ListNotificationEventsResponse> {
-        const result = this.api.listNotificationEventsByEntity(orgId, entityType, entityId, limit, offset, _options);
+    public listNotificationEventsByEntity(orgId: string, entityType: string, entityId: string, limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<ListNotificationEventsResponse> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listNotificationEventsByEntity(orgId, entityType, entityId, limit, offset, observableOptions);
         return result.toPromise();
     }
 
@@ -2249,8 +2435,9 @@ export class PromiseNotificationApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listNotificationMessagesWithHttpInfo(orgId: string, limit?: number, offset?: number, _options?: Configuration): Promise<HttpInfo<ListNotificationMessagesResponse>> {
-        const result = this.api.listNotificationMessagesWithHttpInfo(orgId, limit, offset, _options);
+    public listNotificationMessagesWithHttpInfo(orgId: string, limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<ListNotificationMessagesResponse>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listNotificationMessagesWithHttpInfo(orgId, limit, offset, observableOptions);
         return result.toPromise();
     }
 
@@ -2261,8 +2448,9 @@ export class PromiseNotificationApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listNotificationMessages(orgId: string, limit?: number, offset?: number, _options?: Configuration): Promise<ListNotificationMessagesResponse> {
-        const result = this.api.listNotificationMessages(orgId, limit, offset, _options);
+    public listNotificationMessages(orgId: string, limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<ListNotificationMessagesResponse> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listNotificationMessages(orgId, limit, offset, observableOptions);
         return result.toPromise();
     }
 
@@ -2291,8 +2479,9 @@ export class PromiseOfferApi {
      * @param orgId Organization ID
      * @param offerId Offer ID
      */
-    public cancelOfferWithHttpInfo(orgId: string, offerId: string, _options?: Configuration): Promise<HttpInfo<WorkloadOffer>> {
-        const result = this.api.cancelOfferWithHttpInfo(orgId, offerId, _options);
+    public cancelOfferWithHttpInfo(orgId: string, offerId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<WorkloadOffer>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.cancelOfferWithHttpInfo(orgId, offerId, observableOptions);
         return result.toPromise();
     }
 
@@ -2302,8 +2491,9 @@ export class PromiseOfferApi {
      * @param orgId Organization ID
      * @param offerId Offer ID
      */
-    public cancelOffer(orgId: string, offerId: string, _options?: Configuration): Promise<WorkloadOffer> {
-        const result = this.api.cancelOffer(orgId, offerId, _options);
+    public cancelOffer(orgId: string, offerId: string, _options?: PromiseConfigurationOptions): Promise<WorkloadOffer> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.cancelOffer(orgId, offerId, observableOptions);
         return result.toPromise();
     }
 
@@ -2313,8 +2503,9 @@ export class PromiseOfferApi {
      * @param orgId Organization ID
      * @param data Offer to create
      */
-    public createOfferWithHttpInfo(orgId: string, data: WorkloadOffer, _options?: Configuration): Promise<HttpInfo<WorkloadOffer>> {
-        const result = this.api.createOfferWithHttpInfo(orgId, data, _options);
+    public createOfferWithHttpInfo(orgId: string, data: WorkloadOffer, _options?: PromiseConfigurationOptions): Promise<HttpInfo<WorkloadOffer>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.createOfferWithHttpInfo(orgId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -2324,8 +2515,9 @@ export class PromiseOfferApi {
      * @param orgId Organization ID
      * @param data Offer to create
      */
-    public createOffer(orgId: string, data: WorkloadOffer, _options?: Configuration): Promise<WorkloadOffer> {
-        const result = this.api.createOffer(orgId, data, _options);
+    public createOffer(orgId: string, data: WorkloadOffer, _options?: PromiseConfigurationOptions): Promise<WorkloadOffer> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.createOffer(orgId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -2335,8 +2527,9 @@ export class PromiseOfferApi {
      * @param orgId Organization ID
      * @param data the draft offer to create
      */
-    public createOrUpdateDraftOfferWithHttpInfo(orgId: string, data: WorkloadOffer, _options?: Configuration): Promise<HttpInfo<WorkloadOffer>> {
-        const result = this.api.createOrUpdateDraftOfferWithHttpInfo(orgId, data, _options);
+    public createOrUpdateDraftOfferWithHttpInfo(orgId: string, data: WorkloadOffer, _options?: PromiseConfigurationOptions): Promise<HttpInfo<WorkloadOffer>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.createOrUpdateDraftOfferWithHttpInfo(orgId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -2346,8 +2539,9 @@ export class PromiseOfferApi {
      * @param orgId Organization ID
      * @param data the draft offer to create
      */
-    public createOrUpdateDraftOffer(orgId: string, data: WorkloadOffer, _options?: Configuration): Promise<WorkloadOffer> {
-        const result = this.api.createOrUpdateDraftOffer(orgId, data, _options);
+    public createOrUpdateDraftOffer(orgId: string, data: WorkloadOffer, _options?: PromiseConfigurationOptions): Promise<WorkloadOffer> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.createOrUpdateDraftOffer(orgId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -2357,8 +2551,9 @@ export class PromiseOfferApi {
      * @param orgId Organization ID
      * @param offerId Offer ID
      */
-    public deleteOfferWithHttpInfo(orgId: string, offerId: string, _options?: Configuration): Promise<HttpInfo<string>> {
-        const result = this.api.deleteOfferWithHttpInfo(orgId, offerId, _options);
+    public deleteOfferWithHttpInfo(orgId: string, offerId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<string>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.deleteOfferWithHttpInfo(orgId, offerId, observableOptions);
         return result.toPromise();
     }
 
@@ -2368,8 +2563,9 @@ export class PromiseOfferApi {
      * @param orgId Organization ID
      * @param offerId Offer ID
      */
-    public deleteOffer(orgId: string, offerId: string, _options?: Configuration): Promise<string> {
-        const result = this.api.deleteOffer(orgId, offerId, _options);
+    public deleteOffer(orgId: string, offerId: string, _options?: PromiseConfigurationOptions): Promise<string> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.deleteOffer(orgId, offerId, observableOptions);
         return result.toPromise();
     }
 
@@ -2380,8 +2576,9 @@ export class PromiseOfferApi {
      * @param offerId Offer ID
      * @param newExpiryDate new expiry date in YYYY-MM-DD format
      */
-    public extendPrivateOfferExpiryDateWithHttpInfo(orgId: string, offerId: string, newExpiryDate: string, _options?: Configuration): Promise<HttpInfo<WorkloadOffer>> {
-        const result = this.api.extendPrivateOfferExpiryDateWithHttpInfo(orgId, offerId, newExpiryDate, _options);
+    public extendPrivateOfferExpiryDateWithHttpInfo(orgId: string, offerId: string, newExpiryDate: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<WorkloadOffer>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.extendPrivateOfferExpiryDateWithHttpInfo(orgId, offerId, newExpiryDate, observableOptions);
         return result.toPromise();
     }
 
@@ -2392,8 +2589,9 @@ export class PromiseOfferApi {
      * @param offerId Offer ID
      * @param newExpiryDate new expiry date in YYYY-MM-DD format
      */
-    public extendPrivateOfferExpiryDate(orgId: string, offerId: string, newExpiryDate: string, _options?: Configuration): Promise<WorkloadOffer> {
-        const result = this.api.extendPrivateOfferExpiryDate(orgId, offerId, newExpiryDate, _options);
+    public extendPrivateOfferExpiryDate(orgId: string, offerId: string, newExpiryDate: string, _options?: PromiseConfigurationOptions): Promise<WorkloadOffer> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.extendPrivateOfferExpiryDate(orgId, offerId, newExpiryDate, observableOptions);
         return result.toPromise();
     }
 
@@ -2403,8 +2601,9 @@ export class PromiseOfferApi {
      * @param orgId Organization ID
      * @param offerId Offer ID
      */
-    public getOfferWithHttpInfo(orgId: string, offerId: string, _options?: Configuration): Promise<HttpInfo<WorkloadOffer>> {
-        const result = this.api.getOfferWithHttpInfo(orgId, offerId, _options);
+    public getOfferWithHttpInfo(orgId: string, offerId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<WorkloadOffer>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.getOfferWithHttpInfo(orgId, offerId, observableOptions);
         return result.toPromise();
     }
 
@@ -2414,8 +2613,9 @@ export class PromiseOfferApi {
      * @param orgId Organization ID
      * @param offerId Offer ID
      */
-    public getOffer(orgId: string, offerId: string, _options?: Configuration): Promise<WorkloadOffer> {
-        const result = this.api.getOffer(orgId, offerId, _options);
+    public getOffer(orgId: string, offerId: string, _options?: PromiseConfigurationOptions): Promise<WorkloadOffer> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.getOffer(orgId, offerId, observableOptions);
         return result.toPromise();
     }
 
@@ -2425,8 +2625,9 @@ export class PromiseOfferApi {
      * @param orgId Organization ID
      * @param offerExternalId Offer External ID
      */
-    public getOfferByExternalIdWithHttpInfo(orgId: string, offerExternalId: string, _options?: Configuration): Promise<HttpInfo<WorkloadOffer>> {
-        const result = this.api.getOfferByExternalIdWithHttpInfo(orgId, offerExternalId, _options);
+    public getOfferByExternalIdWithHttpInfo(orgId: string, offerExternalId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<WorkloadOffer>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.getOfferByExternalIdWithHttpInfo(orgId, offerExternalId, observableOptions);
         return result.toPromise();
     }
 
@@ -2436,8 +2637,9 @@ export class PromiseOfferApi {
      * @param orgId Organization ID
      * @param offerExternalId Offer External ID
      */
-    public getOfferByExternalId(orgId: string, offerExternalId: string, _options?: Configuration): Promise<WorkloadOffer> {
-        const result = this.api.getOfferByExternalId(orgId, offerExternalId, _options);
+    public getOfferByExternalId(orgId: string, offerExternalId: string, _options?: PromiseConfigurationOptions): Promise<WorkloadOffer> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.getOfferByExternalId(orgId, offerExternalId, observableOptions);
         return result.toPromise();
     }
 
@@ -2448,8 +2650,9 @@ export class PromiseOfferApi {
      * @param offerId Offer ID
      * @param [format] response format in JSON or string
      */
-    public getOfferEulaWithHttpInfo(orgId: string, offerId: string, format?: string, _options?: Configuration): Promise<HttpInfo<string>> {
-        const result = this.api.getOfferEulaWithHttpInfo(orgId, offerId, format, _options);
+    public getOfferEulaWithHttpInfo(orgId: string, offerId: string, format?: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<string>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.getOfferEulaWithHttpInfo(orgId, offerId, format, observableOptions);
         return result.toPromise();
     }
 
@@ -2460,8 +2663,9 @@ export class PromiseOfferApi {
      * @param offerId Offer ID
      * @param [format] response format in JSON or string
      */
-    public getOfferEula(orgId: string, offerId: string, format?: string, _options?: Configuration): Promise<string> {
-        const result = this.api.getOfferEula(orgId, offerId, format, _options);
+    public getOfferEula(orgId: string, offerId: string, format?: string, _options?: PromiseConfigurationOptions): Promise<string> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.getOfferEula(orgId, offerId, format, observableOptions);
         return result.toPromise();
     }
 
@@ -2471,8 +2675,9 @@ export class PromiseOfferApi {
      * @param orgId Organization ID
      * @param offerId Offer ID
      */
-    public getOfferResellerEulaWithHttpInfo(orgId: string, offerId: string, _options?: Configuration): Promise<HttpInfo<string>> {
-        const result = this.api.getOfferResellerEulaWithHttpInfo(orgId, offerId, _options);
+    public getOfferResellerEulaWithHttpInfo(orgId: string, offerId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<string>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.getOfferResellerEulaWithHttpInfo(orgId, offerId, observableOptions);
         return result.toPromise();
     }
 
@@ -2482,8 +2687,9 @@ export class PromiseOfferApi {
      * @param orgId Organization ID
      * @param offerId Offer ID
      */
-    public getOfferResellerEula(orgId: string, offerId: string, _options?: Configuration): Promise<string> {
-        const result = this.api.getOfferResellerEula(orgId, offerId, _options);
+    public getOfferResellerEula(orgId: string, offerId: string, _options?: PromiseConfigurationOptions): Promise<string> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.getOfferResellerEula(orgId, offerId, observableOptions);
         return result.toPromise();
     }
 
@@ -2501,8 +2707,9 @@ export class PromiseOfferApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listOffersWithHttpInfo(orgId: string, status?: string, partner?: string, offerType?: string, productId?: string, buyerId?: string, hubspotDealId?: string, contactId?: string, limit?: number, offset?: number, _options?: Configuration): Promise<HttpInfo<Array<WorkloadOffer>>> {
-        const result = this.api.listOffersWithHttpInfo(orgId, status, partner, offerType, productId, buyerId, hubspotDealId, contactId, limit, offset, _options);
+    public listOffersWithHttpInfo(orgId: string, status?: string, partner?: string, offerType?: string, productId?: string, buyerId?: string, hubspotDealId?: string, contactId?: string, limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<Array<WorkloadOffer>>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listOffersWithHttpInfo(orgId, status, partner, offerType, productId, buyerId, hubspotDealId, contactId, limit, offset, observableOptions);
         return result.toPromise();
     }
 
@@ -2520,32 +2727,35 @@ export class PromiseOfferApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listOffers(orgId: string, status?: string, partner?: string, offerType?: string, productId?: string, buyerId?: string, hubspotDealId?: string, contactId?: string, limit?: number, offset?: number, _options?: Configuration): Promise<Array<WorkloadOffer>> {
-        const result = this.api.listOffers(orgId, status, partner, offerType, productId, buyerId, hubspotDealId, contactId, limit, offset, _options);
+    public listOffers(orgId: string, status?: string, partner?: string, offerType?: string, productId?: string, buyerId?: string, hubspotDealId?: string, contactId?: string, limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<Array<WorkloadOffer>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listOffers(orgId, status, partner, offerType, productId, buyerId, hubspotDealId, contactId, limit, offset, observableOptions);
         return result.toPromise();
     }
 
     /**
-     * Send offer notifications to the given contact ids. If contactIds is empty, send notifications to all contacts of the offer.
+     * Send offer notifications to the given contact ids. If contactIDs is empty, send notifications to all contacts of the offer.
      * notify offer contacts
      * @param orgId Organization ID
      * @param offerId Offer ID
-     * @param [contactIds] List of Contact IDs, if emoty or nil, send notifications to all contacts of the offer
+     * @param [contactIDs] List of Contact IDs, if emoty or nil, send notifications to all contacts of the offer
      */
-    public sendOfferNotificationsWithHttpInfo(orgId: string, offerId: string, contactIds?: Array<string>, _options?: Configuration): Promise<HttpInfo<NotificationEvent>> {
-        const result = this.api.sendOfferNotificationsWithHttpInfo(orgId, offerId, contactIds, _options);
+    public sendOfferNotificationsWithHttpInfo(orgId: string, offerId: string, contactIDs?: Array<string>, _options?: PromiseConfigurationOptions): Promise<HttpInfo<string>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.sendOfferNotificationsWithHttpInfo(orgId, offerId, contactIDs, observableOptions);
         return result.toPromise();
     }
 
     /**
-     * Send offer notifications to the given contact ids. If contactIds is empty, send notifications to all contacts of the offer.
+     * Send offer notifications to the given contact ids. If contactIDs is empty, send notifications to all contacts of the offer.
      * notify offer contacts
      * @param orgId Organization ID
      * @param offerId Offer ID
-     * @param [contactIds] List of Contact IDs, if emoty or nil, send notifications to all contacts of the offer
+     * @param [contactIDs] List of Contact IDs, if emoty or nil, send notifications to all contacts of the offer
      */
-    public sendOfferNotifications(orgId: string, offerId: string, contactIds?: Array<string>, _options?: Configuration): Promise<NotificationEvent> {
-        const result = this.api.sendOfferNotifications(orgId, offerId, contactIds, _options);
+    public sendOfferNotifications(orgId: string, offerId: string, contactIDs?: Array<string>, _options?: PromiseConfigurationOptions): Promise<string> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.sendOfferNotifications(orgId, offerId, contactIDs, observableOptions);
         return result.toPromise();
     }
 
@@ -2556,8 +2766,9 @@ export class PromiseOfferApi {
      * @param offerId Offer ID
      * @param data Offer meta info to update
      */
-    public updateOfferMetaInfoWithHttpInfo(orgId: string, offerId: string, data: WorkloadMetaInfo, _options?: Configuration): Promise<HttpInfo<WorkloadMetaInfo>> {
-        const result = this.api.updateOfferMetaInfoWithHttpInfo(orgId, offerId, data, _options);
+    public updateOfferMetaInfoWithHttpInfo(orgId: string, offerId: string, data: WorkloadMetaInfo, _options?: PromiseConfigurationOptions): Promise<HttpInfo<WorkloadMetaInfo>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.updateOfferMetaInfoWithHttpInfo(orgId, offerId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -2568,8 +2779,9 @@ export class PromiseOfferApi {
      * @param offerId Offer ID
      * @param data Offer meta info to update
      */
-    public updateOfferMetaInfo(orgId: string, offerId: string, data: WorkloadMetaInfo, _options?: Configuration): Promise<WorkloadMetaInfo> {
-        const result = this.api.updateOfferMetaInfo(orgId, offerId, data, _options);
+    public updateOfferMetaInfo(orgId: string, offerId: string, data: WorkloadMetaInfo, _options?: PromiseConfigurationOptions): Promise<WorkloadMetaInfo> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.updateOfferMetaInfo(orgId, offerId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -2598,8 +2810,9 @@ export class PromiseProductApi {
      * @param orgId Organization ID
      * @param data the draft product to create
      */
-    public createOrUpdateDraftProductWithHttpInfo(orgId: string, data: WorkloadProduct, _options?: Configuration): Promise<HttpInfo<WorkloadProduct>> {
-        const result = this.api.createOrUpdateDraftProductWithHttpInfo(orgId, data, _options);
+    public createOrUpdateDraftProductWithHttpInfo(orgId: string, data: WorkloadProduct, _options?: PromiseConfigurationOptions): Promise<HttpInfo<WorkloadProduct>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.createOrUpdateDraftProductWithHttpInfo(orgId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -2609,8 +2822,9 @@ export class PromiseProductApi {
      * @param orgId Organization ID
      * @param data the draft product to create
      */
-    public createOrUpdateDraftProduct(orgId: string, data: WorkloadProduct, _options?: Configuration): Promise<WorkloadProduct> {
-        const result = this.api.createOrUpdateDraftProduct(orgId, data, _options);
+    public createOrUpdateDraftProduct(orgId: string, data: WorkloadProduct, _options?: PromiseConfigurationOptions): Promise<WorkloadProduct> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.createOrUpdateDraftProduct(orgId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -2620,8 +2834,9 @@ export class PromiseProductApi {
      * @param orgId Organization ID
      * @param data the product to create
      */
-    public createProductWithHttpInfo(orgId: string, data: WorkloadProduct, _options?: Configuration): Promise<HttpInfo<WorkloadProduct>> {
-        const result = this.api.createProductWithHttpInfo(orgId, data, _options);
+    public createProductWithHttpInfo(orgId: string, data: WorkloadProduct, _options?: PromiseConfigurationOptions): Promise<HttpInfo<WorkloadProduct>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.createProductWithHttpInfo(orgId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -2631,8 +2846,9 @@ export class PromiseProductApi {
      * @param orgId Organization ID
      * @param data the product to create
      */
-    public createProduct(orgId: string, data: WorkloadProduct, _options?: Configuration): Promise<WorkloadProduct> {
-        const result = this.api.createProduct(orgId, data, _options);
+    public createProduct(orgId: string, data: WorkloadProduct, _options?: PromiseConfigurationOptions): Promise<WorkloadProduct> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.createProduct(orgId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -2642,8 +2858,9 @@ export class PromiseProductApi {
      * @param orgId Organization ID
      * @param productId Product ID
      */
-    public deleteProductWithHttpInfo(orgId: string, productId: string, _options?: Configuration): Promise<HttpInfo<string>> {
-        const result = this.api.deleteProductWithHttpInfo(orgId, productId, _options);
+    public deleteProductWithHttpInfo(orgId: string, productId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<string>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.deleteProductWithHttpInfo(orgId, productId, observableOptions);
         return result.toPromise();
     }
 
@@ -2653,8 +2870,9 @@ export class PromiseProductApi {
      * @param orgId Organization ID
      * @param productId Product ID
      */
-    public deleteProduct(orgId: string, productId: string, _options?: Configuration): Promise<string> {
-        const result = this.api.deleteProduct(orgId, productId, _options);
+    public deleteProduct(orgId: string, productId: string, _options?: PromiseConfigurationOptions): Promise<string> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.deleteProduct(orgId, productId, observableOptions);
         return result.toPromise();
     }
 
@@ -2664,8 +2882,9 @@ export class PromiseProductApi {
      * @param orgId Organization ID
      * @param productId Product ID
      */
-    public getProductWithHttpInfo(orgId: string, productId: string, _options?: Configuration): Promise<HttpInfo<WorkloadProduct>> {
-        const result = this.api.getProductWithHttpInfo(orgId, productId, _options);
+    public getProductWithHttpInfo(orgId: string, productId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<WorkloadProduct>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.getProductWithHttpInfo(orgId, productId, observableOptions);
         return result.toPromise();
     }
 
@@ -2675,8 +2894,9 @@ export class PromiseProductApi {
      * @param orgId Organization ID
      * @param productId Product ID
      */
-    public getProduct(orgId: string, productId: string, _options?: Configuration): Promise<WorkloadProduct> {
-        const result = this.api.getProduct(orgId, productId, _options);
+    public getProduct(orgId: string, productId: string, _options?: PromiseConfigurationOptions): Promise<WorkloadProduct> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.getProduct(orgId, productId, observableOptions);
         return result.toPromise();
     }
 
@@ -2686,8 +2906,9 @@ export class PromiseProductApi {
      * @param orgId Organization ID
      * @param productId Product ID
      */
-    public listProductMeteringDimensionsWithHttpInfo(orgId: string, productId: string, _options?: Configuration): Promise<HttpInfo<Array<MeteringDimension>>> {
-        const result = this.api.listProductMeteringDimensionsWithHttpInfo(orgId, productId, _options);
+    public listProductMeteringDimensionsWithHttpInfo(orgId: string, productId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<Array<MeteringDimension>>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listProductMeteringDimensionsWithHttpInfo(orgId, productId, observableOptions);
         return result.toPromise();
     }
 
@@ -2697,8 +2918,9 @@ export class PromiseProductApi {
      * @param orgId Organization ID
      * @param productId Product ID
      */
-    public listProductMeteringDimensions(orgId: string, productId: string, _options?: Configuration): Promise<Array<MeteringDimension>> {
-        const result = this.api.listProductMeteringDimensions(orgId, productId, _options);
+    public listProductMeteringDimensions(orgId: string, productId: string, _options?: PromiseConfigurationOptions): Promise<Array<MeteringDimension>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listProductMeteringDimensions(orgId, productId, observableOptions);
         return result.toPromise();
     }
 
@@ -2710,8 +2932,9 @@ export class PromiseProductApi {
      * @param [limit] List pagination size, default 100, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listProductsWithHttpInfo(orgId: string, partner?: 'AWS' | 'AZURE' | 'GCP' | 'STRIPE', limit?: number, offset?: number, _options?: Configuration): Promise<HttpInfo<Array<WorkloadProduct>>> {
-        const result = this.api.listProductsWithHttpInfo(orgId, partner, limit, offset, _options);
+    public listProductsWithHttpInfo(orgId: string, partner?: 'AWS' | 'AZURE' | 'GCP' | 'STRIPE', limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<Array<WorkloadProduct>>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listProductsWithHttpInfo(orgId, partner, limit, offset, observableOptions);
         return result.toPromise();
     }
 
@@ -2723,8 +2946,9 @@ export class PromiseProductApi {
      * @param [limit] List pagination size, default 100, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listProducts(orgId: string, partner?: 'AWS' | 'AZURE' | 'GCP' | 'STRIPE', limit?: number, offset?: number, _options?: Configuration): Promise<Array<WorkloadProduct>> {
-        const result = this.api.listProducts(orgId, partner, limit, offset, _options);
+    public listProducts(orgId: string, partner?: 'AWS' | 'AZURE' | 'GCP' | 'STRIPE', limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<Array<WorkloadProduct>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listProducts(orgId, partner, limit, offset, observableOptions);
         return result.toPromise();
     }
 
@@ -2734,8 +2958,9 @@ export class PromiseProductApi {
      * @param orgId Organization ID
      * @param partner Cloud Partner
      */
-    public listProductsByPartnerWithHttpInfo(orgId: string, partner: 'AWS' | 'AZURE' | 'GCP', _options?: Configuration): Promise<HttpInfo<Array<WorkloadProduct>>> {
-        const result = this.api.listProductsByPartnerWithHttpInfo(orgId, partner, _options);
+    public listProductsByPartnerWithHttpInfo(orgId: string, partner: 'AWS' | 'AZURE' | 'GCP', _options?: PromiseConfigurationOptions): Promise<HttpInfo<Array<WorkloadProduct>>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listProductsByPartnerWithHttpInfo(orgId, partner, observableOptions);
         return result.toPromise();
     }
 
@@ -2745,8 +2970,9 @@ export class PromiseProductApi {
      * @param orgId Organization ID
      * @param partner Cloud Partner
      */
-    public listProductsByPartner(orgId: string, partner: 'AWS' | 'AZURE' | 'GCP', _options?: Configuration): Promise<Array<WorkloadProduct>> {
-        const result = this.api.listProductsByPartner(orgId, partner, _options);
+    public listProductsByPartner(orgId: string, partner: 'AWS' | 'AZURE' | 'GCP', _options?: PromiseConfigurationOptions): Promise<Array<WorkloadProduct>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listProductsByPartner(orgId, partner, observableOptions);
         return result.toPromise();
     }
 
@@ -2757,8 +2983,9 @@ export class PromiseProductApi {
      * @param productId Product ID
      * @param data the product to publish
      */
-    public publishProductWithHttpInfo(orgId: string, productId: string, data: WorkloadProduct, _options?: Configuration): Promise<HttpInfo<WorkloadProduct>> {
-        const result = this.api.publishProductWithHttpInfo(orgId, productId, data, _options);
+    public publishProductWithHttpInfo(orgId: string, productId: string, data: WorkloadProduct, _options?: PromiseConfigurationOptions): Promise<HttpInfo<WorkloadProduct>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.publishProductWithHttpInfo(orgId, productId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -2769,8 +2996,9 @@ export class PromiseProductApi {
      * @param productId Product ID
      * @param data the product to publish
      */
-    public publishProduct(orgId: string, productId: string, data: WorkloadProduct, _options?: Configuration): Promise<WorkloadProduct> {
-        const result = this.api.publishProduct(orgId, productId, data, _options);
+    public publishProduct(orgId: string, productId: string, data: WorkloadProduct, _options?: PromiseConfigurationOptions): Promise<WorkloadProduct> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.publishProduct(orgId, productId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -2781,8 +3009,9 @@ export class PromiseProductApi {
      * @param productId Product ID
      * @param data the product to update
      */
-    public updateProductWithHttpInfo(orgId: string, productId: string, data: WorkloadProduct, _options?: Configuration): Promise<HttpInfo<WorkloadProduct>> {
-        const result = this.api.updateProductWithHttpInfo(orgId, productId, data, _options);
+    public updateProductWithHttpInfo(orgId: string, productId: string, data: WorkloadProduct, _options?: PromiseConfigurationOptions): Promise<HttpInfo<WorkloadProduct>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.updateProductWithHttpInfo(orgId, productId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -2793,8 +3022,9 @@ export class PromiseProductApi {
      * @param productId Product ID
      * @param data the product to update
      */
-    public updateProduct(orgId: string, productId: string, data: WorkloadProduct, _options?: Configuration): Promise<WorkloadProduct> {
-        const result = this.api.updateProduct(orgId, productId, data, _options);
+    public updateProduct(orgId: string, productId: string, data: WorkloadProduct, _options?: PromiseConfigurationOptions): Promise<WorkloadProduct> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.updateProduct(orgId, productId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -2805,8 +3035,9 @@ export class PromiseProductApi {
      * @param productId Product ID
      * @param data Update Product Params
      */
-    public updateProductFulfillmentUrlWithHttpInfo(orgId: string, productId: string, data: UpdateProductParams, _options?: Configuration): Promise<HttpInfo<WorkloadProduct>> {
-        const result = this.api.updateProductFulfillmentUrlWithHttpInfo(orgId, productId, data, _options);
+    public updateProductFulfillmentUrlWithHttpInfo(orgId: string, productId: string, data: UpdateProductParams, _options?: PromiseConfigurationOptions): Promise<HttpInfo<WorkloadProduct>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.updateProductFulfillmentUrlWithHttpInfo(orgId, productId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -2817,8 +3048,9 @@ export class PromiseProductApi {
      * @param productId Product ID
      * @param data Update Product Params
      */
-    public updateProductFulfillmentUrl(orgId: string, productId: string, data: UpdateProductParams, _options?: Configuration): Promise<WorkloadProduct> {
-        const result = this.api.updateProductFulfillmentUrl(orgId, productId, data, _options);
+    public updateProductFulfillmentUrl(orgId: string, productId: string, data: UpdateProductParams, _options?: PromiseConfigurationOptions): Promise<WorkloadProduct> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.updateProductFulfillmentUrl(orgId, productId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -2829,8 +3061,9 @@ export class PromiseProductApi {
      * @param productId Product ID
      * @param data Product meta info to update
      */
-    public updateProductMetaInfoWithHttpInfo(orgId: string, productId: string, data: WorkloadMetaInfo, _options?: Configuration): Promise<HttpInfo<WorkloadMetaInfo>> {
-        const result = this.api.updateProductMetaInfoWithHttpInfo(orgId, productId, data, _options);
+    public updateProductMetaInfoWithHttpInfo(orgId: string, productId: string, data: WorkloadMetaInfo, _options?: PromiseConfigurationOptions): Promise<HttpInfo<WorkloadMetaInfo>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.updateProductMetaInfoWithHttpInfo(orgId, productId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -2841,8 +3074,9 @@ export class PromiseProductApi {
      * @param productId Product ID
      * @param data Product meta info to update
      */
-    public updateProductMetaInfo(orgId: string, productId: string, data: WorkloadMetaInfo, _options?: Configuration): Promise<WorkloadMetaInfo> {
-        const result = this.api.updateProductMetaInfo(orgId, productId, data, _options);
+    public updateProductMetaInfo(orgId: string, productId: string, data: WorkloadMetaInfo, _options?: PromiseConfigurationOptions): Promise<WorkloadMetaInfo> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.updateProductMetaInfo(orgId, productId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -2871,8 +3105,9 @@ export class PromiseReportApi {
      * @param orgId Organization ID
      * @param data Get Revenue Report Params
      */
-    public getRevenueReportWithHttpInfo(orgId: string, data: GetRevenueReportParams, _options?: Configuration): Promise<HttpInfo<RevenueReport>> {
-        const result = this.api.getRevenueReportWithHttpInfo(orgId, data, _options);
+    public getRevenueReportWithHttpInfo(orgId: string, data: GetRevenueReportParams, _options?: PromiseConfigurationOptions): Promise<HttpInfo<RevenueReport>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.getRevenueReportWithHttpInfo(orgId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -2882,8 +3117,9 @@ export class PromiseReportApi {
      * @param orgId Organization ID
      * @param data Get Revenue Report Params
      */
-    public getRevenueReport(orgId: string, data: GetRevenueReportParams, _options?: Configuration): Promise<RevenueReport> {
-        const result = this.api.getRevenueReport(orgId, data, _options);
+    public getRevenueReport(orgId: string, data: GetRevenueReportParams, _options?: PromiseConfigurationOptions): Promise<RevenueReport> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.getRevenueReport(orgId, data, observableOptions);
         return result.toPromise();
     }
 
@@ -2898,8 +3134,9 @@ export class PromiseReportApi {
      * @param [startDate] start date (UTC) in YYYY-MM-DD format, default is 30 days before the endDate
      * @param [endDate] end date (UTC) in YYYY-MM-DD format, default is today
      */
-    public listDailyRevenueRecordsWithHttpInfo(orgId: string, partner?: 'AWS' | 'AZURE' | 'GCP', productId?: string, buyerId?: string, entitlementId?: string, startDate?: string, endDate?: string, _options?: Configuration): Promise<HttpInfo<Array<RevenueRecord>>> {
-        const result = this.api.listDailyRevenueRecordsWithHttpInfo(orgId, partner, productId, buyerId, entitlementId, startDate, endDate, _options);
+    public listDailyRevenueRecordsWithHttpInfo(orgId: string, partner?: 'AWS' | 'AZURE' | 'GCP', productId?: string, buyerId?: string, entitlementId?: string, startDate?: string, endDate?: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<Array<RevenueRecord>>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listDailyRevenueRecordsWithHttpInfo(orgId, partner, productId, buyerId, entitlementId, startDate, endDate, observableOptions);
         return result.toPromise();
     }
 
@@ -2914,8 +3151,9 @@ export class PromiseReportApi {
      * @param [startDate] start date (UTC) in YYYY-MM-DD format, default is 30 days before the endDate
      * @param [endDate] end date (UTC) in YYYY-MM-DD format, default is today
      */
-    public listDailyRevenueRecords(orgId: string, partner?: 'AWS' | 'AZURE' | 'GCP', productId?: string, buyerId?: string, entitlementId?: string, startDate?: string, endDate?: string, _options?: Configuration): Promise<Array<RevenueRecord>> {
-        const result = this.api.listDailyRevenueRecords(orgId, partner, productId, buyerId, entitlementId, startDate, endDate, _options);
+    public listDailyRevenueRecords(orgId: string, partner?: 'AWS' | 'AZURE' | 'GCP', productId?: string, buyerId?: string, entitlementId?: string, startDate?: string, endDate?: string, _options?: PromiseConfigurationOptions): Promise<Array<RevenueRecord>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listDailyRevenueRecords(orgId, partner, productId, buyerId, entitlementId, startDate, endDate, observableOptions);
         return result.toPromise();
     }
 
@@ -2932,8 +3170,9 @@ export class PromiseReportApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listRevenueRecordDetailsWithHttpInfo(orgId: string, partner: 'AWS' | 'AZURE' | 'GCP', productId?: string, buyerId?: string, entitlementId?: string, startDate?: string, endDate?: string, limit?: number, offset?: number, _options?: Configuration): Promise<HttpInfo<ListRevenueRecordDetailsResponse>> {
-        const result = this.api.listRevenueRecordDetailsWithHttpInfo(orgId, partner, productId, buyerId, entitlementId, startDate, endDate, limit, offset, _options);
+    public listRevenueRecordDetailsWithHttpInfo(orgId: string, partner: 'AWS' | 'AZURE' | 'GCP', productId?: string, buyerId?: string, entitlementId?: string, startDate?: string, endDate?: string, limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<ListRevenueRecordDetailsResponse>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listRevenueRecordDetailsWithHttpInfo(orgId, partner, productId, buyerId, entitlementId, startDate, endDate, limit, offset, observableOptions);
         return result.toPromise();
     }
 
@@ -2950,8 +3189,9 @@ export class PromiseReportApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listRevenueRecordDetails(orgId: string, partner: 'AWS' | 'AZURE' | 'GCP', productId?: string, buyerId?: string, entitlementId?: string, startDate?: string, endDate?: string, limit?: number, offset?: number, _options?: Configuration): Promise<ListRevenueRecordDetailsResponse> {
-        const result = this.api.listRevenueRecordDetails(orgId, partner, productId, buyerId, entitlementId, startDate, endDate, limit, offset, _options);
+    public listRevenueRecordDetails(orgId: string, partner: 'AWS' | 'AZURE' | 'GCP', productId?: string, buyerId?: string, entitlementId?: string, startDate?: string, endDate?: string, limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<ListRevenueRecordDetailsResponse> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listRevenueRecordDetails(orgId, partner, productId, buyerId, entitlementId, startDate, endDate, limit, offset, observableOptions);
         return result.toPromise();
     }
 
@@ -2968,8 +3208,9 @@ export class PromiseReportApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listRevenueRecordsWithHttpInfo(orgId: string, partner: 'AWS' | 'AZURE' | 'GCP', productId?: string, entitlementId?: string, buyerId?: string, startDate?: string, endDate?: string, limit?: number, offset?: number, _options?: Configuration): Promise<HttpInfo<ListRevenueRecordsResponse>> {
-        const result = this.api.listRevenueRecordsWithHttpInfo(orgId, partner, productId, entitlementId, buyerId, startDate, endDate, limit, offset, _options);
+    public listRevenueRecordsWithHttpInfo(orgId: string, partner: 'AWS' | 'AZURE' | 'GCP', productId?: string, entitlementId?: string, buyerId?: string, startDate?: string, endDate?: string, limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<ListRevenueRecordsResponse>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listRevenueRecordsWithHttpInfo(orgId, partner, productId, entitlementId, buyerId, startDate, endDate, limit, offset, observableOptions);
         return result.toPromise();
     }
 
@@ -2986,8 +3227,9 @@ export class PromiseReportApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listRevenueRecords(orgId: string, partner: 'AWS' | 'AZURE' | 'GCP', productId?: string, entitlementId?: string, buyerId?: string, startDate?: string, endDate?: string, limit?: number, offset?: number, _options?: Configuration): Promise<ListRevenueRecordsResponse> {
-        const result = this.api.listRevenueRecords(orgId, partner, productId, entitlementId, buyerId, startDate, endDate, limit, offset, _options);
+    public listRevenueRecords(orgId: string, partner: 'AWS' | 'AZURE' | 'GCP', productId?: string, entitlementId?: string, buyerId?: string, startDate?: string, endDate?: string, limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<ListRevenueRecordsResponse> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listRevenueRecords(orgId, partner, productId, entitlementId, buyerId, startDate, endDate, limit, offset, observableOptions);
         return result.toPromise();
     }
 
@@ -3003,8 +3245,9 @@ export class PromiseReportApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listUsageMeteringDailyRecordsWithHttpInfo(orgId: string, partner: 'AWS' | 'AZURE' | 'GCP', buyerId?: string, entitlementId?: string, startDate?: string, endDate?: string, limit?: number, offset?: number, _options?: Configuration): Promise<HttpInfo<ListUsageMeteringDailyRecordsResponse>> {
-        const result = this.api.listUsageMeteringDailyRecordsWithHttpInfo(orgId, partner, buyerId, entitlementId, startDate, endDate, limit, offset, _options);
+    public listUsageMeteringDailyRecordsWithHttpInfo(orgId: string, partner: 'AWS' | 'AZURE' | 'GCP', buyerId?: string, entitlementId?: string, startDate?: string, endDate?: string, limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<ListUsageMeteringDailyRecordsResponse>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listUsageMeteringDailyRecordsWithHttpInfo(orgId, partner, buyerId, entitlementId, startDate, endDate, limit, offset, observableOptions);
         return result.toPromise();
     }
 
@@ -3020,8 +3263,9 @@ export class PromiseReportApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listUsageMeteringDailyRecords(orgId: string, partner: 'AWS' | 'AZURE' | 'GCP', buyerId?: string, entitlementId?: string, startDate?: string, endDate?: string, limit?: number, offset?: number, _options?: Configuration): Promise<ListUsageMeteringDailyRecordsResponse> {
-        const result = this.api.listUsageMeteringDailyRecords(orgId, partner, buyerId, entitlementId, startDate, endDate, limit, offset, _options);
+    public listUsageMeteringDailyRecords(orgId: string, partner: 'AWS' | 'AZURE' | 'GCP', buyerId?: string, entitlementId?: string, startDate?: string, endDate?: string, limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<ListUsageMeteringDailyRecordsResponse> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listUsageMeteringDailyRecords(orgId, partner, buyerId, entitlementId, startDate, endDate, limit, offset, observableOptions);
         return result.toPromise();
     }
 
@@ -3050,8 +3294,9 @@ export class PromiseSupportApi {
      * @param orgId Organization ID
      * @param ticketId Ticket ID
      */
-    public closeSupportTicketWithHttpInfo(orgId: string, ticketId: string, _options?: Configuration): Promise<HttpInfo<SupportTicket>> {
-        const result = this.api.closeSupportTicketWithHttpInfo(orgId, ticketId, _options);
+    public closeSupportTicketWithHttpInfo(orgId: string, ticketId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<SupportTicket>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.closeSupportTicketWithHttpInfo(orgId, ticketId, observableOptions);
         return result.toPromise();
     }
 
@@ -3061,8 +3306,9 @@ export class PromiseSupportApi {
      * @param orgId Organization ID
      * @param ticketId Ticket ID
      */
-    public closeSupportTicket(orgId: string, ticketId: string, _options?: Configuration): Promise<SupportTicket> {
-        const result = this.api.closeSupportTicket(orgId, ticketId, _options);
+    public closeSupportTicket(orgId: string, ticketId: string, _options?: PromiseConfigurationOptions): Promise<SupportTicket> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.closeSupportTicket(orgId, ticketId, observableOptions);
         return result.toPromise();
     }
 
@@ -3072,8 +3318,9 @@ export class PromiseSupportApi {
      * @param orgId Organization ID
      * @param body Ticket create request
      */
-    public createSupportTicketWithHttpInfo(orgId: string, body: SupportTicket, _options?: Configuration): Promise<HttpInfo<SupportTicket>> {
-        const result = this.api.createSupportTicketWithHttpInfo(orgId, body, _options);
+    public createSupportTicketWithHttpInfo(orgId: string, body: SupportTicket, _options?: PromiseConfigurationOptions): Promise<HttpInfo<SupportTicket>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.createSupportTicketWithHttpInfo(orgId, body, observableOptions);
         return result.toPromise();
     }
 
@@ -3083,8 +3330,9 @@ export class PromiseSupportApi {
      * @param orgId Organization ID
      * @param body Ticket create request
      */
-    public createSupportTicket(orgId: string, body: SupportTicket, _options?: Configuration): Promise<SupportTicket> {
-        const result = this.api.createSupportTicket(orgId, body, _options);
+    public createSupportTicket(orgId: string, body: SupportTicket, _options?: PromiseConfigurationOptions): Promise<SupportTicket> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.createSupportTicket(orgId, body, observableOptions);
         return result.toPromise();
     }
 
@@ -3095,8 +3343,9 @@ export class PromiseSupportApi {
      * @param ticketId Ticket ID
      * @param file File to upload
      */
-    public createSupportTicketAttachmentWithHttpInfo(orgId: string, ticketId: string, file: HttpFile, _options?: Configuration): Promise<HttpInfo<Array<SupportTicketAttachment>>> {
-        const result = this.api.createSupportTicketAttachmentWithHttpInfo(orgId, ticketId, file, _options);
+    public createSupportTicketAttachmentWithHttpInfo(orgId: string, ticketId: string, file: HttpFile, _options?: PromiseConfigurationOptions): Promise<HttpInfo<Array<SupportTicketAttachment>>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.createSupportTicketAttachmentWithHttpInfo(orgId, ticketId, file, observableOptions);
         return result.toPromise();
     }
 
@@ -3107,8 +3356,9 @@ export class PromiseSupportApi {
      * @param ticketId Ticket ID
      * @param file File to upload
      */
-    public createSupportTicketAttachment(orgId: string, ticketId: string, file: HttpFile, _options?: Configuration): Promise<Array<SupportTicketAttachment>> {
-        const result = this.api.createSupportTicketAttachment(orgId, ticketId, file, _options);
+    public createSupportTicketAttachment(orgId: string, ticketId: string, file: HttpFile, _options?: PromiseConfigurationOptions): Promise<Array<SupportTicketAttachment>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.createSupportTicketAttachment(orgId, ticketId, file, observableOptions);
         return result.toPromise();
     }
 
@@ -3119,8 +3369,9 @@ export class PromiseSupportApi {
      * @param ticketId Ticket ID
      * @param body Ticket create request
      */
-    public createSupportTicketCommentWithHttpInfo(orgId: string, ticketId: string, body: SupportTicketComment, _options?: Configuration): Promise<HttpInfo<SupportTicketComment>> {
-        const result = this.api.createSupportTicketCommentWithHttpInfo(orgId, ticketId, body, _options);
+    public createSupportTicketCommentWithHttpInfo(orgId: string, ticketId: string, body: SupportTicketComment, _options?: PromiseConfigurationOptions): Promise<HttpInfo<SupportTicketComment>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.createSupportTicketCommentWithHttpInfo(orgId, ticketId, body, observableOptions);
         return result.toPromise();
     }
 
@@ -3131,8 +3382,9 @@ export class PromiseSupportApi {
      * @param ticketId Ticket ID
      * @param body Ticket create request
      */
-    public createSupportTicketComment(orgId: string, ticketId: string, body: SupportTicketComment, _options?: Configuration): Promise<SupportTicketComment> {
-        const result = this.api.createSupportTicketComment(orgId, ticketId, body, _options);
+    public createSupportTicketComment(orgId: string, ticketId: string, body: SupportTicketComment, _options?: PromiseConfigurationOptions): Promise<SupportTicketComment> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.createSupportTicketComment(orgId, ticketId, body, observableOptions);
         return result.toPromise();
     }
 
@@ -3142,8 +3394,9 @@ export class PromiseSupportApi {
      * @param orgId Organization ID
      * @param ticketId Ticket ID
      */
-    public getSupportTicketWithHttpInfo(orgId: string, ticketId: string, _options?: Configuration): Promise<HttpInfo<SupportTicket>> {
-        const result = this.api.getSupportTicketWithHttpInfo(orgId, ticketId, _options);
+    public getSupportTicketWithHttpInfo(orgId: string, ticketId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<SupportTicket>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.getSupportTicketWithHttpInfo(orgId, ticketId, observableOptions);
         return result.toPromise();
     }
 
@@ -3153,8 +3406,9 @@ export class PromiseSupportApi {
      * @param orgId Organization ID
      * @param ticketId Ticket ID
      */
-    public getSupportTicket(orgId: string, ticketId: string, _options?: Configuration): Promise<SupportTicket> {
-        const result = this.api.getSupportTicket(orgId, ticketId, _options);
+    public getSupportTicket(orgId: string, ticketId: string, _options?: PromiseConfigurationOptions): Promise<SupportTicket> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.getSupportTicket(orgId, ticketId, observableOptions);
         return result.toPromise();
     }
 
@@ -3165,8 +3419,9 @@ export class PromiseSupportApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listSupportTicketsWithHttpInfo(orgId: string, limit?: number, offset?: number, _options?: Configuration): Promise<HttpInfo<ListSupportTicketsResponse>> {
-        const result = this.api.listSupportTicketsWithHttpInfo(orgId, limit, offset, _options);
+    public listSupportTicketsWithHttpInfo(orgId: string, limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<ListSupportTicketsResponse>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listSupportTicketsWithHttpInfo(orgId, limit, offset, observableOptions);
         return result.toPromise();
     }
 
@@ -3177,8 +3432,9 @@ export class PromiseSupportApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listSupportTickets(orgId: string, limit?: number, offset?: number, _options?: Configuration): Promise<ListSupportTicketsResponse> {
-        const result = this.api.listSupportTickets(orgId, limit, offset, _options);
+    public listSupportTickets(orgId: string, limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<ListSupportTicketsResponse> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.listSupportTickets(orgId, limit, offset, observableOptions);
         return result.toPromise();
     }
 
@@ -3188,8 +3444,9 @@ export class PromiseSupportApi {
      * @param orgId Organization ID
      * @param ticketId Ticket ID
      */
-    public reopenSupportTicketWithHttpInfo(orgId: string, ticketId: string, _options?: Configuration): Promise<HttpInfo<SupportTicket>> {
-        const result = this.api.reopenSupportTicketWithHttpInfo(orgId, ticketId, _options);
+    public reopenSupportTicketWithHttpInfo(orgId: string, ticketId: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<SupportTicket>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.reopenSupportTicketWithHttpInfo(orgId, ticketId, observableOptions);
         return result.toPromise();
     }
 
@@ -3199,20 +3456,9 @@ export class PromiseSupportApi {
      * @param orgId Organization ID
      * @param ticketId Ticket ID
      */
-    public reopenSupportTicket(orgId: string, ticketId: string, _options?: Configuration): Promise<SupportTicket> {
-        const result = this.api.reopenSupportTicket(orgId, ticketId, _options);
-        return result.toPromise();
-    }
-
-    /**
-     * update support ticket
-     * update support ticket
-     * @param orgId Organization ID
-     * @param ticketId Ticket ID
-     * @param body Ticket create request
-     */
-    public updateSupportTicketWithHttpInfo(orgId: string, ticketId: string, body: UpdateSupportTicketRequest, _options?: Configuration): Promise<HttpInfo<SupportTicket>> {
-        const result = this.api.updateSupportTicketWithHttpInfo(orgId, ticketId, body, _options);
+    public reopenSupportTicket(orgId: string, ticketId: string, _options?: PromiseConfigurationOptions): Promise<SupportTicket> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.reopenSupportTicket(orgId, ticketId, observableOptions);
         return result.toPromise();
     }
 
@@ -3223,8 +3469,22 @@ export class PromiseSupportApi {
      * @param ticketId Ticket ID
      * @param body Ticket create request
      */
-    public updateSupportTicket(orgId: string, ticketId: string, body: UpdateSupportTicketRequest, _options?: Configuration): Promise<SupportTicket> {
-        const result = this.api.updateSupportTicket(orgId, ticketId, body, _options);
+    public updateSupportTicketWithHttpInfo(orgId: string, ticketId: string, body: UpdateSupportTicketRequest, _options?: PromiseConfigurationOptions): Promise<HttpInfo<SupportTicket>> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.updateSupportTicketWithHttpInfo(orgId, ticketId, body, observableOptions);
+        return result.toPromise();
+    }
+
+    /**
+     * update support ticket
+     * update support ticket
+     * @param orgId Organization ID
+     * @param ticketId Ticket ID
+     * @param body Ticket create request
+     */
+    public updateSupportTicket(orgId: string, ticketId: string, body: UpdateSupportTicketRequest, _options?: PromiseConfigurationOptions): Promise<SupportTicket> {
+        const observableOptions = wrapOptions(_options);
+        const result = this.api.updateSupportTicket(orgId, ticketId, body, observableOptions);
         return result.toPromise();
     }
 

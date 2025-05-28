@@ -21,7 +21,7 @@ export class GcpMarketplaceUserAccount {
     */
     'approvals'?: Array<GcpMarketplaceUserAccountApproval>;
     /**
-    * The buyer\'s GCP billing account ID.
+    * The buyer\'s GCP billing account ID if it\'s a company account.
     */
     'billingAccountId'?: string;
     /**
@@ -34,9 +34,13 @@ export class GcpMarketplaceUserAccount {
     'id'?: string;
     'inputProperties'?: Array<number>;
     /**
-    * The resource name of the account. Account names have the form providers/{provider_id}/accounts/{account_id}.
+    * The resource name of the account, in format of providers/{provider_id}/accounts/{account_id}.
     */
     'name'?: string;
+    /**
+    * The parent account ID of the BillingAccountId if the buyer is from a reseller in GCP Marketplace. It is the GCP billing account ID of the reseller in GCP Marketplace.
+    */
+    'parentBillingAccountId'?: string;
     /**
     * The identifier of the service provider (SaaS Seller) that this account was created against.
     */
@@ -89,6 +93,12 @@ export class GcpMarketplaceUserAccount {
         {
             "name": "name",
             "baseName": "name",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "parentBillingAccountId",
+            "baseName": "parentBillingAccountId",
             "type": "string",
             "format": ""
         },

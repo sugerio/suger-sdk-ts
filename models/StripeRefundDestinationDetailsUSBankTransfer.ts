@@ -20,7 +20,7 @@ export class StripeRefundDestinationDetailsUSBankTransfer {
     /**
     * Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
     */
-    'referenceStatus'?: string;
+    'referenceStatus'?: StripeRefundDestinationDetailsUSBankTransferReferenceStatusEnum;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -36,7 +36,7 @@ export class StripeRefundDestinationDetailsUSBankTransfer {
         {
             "name": "referenceStatus",
             "baseName": "reference_status",
-            "type": "string",
+            "type": "StripeRefundDestinationDetailsUSBankTransferReferenceStatusEnum",
             "format": ""
         }    ];
 
@@ -47,3 +47,10 @@ export class StripeRefundDestinationDetailsUSBankTransfer {
     public constructor() {
     }
 }
+
+export enum StripeRefundDestinationDetailsUSBankTransferReferenceStatusEnum {
+    Pending = 'pending',
+    Available = 'available',
+    Unavailable = 'unavailable'
+}
+

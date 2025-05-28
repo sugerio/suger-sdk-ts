@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 
+import { GroupByInterval } from '../models/GroupByInterval';
 import { RevenueRecord } from '../models/RevenueRecord';
 import { RevenueReportType } from '../models/RevenueReportType';
 import { HttpFile } from '../http/http';
@@ -17,6 +18,10 @@ import { HttpFile } from '../http/http';
 export class RevenueReport {
     'buyerID'?: string;
     'entitlementID'?: string;
+    /**
+    * The group by of the revenue report.
+    */
+    'groupBy'?: GroupByInterval;
     'organizationID'?: string;
     'partner'?: string;
     'productID'?: string;
@@ -40,6 +45,12 @@ export class RevenueReport {
             "name": "entitlementID",
             "baseName": "entitlementID",
             "type": "string",
+            "format": ""
+        },
+        {
+            "name": "groupBy",
+            "baseName": "groupBy",
+            "type": "GroupByInterval",
             "format": ""
         },
         {

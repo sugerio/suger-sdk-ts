@@ -10,38 +10,52 @@
  * Do not edit the class manually.
  */
 
-import { DatabaseSqlNullBool } from '../models/DatabaseSqlNullBool';
-import { DatabaseSqlNullString } from '../models/DatabaseSqlNullString';
-import { DatabaseSqlNullTime } from '../models/DatabaseSqlNullTime';
+import { SnowflakeMarketplaceProductDefaultPricingPlan } from '../models/SnowflakeMarketplaceProductDefaultPricingPlan';
+import { SnowflakeMarketplaceProductDetailedTargetAccount } from '../models/SnowflakeMarketplaceProductDetailedTargetAccount';
+import { SnowflakeMarketplaceProductMetadata } from '../models/SnowflakeMarketplaceProductMetadata';
+import { SnowflakeMarketplaceProductPricingPlan } from '../models/SnowflakeMarketplaceProductPricingPlan';
+import { SnowflakeMarketplaceTrialDetails } from '../models/SnowflakeMarketplaceTrialDetails';
 import { HttpFile } from '../http/http';
 
 export class SnowflakeMarketplaceProduct {
-    'comment'?: DatabaseSqlNullString;
-    'createdOn'?: DatabaseSqlNullTime;
-    'detailedTargetAccounts'?: DatabaseSqlNullString;
-    'distribution'?: DatabaseSqlNullString;
-    'globalName'?: DatabaseSqlNullString;
-    'isApplication'?: DatabaseSqlNullBool;
-    'isByRequest'?: DatabaseSqlNullBool;
-    'isLimitedTrial'?: DatabaseSqlNullBool;
-    'isMonetized'?: DatabaseSqlNullBool;
-    'isMountlessQueryable'?: DatabaseSqlNullBool;
-    'isTargeted'?: DatabaseSqlNullBool;
-    'owner'?: DatabaseSqlNullString;
-    'ownerRoleType'?: DatabaseSqlNullString;
-    'profile'?: DatabaseSqlNullString;
-    'publishedOn'?: DatabaseSqlNullTime;
-    'regions'?: DatabaseSqlNullString;
-    'rejectedOn'?: DatabaseSqlNullTime;
-    'reviewState'?: DatabaseSqlNullString;
-    'state'?: DatabaseSqlNullString;
-    'subtitle'?: DatabaseSqlNullString;
-    'targetAccounts'?: DatabaseSqlNullString;
-    'title'?: DatabaseSqlNullString;
-    'uniformListingLocator'?: DatabaseSqlNullString;
-    'updatedOn'?: DatabaseSqlNullTime;
-    'name'?: DatabaseSqlNullString;
-    'organizationProfileName'?: DatabaseSqlNullString;
+    'additionalRegions'?: string;
+    'applicationPackageName'?: string;
+    'attachedShare'?: string;
+    'autofulfillment'?: boolean;
+    'comment'?: string;
+    'createdOn'?: string;
+    'customizedContactInfo'?: string;
+    'defaultPricingPlan'?: SnowflakeMarketplaceProductDefaultPricingPlan;
+    'detailedTargetAccounts'?: Array<SnowflakeMarketplaceProductDetailedTargetAccount>;
+    'distribution'?: string;
+    'evaluationPlan'?: string;
+    'firstPublishedOn'?: string;
+    'flags'?: string;
+    'fulfillmentType'?: string;
+    'globalName'?: string;
+    'isMountlessQueryable'?: boolean;
+    'lastApprovedOn'?: string;
+    'lastPublishedOn'?: string;
+    'lastSubmittedOn'?: string;
+    'listingType'?: string;
+    'metadata'?: SnowflakeMarketplaceProductMetadata;
+    'name'?: string;
+    'pricingPlans'?: Array<SnowflakeMarketplaceProductPricingPlan>;
+    '_private'?: boolean;
+    'profileName'?: string;
+    'publishOnApproval'?: boolean;
+    'regions'?: string;
+    'rejectedOn'?: string;
+    'rejectedReason'?: string;
+    'replicationSchedule'?: string;
+    'retiredOn'?: string;
+    'scheduledDropTime'?: string;
+    'shareType'?: string;
+    'state'?: string;
+    'targetAccounts'?: string;
+    'trialDetails'?: SnowflakeMarketplaceTrialDetails;
+    'unpublishedByAdminReason'?: string;
+    'updatedOn'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
@@ -49,159 +63,231 @@ export class SnowflakeMarketplaceProduct {
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
         {
+            "name": "additionalRegions",
+            "baseName": "additionalRegions",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "applicationPackageName",
+            "baseName": "applicationPackageName",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "attachedShare",
+            "baseName": "attachedShare",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "autofulfillment",
+            "baseName": "autofulfillment",
+            "type": "boolean",
+            "format": ""
+        },
+        {
             "name": "comment",
-            "baseName": "Comment",
-            "type": "DatabaseSqlNullString",
+            "baseName": "comment",
+            "type": "string",
             "format": ""
         },
         {
             "name": "createdOn",
-            "baseName": "CreatedOn",
-            "type": "DatabaseSqlNullTime",
+            "baseName": "createdOn",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "customizedContactInfo",
+            "baseName": "customizedContactInfo",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "defaultPricingPlan",
+            "baseName": "defaultPricingPlan",
+            "type": "SnowflakeMarketplaceProductDefaultPricingPlan",
             "format": ""
         },
         {
             "name": "detailedTargetAccounts",
-            "baseName": "DetailedTargetAccounts",
-            "type": "DatabaseSqlNullString",
+            "baseName": "detailedTargetAccounts",
+            "type": "Array<SnowflakeMarketplaceProductDetailedTargetAccount>",
             "format": ""
         },
         {
             "name": "distribution",
-            "baseName": "Distribution",
-            "type": "DatabaseSqlNullString",
+            "baseName": "distribution",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "evaluationPlan",
+            "baseName": "evaluationPlan",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "firstPublishedOn",
+            "baseName": "firstPublishedOn",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "flags",
+            "baseName": "flags",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "fulfillmentType",
+            "baseName": "fulfillmentType",
+            "type": "string",
             "format": ""
         },
         {
             "name": "globalName",
-            "baseName": "GlobalName",
-            "type": "DatabaseSqlNullString",
-            "format": ""
-        },
-        {
-            "name": "isApplication",
-            "baseName": "IsApplication",
-            "type": "DatabaseSqlNullBool",
-            "format": ""
-        },
-        {
-            "name": "isByRequest",
-            "baseName": "IsByRequest",
-            "type": "DatabaseSqlNullBool",
-            "format": ""
-        },
-        {
-            "name": "isLimitedTrial",
-            "baseName": "IsLimitedTrial",
-            "type": "DatabaseSqlNullBool",
-            "format": ""
-        },
-        {
-            "name": "isMonetized",
-            "baseName": "IsMonetized",
-            "type": "DatabaseSqlNullBool",
+            "baseName": "globalName",
+            "type": "string",
             "format": ""
         },
         {
             "name": "isMountlessQueryable",
-            "baseName": "IsMountlessQueryable",
-            "type": "DatabaseSqlNullBool",
+            "baseName": "isMountlessQueryable",
+            "type": "boolean",
             "format": ""
         },
         {
-            "name": "isTargeted",
-            "baseName": "IsTargeted",
-            "type": "DatabaseSqlNullBool",
+            "name": "lastApprovedOn",
+            "baseName": "lastApprovedOn",
+            "type": "string",
             "format": ""
         },
         {
-            "name": "owner",
-            "baseName": "Owner",
-            "type": "DatabaseSqlNullString",
+            "name": "lastPublishedOn",
+            "baseName": "lastPublishedOn",
+            "type": "string",
             "format": ""
         },
         {
-            "name": "ownerRoleType",
-            "baseName": "OwnerRoleType",
-            "type": "DatabaseSqlNullString",
+            "name": "lastSubmittedOn",
+            "baseName": "lastSubmittedOn",
+            "type": "string",
             "format": ""
         },
         {
-            "name": "profile",
-            "baseName": "Profile",
-            "type": "DatabaseSqlNullString",
+            "name": "listingType",
+            "baseName": "listingType",
+            "type": "string",
             "format": ""
         },
         {
-            "name": "publishedOn",
-            "baseName": "PublishedOn",
-            "type": "DatabaseSqlNullTime",
-            "format": ""
-        },
-        {
-            "name": "regions",
-            "baseName": "Regions",
-            "type": "DatabaseSqlNullString",
-            "format": ""
-        },
-        {
-            "name": "rejectedOn",
-            "baseName": "RejectedOn",
-            "type": "DatabaseSqlNullTime",
-            "format": ""
-        },
-        {
-            "name": "reviewState",
-            "baseName": "ReviewState",
-            "type": "DatabaseSqlNullString",
-            "format": ""
-        },
-        {
-            "name": "state",
-            "baseName": "State",
-            "type": "DatabaseSqlNullString",
-            "format": ""
-        },
-        {
-            "name": "subtitle",
-            "baseName": "Subtitle",
-            "type": "DatabaseSqlNullString",
-            "format": ""
-        },
-        {
-            "name": "targetAccounts",
-            "baseName": "TargetAccounts",
-            "type": "DatabaseSqlNullString",
-            "format": ""
-        },
-        {
-            "name": "title",
-            "baseName": "Title",
-            "type": "DatabaseSqlNullString",
-            "format": ""
-        },
-        {
-            "name": "uniformListingLocator",
-            "baseName": "UniformListingLocator",
-            "type": "DatabaseSqlNullString",
-            "format": ""
-        },
-        {
-            "name": "updatedOn",
-            "baseName": "UpdatedOn",
-            "type": "DatabaseSqlNullTime",
+            "name": "metadata",
+            "baseName": "metadata",
+            "type": "SnowflakeMarketplaceProductMetadata",
             "format": ""
         },
         {
             "name": "name",
             "baseName": "name",
-            "type": "DatabaseSqlNullString",
+            "type": "string",
             "format": ""
         },
         {
-            "name": "organizationProfileName",
-            "baseName": "organizationProfileName",
-            "type": "DatabaseSqlNullString",
+            "name": "pricingPlans",
+            "baseName": "pricingPlans",
+            "type": "Array<SnowflakeMarketplaceProductPricingPlan>",
+            "format": ""
+        },
+        {
+            "name": "_private",
+            "baseName": "private",
+            "type": "boolean",
+            "format": ""
+        },
+        {
+            "name": "profileName",
+            "baseName": "profileName",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "publishOnApproval",
+            "baseName": "publishOnApproval",
+            "type": "boolean",
+            "format": ""
+        },
+        {
+            "name": "regions",
+            "baseName": "regions",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "rejectedOn",
+            "baseName": "rejectedOn",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "rejectedReason",
+            "baseName": "rejectedReason",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "replicationSchedule",
+            "baseName": "replicationSchedule",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "retiredOn",
+            "baseName": "retiredOn",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "scheduledDropTime",
+            "baseName": "scheduledDropTime",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "shareType",
+            "baseName": "shareType",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "state",
+            "baseName": "state",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "targetAccounts",
+            "baseName": "targetAccounts",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "trialDetails",
+            "baseName": "trialDetails",
+            "type": "SnowflakeMarketplaceTrialDetails",
+            "format": ""
+        },
+        {
+            "name": "unpublishedByAdminReason",
+            "baseName": "unpublishedByAdminReason",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "updatedOn",
+            "baseName": "updatedOn",
+            "type": "string",
             "format": ""
         }    ];
 

@@ -25,6 +25,7 @@ import { GcpMarketplaceProductPurchaseOptionSpec } from '../models/GcpMarketplac
 import { MeteringDimension } from '../models/MeteringDimension';
 import { PaymentInstallment } from '../models/PaymentInstallment';
 import { PaymentScheduleType } from '../models/PaymentScheduleType';
+import { SnowflakeMarketplaceOffer } from '../models/SnowflakeMarketplaceOffer';
 import { TrialConfig } from '../models/TrialConfig';
 import { TypesEntitlement } from '../models/TypesEntitlement';
 import { HttpFile } from '../http/http';
@@ -78,6 +79,10 @@ export class EntitlementInfo {
     * The billing interval from the offer.
     */
     'billingIntervalInMonths'?: number;
+    /**
+    * The buyer\'s management URL in the cloud marketplace. For different cloud marketplaces, the buyer management URL maybe different.
+    */
+    'buyerManagementURL'?: string;
     /**
     * The amount that the seller can collect. It excludes the marketplace commision fee.
     */
@@ -146,6 +151,10 @@ export class EntitlementInfo {
     'paymentSchedule'?: PaymentScheduleType;
     'refundCancellationPolicy'?: string;
     'sellerNotes'?: string;
+    /**
+    * Snowfalke offer info
+    */
+    'snowflakeOffer'?: SnowflakeMarketplaceOffer;
     /**
     * The URL with JWT as auth method for the entitlement SPA. It can be shared with the buyer to access the SPA without login.
     */
@@ -230,6 +239,12 @@ export class EntitlementInfo {
             "name": "billingIntervalInMonths",
             "baseName": "billingIntervalInMonths",
             "type": "number",
+            "format": ""
+        },
+        {
+            "name": "buyerManagementURL",
+            "baseName": "buyerManagementURL",
+            "type": "string",
             "format": ""
         },
         {
@@ -350,6 +365,12 @@ export class EntitlementInfo {
             "name": "sellerNotes",
             "baseName": "sellerNotes",
             "type": "string",
+            "format": ""
+        },
+        {
+            "name": "snowflakeOffer",
+            "baseName": "snowflakeOffer",
+            "type": "SnowflakeMarketplaceOffer",
             "format": ""
         },
         {

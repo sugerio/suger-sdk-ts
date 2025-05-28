@@ -1,6 +1,6 @@
 {
   "name": "suger-sdk-ts",
-  "version": "v3.128.218",
+  "version": "v3.128.221",
   "description": "OpenAPI client for suger-sdk-ts",
   "author": "OpenAPI-Generator Contributors",
   "repository": {
@@ -30,15 +30,13 @@
   "scripts": {
     "build": "tsc",
     "prepare": "npm run build",
-    "test": "vitest run"
+    "test": "vitest"
   },
   "dependencies": {
     "whatwg-fetch": "^3.0.0",
-    "es6-promise": "^4.2.4",
-    "url-parse": "^1.4.3"
+    "es6-promise": "^4.2.4"
   },
   "devDependencies": {
-    "typescript": "^4.0",
-    "@types/url-parse": "1.4.4"
+    "typescript": "^4.0"
   }
 }

@@ -16,7 +16,7 @@ export class StripePaymentMethodCard {
     /**
     * Card brand.
     */
-    'brand'?: string;
+    'brand'?: StripePaymentMethodCardBrandEnum;
     /**
     * Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you\'ve collected.
     */
@@ -40,7 +40,7 @@ export class StripePaymentMethodCard {
     /**
     * Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
     */
-    'funding'?: string;
+    'funding'?: StripePaymentMethodCardFundingEnum;
     /**
     * The last four digits of the card.
     */
@@ -54,7 +54,7 @@ export class StripePaymentMethodCard {
         {
             "name": "brand",
             "baseName": "brand",
-            "type": "string",
+            "type": "StripePaymentMethodCardBrandEnum",
             "format": ""
         },
         {
@@ -90,7 +90,7 @@ export class StripePaymentMethodCard {
         {
             "name": "funding",
             "baseName": "funding",
-            "type": "string",
+            "type": "StripePaymentMethodCardFundingEnum",
             "format": ""
         },
         {
@@ -107,3 +107,22 @@ export class StripePaymentMethodCard {
     public constructor() {
     }
 }
+
+export enum StripePaymentMethodCardBrandEnum {
+    Amex = 'amex',
+    Diners = 'diners',
+    Discover = 'discover',
+    EftposAu = 'eftpos_au',
+    Jcb = 'jcb',
+    Mastercard = 'mastercard',
+    Unionpay = 'unionpay',
+    Visa = 'visa',
+    Unknown = 'unknown'
+}
+export enum StripePaymentMethodCardFundingEnum {
+    Credit = 'credit',
+    Debit = 'debit',
+    Prepaid = 'prepaid',
+    Unknown = 'unknown'
+}
+

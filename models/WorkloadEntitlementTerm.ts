@@ -19,6 +19,7 @@ import { HttpFile } from '../http/http';
 export class WorkloadEntitlementTerm {
     'buyerID'?: string;
     'commitAmount'?: number;
+    'creationTime'?: string;
     'creditAmount'?: number;
     /**
     * nullable
@@ -29,6 +30,7 @@ export class WorkloadEntitlementTerm {
     'externalEntitlementID'?: string;
     'id'?: string;
     'info'?: EntitlementTermInfo;
+    'lastUpdateTime'?: string;
     'offerID'?: string;
     'organizationID'?: string;
     'partner'?: Partner;
@@ -54,6 +56,12 @@ export class WorkloadEntitlementTerm {
             "name": "commitAmount",
             "baseName": "commitAmount",
             "type": "number",
+            "format": ""
+        },
+        {
+            "name": "creationTime",
+            "baseName": "creationTime",
+            "type": "string",
             "format": ""
         },
         {
@@ -96,6 +104,12 @@ export class WorkloadEntitlementTerm {
             "name": "info",
             "baseName": "info",
             "type": "EntitlementTermInfo",
+            "format": ""
+        },
+        {
+            "name": "lastUpdateTime",
+            "baseName": "lastUpdateTime",
+            "type": "string",
             "format": ""
         },
         {

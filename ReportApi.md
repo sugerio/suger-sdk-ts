@@ -33,6 +33,7 @@ const request: ReportApiGetRevenueReportRequest = {
   data: {
     buyerID: "buyerID_example",
     entitlementID: "entitlementID_example",
+    groupBy: ,
     organizationID: "organizationID_example",
     partner: "AWS",
     productID: "productID_example",

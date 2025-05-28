@@ -19,6 +19,7 @@ Method | HTTP request | Description
 [**unscheduleEntitlementCancellation**](EntitlementApi.md#unscheduleEntitlementCancellation) | **POST** /org/{orgId}/entitlement/{entitlementId}/unscheduleCancellation | unschedule entitlement cancellation
 [**updateEntitlementMetaInfo**](EntitlementApi.md#updateEntitlementMetaInfo) | **PATCH** /org/{orgId}/entitlement/{entitlementId}/metaInfo | update entitlement meta info
 [**updateEntitlementName**](EntitlementApi.md#updateEntitlementName) | **PATCH** /org/{orgId}/entitlement/{entitlementId}/entitlementName | update entitlement name
+[**updateEntitlementPriceModel**](EntitlementApi.md#updateEntitlementPriceModel) | **PATCH** /org/{orgId}/entitlement/{entitlementId}/priceModel | update entitlement price model
 [**updateEntitlementSeat**](EntitlementApi.md#updateEntitlementSeat) | **PATCH** /org/{orgId}/entitlement/{entitlementId}/seat | update seat for the active AZURE subscription
 
 
@@ -954,6 +955,9 @@ const request: EntitlementApiUpdateEntitlementMetaInfoRequest = {
       },
     ],
     offerAcceptDate: new Date('1970-01-01T00:00:00.00Z'),
+    prettifiedErrorMessages: [
+      "prettifiedErrorMessages_example",
+    ],
     renewalOfferType: ,
     replacedOfferEndTime: new Date('1970-01-01T00:00:00.00Z'),
     replacedOfferResourceName: "replacedOfferResourceName_example",
@@ -1063,6 +1067,111 @@ Name | Type | Description  | Notes
 **200** | OK |  -  |
 **400** | Bad request error |  -  |
 **500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
+
+# **updateEntitlementPriceModel**
+> WorkloadEntitlement updateEntitlementPriceModel(data)
+
+Update the price model of the given entitlement, such as recurring commits, billable dimensions. Only applicable to non cloud billing partners.
+
+### Example
+
+
+```typescript
+import { createConfiguration, EntitlementApi } from '';
+import type { EntitlementApiUpdateEntitlementPriceModelRequest } from '';
+
+const configuration = createConfiguration();
+const apiInstance = new EntitlementApi(configuration);
+
+const request: EntitlementApiUpdateEntitlementPriceModelRequest = {
+    // Organization ID
+  orgId: "orgId_example",
+    // Entitlement ID
+  entitlementId: "entitlementId_example",
+    // Entitlement price model update params
+  data: {
+    applyTime: "applyTime_example",
+    billableDimensions: [
+      {
+        billableMetricId: "billableMetricId_example",
+        category: ,
+        description: "description_example",
+        discount: ,
+        length: 1,
+        minimumCommit: 3.14,
+        minimumCommitProrata: true,
+        minimumCommitScope: ,
+        name: "name_example",
+        priceModelBasic: ,
+        priceModelBulk: ,
+        priceModelMatrix: ,
+        priceModelPercentage: ,
+        priceModelTiered: ,
+        priceModelTieredPercentage: ,
+        priceModelVolume: ,
+        timeUnit: ,
+      },
+    ],
+    commits: [
+      {
+        category: "category_example",
+        description: "description_example",
+        isUserCreated: true,
+        key: "key_example",
+        length: 1,
+        maximumUsers: 1,
+        minimumUsers: 1,
+        name: "name_example",
+        quantity: 1,
+        rate: 3.14,
+        term: "term_example",
+        termEndTime: "termEndTime_example",
+        timeUnit: ,
+        type: ,
+        types: [
+          "types_example",
+        ],
+      },
+    ],
+  },
+};
+
+const data = await apiInstance.updateEntitlementPriceModel(request);
+console.log('API called successfully. Returned data:', data);
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **data** | **UpdateEntitlementPriceModelParams**| Entitlement price model update params |
+ **orgId** | [**string**] | Organization ID | defaults to undefined
+ **entitlementId** | [**string**] | Entitlement ID | defaults to undefined
+
+
+### Return type
+
+**WorkloadEntitlement**
+
+### Authorization
+
+[APIKeyAuth](README.md#APIKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  -  |
+**400** | Bad request error |  -  |
+**500** | internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](README.md#documentation-for-api-endpoints) [[Back to Model list]](README.md#documentation-for-models) [[Back to README]](README.md)
 

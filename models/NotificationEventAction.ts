@@ -22,6 +22,7 @@ export enum NotificationEventAction {
     NotificationEventAction_CLOSE = 'CLOSE',
     NotificationEventAction_CREATE = 'CREATE',
     NotificationEventAction_DELETE = 'DELETE',
+    NotificationEventAction_ARCHIVE = 'ARCHIVE',
     NotificationEventAction_DISBURSE = 'DISBURSE',
     NotificationEventAction_END_SOON = 'END_SOON',
     NotificationEventAction_EXPIRE = 'EXPIRE',
@@ -40,6 +41,7 @@ export enum NotificationEventAction {
     NotificationEventAction_CHARGE = 'CHARGE',
     NotificationEventAction_REFUND = 'REFUND',
     NotificationEventAction_ISSUE = 'ISSUE',
+    NotificationEventAction_SIGN = 'SIGN',
     NotificationEventAction_ROTATE_SECRET = 'ROTATE_SECRET',
     NotificationEventAction_SUSPEND = 'SUSPEND',
     NotificationEventAction_TEST = 'TEST',
@@ -47,9 +49,11 @@ export enum NotificationEventAction {
     NotificationEventAction_ACE_ENGAGEMENT_SCORE_UPDATE = 'ACE_ENGAGEMENT_SCORE_UPDATE',
     NotificationEventAction_ACE_SALES_REP_UPDATE = 'ACE_SALES_REP_UPDATE',
     NotificationEventAction_ACE_CUSTOMER_EMAIL_UPDATE = 'ACE_CUSTOMER_EMAIL_UPDATE',
+    NotificationEventAction_AZURE_STATUS_UPDATE = 'AZURE_STATUS_UPDATE',
     NotificationEventAction_SUBMIT_APPROVAL_REQUEST = 'SUBMIT_APPROVAL_REQUEST',
     NotificationEventAction_REVIEW_APPROVAL_REQUEST = 'REVIEW_APPROVAL_REQUEST',
     NotificationEventAction_COMPLETE = 'COMPLETE',
     NotificationEventAction_FAIL = 'FAIL',
-    NotificationEventAction_WEBHOOK = 'WEBHOOK'
+    NotificationEventAction_WEBHOOK = 'WEBHOOK',
+    NotificationEventAction_MARKETPLACE_CONTACT_EMAIL_UPDATE = 'MARKETPLACE_CONTACT_EMAIL_UPDATE'
 }

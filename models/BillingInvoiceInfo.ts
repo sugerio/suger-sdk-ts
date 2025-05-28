@@ -90,6 +90,10 @@ export class BillingInvoiceInfo {
     'netTermsInDays'?: number;
     'paymentInstallmentsDetail'?: BillingPaymentInstallmentDetail;
     /**
+    * PeriodTotalDays is the total number of days among the whole periods. e.g. 61 days for a 2-month invoice.
+    */
+    'periodTotalDays'?: number;
+    /**
     * Invoice receipt url, it only exists when there are transactions.
     */
     'receiptUrl'?: string;
@@ -240,6 +244,12 @@ export class BillingInvoiceInfo {
             "name": "paymentInstallmentsDetail",
             "baseName": "paymentInstallmentsDetail",
             "type": "BillingPaymentInstallmentDetail",
+            "format": ""
+        },
+        {
+            "name": "periodTotalDays",
+            "baseName": "periodTotalDays",
+            "type": "number",
             "format": ""
         },
         {

@@ -19,6 +19,9 @@ export enum Partner {
     Partner_AWS = 'AWS',
     Partner_AWS_CHINA = 'AWS_CHINA',
     Partner_AZURE = 'AZURE',
+    Partner_CHARGEBEE = 'CHARGEBEE',
+    Partner_DATABRICKS = 'DATABRICKS',
+    Partner_DOCUSIGN = 'DOCUSIGN',
     Partner_GCP = 'GCP',
     Partner_GOOGLE = 'GOOGLE',
     Partner_HUBSPOT = 'HUBSPOT',
@@ -34,6 +37,5 @@ export enum Partner {
     Partner_SLACK = 'SLACK',
     Partner_SNOWFLAKE = 'SNOWFLAKE',
     Partner_STRIPE = 'STRIPE',
-    Partner_ZOHO = 'ZOHO',
-    Partner_DATABRICKS = 'DATABRICKS'
+    Partner_ZOHO = 'ZOHO'
 }

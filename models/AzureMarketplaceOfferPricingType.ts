@@ -16,5 +16,6 @@ export enum AzureMarketplaceOfferPricingType {
     AzureMarketplaceOfferPricingType_Unknown = '',
     AzureMarketplaceOfferPricingType_EditExistingOfferPricingOnly = 'editExistingOfferPricingOnly',
     AzureMarketplaceOfferPricingType_SaasNewCustomizedPlans = 'saasNewCustomizedPlans',
-    AzureMarketplaceOfferPricingType_VmSoftwareReservations = 'vmSoftwareReservations'
+    AzureMarketplaceOfferPricingType_VmSoftwareReservations = 'vmSoftwareReservations',
+    AzureMarketplaceOfferPricingType_NewCustomizedPlans = 'newCustomizedPlans'
 }
