@@ -9,7 +9,7 @@ info:
   title: Suger API
   version: "1.0"
 servers:
-- url: //https://api.suger.cloud/
+- url: https://api.suger.cloud/
 tags:
 - description: Access to API client resources
   name: API
@@ -1301,9 +1301,10 @@ paths:
       tags:
       - Contact
     patch:
-      description: update contact by the given organization and buyer id. The given
-        name and information should be complete. Please note that this function does
-        not support partial updates.
+      description: "Update the contact for the given organization and contact ID.\
+        \ This endpoint supports partial updates. Only the fields provided in the\
+        \ request body will be updated. To clear a field, provide it with an empty\
+        \ value (e.g., \"\" for name, or {} for info)."
       operationId: UpdateContact
       parameters:
       - description: Organization ID
@@ -1797,6 +1798,11 @@ paths:
       - description: filter by buyerAccountId is currently supported only for AWS
         in: query
         name: buyerAccountId
+        schema:
+          type: string
+      - description: filter by contactId
+        in: query
+        name: contactId
         schema:
           type: string
       - description: "List pagination size, default 1000, max value is 1000"
@@ -3019,6 +3025,11 @@ paths:
           \ separated by comma."
         in: query
         name: priorities
+        schema:
+          type: string
+      - description: "Filter by event message containing the specified string, case-insensitive."
+        in: query
+        name: message
         schema:
           type: string
       responses:
@@ -8446,11 +8457,17 @@ components:
                   pricePerPaymentInUsd: 6.778324963048013
                   includedQuantities:
                   - quantity: 2.8841621266687802
+                    contractDuration:
+                      type: day
+                      value: 7.386281948385884
                     isInfinite: true
                     billingTerm:
                       type: day
                       value: 7.386281948385884
                   - quantity: 2.8841621266687802
+                    contractDuration:
+                      type: day
+                      value: 7.386281948385884
                     isInfinite: true
                     billingTerm:
                       type: day
@@ -8767,11 +8784,17 @@ components:
             pricePerPaymentInUsd: 6.778324963048013
             includedQuantities:
             - quantity: 2.8841621266687802
+              contractDuration:
+                type: day
+                value: 7.386281948385884
               isInfinite: true
               billingTerm:
                 type: day
                 value: 7.386281948385884
             - quantity: 2.8841621266687802
+              contractDuration:
+                type: day
+                value: 7.386281948385884
               isInfinite: true
               billingTerm:
                 type: day
@@ -8822,12 +8845,17 @@ components:
     AzureMarketplacePriceAndAvailabilityCustomMeterPriceIncludedQuantityItem:
       example:
         quantity: 2.8841621266687802
+        contractDuration:
+          type: day
+          value: 7.386281948385884
         isInfinite: true
         billingTerm:
           type: day
           value: 7.386281948385884
       properties:
         billingTerm:
+          $ref: '#/components/schemas/AzureMarketplaceTerm'
+        contractDuration:
           $ref: '#/components/schemas/AzureMarketplaceTerm'
         isInfinite:
           type: boolean
@@ -8843,11 +8871,17 @@ components:
         pricePerPaymentInUsd: 6.778324963048013
         includedQuantities:
         - quantity: 2.8841621266687802
+          contractDuration:
+            type: day
+            value: 7.386281948385884
           isInfinite: true
           billingTerm:
             type: day
             value: 7.386281948385884
         - quantity: 2.8841621266687802
+          contractDuration:
+            type: day
+            value: 7.386281948385884
           isInfinite: true
           billingTerm:
             type: day
@@ -9013,11 +9047,17 @@ components:
                 pricePerPaymentInUsd: 6.778324963048013
                 includedQuantities:
                 - quantity: 2.8841621266687802
+                  contractDuration:
+                    type: day
+                    value: 7.386281948385884
                   isInfinite: true
                   billingTerm:
                     type: day
                     value: 7.386281948385884
                 - quantity: 2.8841621266687802
+                  contractDuration:
+                    type: day
+                    value: 7.386281948385884
                   isInfinite: true
                   billingTerm:
                     type: day
@@ -9188,11 +9228,17 @@ components:
               pricePerPaymentInUsd: 6.778324963048013
               includedQuantities:
               - quantity: 2.8841621266687802
+                contractDuration:
+                  type: day
+                  value: 7.386281948385884
                 isInfinite: true
                 billingTerm:
                   type: day
                   value: 7.386281948385884
               - quantity: 2.8841621266687802
+                contractDuration:
+                  type: day
+                  value: 7.386281948385884
                 isInfinite: true
                 billingTerm:
                   type: day
@@ -10253,11 +10299,17 @@ components:
                     pricePerPaymentInUsd: 6.778324963048013
                     includedQuantities:
                     - quantity: 2.8841621266687802
+                      contractDuration:
+                        type: day
+                        value: 7.386281948385884
                       isInfinite: true
                       billingTerm:
                         type: day
                         value: 7.386281948385884
                     - quantity: 2.8841621266687802
+                      contractDuration:
+                        type: day
+                        value: 7.386281948385884
                       isInfinite: true
                       billingTerm:
                         type: day
@@ -10483,11 +10535,17 @@ components:
                     pricePerPaymentInUsd: 6.778324963048013
                     includedQuantities:
                     - quantity: 2.8841621266687802
+                      contractDuration:
+                        type: day
+                        value: 7.386281948385884
                       isInfinite: true
                       billingTerm:
                         type: day
                         value: 7.386281948385884
                     - quantity: 2.8841621266687802
+                      contractDuration:
+                        type: day
+                        value: 7.386281948385884
                       isInfinite: true
                       billingTerm:
                         type: day
@@ -15383,6 +15441,7 @@ components:
       - BillingWalletType_SEPA_DEBIT
     BuyerInfo:
       example:
+        quickbooksCustomerId: quickbooksCustomerId
         stripeBuyer: "{}"
         invoicedAmount: 5.962133916683182
         snowflakeBuyer: "{}"
@@ -15398,6 +15457,7 @@ components:
           validFrom: validFrom
         gcpBuyer: "{}"
         lastModifiedBy: lastModifiedBy
+        chargebeeCustomerID: chargebeeCustomerID
         grossAmount: 1.4658129805029452
         collectableAmount: 0.8008281904610115
         paymentConfig: "{}"
@@ -15430,6 +15490,10 @@ components:
           - $ref: '#/components/schemas/AzureADIdentifier'
           description: Buyer from Azure Marketplace
           type: object
+        chargebeeCustomerID:
+          description: ChargebeeCustomerID is the chargebee customer ID for ther buyer
+            if it is connected to a chargebee customer.
+          type: string
         collectableAmount:
           description: The amount that the seller can collect. It excludes the marketplace
             commision fee.
@@ -15482,6 +15546,10 @@ components:
           - $ref: '#/components/schemas/PaymentConfig'
           description: Payment Config for billing.
           type: object
+        quickbooksCustomerId:
+          description: The quickbooks customer ID for the buyer if it is connected
+            to a quickbooks customer.
+          type: string
         snowflakeBuyer:
           allOf:
           - $ref: '#/components/schemas/SnowflakeMarketplaceBuyer'
@@ -15720,13 +15788,15 @@ components:
       type: object
     CreateBuyerParams:
       example:
+        quickbooksCustomerId: quickbooksCustomerId
+        companyInfo: "{}"
+        chargebeeCustomerID: chargebeeCustomerID
+        description: description
         paymentConfig: "{}"
         orbCustomerId: orbCustomerId
         partner: "{}"
-        companyInfo: "{}"
         customerId: customerId
         name: name
-        description: description
         adyenCustomerId: adyenCustomerId
         lagoCustomerId: lagoCustomerId
         metronomeCustomerId: metronomeCustomerId
@@ -15735,6 +15805,10 @@ components:
         adyenCustomerId:
           description: "Adyen customerId of this buyer. If not provided but Partner\
             \ is ADYEN, will create a new customer on Adyen."
+          type: string
+        chargebeeCustomerID:
+          description: "The Chargebee Customer ID of the buyer. If not provided, the\
+            \ Chargebee Customer ID will not be updated."
           type: string
         companyInfo:
           allOf:
@@ -15771,6 +15845,10 @@ components:
           - $ref: '#/components/schemas/PaymentConfig'
           description: Payment config for billing.
           type: object
+        quickbooksCustomerId:
+          description: "The Quickbooks Customer ID of the buyer. If not provided,\
+            \ the Quickbooks Customer ID will not be updated."
+          type: string
         stripeCustomerId:
           description: "Stripe customerId of this buyer. If not provided but Partner\
             \ is STRIPE, will create a new customer on stripe."
@@ -16896,6 +16974,7 @@ components:
       - PRODUCT
       - REFERRAL
       - REVENUE_RECORD
+      - SERVICE
       - SUPPORT_TICKET
       - UNPURCHASED_OFFERS
       - USAGE_RECORD_GROUP
@@ -16904,6 +16983,7 @@ components:
       - WORKFLOW
       - WORKFLOW_EXECUTION
       - WORKFLOW_WEBHOOK
+      - ORGANIZATION_INFO
       type: string
       x-enum-varnames:
       - EntityType_UNKNOWN
@@ -16926,6 +17006,7 @@ components:
       - EntityType_PRODUCT
       - EntityType_REFERRAL
       - EntityType_REVENUE_RECORD
+      - EntityType_SERVICE
       - EntityType_SUPPORT_TICKET
       - EntityType_UNPURCHASED_OFFERS
       - EntityType_USAGE_RECORD_GROUP
@@ -16934,6 +17015,7 @@ components:
       - EntityType_WORKFLOW
       - EntityType_WORKFLOW_EXECUTION
       - EntityType_WORKFLOW_WEBHOOK
+      - EntityType_ORGANIZATION_INFO
     EulaType:
       enum:
       - ""
@@ -17881,6 +17963,7 @@ components:
       - OFFER_CANCELLED
       - OFFER_UNAVAILABLE
       - OFFER_DRAFT
+      - OFFER_APPROVAL_FAILED
       type: string
       x-enum-varnames:
       - GcpMarketplacePrivateOfferState_OFFER_ACTIVE
@@ -17893,6 +17976,7 @@ components:
       - GcpMarketplacePrivateOfferState_OFFER_CANCELLED
       - GcpMarketplacePrivateOfferState_OFFER_UNAVAILABLE
       - GcpMarketplacePrivateOfferState_OFFER_DRAFT
+      - GcpMarketplacePrivateOfferState_OFFER_APPROVAL_FAILED
     GcpMarketplacePrivateOfferTerm:
       properties:
         enableScheduledStartTimes:
@@ -20533,6 +20617,7 @@ components:
       - STATE_TYPE_EXPIRED_NEVER_ACCEPTED
       - STATE_TYPE_EXPIRED_ACCEPTED
       - STATE_TYPE_COMPLETED
+      - STATE_TYPE_READY_TO_USE_IN_FUTURE
       type: string
       x-enum-varnames:
       - GcpMarketplaceResellerPrivateOfferPlanStateType_UNKNOWN
@@ -20545,6 +20630,7 @@ components:
       - GcpMarketplaceResellerPrivateOfferPlanStateType_EXPIRED_NEVER_ACCEPTED
       - GcpMarketplaceResellerPrivateOfferPlanStateType_EXPIRED_ACCEPTED
       - GcpMarketplaceResellerPrivateOfferPlanStateType_COMPLETED
+      - GcpMarketplaceResellerPrivateOfferPlanStateType_READY_TO_USE_IN_FUTURE
     GcpMarketplaceRevenueShareChange:
       properties:
         revenueShare:
@@ -20840,16 +20926,19 @@ components:
     IdentityBuyer:
       example:
         organizationID: organizationID
+        companyID: companyID
         creationTime: 2000-01-23T04:56:07.000+00:00
         partner: ""
         name: name
         description: description
         externalID: externalID
+        s3KeyLogo: s3KeyLogo
         id: id
         contactIds:
         - contactIds
         - contactIds
         info:
+          quickbooksCustomerId: quickbooksCustomerId
           stripeBuyer: "{}"
           invoicedAmount: 5.962133916683182
           snowflakeBuyer: "{}"
@@ -20865,6 +20954,7 @@ components:
             validFrom: validFrom
           gcpBuyer: "{}"
           lastModifiedBy: lastModifiedBy
+          chargebeeCustomerID: chargebeeCustomerID
           grossAmount: 1.4658129805029452
           collectableAmount: 0.8008281904610115
           paymentConfig: "{}"
@@ -20883,6 +20973,8 @@ components:
           spaUrl: spaUrl
         lastUpdateTime: 2000-01-23T04:56:07.000+00:00
       properties:
+        companyID:
+          type: string
         contactIds:
           items:
             type: string
@@ -20907,11 +20999,14 @@ components:
           type: string
         partner:
           $ref: '#/components/schemas/Partner'
+        s3KeyLogo:
+          type: string
       type: object
     IdentityConctactInfo:
       example:
         phoneNumber: phoneNumber
         role: role
+        partner: ""
         companyName: companyName
         lastModifiedBy: lastModifiedBy
         companyLocation: companyLocation
@@ -20922,6 +21017,8 @@ components:
           type: string
         lastModifiedBy:
           type: string
+        partner:
+          $ref: '#/components/schemas/Partner'
         phoneNumber:
           type: string
         role:
@@ -20937,6 +21034,7 @@ components:
         info:
           phoneNumber: phoneNumber
           role: role
+          partner: ""
           companyName: companyName
           lastModifiedBy: lastModifiedBy
           companyLocation: companyLocation
@@ -21243,6 +21341,7 @@ components:
                 valid: true
                 time: time
               productID: productID
+              buyerTransactionReferenceID: buyerTransactionReferenceID
               insertDate:
                 valid: true
                 time: time
@@ -21260,6 +21359,7 @@ components:
               balanceImpacting: 5
               amount: 5.962133916683182
               endUserAccountID: endUserAccountID
+              refundedBuyerTransactionReferenceID: refundedBuyerTransactionReferenceID
               dataFeedProductID: dataFeedProductID
               entitlementID: entitlementID
               buyerID: buyerID
@@ -21281,6 +21381,7 @@ components:
                 valid: true
                 time: time
               productID: productID
+              buyerTransactionReferenceID: buyerTransactionReferenceID
               insertDate:
                 valid: true
                 time: time
@@ -21298,6 +21399,7 @@ components:
               balanceImpacting: 5
               amount: 5.962133916683182
               endUserAccountID: endUserAccountID
+              refundedBuyerTransactionReferenceID: refundedBuyerTransactionReferenceID
               dataFeedProductID: dataFeedProductID
               entitlementID: entitlementID
               buyerID: buyerID
@@ -21316,7 +21418,7 @@ components:
               bankTraceID: bankTraceID
             resellerName: resellerName
             resource: resource
-            billingModel: SubscriptionBased
+            billingModel: "{}"
             channel: "{}"
             idSource: idSource
             earningId: earningId
@@ -21411,6 +21513,7 @@ components:
                 time: time
             paymentId: paymentId
             disbursementBillingEventId: disbursementBillingEventId
+            invoiceId: invoiceId
             bankTraceId: bankTraceId
             creditAmount: 9.301444243932576
             gcpRevenueRecords:
@@ -21497,6 +21600,7 @@ components:
                 valid: true
                 time: time
               productID: productID
+              buyerTransactionReferenceID: buyerTransactionReferenceID
               insertDate:
                 valid: true
                 time: time
@@ -21514,6 +21618,7 @@ components:
               balanceImpacting: 5
               amount: 5.962133916683182
               endUserAccountID: endUserAccountID
+              refundedBuyerTransactionReferenceID: refundedBuyerTransactionReferenceID
               dataFeedProductID: dataFeedProductID
               entitlementID: entitlementID
               buyerID: buyerID
@@ -21535,6 +21640,7 @@ components:
                 valid: true
                 time: time
               productID: productID
+              buyerTransactionReferenceID: buyerTransactionReferenceID
               insertDate:
                 valid: true
                 time: time
@@ -21552,6 +21658,7 @@ components:
               balanceImpacting: 5
               amount: 5.962133916683182
               endUserAccountID: endUserAccountID
+              refundedBuyerTransactionReferenceID: refundedBuyerTransactionReferenceID
               dataFeedProductID: dataFeedProductID
               entitlementID: entitlementID
               buyerID: buyerID
@@ -21570,7 +21677,7 @@ components:
               bankTraceID: bankTraceID
             resellerName: resellerName
             resource: resource
-            billingModel: SubscriptionBased
+            billingModel: "{}"
             channel: "{}"
             idSource: idSource
             earningId: earningId
@@ -21665,6 +21772,7 @@ components:
                 time: time
             paymentId: paymentId
             disbursementBillingEventId: disbursementBillingEventId
+            invoiceId: invoiceId
             bankTraceId: bankTraceId
             creditAmount: 9.301444243932576
             gcpRevenueRecords:
@@ -21877,6 +21985,7 @@ components:
           dueTime: dueTime
           priority: LOW
           organizationId: organizationId
+          taskType: Task
           closeTime: closeTime
           name: name
           id: id
@@ -22020,6 +22129,7 @@ components:
           dueTime: dueTime
           priority: LOW
           organizationId: organizationId
+          taskType: Task
           closeTime: closeTime
           name: name
           id: id
@@ -23314,6 +23424,7 @@ components:
       - CREATE
       - DELETE
       - ARCHIVE
+      - VOID
       - DISBURSE
       - END_SOON
       - EXPIRE
@@ -23333,6 +23444,7 @@ components:
       - REFUND
       - ISSUE
       - SIGN
+      - PENDING_PARTNER_ACTION
       - ROTATE_SECRET
       - SUSPEND
       - TEST
@@ -23346,7 +23458,6 @@ components:
       - COMPLETE
       - FAIL
       - WEBHOOK
-      - MARKETPLACE_CONTACT_EMAIL_UPDATE
       type: string
       x-enum-comments:
         NotificationEventAction_ADD: Add user to organization
@@ -23361,6 +23472,7 @@ components:
       - NotificationEventAction_CREATE
       - NotificationEventAction_DELETE
       - NotificationEventAction_ARCHIVE
+      - NotificationEventAction_VOID
       - NotificationEventAction_DISBURSE
       - NotificationEventAction_END_SOON
       - NotificationEventAction_EXPIRE
@@ -23380,6 +23492,7 @@ components:
       - NotificationEventAction_REFUND
       - NotificationEventAction_ISSUE
       - NotificationEventAction_SIGN
+      - NotificationEventAction_PENDING_PARTNER_ACTION
       - NotificationEventAction_ROTATE_SECRET
       - NotificationEventAction_SUSPEND
       - NotificationEventAction_TEST
@@ -23393,7 +23506,6 @@ components:
       - NotificationEventAction_COMPLETE
       - NotificationEventAction_FAIL
       - NotificationEventAction_WEBHOOK
-      - NotificationEventAction_MARKETPLACE_CONTACT_EMAIL_UPDATE
     NotificationEventStatus:
       enum:
       - ""
@@ -24568,9 +24680,13 @@ components:
       - UPDATE_FAILED
       - UPDATE_SUCCESS
       - USED
+      - PENDING_PARTNER_ACTION
+      - VOID
       type: string
       x-enum-comments:
         OfferStatus_USED: For AWS CPPO_OUT offer used by the channel partner.
+        OfferStatus_VOID: For GCP CPPO_OUT offer that has passed its end date without
+          being used by the channel partner
       x-enum-varnames:
       - OfferStatus_UNKNOWN
       - OfferStatus_INVALID
@@ -24597,6 +24713,8 @@ components:
       - OfferStatus_UPDATE_FAILED
       - OfferStatus_UPDATE_SUCCESS
       - OfferStatus_USED
+      - OfferStatus_PENDING_PARTNER_ACTION
+      - OfferStatus_VOID
     OfferType:
       enum:
       - UNKNOWN
@@ -24619,6 +24737,7 @@ components:
       - PER_USER
       - PRIVATE
       - PROFESSIONAL_SERVICES
+      - SAAS
       - SUBSCRIPTION
       - MACHINE_LEARNING
       type: string
@@ -24643,6 +24762,7 @@ components:
       - OfferType_PER_USER
       - OfferType_PRIVATE
       - OfferType_PROFESSIONAL_SERVICES
+      - OfferType_SAAS
       - OfferType_SUBSCRIPTION
       - OfferType_MACHINE_LEARNING
     Partner:
@@ -24650,6 +24770,7 @@ components:
       - ""
       - ADYEN
       - ALIBABA
+      - ANTHROPIC
       - AWS
       - AWS_CHINA
       - AZURE
@@ -24664,6 +24785,7 @@ components:
       - MARKETO
       - METRONOME
       - MICROSOFT
+      - OPENAI
       - ORACLE
       - ORB
       - REDHAT
@@ -24677,6 +24799,7 @@ components:
       - Partner_UNKNOWN
       - Partner_ADYEN
       - Partner_ALIBABA
+      - Partner_ANTHROPIC
       - Partner_AWS
       - Partner_AWS_CHINA
       - Partner_AZURE
@@ -24691,6 +24814,7 @@ components:
       - Partner_MARKETO
       - Partner_METRONOME
       - Partner_MICROSOFT
+      - Partner_OPENAI
       - Partner_ORACLE
       - Partner_ORB
       - Partner_REDHAT
@@ -24703,6 +24827,7 @@ components:
       enum:
       - DEFAULT
       - ACE
+      - ANTHROPIC
       - BIGQUERY
       - BILLING
       - CHATBOT
@@ -24712,6 +24837,7 @@ components:
       - DATABASE
       - DRIVE
       - EMAIL
+      - GEMINI
       - MARKETPLACE
       - NETSUITE
       - PAYMENT
@@ -24721,10 +24847,12 @@ components:
       type: string
       x-enum-comments:
         PartnerService_ACE: for AWS ACE Cosell
+        PartnerService_ANTHROPIC: for Anthropic.
         PartnerService_BIGQUERY: for GCP Bigquery.
         PartnerService_BILLING: for Billing/metering service.
         PartnerService_COSELL: for Azure or GCP Co-sell
         PartnerService_DRIVE: for Google Drive.
+        PartnerService_GEMINI: for Google Gemini.
         PartnerService_NETSUITE: for Oracle Netsuite.
         PartnerService_PAYMENT: for Stripe/Adyen
         PartnerService_QUICKBOOKS: for Intuit Quickbooks.
@@ -24733,6 +24861,7 @@ components:
       x-enum-varnames:
       - PartnerService_DEFAULT
       - PartnerService_ACE
+      - PartnerService_ANTHROPIC
       - PartnerService_BIGQUERY
       - PartnerService_BILLING
       - PartnerService_CHATBOT
@@ -24742,6 +24871,7 @@ components:
       - PartnerService_DATABASE
       - PartnerService_DRIVE
       - PartnerService_EMAIL
+      - PartnerService_GEMINI
       - PartnerService_MARKETPLACE
       - PartnerService_NETSUITE
       - PartnerService_PAYMENT
@@ -25740,11 +25870,17 @@ components:
                       pricePerPaymentInUsd: 6.778324963048013
                       includedQuantities:
                       - quantity: 2.8841621266687802
+                        contractDuration:
+                          type: day
+                          value: 7.386281948385884
                         isInfinite: true
                         billingTerm:
                           type: day
                           value: 7.386281948385884
                       - quantity: 2.8841621266687802
+                        contractDuration:
+                          type: day
+                          value: 7.386281948385884
                         isInfinite: true
                         billingTerm:
                           type: day
@@ -25970,11 +26106,17 @@ components:
                       pricePerPaymentInUsd: 6.778324963048013
                       includedQuantities:
                       - quantity: 2.8841621266687802
+                        contractDuration:
+                          type: day
+                          value: 7.386281948385884
                         isInfinite: true
                         billingTerm:
                           type: day
                           value: 7.386281948385884
                       - quantity: 2.8841621266687802
+                        contractDuration:
+                          type: day
+                          value: 7.386281948385884
                         isInfinite: true
                         billingTerm:
                           type: day
@@ -28541,6 +28683,16 @@ components:
         stripeProduct:
           $ref: '#/components/schemas/StripeProduct'
       type: object
+    RevenueBillingModel:
+      enum:
+      - ""
+      - SubscriptionBased
+      - UsageBased
+      type: string
+      x-enum-varnames:
+      - RevenueBillingModelUnknown
+      - RevenueBillingModelSubscriptionBased
+      - RevenueBillingModelUsageBased
     RevenueChannel:
       enum:
       - DIRECT
@@ -28578,6 +28730,7 @@ components:
               valid: true
               time: time
             productID: productID
+            buyerTransactionReferenceID: buyerTransactionReferenceID
             insertDate:
               valid: true
               time: time
@@ -28595,6 +28748,7 @@ components:
             balanceImpacting: 5
             amount: 5.962133916683182
             endUserAccountID: endUserAccountID
+            refundedBuyerTransactionReferenceID: refundedBuyerTransactionReferenceID
             dataFeedProductID: dataFeedProductID
             entitlementID: entitlementID
             buyerID: buyerID
@@ -28616,6 +28770,7 @@ components:
               valid: true
               time: time
             productID: productID
+            buyerTransactionReferenceID: buyerTransactionReferenceID
             insertDate:
               valid: true
               time: time
@@ -28633,6 +28788,7 @@ components:
             balanceImpacting: 5
             amount: 5.962133916683182
             endUserAccountID: endUserAccountID
+            refundedBuyerTransactionReferenceID: refundedBuyerTransactionReferenceID
             dataFeedProductID: dataFeedProductID
             entitlementID: entitlementID
             buyerID: buyerID
@@ -28651,7 +28807,7 @@ components:
             bankTraceID: bankTraceID
           resellerName: resellerName
           resource: resource
-          billingModel: SubscriptionBased
+          billingModel: "{}"
           channel: "{}"
           idSource: idSource
           earningId: earningId
@@ -28746,6 +28902,7 @@ components:
               time: time
           paymentId: paymentId
           disbursementBillingEventId: disbursementBillingEventId
+          invoiceId: invoiceId
           bankTraceId: bankTraceId
           creditAmount: 9.301444243932576
           gcpRevenueRecords:
@@ -28891,6 +29048,7 @@ components:
             valid: true
             time: time
           productID: productID
+          buyerTransactionReferenceID: buyerTransactionReferenceID
           insertDate:
             valid: true
             time: time
@@ -28908,6 +29066,7 @@ components:
           balanceImpacting: 5
           amount: 5.962133916683182
           endUserAccountID: endUserAccountID
+          refundedBuyerTransactionReferenceID: refundedBuyerTransactionReferenceID
           dataFeedProductID: dataFeedProductID
           entitlementID: entitlementID
           buyerID: buyerID
@@ -28929,6 +29088,7 @@ components:
             valid: true
             time: time
           productID: productID
+          buyerTransactionReferenceID: buyerTransactionReferenceID
           insertDate:
             valid: true
             time: time
@@ -28946,6 +29106,7 @@ components:
           balanceImpacting: 5
           amount: 5.962133916683182
           endUserAccountID: endUserAccountID
+          refundedBuyerTransactionReferenceID: refundedBuyerTransactionReferenceID
           dataFeedProductID: dataFeedProductID
           entitlementID: entitlementID
           buyerID: buyerID
@@ -28964,7 +29125,7 @@ components:
           bankTraceID: bankTraceID
         resellerName: resellerName
         resource: resource
-        billingModel: SubscriptionBased
+        billingModel: "{}"
         channel: "{}"
         idSource: idSource
         earningId: earningId
@@ -29059,6 +29220,7 @@ components:
             time: time
         paymentId: paymentId
         disbursementBillingEventId: disbursementBillingEventId
+        invoiceId: invoiceId
         bankTraceId: bankTraceId
         creditAmount: 9.301444243932576
         gcpRevenueRecords:
@@ -29133,15 +29295,14 @@ components:
           description: The bank trace ID of the revenue record if applicable
           type: string
         billingModel:
+          allOf:
+          - $ref: '#/components/schemas/RevenueBillingModel'
           description: |-
             The billing model of the revenue record if applicable
             The value is one of the following:
             - SubscriptionBased: The revenue record is from a subscription or recurring commitment.
             - UsageBased: The revenue record is from a usage-based metering.
-          enum:
-          - SubscriptionBased
-          - UsageBased
-          type: string
+          type: object
         channel:
           allOf:
           - $ref: '#/components/schemas/RevenueChannel'
@@ -29167,6 +29328,9 @@ components:
           type: array
         idSource:
           description: Source of the revenue record ID.
+          type: string
+        invoiceId:
+          description: The invoice ID of the revenue record if applicable
           type: string
         paymentId:
           description: The payment  ID of the revenue record if applicable
@@ -29220,6 +29384,7 @@ components:
                 valid: true
                 time: time
               productID: productID
+              buyerTransactionReferenceID: buyerTransactionReferenceID
               insertDate:
                 valid: true
                 time: time
@@ -29237,6 +29402,7 @@ components:
               balanceImpacting: 5
               amount: 5.962133916683182
               endUserAccountID: endUserAccountID
+              refundedBuyerTransactionReferenceID: refundedBuyerTransactionReferenceID
               dataFeedProductID: dataFeedProductID
               entitlementID: entitlementID
               buyerID: buyerID
@@ -29258,6 +29424,7 @@ components:
                 valid: true
                 time: time
               productID: productID
+              buyerTransactionReferenceID: buyerTransactionReferenceID
               insertDate:
                 valid: true
                 time: time
@@ -29275,6 +29442,7 @@ components:
               balanceImpacting: 5
               amount: 5.962133916683182
               endUserAccountID: endUserAccountID
+              refundedBuyerTransactionReferenceID: refundedBuyerTransactionReferenceID
               dataFeedProductID: dataFeedProductID
               entitlementID: entitlementID
               buyerID: buyerID
@@ -29293,7 +29461,7 @@ components:
               bankTraceID: bankTraceID
             resellerName: resellerName
             resource: resource
-            billingModel: SubscriptionBased
+            billingModel: "{}"
             channel: "{}"
             idSource: idSource
             earningId: earningId
@@ -29388,6 +29556,7 @@ components:
                 time: time
             paymentId: paymentId
             disbursementBillingEventId: disbursementBillingEventId
+            invoiceId: invoiceId
             bankTraceId: bankTraceId
             creditAmount: 9.301444243932576
             gcpRevenueRecords:
@@ -29474,6 +29643,7 @@ components:
                 valid: true
                 time: time
               productID: productID
+              buyerTransactionReferenceID: buyerTransactionReferenceID
               insertDate:
                 valid: true
                 time: time
@@ -29491,6 +29661,7 @@ components:
               balanceImpacting: 5
               amount: 5.962133916683182
               endUserAccountID: endUserAccountID
+              refundedBuyerTransactionReferenceID: refundedBuyerTransactionReferenceID
               dataFeedProductID: dataFeedProductID
               entitlementID: entitlementID
               buyerID: buyerID
@@ -29512,6 +29683,7 @@ components:
                 valid: true
                 time: time
               productID: productID
+              buyerTransactionReferenceID: buyerTransactionReferenceID
               insertDate:
                 valid: true
                 time: time
@@ -29529,6 +29701,7 @@ components:
               balanceImpacting: 5
               amount: 5.962133916683182
               endUserAccountID: endUserAccountID
+              refundedBuyerTransactionReferenceID: refundedBuyerTransactionReferenceID
               dataFeedProductID: dataFeedProductID
               entitlementID: entitlementID
               buyerID: buyerID
@@ -29547,7 +29720,7 @@ components:
               bankTraceID: bankTraceID
             resellerName: resellerName
             resource: resource
-            billingModel: SubscriptionBased
+            billingModel: "{}"
             channel: "{}"
             idSource: idSource
             earningId: earningId
@@ -29642,6 +29815,7 @@ components:
                 time: time
             paymentId: paymentId
             disbursementBillingEventId: disbursementBillingEventId
+            invoiceId: invoiceId
             bankTraceId: bankTraceId
             creditAmount: 9.301444243932576
             gcpRevenueRecords:
@@ -31048,6 +31222,7 @@ components:
         dueTime: dueTime
         priority: LOW
         organizationId: organizationId
+        taskType: Task
         closeTime: closeTime
         name: name
         id: id
@@ -31081,6 +31256,8 @@ components:
           $ref: '#/components/schemas/SupportTicketPriority'
         status:
           $ref: '#/components/schemas/SupportTicketStatus'
+        taskType:
+          $ref: '#/components/schemas/SupportTicketTaskType'
         watchers:
           items:
             type: string
@@ -31302,6 +31479,16 @@ components:
       - SupportTicketStatus_CLOSED
       - SupportTicketStatus_ARCHIVED
       - SupportTicketStatus_DELETED
+    SupportTicketTaskType:
+      enum:
+      - Task
+      - Bug
+      - Feature Request
+      type: string
+      x-enum-varnames:
+      - SupportTicketTaskTypeDefault
+      - SupportTicketTaskTypeBug
+      - SupportTicketTaskTypeFeatureRequest
     SupportTicketUser:
       properties:
         email:
@@ -31381,14 +31568,20 @@ components:
       example:
         paymentConfig: "{}"
         orbCustomerId: orbCustomerId
+        quickbooksCustomerId: quickbooksCustomerId
         companyInfo: "{}"
         customerId: customerId
         name: name
+        chargebeeCustomerID: chargebeeCustomerID
         description: description
         lagoCustomerId: lagoCustomerId
         metronomeCustomerId: metronomeCustomerId
         stripeCustomerId: stripeCustomerId
       properties:
+        chargebeeCustomerID:
+          description: "The Chargebee Customer ID of the buyer. If not provided, the\
+            \ Chargebee Customer ID will not be updated."
+          type: string
         companyInfo:
           allOf:
           - $ref: '#/components/schemas/CompanyInfo'
@@ -31425,6 +31618,10 @@ components:
           description: Optional. PaymentConfig of the buyer. The currency can't be
             updated.
           type: object
+        quickbooksCustomerId:
+          description: "The Quickbooks Customer ID of the buyer. If not provided,\
+            \ the Quickbooks Customer ID will not be updated."
+          type: string
         stripeCustomerId:
           description: "The Stripe Customer ID of the buyer. If not provided, the\
             \ Stripe Customer ID will not be updated."
@@ -31763,6 +31960,7 @@ components:
         type: type
         organizationID: organizationID
         metaInfo:
+          isAzureUpgradeOffer: true
           cppoOfferId: cppoOfferId
           enableTestUsageMetering: true
           replacedOfferResourceName: replacedOfferResourceName
@@ -31772,6 +31970,7 @@ components:
           cppoInOfferId: cppoInOfferId
           aceApnCrmUniqueIdentifier: aceApnCrmUniqueIdentifier
           testUsageMeteringEndTime: 2000-01-23T04:56:07.000+00:00
+          chargebeeSubscriptionID: chargebeeSubscriptionID
           entitlementCancellationSchedule: "{}"
           isGrossRevenueFullSync: true
           offerAcceptDate: 2000-01-23T04:56:07.000+00:00
@@ -31780,6 +31979,7 @@ components:
           prettifiedErrorMessages:
           - prettifiedErrorMessages
           - prettifiedErrorMessages
+          azureOriginalOfferIDForUpgrade: azureOriginalOfferIDForUpgrade
           replacedOfferEndTime: 2000-01-23T04:56:07.000+00:00
           lastModifiedBy: "{}"
           customMetaInfo:
@@ -33541,6 +33741,7 @@ components:
       type: object
     WorkloadMetaInfo:
       example:
+        isAzureUpgradeOffer: true
         cppoOfferId: cppoOfferId
         enableTestUsageMetering: true
         replacedOfferResourceName: replacedOfferResourceName
@@ -33550,6 +33751,7 @@ components:
         cppoInOfferId: cppoInOfferId
         aceApnCrmUniqueIdentifier: aceApnCrmUniqueIdentifier
         testUsageMeteringEndTime: 2000-01-23T04:56:07.000+00:00
+        chargebeeSubscriptionID: chargebeeSubscriptionID
         entitlementCancellationSchedule: "{}"
         isGrossRevenueFullSync: true
         offerAcceptDate: 2000-01-23T04:56:07.000+00:00
@@ -33558,6 +33760,7 @@ components:
         prettifiedErrorMessages:
         - prettifiedErrorMessages
         - prettifiedErrorMessages
+        azureOriginalOfferIDForUpgrade: azureOriginalOfferIDForUpgrade
         replacedOfferEndTime: 2000-01-23T04:56:07.000+00:00
         lastModifiedBy: "{}"
         customMetaInfo:
@@ -33693,6 +33896,9 @@ components:
           items:
             $ref: '#/components/schemas/AwsProductDimension'
           type: array
+        azureOriginalOfferIDForUpgrade:
+          description: Original offer ID for Azure Upgrade
+          type: string
         baseAgreementId:
           description: "Applicable for AWS Marketplace only, when the IsAgreementBasedOffer\
             \ is true."
@@ -33702,6 +33908,9 @@ components:
           items:
             type: string
           type: array
+        chargebeeSubscriptionID:
+          description: The Chargebee subscription ID of the private offer if available.
+          type: string
         contacts:
           description: The contacts of the offer to notify if any updates.
           items:
@@ -33751,6 +33960,9 @@ components:
         isAgreementBasedOffer:
           description: "Applicable for AWS Marketplace only, If this offer is agreement\
             \ based offer."
+          type: boolean
+        isAzureUpgradeOffer:
+          description: If this offer is an Azure upgrade offer.
           type: boolean
         isGrossRevenueFullSync:
           description: Whether the gross revenue is fully synced for the entitlement.
@@ -33835,6 +34047,7 @@ components:
         organizationID: organizationID
         offerType: UNKNOWN
         metaInfo:
+          isAzureUpgradeOffer: true
           cppoOfferId: cppoOfferId
           enableTestUsageMetering: true
           replacedOfferResourceName: replacedOfferResourceName
@@ -33844,6 +34057,7 @@ components:
           cppoInOfferId: cppoInOfferId
           aceApnCrmUniqueIdentifier: aceApnCrmUniqueIdentifier
           testUsageMeteringEndTime: 2000-01-23T04:56:07.000+00:00
+          chargebeeSubscriptionID: chargebeeSubscriptionID
           entitlementCancellationSchedule: "{}"
           isGrossRevenueFullSync: true
           offerAcceptDate: 2000-01-23T04:56:07.000+00:00
@@ -33852,6 +34066,7 @@ components:
           prettifiedErrorMessages:
           - prettifiedErrorMessages
           - prettifiedErrorMessages
+          azureOriginalOfferIDForUpgrade: azureOriginalOfferIDForUpgrade
           replacedOfferEndTime: 2000-01-23T04:56:07.000+00:00
           lastModifiedBy: "{}"
           customMetaInfo:
@@ -34770,6 +34985,7 @@ components:
         externalID: externalID
         organizationID: organizationID
         metaInfo:
+          isAzureUpgradeOffer: true
           cppoOfferId: cppoOfferId
           enableTestUsageMetering: true
           replacedOfferResourceName: replacedOfferResourceName
@@ -34779,6 +34995,7 @@ components:
           cppoInOfferId: cppoInOfferId
           aceApnCrmUniqueIdentifier: aceApnCrmUniqueIdentifier
           testUsageMeteringEndTime: 2000-01-23T04:56:07.000+00:00
+          chargebeeSubscriptionID: chargebeeSubscriptionID
           entitlementCancellationSchedule: "{}"
           isGrossRevenueFullSync: true
           offerAcceptDate: 2000-01-23T04:56:07.000+00:00
@@ -34787,6 +35004,7 @@ components:
           prettifiedErrorMessages:
           - prettifiedErrorMessages
           - prettifiedErrorMessages
+          azureOriginalOfferIDForUpgrade: azureOriginalOfferIDForUpgrade
           replacedOfferEndTime: 2000-01-23T04:56:07.000+00:00
           lastModifiedBy: "{}"
           customMetaInfo:
@@ -35639,11 +35857,17 @@ components:
                         pricePerPaymentInUsd: 6.778324963048013
                         includedQuantities:
                         - quantity: 2.8841621266687802
+                          contractDuration:
+                            type: day
+                            value: 7.386281948385884
                           isInfinite: true
                           billingTerm:
                             type: day
                             value: 7.386281948385884
                         - quantity: 2.8841621266687802
+                          contractDuration:
+                            type: day
+                            value: 7.386281948385884
                           isInfinite: true
                           billingTerm:
                             type: day
@@ -35869,11 +36093,17 @@ components:
                         pricePerPaymentInUsd: 6.778324963048013
                         includedQuantities:
                         - quantity: 2.8841621266687802
+                          contractDuration:
+                            type: day
+                            value: 7.386281948385884
                           isInfinite: true
                           billingTerm:
                             type: day
                             value: 7.386281948385884
                         - quantity: 2.8841621266687802
+                          contractDuration:
+                            type: day
+                            value: 7.386281948385884
                           isInfinite: true
                           billingTerm:
                             type: day
@@ -39028,6 +39258,7 @@ components:
           valid: true
           time: time
         productID: productID
+        buyerTransactionReferenceID: buyerTransactionReferenceID
         insertDate:
           valid: true
           time: time
@@ -39045,6 +39276,7 @@ components:
         balanceImpacting: 5
         amount: 5.962133916683182
         endUserAccountID: endUserAccountID
+        refundedBuyerTransactionReferenceID: refundedBuyerTransactionReferenceID
         dataFeedProductID: dataFeedProductID
         entitlementID: entitlementID
         buyerID: buyerID
@@ -39078,6 +39310,8 @@ components:
           type: string
         buyerID:
           type: string
+        buyerTransactionReferenceID:
+          type: string
         currency:
           type: string
         dataFeedProductID:
@@ -39107,6 +39341,8 @@ components:
         paymentDueDate:
           $ref: '#/components/schemas/database_sql.NullTime'
         productID:
+          type: string
+        refundedBuyerTransactionReferenceID:
           type: string
         toAccountID:
           type: string

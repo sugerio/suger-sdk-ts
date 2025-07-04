@@ -1,6 +1,6 @@
 # .ProductApi
 
-All URIs are relative to *http://https://api.suger.cloud*
+All URIs are relative to *https://api.suger.cloud*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -1242,6 +1242,10 @@ const request: ProductApiCreateOrUpdateDraftProductRequest = {
                             type: "day",
                             value: 3.14,
                           },
+                          contractDuration: {
+                            type: "day",
+                            value: 3.14,
+                          },
                           isInfinite: true,
                           quantity: 3.14,
                         },
@@ -1960,10 +1964,12 @@ const request: ProductApiCreateOrUpdateDraftProductRequest = {
           unit: "unit_example",
         },
       ],
+      azureOriginalOfferIDForUpgrade: "azureOriginalOfferIDForUpgrade_example",
       baseAgreementId: "baseAgreementId_example",
       buyerIds: [
         "buyerIds_example",
       ],
+      chargebeeSubscriptionID: "chargebeeSubscriptionID_example",
       contacts: [
         {
           company: "company_example",
@@ -1985,6 +1991,7 @@ const request: ProductApiCreateOrUpdateDraftProductRequest = {
       hubspotDealId: "hubspotDealId_example",
       internalNote: "internalNote_example",
       isAgreementBasedOffer: true,
+      isAzureUpgradeOffer: true,
       isGrossRevenueFullSync: true,
       isRenewalOffer: true,
       isReplacementOffer: true,
@@ -3314,6 +3321,10 @@ const request: ProductApiCreateProductRequest = {
                             type: "day",
                             value: 3.14,
                           },
+                          contractDuration: {
+                            type: "day",
+                            value: 3.14,
+                          },
                           isInfinite: true,
                           quantity: 3.14,
                         },
@@ -4032,10 +4043,12 @@ const request: ProductApiCreateProductRequest = {
           unit: "unit_example",
         },
       ],
+      azureOriginalOfferIDForUpgrade: "azureOriginalOfferIDForUpgrade_example",
       baseAgreementId: "baseAgreementId_example",
       buyerIds: [
         "buyerIds_example",
       ],
+      chargebeeSubscriptionID: "chargebeeSubscriptionID_example",
       contacts: [
         {
           company: "company_example",
@@ -4057,6 +4070,7 @@ const request: ProductApiCreateProductRequest = {
       hubspotDealId: "hubspotDealId_example",
       internalNote: "internalNote_example",
       isAgreementBasedOffer: true,
+      isAzureUpgradeOffer: true,
       isGrossRevenueFullSync: true,
       isRenewalOffer: true,
       isReplacementOffer: true,
@@ -5687,6 +5701,10 @@ const request: ProductApiPublishProductRequest = {
                             type: "day",
                             value: 3.14,
                           },
+                          contractDuration: {
+                            type: "day",
+                            value: 3.14,
+                          },
                           isInfinite: true,
                           quantity: 3.14,
                         },
@@ -6405,10 +6423,12 @@ const request: ProductApiPublishProductRequest = {
           unit: "unit_example",
         },
       ],
+      azureOriginalOfferIDForUpgrade: "azureOriginalOfferIDForUpgrade_example",
       baseAgreementId: "baseAgreementId_example",
       buyerIds: [
         "buyerIds_example",
       ],
+      chargebeeSubscriptionID: "chargebeeSubscriptionID_example",
       contacts: [
         {
           company: "company_example",
@@ -6430,6 +6450,7 @@ const request: ProductApiPublishProductRequest = {
       hubspotDealId: "hubspotDealId_example",
       internalNote: "internalNote_example",
       isAgreementBasedOffer: true,
+      isAzureUpgradeOffer: true,
       isGrossRevenueFullSync: true,
       isRenewalOffer: true,
       isReplacementOffer: true,
@@ -7763,6 +7784,10 @@ const request: ProductApiUpdateProductRequest = {
                             type: "day",
                             value: 3.14,
                           },
+                          contractDuration: {
+                            type: "day",
+                            value: 3.14,
+                          },
                           isInfinite: true,
                           quantity: 3.14,
                         },
@@ -8481,10 +8506,12 @@ const request: ProductApiUpdateProductRequest = {
           unit: "unit_example",
         },
       ],
+      azureOriginalOfferIDForUpgrade: "azureOriginalOfferIDForUpgrade_example",
       baseAgreementId: "baseAgreementId_example",
       buyerIds: [
         "buyerIds_example",
       ],
+      chargebeeSubscriptionID: "chargebeeSubscriptionID_example",
       contacts: [
         {
           company: "company_example",
@@ -8506,6 +8533,7 @@ const request: ProductApiUpdateProductRequest = {
       hubspotDealId: "hubspotDealId_example",
       internalNote: "internalNote_example",
       isAgreementBasedOffer: true,
+      isAzureUpgradeOffer: true,
       isGrossRevenueFullSync: true,
       isRenewalOffer: true,
       isReplacementOffer: true,
@@ -8712,10 +8740,12 @@ const request: ProductApiUpdateProductMetaInfoRequest = {
         unit: "unit_example",
       },
     ],
+    azureOriginalOfferIDForUpgrade: "azureOriginalOfferIDForUpgrade_example",
     baseAgreementId: "baseAgreementId_example",
     buyerIds: [
       "buyerIds_example",
     ],
+    chargebeeSubscriptionID: "chargebeeSubscriptionID_example",
     contacts: [
       {
         company: "company_example",
@@ -8737,6 +8767,7 @@ const request: ProductApiUpdateProductMetaInfoRequest = {
     hubspotDealId: "hubspotDealId_example",
     internalNote: "internalNote_example",
     isAgreementBasedOffer: true,
+    isAzureUpgradeOffer: true,
     isGrossRevenueFullSync: true,
     isRenewalOffer: true,
     isReplacementOffer: true,

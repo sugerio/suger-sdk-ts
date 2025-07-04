@@ -1,6 +1,6 @@
 # .EntitlementApi
 
-All URIs are relative to *http://https://api.suger.cloud*
+All URIs are relative to *https://api.suger.cloud*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -673,6 +673,8 @@ const request: EntitlementApiListEntitlementsRequest = {
   externalId: "externalId_example",
     // filter by buyerAccountId is currently supported only for AWS (optional)
   buyerAccountId: "buyerAccountId_example",
+    // filter by contactId (optional)
+  contactId: "contactId_example",
     // List pagination size, default 1000, max value is 1000 (optional)
   limit: 1,
     // List pagination offset, default 0 (optional)
@@ -695,6 +697,7 @@ Name | Type | Description  | Notes
  **buyerId** | [**string**] | filter by buyerId | (optional) defaults to undefined
  **externalId** | [**string**] | filter by externalId | (optional) defaults to undefined
  **buyerAccountId** | [**string**] | filter by buyerAccountId is currently supported only for AWS | (optional) defaults to undefined
+ **contactId** | [**string**] | filter by contactId | (optional) defaults to undefined
  **limit** | [**number**] | List pagination size, default 1000, max value is 1000 | (optional) defaults to undefined
  **offset** | [**number**] | List pagination offset, default 0 | (optional) defaults to undefined
 
@@ -883,10 +886,12 @@ const request: EntitlementApiUpdateEntitlementMetaInfoRequest = {
         unit: "unit_example",
       },
     ],
+    azureOriginalOfferIDForUpgrade: "azureOriginalOfferIDForUpgrade_example",
     baseAgreementId: "baseAgreementId_example",
     buyerIds: [
       "buyerIds_example",
     ],
+    chargebeeSubscriptionID: "chargebeeSubscriptionID_example",
     contacts: [
       {
         company: "company_example",
@@ -908,6 +913,7 @@ const request: EntitlementApiUpdateEntitlementMetaInfoRequest = {
     hubspotDealId: "hubspotDealId_example",
     internalNote: "internalNote_example",
     isAgreementBasedOffer: true,
+    isAzureUpgradeOffer: true,
     isGrossRevenueFullSync: true,
     isRenewalOffer: true,
     isReplacementOffer: true,

@@ -1,6 +1,6 @@
 # .SupportApi
 
-All URIs are relative to *http://https://api.suger.cloud*
+All URIs are relative to *https://api.suger.cloud*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -155,6 +155,7 @@ const request: SupportApiCreateSupportTicketRequest = {
     organizationId: "organizationId_example",
     priority: "LOW",
     status: "OPEN",
+    taskType: "Task",
     watchers: [
       "watchers_example",
     ],

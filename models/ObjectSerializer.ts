@@ -412,6 +412,7 @@ export * from '../models/PriceModelVolume';
 export * from '../models/PriceModelVolumeConfig';
 export * from '../models/PrivateOfferDiscountType';
 export * from '../models/ProductInfo';
+export * from '../models/RevenueBillingModel';
 export * from '../models/RevenueChannel';
 export * from '../models/RevenueRecord';
 export * from '../models/RevenueRecordDetail';
@@ -463,6 +464,7 @@ export * from '../models/SupportTicketFrame';
 export * from '../models/SupportTicketImage';
 export * from '../models/SupportTicketPriority';
 export * from '../models/SupportTicketStatus';
+export * from '../models/SupportTicketTaskType';
 export * from '../models/SupportTicketUser';
 export * from '../models/TimeUnit';
 export * from '../models/TrackEvent';
@@ -725,7 +727,7 @@ import { CommitRevenueDetail } from '../models/CommitRevenueDetail';
 import { CompanyInfo } from '../models/CompanyInfo';
 import { Contact } from '../models/Contact';
 import { CreateAndUpdateAddonParams } from '../models/CreateAndUpdateAddonParams';
-import { CreateBuyerParams            } from '../models/CreateBuyerParams';
+import { CreateBuyerParams              } from '../models/CreateBuyerParams';
 import { CreateEntitlementParams } from '../models/CreateEntitlementParams';
 import { CreateUsageRecordGroupParams } from '../models/CreateUsageRecordGroupParams';
 import { DatabaseSqlNullTime } from '../models/DatabaseSqlNullTime';
@@ -853,8 +855,8 @@ import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemetering
 import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventOkResponse          } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventOkResponse';
 import { GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventStatusEnum } from '../models/GithubComSugerioMarketplaceServiceThirdPartyAzureSdkMarketplacemeteringv1UsageEventStatusEnum';
 import { GroupByInterval } from '../models/GroupByInterval';
-import { IdentityBuyer           } from '../models/IdentityBuyer';
-import { IdentityConctactInfo } from '../models/IdentityConctactInfo';
+import { IdentityBuyer             } from '../models/IdentityBuyer';
+import { IdentityConctactInfo       } from '../models/IdentityConctactInfo';
 import { IdentityContact } from '../models/IdentityContact';
 import { InvoiceAddFixedFee } from '../models/InvoiceAddFixedFee';
 import { InvoiceAdjustDiscountByDimension } from '../models/InvoiceAdjustDiscountByDimension';
@@ -909,10 +911,11 @@ import { PriceModelVolume } from '../models/PriceModelVolume';
 import { PriceModelVolumeConfig } from '../models/PriceModelVolumeConfig';
 import { PrivateOfferDiscountType } from '../models/PrivateOfferDiscountType';
 import { ProductInfo                     } from '../models/ProductInfo';
+import { RevenueBillingModel } from '../models/RevenueBillingModel';
 import { RevenueChannel } from '../models/RevenueChannel';
 import { RevenueRecord } from '../models/RevenueRecord';
 import { RevenueRecordDetail } from '../models/RevenueRecordDetail';
-import { RevenueRecordInfo   , RevenueRecordInfoBillingModelEnum              } from '../models/RevenueRecordInfo';
+import { RevenueRecordInfo                 } from '../models/RevenueRecordInfo';
 import { RevenueReport           } from '../models/RevenueReport';
 import { RevenueReportType } from '../models/RevenueReportType';
 import { ServicecontrolReportError } from '../models/ServicecontrolReportError';
@@ -952,7 +955,7 @@ import { StripeRefundDestinationDetails } from '../models/StripeRefundDestinatio
 import { StripeRefundDestinationDetailsCard , StripeRefundDestinationDetailsCardReferenceStatusEnum   , StripeRefundDestinationDetailsCardTypeEnum   } from '../models/StripeRefundDestinationDetailsCard';
 import { StripeRefundDestinationDetailsUSBankTransfer , StripeRefundDestinationDetailsUSBankTransferReferenceStatusEnum   } from '../models/StripeRefundDestinationDetailsUSBankTransfer';
 import { StripeRefundStatus } from '../models/StripeRefundStatus';
-import { SupportTicket              } from '../models/SupportTicket';
+import { SupportTicket               } from '../models/SupportTicket';
 import { SupportTicketAttachment } from '../models/SupportTicketAttachment';
 import { SupportTicketComment } from '../models/SupportTicketComment';
 import { SupportTicketCommentDetail } from '../models/SupportTicketCommentDetail';
@@ -960,6 +963,7 @@ import { SupportTicketFrame } from '../models/SupportTicketFrame';
 import { SupportTicketImage } from '../models/SupportTicketImage';
 import { SupportTicketPriority } from '../models/SupportTicketPriority';
 import { SupportTicketStatus } from '../models/SupportTicketStatus';
+import { SupportTicketTaskType } from '../models/SupportTicketTaskType';
 import { SupportTicketUser } from '../models/SupportTicketUser';
 import { TimeUnit } from '../models/TimeUnit';
 import { TrackEvent    } from '../models/TrackEvent';
@@ -988,7 +992,7 @@ import { UsageRecordReportStatus } from '../models/UsageRecordReportStatus';
 import { ValueType } from '../models/ValueType';
 import { WorkloadEntitlement                      } from '../models/WorkloadEntitlement';
 import { WorkloadEntitlementTerm                     } from '../models/WorkloadEntitlementTerm';
-import { WorkloadMetaInfo                              } from '../models/WorkloadMetaInfo';
+import { WorkloadMetaInfo                                 } from '../models/WorkloadMetaInfo';
 import { WorkloadOffer                     } from '../models/WorkloadOffer';
 import { WorkloadProduct             , WorkloadProductProductTypeEnum     } from '../models/WorkloadProduct';
 
@@ -1138,8 +1142,8 @@ let enumsMap: Set<string> = new Set<string>([
     "PaymentScheduleType",
     "PriceModelCategory",
     "PrivateOfferDiscountType",
+    "RevenueBillingModel",
     "RevenueChannel",
-    "RevenueRecordInfoBillingModelEnum",
     "RevenueReportType",
     "SnowflakeMarketplaceOfferPaymentTermsPaymentTypeEnum",
     "StripePaymentIntentStatus",
@@ -1153,6 +1157,7 @@ let enumsMap: Set<string> = new Set<string>([
     "StripeRefundStatus",
     "SupportTicketPriority",
     "SupportTicketStatus",
+    "SupportTicketTaskType",
     "TimeUnit",
     "TrackEventActionType",
     "TypesUsageRecordResultStatus",

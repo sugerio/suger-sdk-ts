@@ -1,6 +1,6 @@
 {
   "name": "suger-sdk-ts",
-  "version": "v3.128.221",
+  "version": "3.14.0",
   "description": "OpenAPI client for suger-sdk-ts",
   "author": "OpenAPI-Generator Contributors",
   "repository": {

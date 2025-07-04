@@ -22,5 +22,6 @@ export enum GcpMarketplacePrivateOfferState {
     GcpMarketplacePrivateOfferState_OFFER_EXPIRED = 'OFFER_EXPIRED',
     GcpMarketplacePrivateOfferState_OFFER_CANCELLED = 'OFFER_CANCELLED',
     GcpMarketplacePrivateOfferState_OFFER_UNAVAILABLE = 'OFFER_UNAVAILABLE',
-    GcpMarketplacePrivateOfferState_OFFER_DRAFT = 'OFFER_DRAFT'
+    GcpMarketplacePrivateOfferState_OFFER_DRAFT = 'OFFER_DRAFT',
+    GcpMarketplacePrivateOfferState_OFFER_APPROVAL_FAILED = 'OFFER_APPROVAL_FAILED'
 }

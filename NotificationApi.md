@@ -1,6 +1,6 @@
 # .NotificationApi
 
-All URIs are relative to *http://https://api.suger.cloud*
+All URIs are relative to *https://api.suger.cloud*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -96,6 +96,8 @@ const request: NotificationApiListNotificationEventsRequest = {
   offset: 1,
     // Filter by priorities, empty means HIGH and CRITICAL only. Valid values are: LOW, MEDIUM, HIGH, CRITICAL. Multiple values are supported, separated by comma. (optional)
   priorities: "priorities_example",
+    // Filter by event message containing the specified string, case-insensitive. (optional)
+  message: "message_example",
 };
 
 const data = await apiInstance.listNotificationEvents(request);
@@ -113,6 +115,7 @@ Name | Type | Description  | Notes
  **limit** | [**number**] | List pagination size, default 1000, max value is 1000 | (optional) defaults to undefined
  **offset** | [**number**] | List pagination offset, default 0 | (optional) defaults to undefined
  **priorities** | [**string**] | Filter by priorities, empty means HIGH and CRITICAL only. Valid values are: LOW, MEDIUM, HIGH, CRITICAL. Multiple values are supported, separated by comma. | (optional) defaults to undefined
+ **message** | [**string**] | Filter by event message containing the specified string, case-insensitive. | (optional) defaults to undefined
 
 
 ### Return type

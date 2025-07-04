@@ -1,6 +1,6 @@
 # .OfferApi
 
-All URIs are relative to *http://https://api.suger.cloud*
+All URIs are relative to *https://api.suger.cloud*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -646,10 +646,12 @@ const request: OfferApiCreateOfferRequest = {
           unit: "unit_example",
         },
       ],
+      azureOriginalOfferIDForUpgrade: "azureOriginalOfferIDForUpgrade_example",
       baseAgreementId: "baseAgreementId_example",
       buyerIds: [
         "buyerIds_example",
       ],
+      chargebeeSubscriptionID: "chargebeeSubscriptionID_example",
       contacts: [
         {
           company: "company_example",
@@ -671,6 +673,7 @@ const request: OfferApiCreateOfferRequest = {
       hubspotDealId: "hubspotDealId_example",
       internalNote: "internalNote_example",
       isAgreementBasedOffer: true,
+      isAzureUpgradeOffer: true,
       isGrossRevenueFullSync: true,
       isRenewalOffer: true,
       isReplacementOffer: true,
@@ -1346,10 +1349,12 @@ const request: OfferApiCreateOrUpdateDraftOfferRequest = {
           unit: "unit_example",
         },
       ],
+      azureOriginalOfferIDForUpgrade: "azureOriginalOfferIDForUpgrade_example",
       baseAgreementId: "baseAgreementId_example",
       buyerIds: [
         "buyerIds_example",
       ],
+      chargebeeSubscriptionID: "chargebeeSubscriptionID_example",
       contacts: [
         {
           company: "company_example",
@@ -1371,6 +1376,7 @@ const request: OfferApiCreateOrUpdateDraftOfferRequest = {
       hubspotDealId: "hubspotDealId_example",
       internalNote: "internalNote_example",
       isAgreementBasedOffer: true,
+      isAzureUpgradeOffer: true,
       isGrossRevenueFullSync: true,
       isRenewalOffer: true,
       isReplacementOffer: true,
@@ -2023,10 +2029,12 @@ const request: OfferApiUpdateOfferMetaInfoRequest = {
         unit: "unit_example",
       },
     ],
+    azureOriginalOfferIDForUpgrade: "azureOriginalOfferIDForUpgrade_example",
     baseAgreementId: "baseAgreementId_example",
     buyerIds: [
       "buyerIds_example",
     ],
+    chargebeeSubscriptionID: "chargebeeSubscriptionID_example",
     contacts: [
       {
         company: "company_example",
@@ -2048,6 +2056,7 @@ const request: OfferApiUpdateOfferMetaInfoRequest = {
     hubspotDealId: "hubspotDealId_example",
     internalNote: "internalNote_example",
     isAgreementBasedOffer: true,
+    isAzureUpgradeOffer: true,
     isGrossRevenueFullSync: true,
     isRenewalOffer: true,
     isReplacementOffer: true,

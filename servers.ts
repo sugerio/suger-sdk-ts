@@ -49,6 +49,6 @@ export class ServerConfiguration<T extends { [key: string]: string }> implements
     }
 }
 
-export const server1 = new ServerConfiguration<{  }>("//https://api.suger.cloud", {  })
+export const server1 = new ServerConfiguration<{  }>("https://api.suger.cloud", {  })
 
 export const servers = [server1];

@@ -417,6 +417,7 @@ import { PriceModelVolume } from '../models/PriceModelVolume';
 import { PriceModelVolumeConfig } from '../models/PriceModelVolumeConfig';
 import { PrivateOfferDiscountType } from '../models/PrivateOfferDiscountType';
 import { ProductInfo } from '../models/ProductInfo';
+import { RevenueBillingModel } from '../models/RevenueBillingModel';
 import { RevenueChannel } from '../models/RevenueChannel';
 import { RevenueRecord } from '../models/RevenueRecord';
 import { RevenueRecordDetail } from '../models/RevenueRecordDetail';
@@ -468,6 +469,7 @@ import { SupportTicketFrame } from '../models/SupportTicketFrame';
 import { SupportTicketImage } from '../models/SupportTicketImage';
 import { SupportTicketPriority } from '../models/SupportTicketPriority';
 import { SupportTicketStatus } from '../models/SupportTicketStatus';
+import { SupportTicketTaskType } from '../models/SupportTicketTaskType';
 import { SupportTicketUser } from '../models/SupportTicketUser';
 import { TimeUnit } from '../models/TimeUnit';
 import { TrackEvent } from '../models/TrackEvent';
@@ -1891,7 +1893,7 @@ export class ObservableContactApi {
     }
 
     /**
-     * update contact by the given organization and buyer id. The given name and information should be complete. Please note that this function does not support partial updates.
+     * Update the contact for the given organization and contact ID. This endpoint supports partial updates. Only the fields provided in the request body will be updated. To clear a field, provide it with an empty value (e.g., \"\" for name, or {} for info).
      * update contact
      * @param orgId Organization ID
      * @param contactId Contact ID
@@ -1918,7 +1920,7 @@ export class ObservableContactApi {
     }
 
     /**
-     * update contact by the given organization and buyer id. The given name and information should be complete. Please note that this function does not support partial updates.
+     * Update the contact for the given organization and contact ID. This endpoint supports partial updates. Only the fields provided in the request body will be updated. To clear a field, provide it with an empty value (e.g., \"\" for name, or {} for info).
      * update contact
      * @param orgId Organization ID
      * @param contactId Contact ID
@@ -2326,13 +2328,14 @@ export class ObservableEntitlementApi {
      * @param [buyerId] filter by buyerId
      * @param [externalId] filter by externalId
      * @param [buyerAccountId] filter by buyerAccountId is currently supported only for AWS
+     * @param [contactId] filter by contactId
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listEntitlementsWithHttpInfo(orgId: string, partner?: string, productId?: string, offerId?: string, buyerId?: string, externalId?: string, buyerAccountId?: string, limit?: number, offset?: number, _options?: ConfigurationOptions): Observable<HttpInfo<Array<WorkloadEntitlement>>> {
+    public listEntitlementsWithHttpInfo(orgId: string, partner?: string, productId?: string, offerId?: string, buyerId?: string, externalId?: string, buyerAccountId?: string, contactId?: string, limit?: number, offset?: number, _options?: ConfigurationOptions): Observable<HttpInfo<Array<WorkloadEntitlement>>> {
         const _config = mergeConfiguration(this.configuration, _options);
 
-        const requestContextPromise = this.requestFactory.listEntitlements(orgId, partner, productId, offerId, buyerId, externalId, buyerAccountId, limit, offset, _config);
+        const requestContextPromise = this.requestFactory.listEntitlements(orgId, partner, productId, offerId, buyerId, externalId, buyerAccountId, contactId, limit, offset, _config);
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
         for (const middleware of _config.middleware) {
@@ -2359,11 +2362,12 @@ export class ObservableEntitlementApi {
      * @param [buyerId] filter by buyerId
      * @param [externalId] filter by externalId
      * @param [buyerAccountId] filter by buyerAccountId is currently supported only for AWS
+     * @param [contactId] filter by contactId
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listEntitlements(orgId: string, partner?: string, productId?: string, offerId?: string, buyerId?: string, externalId?: string, buyerAccountId?: string, limit?: number, offset?: number, _options?: ConfigurationOptions): Observable<Array<WorkloadEntitlement>> {
-        return this.listEntitlementsWithHttpInfo(orgId, partner, productId, offerId, buyerId, externalId, buyerAccountId, limit, offset, _options).pipe(map((apiResponse: HttpInfo<Array<WorkloadEntitlement>>) => apiResponse.data));
+    public listEntitlements(orgId: string, partner?: string, productId?: string, offerId?: string, buyerId?: string, externalId?: string, buyerAccountId?: string, contactId?: string, limit?: number, offset?: number, _options?: ConfigurationOptions): Observable<Array<WorkloadEntitlement>> {
+        return this.listEntitlementsWithHttpInfo(orgId, partner, productId, offerId, buyerId, externalId, buyerAccountId, contactId, limit, offset, _options).pipe(map((apiResponse: HttpInfo<Array<WorkloadEntitlement>>) => apiResponse.data));
     }
 
     /**
@@ -3177,11 +3181,12 @@ export class ObservableNotificationApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      * @param [priorities] Filter by priorities, empty means HIGH and CRITICAL only. Valid values are: LOW, MEDIUM, HIGH, CRITICAL. Multiple values are supported, separated by comma.
+     * @param [message] Filter by event message containing the specified string, case-insensitive.
      */
-    public listNotificationEventsWithHttpInfo(orgId: string, startDate?: string, endDate?: string, limit?: number, offset?: number, priorities?: string, _options?: ConfigurationOptions): Observable<HttpInfo<ListNotificationEventsResponse>> {
+    public listNotificationEventsWithHttpInfo(orgId: string, startDate?: string, endDate?: string, limit?: number, offset?: number, priorities?: string, message?: string, _options?: ConfigurationOptions): Observable<HttpInfo<ListNotificationEventsResponse>> {
         const _config = mergeConfiguration(this.configuration, _options);
 
-        const requestContextPromise = this.requestFactory.listNotificationEvents(orgId, startDate, endDate, limit, offset, priorities, _config);
+        const requestContextPromise = this.requestFactory.listNotificationEvents(orgId, startDate, endDate, limit, offset, priorities, message, _config);
         // build promise chain
         let middlewarePreObservable = from<RequestContext>(requestContextPromise);
         for (const middleware of _config.middleware) {
@@ -3207,9 +3212,10 @@ export class ObservableNotificationApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      * @param [priorities] Filter by priorities, empty means HIGH and CRITICAL only. Valid values are: LOW, MEDIUM, HIGH, CRITICAL. Multiple values are supported, separated by comma.
+     * @param [message] Filter by event message containing the specified string, case-insensitive.
      */
-    public listNotificationEvents(orgId: string, startDate?: string, endDate?: string, limit?: number, offset?: number, priorities?: string, _options?: ConfigurationOptions): Observable<ListNotificationEventsResponse> {
-        return this.listNotificationEventsWithHttpInfo(orgId, startDate, endDate, limit, offset, priorities, _options).pipe(map((apiResponse: HttpInfo<ListNotificationEventsResponse>) => apiResponse.data));
+    public listNotificationEvents(orgId: string, startDate?: string, endDate?: string, limit?: number, offset?: number, priorities?: string, message?: string, _options?: ConfigurationOptions): Observable<ListNotificationEventsResponse> {
+        return this.listNotificationEventsWithHttpInfo(orgId, startDate, endDate, limit, offset, priorities, message, _options).pipe(map((apiResponse: HttpInfo<ListNotificationEventsResponse>) => apiResponse.data));
     }
 
     /**

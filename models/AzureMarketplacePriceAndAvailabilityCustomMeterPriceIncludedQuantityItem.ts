@@ -15,6 +15,7 @@ import { HttpFile } from '../http/http';
 
 export class AzureMarketplacePriceAndAvailabilityCustomMeterPriceIncludedQuantityItem {
     'billingTerm'?: AzureMarketplaceTerm;
+    'contractDuration'?: AzureMarketplaceTerm;
     'isInfinite'?: boolean;
     'quantity'?: number;
 
@@ -26,6 +27,12 @@ export class AzureMarketplacePriceAndAvailabilityCustomMeterPriceIncludedQuantit
         {
             "name": "billingTerm",
             "baseName": "billingTerm",
+            "type": "AzureMarketplaceTerm",
+            "format": ""
+        },
+        {
+            "name": "contractDuration",
+            "baseName": "contractDuration",
             "type": "AzureMarketplaceTerm",
             "format": ""
         },

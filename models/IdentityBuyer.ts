@@ -15,6 +15,7 @@ import { Partner } from '../models/Partner';
 import { HttpFile } from '../http/http';
 
 export class IdentityBuyer {
+    'companyID'?: string;
     'contactIds'?: Array<string>;
     'creationTime'?: Date;
     'description'?: string;
@@ -25,12 +26,19 @@ export class IdentityBuyer {
     'name'?: string;
     'organizationID'?: string;
     'partner'?: Partner;
+    's3KeyLogo'?: string;
 
     static readonly discriminator: string | undefined = undefined;
 
     static readonly mapping: {[index: string]: string} | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
+        {
+            "name": "companyID",
+            "baseName": "companyID",
+            "type": "string",
+            "format": ""
+        },
         {
             "name": "contactIds",
             "baseName": "contactIds",
@@ -89,6 +97,12 @@ export class IdentityBuyer {
             "name": "partner",
             "baseName": "partner",
             "type": "Partner",
+            "format": ""
+        },
+        {
+            "name": "s3KeyLogo",
+            "baseName": "s3KeyLogo",
+            "type": "string",
             "format": ""
         }    ];
 

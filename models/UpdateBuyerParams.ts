@@ -16,6 +16,10 @@ import { HttpFile } from '../http/http';
 
 export class UpdateBuyerParams {
     /**
+    * The Chargebee Customer ID of the buyer. If not provided, the Chargebee Customer ID will not be updated.
+    */
+    'chargebeeCustomerID'?: string;
+    /**
     * Optional. CompanyInfo of the buyer.
     */
     'companyInfo'?: CompanyInfo;
@@ -48,6 +52,10 @@ export class UpdateBuyerParams {
     */
     'paymentConfig'?: PaymentConfig;
     /**
+    * The Quickbooks Customer ID of the buyer. If not provided, the Quickbooks Customer ID will not be updated.
+    */
+    'quickbooksCustomerId'?: string;
+    /**
     * The Stripe Customer ID of the buyer. If not provided, the Stripe Customer ID will not be updated.
     */
     'stripeCustomerId'?: string;
@@ -57,6 +65,12 @@ export class UpdateBuyerParams {
     static readonly mapping: {[index: string]: string} | undefined = undefined;
 
     static readonly attributeTypeMap: Array<{name: string, baseName: string, type: string, format: string}> = [
+        {
+            "name": "chargebeeCustomerID",
+            "baseName": "chargebeeCustomerID",
+            "type": "string",
+            "format": ""
+        },
         {
             "name": "companyInfo",
             "baseName": "companyInfo",
@@ -103,6 +117,12 @@ export class UpdateBuyerParams {
             "name": "paymentConfig",
             "baseName": "paymentConfig",
             "type": "PaymentConfig",
+            "format": ""
+        },
+        {
+            "name": "quickbooksCustomerId",
+            "baseName": "quickbooksCustomerId",
+            "type": "string",
             "format": ""
         },
         {

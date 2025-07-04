@@ -1,6 +1,6 @@
 # .ContactApi
 
-All URIs are relative to *http://https://api.suger.cloud*
+All URIs are relative to *https://api.suger.cloud*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -165,6 +165,7 @@ const request: ContactApiBatchCreateContactsRequest = {
         companyLocation: "companyLocation_example",
         companyName: "companyName_example",
         lastModifiedBy: "lastModifiedBy_example",
+        partner: "",
         phoneNumber: "phoneNumber_example",
         role: "role_example",
       },
@@ -238,6 +239,7 @@ const request: ContactApiCreateContactRequest = {
       companyLocation: "companyLocation_example",
       companyName: "companyName_example",
       lastModifiedBy: "lastModifiedBy_example",
+      partner: "",
       phoneNumber: "phoneNumber_example",
       role: "role_example",
     },
@@ -527,7 +529,7 @@ Name | Type | Description  | Notes
 # **updateContact**
 > IdentityContact updateContact(data)
 
-update contact by the given organization and buyer id. The given name and information should be complete. Please note that this function does not support partial updates.
+Update the contact for the given organization and contact ID. This endpoint supports partial updates. Only the fields provided in the request body will be updated. To clear a field, provide it with an empty value (e.g., \"\" for name, or {} for info).
 
 ### Example
 
@@ -553,6 +555,7 @@ const request: ContactApiUpdateContactRequest = {
       companyLocation: "companyLocation_example",
       companyName: "companyName_example",
       lastModifiedBy: "lastModifiedBy_example",
+      partner: "",
       phoneNumber: "phoneNumber_example",
       role: "role_example",
     },

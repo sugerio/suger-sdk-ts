@@ -13,6 +13,7 @@
 import { GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAwsBillingEvent } from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAwsBillingEvent';
 import { GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAzureCmaRevenue } from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAzureCmaRevenue';
 import { GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingGcpChargeUsage } from '../models/GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingGcpChargeUsage';
+import { RevenueBillingModel } from '../models/RevenueBillingModel';
 import { RevenueChannel } from '../models/RevenueChannel';
 import { HttpFile } from '../http/http';
 
@@ -32,7 +33,7 @@ export class RevenueRecordInfo {
     /**
     * The billing model of the revenue record if applicable The value is one of the following: - SubscriptionBased: The revenue record is from a subscription or recurring commitment. - UsageBased: The revenue record is from a usage-based metering.
     */
-    'billingModel'?: RevenueRecordInfoBillingModelEnum;
+    'billingModel'?: RevenueBillingModel;
     /**
     * The channel of revenue record.
     */
@@ -61,6 +62,10 @@ export class RevenueRecordInfo {
     * Source of the revenue record ID.
     */
     'idSource'?: string;
+    /**
+    * The invoice ID of the revenue record if applicable
+    */
+    'invoiceId'?: string;
     /**
     * The payment  ID of the revenue record if applicable
     */
@@ -104,7 +109,7 @@ export class RevenueRecordInfo {
         {
             "name": "billingModel",
             "baseName": "billingModel",
-            "type": "RevenueRecordInfoBillingModelEnum",
+            "type": "RevenueBillingModel",
             "format": ""
         },
         {
@@ -150,6 +155,12 @@ export class RevenueRecordInfo {
             "format": ""
         },
         {
+            "name": "invoiceId",
+            "baseName": "invoiceId",
+            "type": "string",
+            "format": ""
+        },
+        {
             "name": "paymentId",
             "baseName": "paymentId",
             "type": "string",
@@ -182,8 +193,4 @@ export class RevenueRecordInfo {
     }
 }
 
-export enum RevenueRecordInfoBillingModelEnum {
-    SubscriptionBased = 'SubscriptionBased',
-    UsageBased = 'UsageBased'
-}
 

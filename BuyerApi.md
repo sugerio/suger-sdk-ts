@@ -1,6 +1,6 @@
 # .BuyerApi
 
-All URIs are relative to *http://https://api.suger.cloud*
+All URIs are relative to *https://api.suger.cloud*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -98,6 +98,7 @@ const request: BuyerApiCreateBuyerRequest = {
     // CreateBuyerParams
   data: {
     adyenCustomerId: "adyenCustomerId_example",
+    chargebeeCustomerID: "chargebeeCustomerID_example",
     companyInfo: ,
     customerId: "customerId_example",
     description: "description_example",
@@ -107,6 +108,7 @@ const request: BuyerApiCreateBuyerRequest = {
     orbCustomerId: "orbCustomerId_example",
     partner: ,
     paymentConfig: ,
+    quickbooksCustomerId: "quickbooksCustomerId_example",
     stripeCustomerId: "stripeCustomerId_example",
   },
 };
@@ -535,6 +537,7 @@ const request: BuyerApiUpdateBuyerRequest = {
   buyerId: "buyerId_example",
     // UpdateBuyerParams
   data: {
+    chargebeeCustomerID: "chargebeeCustomerID_example",
     companyInfo: ,
     customerId: "customerId_example",
     description: "description_example",
@@ -543,6 +546,7 @@ const request: BuyerApiUpdateBuyerRequest = {
     name: "name_example",
     orbCustomerId: "orbCustomerId_example",
     paymentConfig: ,
+    quickbooksCustomerId: "quickbooksCustomerId_example",
     stripeCustomerId: "stripeCustomerId_example",
   },
 };

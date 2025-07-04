@@ -416,6 +416,7 @@ import { PriceModelVolume } from '../models/PriceModelVolume';
 import { PriceModelVolumeConfig } from '../models/PriceModelVolumeConfig';
 import { PrivateOfferDiscountType } from '../models/PrivateOfferDiscountType';
 import { ProductInfo } from '../models/ProductInfo';
+import { RevenueBillingModel } from '../models/RevenueBillingModel';
 import { RevenueChannel } from '../models/RevenueChannel';
 import { RevenueRecord } from '../models/RevenueRecord';
 import { RevenueRecordDetail } from '../models/RevenueRecordDetail';
@@ -467,6 +468,7 @@ import { SupportTicketFrame } from '../models/SupportTicketFrame';
 import { SupportTicketImage } from '../models/SupportTicketImage';
 import { SupportTicketPriority } from '../models/SupportTicketPriority';
 import { SupportTicketStatus } from '../models/SupportTicketStatus';
+import { SupportTicketTaskType } from '../models/SupportTicketTaskType';
 import { SupportTicketUser } from '../models/SupportTicketUser';
 import { TimeUnit } from '../models/TimeUnit';
 import { TrackEvent } from '../models/TrackEvent';
@@ -1470,7 +1472,7 @@ export class PromiseContactApi {
     }
 
     /**
-     * update contact by the given organization and buyer id. The given name and information should be complete. Please note that this function does not support partial updates.
+     * Update the contact for the given organization and contact ID. This endpoint supports partial updates. Only the fields provided in the request body will be updated. To clear a field, provide it with an empty value (e.g., \"\" for name, or {} for info).
      * update contact
      * @param orgId Organization ID
      * @param contactId Contact ID
@@ -1483,7 +1485,7 @@ export class PromiseContactApi {
     }
 
     /**
-     * update contact by the given organization and buyer id. The given name and information should be complete. Please note that this function does not support partial updates.
+     * Update the contact for the given organization and contact ID. This endpoint supports partial updates. Only the fields provided in the request body will be updated. To clear a field, provide it with an empty value (e.g., \"\" for name, or {} for info).
      * update contact
      * @param orgId Organization ID
      * @param contactId Contact ID
@@ -1774,12 +1776,13 @@ export class PromiseEntitlementApi {
      * @param [buyerId] filter by buyerId
      * @param [externalId] filter by externalId
      * @param [buyerAccountId] filter by buyerAccountId is currently supported only for AWS
+     * @param [contactId] filter by contactId
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listEntitlementsWithHttpInfo(orgId: string, partner?: string, productId?: string, offerId?: string, buyerId?: string, externalId?: string, buyerAccountId?: string, limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<Array<WorkloadEntitlement>>> {
+    public listEntitlementsWithHttpInfo(orgId: string, partner?: string, productId?: string, offerId?: string, buyerId?: string, externalId?: string, buyerAccountId?: string, contactId?: string, limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<HttpInfo<Array<WorkloadEntitlement>>> {
         const observableOptions = wrapOptions(_options);
-        const result = this.api.listEntitlementsWithHttpInfo(orgId, partner, productId, offerId, buyerId, externalId, buyerAccountId, limit, offset, observableOptions);
+        const result = this.api.listEntitlementsWithHttpInfo(orgId, partner, productId, offerId, buyerId, externalId, buyerAccountId, contactId, limit, offset, observableOptions);
         return result.toPromise();
     }
 
@@ -1793,12 +1796,13 @@ export class PromiseEntitlementApi {
      * @param [buyerId] filter by buyerId
      * @param [externalId] filter by externalId
      * @param [buyerAccountId] filter by buyerAccountId is currently supported only for AWS
+     * @param [contactId] filter by contactId
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      */
-    public listEntitlements(orgId: string, partner?: string, productId?: string, offerId?: string, buyerId?: string, externalId?: string, buyerAccountId?: string, limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<Array<WorkloadEntitlement>> {
+    public listEntitlements(orgId: string, partner?: string, productId?: string, offerId?: string, buyerId?: string, externalId?: string, buyerAccountId?: string, contactId?: string, limit?: number, offset?: number, _options?: PromiseConfigurationOptions): Promise<Array<WorkloadEntitlement>> {
         const observableOptions = wrapOptions(_options);
-        const result = this.api.listEntitlements(orgId, partner, productId, offerId, buyerId, externalId, buyerAccountId, limit, offset, observableOptions);
+        const result = this.api.listEntitlements(orgId, partner, productId, offerId, buyerId, externalId, buyerAccountId, contactId, limit, offset, observableOptions);
         return result.toPromise();
     }
 
@@ -2375,10 +2379,11 @@ export class PromiseNotificationApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      * @param [priorities] Filter by priorities, empty means HIGH and CRITICAL only. Valid values are: LOW, MEDIUM, HIGH, CRITICAL. Multiple values are supported, separated by comma.
+     * @param [message] Filter by event message containing the specified string, case-insensitive.
      */
-    public listNotificationEventsWithHttpInfo(orgId: string, startDate?: string, endDate?: string, limit?: number, offset?: number, priorities?: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<ListNotificationEventsResponse>> {
+    public listNotificationEventsWithHttpInfo(orgId: string, startDate?: string, endDate?: string, limit?: number, offset?: number, priorities?: string, message?: string, _options?: PromiseConfigurationOptions): Promise<HttpInfo<ListNotificationEventsResponse>> {
         const observableOptions = wrapOptions(_options);
-        const result = this.api.listNotificationEventsWithHttpInfo(orgId, startDate, endDate, limit, offset, priorities, observableOptions);
+        const result = this.api.listNotificationEventsWithHttpInfo(orgId, startDate, endDate, limit, offset, priorities, message, observableOptions);
         return result.toPromise();
     }
 
@@ -2391,10 +2396,11 @@ export class PromiseNotificationApi {
      * @param [limit] List pagination size, default 1000, max value is 1000
      * @param [offset] List pagination offset, default 0
      * @param [priorities] Filter by priorities, empty means HIGH and CRITICAL only. Valid values are: LOW, MEDIUM, HIGH, CRITICAL. Multiple values are supported, separated by comma.
+     * @param [message] Filter by event message containing the specified string, case-insensitive.
      */
-    public listNotificationEvents(orgId: string, startDate?: string, endDate?: string, limit?: number, offset?: number, priorities?: string, _options?: PromiseConfigurationOptions): Promise<ListNotificationEventsResponse> {
+    public listNotificationEvents(orgId: string, startDate?: string, endDate?: string, limit?: number, offset?: number, priorities?: string, message?: string, _options?: PromiseConfigurationOptions): Promise<ListNotificationEventsResponse> {
         const observableOptions = wrapOptions(_options);
-        const result = this.api.listNotificationEvents(orgId, startDate, endDate, limit, offset, priorities, observableOptions);
+        const result = this.api.listNotificationEvents(orgId, startDate, endDate, limit, offset, priorities, message, observableOptions);
         return result.toPromise();
     }
 

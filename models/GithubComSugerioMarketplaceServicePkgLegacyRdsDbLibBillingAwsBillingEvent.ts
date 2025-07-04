@@ -22,6 +22,7 @@ export class GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAwsBillin
     'billingAddressID'?: string;
     'brokerID'?: string;
     'buyerID'?: string;
+    'buyerTransactionReferenceID'?: string;
     'currency'?: string;
     'dataFeedProductID'?: string;
     'disbursementBillingEventID'?: string;
@@ -37,6 +38,7 @@ export class GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAwsBillin
     'parentBillingEventID'?: string;
     'paymentDueDate'?: DatabaseSqlNullTime;
     'productID'?: string;
+    'refundedBuyerTransactionReferenceID'?: string;
     'toAccountID'?: string;
     'transactionReferenceID'?: string;
     'transactionType'?: string;
@@ -93,6 +95,12 @@ export class GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAwsBillin
         {
             "name": "buyerID",
             "baseName": "buyerID",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "buyerTransactionReferenceID",
+            "baseName": "buyerTransactionReferenceID",
             "type": "string",
             "format": ""
         },
@@ -183,6 +191,12 @@ export class GithubComSugerioMarketplaceServicePkgLegacyRdsDbLibBillingAwsBillin
         {
             "name": "productID",
             "baseName": "productID",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "refundedBuyerTransactionReferenceID",
+            "baseName": "refundedBuyerTransactionReferenceID",
             "type": "string",
             "format": ""
         },

@@ -72,14 +72,16 @@ export class NotificationApiRequestFactory extends BaseAPIRequestFactory {
      * @param limit List pagination size, default 1000, max value is 1000
      * @param offset List pagination offset, default 0
      * @param priorities Filter by priorities, empty means HIGH and CRITICAL only. Valid values are: LOW, MEDIUM, HIGH, CRITICAL. Multiple values are supported, separated by comma.
+     * @param message Filter by event message containing the specified string, case-insensitive.
      */
-    public async listNotificationEvents(orgId: string, startDate?: string, endDate?: string, limit?: number, offset?: number, priorities?: string, _options?: Configuration): Promise<RequestContext> {
+    public async listNotificationEvents(orgId: string, startDate?: string, endDate?: string, limit?: number, offset?: number, priorities?: string, message?: string, _options?: Configuration): Promise<RequestContext> {
         let _config = _options || this.configuration;
 
         // verify required parameter 'orgId' is not null or undefined
         if (orgId === null || orgId === undefined) {
             throw new RequiredError("NotificationApi", "listNotificationEvents", "orgId");
         }
+
 
 
 
@@ -118,6 +120,11 @@ export class NotificationApiRequestFactory extends BaseAPIRequestFactory {
         // Query Params
         if (priorities !== undefined) {
             requestContext.setQueryParam("priorities", ObjectSerializer.serialize(priorities, "string", ""));
+        }
+
+        // Query Params
+        if (message !== undefined) {
+            requestContext.setQueryParam("message", ObjectSerializer.serialize(message, "string", ""));
         }
 
 

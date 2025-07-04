@@ -28,6 +28,10 @@ export class WorkloadMetaInfo {
     */
     'awsSaasProductDimensions'?: Array<AwsProductDimension>;
     /**
+    * Original offer ID for Azure Upgrade
+    */
+    'azureOriginalOfferIDForUpgrade'?: string;
+    /**
     * Applicable for AWS Marketplace only, when the IsAgreementBasedOffer is true.
     */
     'baseAgreementId'?: string;
@@ -35,6 +39,10 @@ export class WorkloadMetaInfo {
     * The Suger buyer IDs of the private offer if available.
     */
     'buyerIds'?: Array<string>;
+    /**
+    * The Chargebee subscription ID of the private offer if available.
+    */
+    'chargebeeSubscriptionID'?: string;
     /**
     * The contacts of the offer to notify if any updates.
     */
@@ -79,6 +87,10 @@ export class WorkloadMetaInfo {
     * Applicable for AWS Marketplace only, If this offer is agreement based offer.
     */
     'isAgreementBasedOffer'?: boolean;
+    /**
+    * If this offer is an Azure upgrade offer.
+    */
+    'isAzureUpgradeOffer'?: boolean;
     /**
     * Whether the gross revenue is fully synced for the entitlement.
     */
@@ -154,6 +166,12 @@ export class WorkloadMetaInfo {
             "format": ""
         },
         {
+            "name": "azureOriginalOfferIDForUpgrade",
+            "baseName": "azureOriginalOfferIDForUpgrade",
+            "type": "string",
+            "format": ""
+        },
+        {
             "name": "baseAgreementId",
             "baseName": "baseAgreementId",
             "type": "string",
@@ -163,6 +181,12 @@ export class WorkloadMetaInfo {
             "name": "buyerIds",
             "baseName": "buyerIds",
             "type": "Array<string>",
+            "format": ""
+        },
+        {
+            "name": "chargebeeSubscriptionID",
+            "baseName": "chargebeeSubscriptionID",
+            "type": "string",
             "format": ""
         },
         {
@@ -228,6 +252,12 @@ export class WorkloadMetaInfo {
         {
             "name": "isAgreementBasedOffer",
             "baseName": "isAgreementBasedOffer",
+            "type": "boolean",
+            "format": ""
+        },
+        {
+            "name": "isAzureUpgradeOffer",
+            "baseName": "isAzureUpgradeOffer",
             "type": "boolean",
             "format": ""
         },

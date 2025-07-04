@@ -14,6 +14,7 @@ import { SupportTicketAttachment } from '../models/SupportTicketAttachment';
 import { SupportTicketComment } from '../models/SupportTicketComment';
 import { SupportTicketPriority } from '../models/SupportTicketPriority';
 import { SupportTicketStatus } from '../models/SupportTicketStatus';
+import { SupportTicketTaskType } from '../models/SupportTicketTaskType';
 import { HttpFile } from '../http/http';
 
 export class SupportTicket {
@@ -29,6 +30,7 @@ export class SupportTicket {
     'organizationId'?: string;
     'priority'?: SupportTicketPriority;
     'status'?: SupportTicketStatus;
+    'taskType'?: SupportTicketTaskType;
     'watchers'?: Array<string>;
 
     static readonly discriminator: string | undefined = undefined;
@@ -106,6 +108,12 @@ export class SupportTicket {
             "name": "status",
             "baseName": "status",
             "type": "SupportTicketStatus",
+            "format": ""
+        },
+        {
+            "name": "taskType",
+            "baseName": "taskType",
+            "type": "SupportTicketTaskType",
             "format": ""
         },
         {

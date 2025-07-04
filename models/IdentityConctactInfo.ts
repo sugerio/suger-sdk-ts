@@ -10,12 +10,14 @@
  * Do not edit the class manually.
  */
 
+import { Partner } from '../models/Partner';
 import { HttpFile } from '../http/http';
 
 export class IdentityConctactInfo {
     'companyLocation'?: string;
     'companyName'?: string;
     'lastModifiedBy'?: string;
+    'partner'?: Partner;
     'phoneNumber'?: string;
     'role'?: string;
 
@@ -43,6 +45,12 @@ export class IdentityConctactInfo {
             "format": ""
         },
         {
+            "name": "partner",
+            "baseName": "partner",
+            "type": "Partner",
+            "format": ""
+        },
+        {
             "name": "phoneNumber",
             "baseName": "phoneNumber",
             "type": "string",
@@ -62,3 +70,5 @@ export class IdentityConctactInfo {
     public constructor() {
     }
 }
+
+

@@ -23,6 +23,7 @@ export enum NotificationEventAction {
     NotificationEventAction_CREATE = 'CREATE',
     NotificationEventAction_DELETE = 'DELETE',
     NotificationEventAction_ARCHIVE = 'ARCHIVE',
+    NotificationEventAction_VOID = 'VOID',
     NotificationEventAction_DISBURSE = 'DISBURSE',
     NotificationEventAction_END_SOON = 'END_SOON',
     NotificationEventAction_EXPIRE = 'EXPIRE',
@@ -42,6 +43,7 @@ export enum NotificationEventAction {
     NotificationEventAction_REFUND = 'REFUND',
     NotificationEventAction_ISSUE = 'ISSUE',
     NotificationEventAction_SIGN = 'SIGN',
+    NotificationEventAction_PENDING_PARTNER_ACTION = 'PENDING_PARTNER_ACTION',
     NotificationEventAction_ROTATE_SECRET = 'ROTATE_SECRET',
     NotificationEventAction_SUSPEND = 'SUSPEND',
     NotificationEventAction_TEST = 'TEST',
@@ -54,6 +56,5 @@ export enum NotificationEventAction {
     NotificationEventAction_REVIEW_APPROVAL_REQUEST = 'REVIEW_APPROVAL_REQUEST',
     NotificationEventAction_COMPLETE = 'COMPLETE',
     NotificationEventAction_FAIL = 'FAIL',
-    NotificationEventAction_WEBHOOK = 'WEBHOOK',
-    NotificationEventAction_MARKETPLACE_CONTACT_EMAIL_UPDATE = 'MARKETPLACE_CONTACT_EMAIL_UPDATE'
+    NotificationEventAction_WEBHOOK = 'WEBHOOK'
 }

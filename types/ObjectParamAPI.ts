@@ -416,6 +416,7 @@ import { PriceModelVolume } from '../models/PriceModelVolume';
 import { PriceModelVolumeConfig } from '../models/PriceModelVolumeConfig';
 import { PrivateOfferDiscountType } from '../models/PrivateOfferDiscountType';
 import { ProductInfo } from '../models/ProductInfo';
+import { RevenueBillingModel } from '../models/RevenueBillingModel';
 import { RevenueChannel } from '../models/RevenueChannel';
 import { RevenueRecord } from '../models/RevenueRecord';
 import { RevenueRecordDetail } from '../models/RevenueRecordDetail';
@@ -467,6 +468,7 @@ import { SupportTicketFrame } from '../models/SupportTicketFrame';
 import { SupportTicketImage } from '../models/SupportTicketImage';
 import { SupportTicketPriority } from '../models/SupportTicketPriority';
 import { SupportTicketStatus } from '../models/SupportTicketStatus';
+import { SupportTicketTaskType } from '../models/SupportTicketTaskType';
 import { SupportTicketUser } from '../models/SupportTicketUser';
 import { TimeUnit } from '../models/TimeUnit';
 import { TrackEvent } from '../models/TrackEvent';
@@ -1996,7 +1998,7 @@ export class ObjectContactApi {
     }
 
     /**
-     * update contact by the given organization and buyer id. The given name and information should be complete. Please note that this function does not support partial updates.
+     * Update the contact for the given organization and contact ID. This endpoint supports partial updates. Only the fields provided in the request body will be updated. To clear a field, provide it with an empty value (e.g., \"\" for name, or {} for info).
      * update contact
      * @param param the request object
      */
@@ -2005,7 +2007,7 @@ export class ObjectContactApi {
     }
 
     /**
-     * update contact by the given organization and buyer id. The given name and information should be complete. Please note that this function does not support partial updates.
+     * Update the contact for the given organization and contact ID. This endpoint supports partial updates. Only the fields provided in the request body will be updated. To clear a field, provide it with an empty value (e.g., \"\" for name, or {} for info).
      * update contact
      * @param param the request object
      */
@@ -2269,6 +2271,13 @@ export interface EntitlementApiListEntitlementsRequest {
      * @memberof EntitlementApilistEntitlements
      */
     buyerAccountId?: string
+    /**
+     * filter by contactId
+     * Defaults to: undefined
+     * @type string
+     * @memberof EntitlementApilistEntitlements
+     */
+    contactId?: string
     /**
      * List pagination size, default 1000, max value is 1000
      * Defaults to: undefined
@@ -2611,7 +2620,7 @@ export class ObjectEntitlementApi {
      * @param param the request object
      */
     public listEntitlementsWithHttpInfo(param: EntitlementApiListEntitlementsRequest, options?: ConfigurationOptions): Promise<HttpInfo<Array<WorkloadEntitlement>>> {
-        return this.api.listEntitlementsWithHttpInfo(param.orgId, param.partner, param.productId, param.offerId, param.buyerId, param.externalId, param.buyerAccountId, param.limit, param.offset,  options).toPromise();
+        return this.api.listEntitlementsWithHttpInfo(param.orgId, param.partner, param.productId, param.offerId, param.buyerId, param.externalId, param.buyerAccountId, param.contactId, param.limit, param.offset,  options).toPromise();
     }
 
     /**
@@ -2620,7 +2629,7 @@ export class ObjectEntitlementApi {
      * @param param the request object
      */
     public listEntitlements(param: EntitlementApiListEntitlementsRequest, options?: ConfigurationOptions): Promise<Array<WorkloadEntitlement>> {
-        return this.api.listEntitlements(param.orgId, param.partner, param.productId, param.offerId, param.buyerId, param.externalId, param.buyerAccountId, param.limit, param.offset,  options).toPromise();
+        return this.api.listEntitlements(param.orgId, param.partner, param.productId, param.offerId, param.buyerId, param.externalId, param.buyerAccountId, param.contactId, param.limit, param.offset,  options).toPromise();
     }
 
     /**
@@ -3383,6 +3392,13 @@ export interface NotificationApiListNotificationEventsRequest {
      * @memberof NotificationApilistNotificationEvents
      */
     priorities?: string
+    /**
+     * Filter by event message containing the specified string, case-insensitive.
+     * Defaults to: undefined
+     * @type string
+     * @memberof NotificationApilistNotificationEvents
+     */
+    message?: string
 }
 
 export interface NotificationApiListNotificationEventsByEntityRequest {
@@ -3478,7 +3494,7 @@ export class ObjectNotificationApi {
      * @param param the request object
      */
     public listNotificationEventsWithHttpInfo(param: NotificationApiListNotificationEventsRequest, options?: ConfigurationOptions): Promise<HttpInfo<ListNotificationEventsResponse>> {
-        return this.api.listNotificationEventsWithHttpInfo(param.orgId, param.startDate, param.endDate, param.limit, param.offset, param.priorities,  options).toPromise();
+        return this.api.listNotificationEventsWithHttpInfo(param.orgId, param.startDate, param.endDate, param.limit, param.offset, param.priorities, param.message,  options).toPromise();
     }
 
     /**
@@ -3487,7 +3503,7 @@ export class ObjectNotificationApi {
      * @param param the request object
      */
     public listNotificationEvents(param: NotificationApiListNotificationEventsRequest, options?: ConfigurationOptions): Promise<ListNotificationEventsResponse> {
-        return this.api.listNotificationEvents(param.orgId, param.startDate, param.endDate, param.limit, param.offset, param.priorities,  options).toPromise();
+        return this.api.listNotificationEvents(param.orgId, param.startDate, param.endDate, param.limit, param.offset, param.priorities, param.message,  options).toPromise();
     }
 
     /**

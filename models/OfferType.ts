@@ -33,6 +33,7 @@ export enum OfferType {
     OfferType_PER_USER = 'PER_USER',
     OfferType_PRIVATE = 'PRIVATE',
     OfferType_PROFESSIONAL_SERVICES = 'PROFESSIONAL_SERVICES',
+    OfferType_SAAS = 'SAAS',
     OfferType_SUBSCRIPTION = 'SUBSCRIPTION',
     OfferType_MACHINE_LEARNING = 'MACHINE_LEARNING'
 }

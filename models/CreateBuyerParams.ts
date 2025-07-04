@@ -21,6 +21,10 @@ export class CreateBuyerParams {
     */
     'adyenCustomerId'?: string;
     /**
+    * The Chargebee Customer ID of the buyer. If not provided, the Chargebee Customer ID will not be updated.
+    */
+    'chargebeeCustomerID'?: string;
+    /**
     * Optional. CompanyInfo of the buyer.
     */
     'companyInfo'?: CompanyInfo;
@@ -57,6 +61,10 @@ export class CreateBuyerParams {
     */
     'paymentConfig'?: PaymentConfig;
     /**
+    * The Quickbooks Customer ID of the buyer. If not provided, the Quickbooks Customer ID will not be updated.
+    */
+    'quickbooksCustomerId'?: string;
+    /**
     * Stripe customerId of this buyer. If not provided but Partner is STRIPE, will create a new customer on stripe.
     */
     'stripeCustomerId'?: string;
@@ -69,6 +77,12 @@ export class CreateBuyerParams {
         {
             "name": "adyenCustomerId",
             "baseName": "adyenCustomerId",
+            "type": "string",
+            "format": ""
+        },
+        {
+            "name": "chargebeeCustomerID",
+            "baseName": "chargebeeCustomerID",
             "type": "string",
             "format": ""
         },
@@ -124,6 +138,12 @@ export class CreateBuyerParams {
             "name": "paymentConfig",
             "baseName": "paymentConfig",
             "type": "PaymentConfig",
+            "format": ""
+        },
+        {
+            "name": "quickbooksCustomerId",
+            "baseName": "quickbooksCustomerId",
+            "type": "string",
             "format": ""
         },
         {

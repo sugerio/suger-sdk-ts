@@ -34,6 +34,10 @@ export class BuyerInfo {
     */
     'azureBuyer'?: AzureADIdentifier;
     /**
+    * ChargebeeCustomerID is the chargebee customer ID for ther buyer if it is connected to a chargebee customer.
+    */
+    'chargebeeCustomerID'?: string;
+    /**
     * The amount that the seller can collect. It excludes the marketplace commision fee.
     */
     'collectableAmount'?: number;
@@ -87,6 +91,10 @@ export class BuyerInfo {
     */
     'paymentConfig'?: PaymentConfig;
     /**
+    * The quickbooks customer ID for the buyer if it is connected to a quickbooks customer.
+    */
+    'quickbooksCustomerId'?: string;
+    /**
     * Buyer on Snowflake
     */
     'snowflakeBuyer'?: SnowflakeMarketplaceBuyer;
@@ -124,6 +132,12 @@ export class BuyerInfo {
             "name": "azureBuyer",
             "baseName": "azureBuyer",
             "type": "AzureADIdentifier",
+            "format": ""
+        },
+        {
+            "name": "chargebeeCustomerID",
+            "baseName": "chargebeeCustomerID",
+            "type": "string",
             "format": ""
         },
         {
@@ -208,6 +222,12 @@ export class BuyerInfo {
             "name": "paymentConfig",
             "baseName": "paymentConfig",
             "type": "PaymentConfig",
+            "format": ""
+        },
+        {
+            "name": "quickbooksCustomerId",
+            "baseName": "quickbooksCustomerId",
+            "type": "string",
             "format": ""
         },
         {

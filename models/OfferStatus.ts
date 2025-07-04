@@ -37,5 +37,7 @@ export enum OfferStatus {
     OfferStatus_TEST = 'TEST',
     OfferStatus_UPDATE_FAILED = 'UPDATE_FAILED',
     OfferStatus_UPDATE_SUCCESS = 'UPDATE_SUCCESS',
-    OfferStatus_USED = 'USED'
+    OfferStatus_USED = 'USED',
+    OfferStatus_PENDING_PARTNER_ACTION = 'PENDING_PARTNER_ACTION',
+    OfferStatus_VOID = 'VOID'
 }

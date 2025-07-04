@@ -447,6 +447,7 @@ models/PriceModelVolume.ts
 models/PriceModelVolumeConfig.ts
 models/PrivateOfferDiscountType.ts
 models/ProductInfo.ts
+models/RevenueBillingModel.ts
 models/RevenueChannel.ts
 models/RevenueRecord.ts
 models/RevenueRecordDetail.ts
@@ -498,6 +499,7 @@ models/SupportTicketFrame.ts
 models/SupportTicketImage.ts
 models/SupportTicketPriority.ts
 models/SupportTicketStatus.ts
+models/SupportTicketTaskType.ts
 models/SupportTicketUser.ts
 models/TimeUnit.ts
 models/TrackEvent.ts
